@@ -13,6 +13,59 @@
         }
     ],
     "require": {
-		"php": "^8.0"
+		"php": "^8.2",
+		"arrilot/laravel-widgets": "^3.14",
+		"barryvdh/laravel-httpcache": "^1.0",
+		"bezhansalleh/filament-google-analytics": "3.0.0",
+		"binafy/laravel-stub": "^1.1",
+		"cviebrock/eloquent-sluggable": "^11.0",
+		"filament/filament": "4.0.19",
+		"intervention/image-laravel": "^1.5",
+		"jeffgreco13/filament-breezy": "^3.0",
+		"jenssegers/agent": "^2.6",
+		"kalnoy/nestedset": "*",
+		"kenepa/resource-lock": "^4.0",
+		"laracasts/flash": "^3.2",
+		"laravel/framework": "^11.31",
+		"laravel/helpers": "^1.7",
+		"laravel/ui": "^4.6",
+		"mcamara/laravel-localization": "^2.3",
+		"qirolab/laravel-themer": "^2.4",
+		"schmeits/filament-character-counter": "^4.0",
+		"spatie/laravel-honeypot": "^4.6",
+		"spatie/laravel-html": "^3.12",
+		"spatie/laravel-permission": "^6.20",
+		"spatie/laravel-ray": "^1.40",
+		"yebor974/filament-renew-password": "^3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Lara\\Admin\\": "src/admin/",
+			"Lara\\Common\\": "src/common/",
+			"Lara\\Admin\\": "src/front/"
+		},
+		"files": [
+			"src/admin/Helpers/helpers.php",
+			"src/common/Helpers/helpers.php",
+			"src/front/Helpers/helpers.php"
+		]
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Lara\\Admin\\Providers\\LaraAdminServiceProvider",
+				"Lara\\Common\\Providers\\LaraCommonServiceProvider",
+				"Lara\\Front\\Providers\\LaraFrontServiceProvider"
+			]
+		},
+		"installer-paths": {
+			"laracms/core": [
+				"appdezign/lara-cms"
+			],
+			"laracms/themes/{$name}": [
+				"appdezign/lara-base-theme",
+				"appdezign/lara-demo-theme"
+			]
+		}
 	}
 }
