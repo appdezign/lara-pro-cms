@@ -1,0 +1,60 @@
+<?php
+
+namespace {{ NAMESPACE }};
+
+use Illuminate\Auth\Access\HandlesAuthorization;
+use Lara\App\Models\{{ MODEL }};
+use Lara\Common\Models\User;
+
+class {{ MODEL }}Policy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAny(User $user): bool
+    {
+        return $user->can('view_any_{{ MODELVARIABLE }}');
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function view(User $user, {{ MODEL }} ${{ MODELVARIABLE }}): bool
+    {
+        return $user->can('view_{{ MODELVARIABLE }}');
+    }
+
+    /**
+     * Determine whether the user can create models.
+     */
+    public function create(User $user): bool
+    {
+        return $user->can('create_{{ MODELVARIABLE }}');
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, {{ MODEL }} ${{ MODELVARIABLE }}): bool
+    {
+        return $user->can('update_{{ MODELVARIABLE }}');
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user, {{ MODEL }} ${{ MODELVARIABLE }}): bool
+    {
+        return $user->can('delete_{{ MODELVARIABLE }}');
+    }
+
+    /**
+     * Determine whether the user can bulk delete.
+     */
+    public function deleteAny(User $user): bool
+    {
+        return $user->can('delete_any_{{ MODELVARIABLE }}');
+    }
+}

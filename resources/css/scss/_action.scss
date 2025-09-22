@@ -1,0 +1,48 @@
+@use 'colors.scss' as col;
+
+.fi-ta-actions {
+	.fi-link {
+		padding: .7rem .5rem .5rem;
+		border: 1px solid transparent;
+		border-radius: 2px !important;
+
+		span {
+			display: none;
+		}
+
+		.fi-link-icon {
+			font-size: 1.25rem;
+			line-height: 1;
+			color: col.$la-slate-60;
+		}
+
+		&:hover {
+			border-color: col.$la-primary;
+
+			.fi-link-icon {
+				color: col.$la-primary;
+			}
+		}
+
+		&:disabled .fi-link-icon {
+			color: col.$la-slate-180;
+		}
+
+	}
+}
+
+.fi-header,
+.fi-ta-header {
+	.fi-icon-btn {
+		color: col.$la-primary;
+		border: solid 1px col.$la-primary;
+
+		&:hover {
+			background-color: col.$la-primary;
+			color: col.$la-white;
+		}
+	}
+}
+
+
+

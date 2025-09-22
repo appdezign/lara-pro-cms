@@ -1,0 +1,76 @@
+@use 'colors.scss' as col;
+
+.fi-ta {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1320px;
+}
+
+.fi-ta-col-wrp {
+	a {
+		.fi-ta-text {
+			.fi-ta-text-item {
+				.fi-ta-text-item-label {
+					color: col.$la-info !important;
+				}
+			}
+		}
+		&:hover {
+			.fi-ta-text {
+				.fi-ta-text-item {
+					.fi-ta-text-item-label {
+						color: col.$la-danger !important;
+					}
+				}
+			}
+		}
+	}
+}
+
+.fi-ta-header-cell {
+	.font-semibold {
+		font-weight: 400 !important;
+		color: col.$la-slate-100;
+	}
+}
+
+.fi-ta-cell {
+	.text-sm {
+		font-size: 0.8125rem;
+	}
+}
+
+.fi-ta-cell  {
+	.py-4 {
+		padding-top: 0.3125rem;
+		padding-bottom: 0.3125rem;
+	}
+}
+
+/* FILTERS */
+.fi-ta-filters-above-content-ctn {
+	.fi-ta-filters {
+		row-gap: 0.5rem !important;
+		margin-top: 0.5rem;
+		padding: 0.5rem 1rem;
+		border-top: solid 1px col.$la-slate-220;
+		border-bottom: solid 1px col.$la-slate-220;
+		background-color: col.$la-slate-white;
+		order: 2;
+	}
+
+	.fi-icon-btn-icon {
+		color: col.$la-primary;
+	}
+
+	> span {
+		order: 1;
+		margin-top: 0 !important;
+
+		&.mt-3 .fi-icon-btn-icon {
+			rotate: 180deg;
+			transition: rotate 150ms;
+		}
+	}
+}
+

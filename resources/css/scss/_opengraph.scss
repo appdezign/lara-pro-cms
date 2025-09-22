@@ -1,0 +1,29 @@
+@use 'colors.scss' as col;
+
+.og-preview {
+	border: 1px solid #c8d2e1;
+	box-shadow: 0 0 12px 0 rgba(0, 0, 0, .15);
+	margin: 0 auto;
+	max-width: 100%;
+	text-align: left;
+	width: 500px;
+
+	.og-preview-content {
+		padding: 15px;
+		.og-preview-sitename {
+			color: #a0b4cd;
+			font-size: 12px;
+			margin-bottom: 10px
+		}
+		.og-preview-title {
+			font-size: 16px;
+			margin: 10px 0
+		}
+		.og-preview-text {
+			color: #8ca0b9;
+			font-size: 12px;
+			margin-bottom: 10px
+		}
+	}
+}
+

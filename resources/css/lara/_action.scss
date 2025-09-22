@@ -1,0 +1,39 @@
+/* header actions */
+.fi-header .fi-icon-btn,
+.fi-resource-relation-manager .fi-icon-btn {
+	color: rgb(0, 131, 166);
+	border: solid 1px rgb(0, 131, 166);
+}
+
+.fi-header .fi-icon-btn:hover,
+.fi-resource-relation-manager .fi-icon-btn:hover {
+	background-color: rgb(0, 131, 166);
+	color: #fff
+}
+
+/* table actions */
+.fi-ta-actions .fi-icon {
+	color: rgb(60, 80, 105);
+}
+
+.fi-ta-actions .fi-icon.fi-size-sm {
+	width: 1.125rem;
+	height: 1.125rem;
+}
+
+.fi-ta-actions .fi-link {
+	padding: 0.5rem;
+	border: 1px solid transparent;
+	border-radius: 0.25rem !important;
+}
+.fi-ta-actions .fi-link:hover {
+	border-color: rgb(0, 131, 166);
+}
+.fi-ta-actions .fi-link:hover .fi-icon {
+	color: rgb(0, 131, 166);
+}
+
+.fi-resource-relation-manager .fi-ta-actions .fi-icon-btn:hover .fi-icon {
+	color: #fff
+}
+

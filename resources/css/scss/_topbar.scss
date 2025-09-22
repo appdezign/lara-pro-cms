@@ -1,0 +1,70 @@
+@use 'colors.scss' as col;
+
+.fi-topbar {
+	nav {
+		height: 3rem;
+		&.bg-white {
+			background: linear-gradient(90deg, #324d78 0, #223450) !important;
+		}
+		button {
+			color: col.$la-sidebar-menu-text;
+			&:hover {
+				color: col.$la-white;
+			}
+			&:disabled {
+				color: col.$la-slate-100;
+				&:hover {
+					color: col.$la-slate-100;
+				}
+			}
+		}
+		a {
+			color: col.$la-sidebar-menu-text;
+			&:hover {
+				color: col.$la-white;
+			}
+		}
+
+	}
+
+
+	.fi-dropdown-panel {
+
+		max-width: 10rem !important;
+
+		background: linear-gradient(90deg, #324d78 0, #223450) !important;
+
+		.fi-dropdown-list-item {
+
+			justify-content: end;
+
+			&.fi-dropdown-list-item-lang-switch {
+				justify-content: center;
+			}
+
+			.fi-dropdown-list-item-icon {
+				color: col.$la-slate-140;
+			}
+
+			.fi-dropdown-list-item-label {
+				color: col.$la-slate-140;
+
+				&.text-start {
+					text-align: end !important;
+				}
+
+			}
+			&:hover {
+				border-radius: 0;
+				background-color: transparent !important;
+				.fi-dropdown-list-item-icon {
+					color: col.$la-white;
+				}
+				.fi-dropdown-list-item-label {
+					color: col.$la-white;
+				}
+			}
+		}
+	}
+}
+

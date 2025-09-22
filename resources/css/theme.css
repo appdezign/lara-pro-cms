@@ -1,0 +1,38 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../vendor/bezhansalleh/filament-google-analytics/resources/views/**/*';
+@source '../../../../vendor/bezhansalleh/filament-google-analytics/src/{Widgets,Support}/*';
+
+@source '../../../../vendor/jeffgreco13/filament-breezy/resources/**/*';
+
+@source '../../../../laracms/core/src/admin/**/*';
+@source '../../../../laracms/core/src/common/**/*';
+@source '../../../../laracms/core/src/front/**/*';
+@source '../../../../laracms/core/resources/**/*';
+@source '../../../../laracms/core/resources/**/*';
+
+
+.fi-btn,
+.fi-icon-btn,
+.fi-input-wrp {
+	@apply rounded-sm;
+	@apply shadow-none;
+}
+
+.fi-ta-ctn,
+.fi-sc-tabs,
+.fi-section {
+	@apply rounded-none;
+}
+
+.fi-in-entry.fi-in-entry-has-inline-label,
+.fi-fo-field.fi-fo-field-has-inline-label {
+	@apply md:grid-cols-4;
+}
+
+.fi-ta-filters .fi-fo-field.fi-fo-field-has-inline-label {
+	@apply md:grid-cols-1;
+}
+
+
+

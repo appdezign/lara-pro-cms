@@ -1,0 +1,95 @@
+.fi-sidebar-header {
+	height: 3rem;
+	min-height: 3rem;
+}
+
+@media (min-width: 64rem) {
+	.fi-sidebar {
+		top: 3rem;
+		min-height: 3rem;
+		height: calc(100dvh - 3rem);
+	}
+}
+
+.fi-sidebar-header {
+	background: linear-gradient(90deg, #324d78 0, #223450) !important
+}
+
+.fi-sidebar {
+	background-color: rgb(21, 28, 41);
+}
+
+.fi-sidebar .fi-sidebar-item .fi-sidebar-item-btn {
+	/* root items */
+	padding: 8px !important;
+}
+
+.fi-sidebar .fi-sidebar-group:has(.fi-sidebar-group-btn) .fi-sidebar-item .fi-sidebar-item-btn {
+	/* submenu items */
+	padding: 3px !important;
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+	background-color: transparent;
+}
+
+.fi-sidebar-item > .fi-sidebar-item-btn:hover {
+	background-color: transparent;
+}
+
+.fi-sidebar-item .fi-sidebar-item-btn .fi-sidebar-item-label {
+	font-weight: 400 !important;
+	color: rgb(145, 160, 180);
+}
+
+.fi-sidebar-item .fi-sidebar-item-btn:hover .fi-sidebar-item-label {
+	color: rgb(255, 255, 255);
+}
+
+.fi-sidebar-item.fi-active .fi-sidebar-item-btn .fi-sidebar-item-label {
+	color: rgb(255, 255, 255);
+}
+
+.fi-sidebar-group .fi-sidebar-group-btn .fi-sidebar-group-label {
+	font-weight: 400 !important;
+	color: rgb(145, 160, 180);
+}
+
+.fi-sidebar .fi-sidebar-item .fi-sidebar-item-btn {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	font-size: 13px;
+	background-color: transparent !important;
+}
+
+.fi-sidebar .fi-sidebar-nav .fi-sidebar-nav-groups {
+	row-gap: 0 !important
+}
+
+.fi-sidebar .fi-sidebar-nav .fi-sidebar-item-icon,
+.fi-sidebar .fi-sidebar-nav .fi-sidebar-group-btn .fi-icon {
+	width: 1rem !important;
+	height: 1rem !important
+}
+
+.fi-sidebar .fi-sidebar-item-grouped-border {
+	width: 2rem !important;
+	justify-content: end !important;
+}
+
+.fi-sidebar .fi-sidebar-item-grouped-border .fi-sidebar-item-grouped-border-part-not-first,
+.fi-sidebar .fi-sidebar-item-grouped-border .fi-sidebar-item-grouped-border-part-not-last {
+	display: none
+}
+
+.fi-sidebar .fi-sidebar-item-grouped-border .fi-sidebar-item-grouped-border-part {
+	width: .25rem;
+	height: .25rem;
+	background-color: #788ca5 !important
+}
+
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-grouped-border .fi-sidebar-item-grouped-border-part {
+	width: .3125rem;
+	height: .3125rem;
+	background-color: rgb(0, 131, 166) !important
+}

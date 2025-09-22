@@ -1,0 +1,32 @@
+@use 'colors.scss' as col;
+
+.fi-fo-tabs {
+	background-color: transparent !important;
+	box-shadow: none !important;
+
+	.fi-tabs {
+		background-color: col.$la-white;
+		padding-bottom: 0 !important;
+
+		.fi-tabs-item {
+			border-radius: 0;
+			&.fi-tabs-item-active {
+				border-bottom: solid 1px #1969d7;
+			}
+			.fi-tabs-item-label {
+				&.text-primary-600 {
+					color: col.$la-danger !important;
+				}
+			}
+		}
+	}
+
+	.fi-fo-tabs-tab {
+		padding-left: 0;
+		padding-right: 0;
+		background-color: transparent !important;
+	}
+
+}
+
+

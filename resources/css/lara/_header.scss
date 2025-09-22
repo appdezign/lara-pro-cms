@@ -1,0 +1,33 @@
+.fi-header-heading {
+	font-weight: 300;
+	color: #647891
+}
+
+.fi-header .fi-ac {
+	column-gap: 24px;
+
+}
+
+.fi-page-header-main-ctn {
+	padding-top: 1.25rem;
+	row-gap: 1.25rem !important;
+}
+
+.lara-focus-mode .fi-header h1.fi-header-heading {
+	font-size: 24px !important;
+}
+
+.fi-topbar,
+.fi-sidebar-header {
+	.fi-logo {
+		font-size: 1.25rem;
+		font-weight: 300;
+		color: rgba(255,255,255, .7);
+	}
+}
+.fi-topbar {
+	.fi-logo {
+		margin-inline-start: 1.5rem;
+	}
+}
+

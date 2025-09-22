@@ -1,0 +1,58 @@
+.lara-gallery-section .fi-sc.fi-sc-has-gap,
+.lara-media-section .fi-sc.fi-sc-has-gap {
+	gap: 1rem;
+}
+.hide-media-sort .fi-fo-repeater-item-header-start-actions .fi-icon-btn {
+	display: none;
+}
+.lara-files-section .filepond--panel.filepond--item-panel .filepond--panel-top,
+.lara-files-section .filepond--panel.filepond--item-panel .filepond--panel-center,
+.lara-files-section .filepond--panel.filepond--item-panel .filepond--panel-bottom {
+	background-color: rgba(255, 255, 255, 0.4);
+
+}
+
+.lara-files-section .filepond--panel.filepond--item-panel {
+	background-image: url(../../img/doc-icon.png);
+	background-repeat: no-repeat;
+	background-size: 80px 80px;
+	background-position: 50% 50%;
+}
+
+.lara-files-section .filepond--file {
+	color: #666;
+}
+
+.lara-files-section .fi-fo-repeater-add .fi-ac-btn-action,
+.lara-videofiles-section .fi-fo-repeater-add .fi-ac-btn-action,
+.lara-videos-section .fi-fo-repeater-add .fi-ac-btn-action,
+.lara-media-section .fi-fo-repeater-add .fi-ac-btn-action {
+	margin: 0.25rem 0.75rem;
+	box-shadow: none;
+	border: solid 1px rgb(0, 131, 166);
+	border-radius: 4px;
+	color: #007896;
+}
+.lara-files-section .fi-fo-repeater-add .fi-ac-btn-action:hover,
+.lara-videofiles-section .fi-fo-repeater-add .fi-ac-btn-action:hover,
+.lara-videos-section .fi-fo-repeater-add .fi-ac-btn-action:hover,
+.lara-media-section .fi-fo-repeater-add .fi-ac-btn-action:hover {
+	background-color: rgb(0, 131, 166);
+	color: #fff;
+}
+
+.lara-gallery-section .fi-fo-repeater-add {
+	display: none;
+}
+
+.lara-media-tab .fi-fo-field-label .fi-fo-field-label-content h3 {
+	margin-top: 1.5rem;
+	font-size: 1rem;
+	font-weight: 400;
+	color: #d81b60;
+}
+
+.lara-media-section .filepond--image-bitmap,
+.lara-gallery-section .filepond--image-bitmap {
+	scale: 150% 150%;
+}

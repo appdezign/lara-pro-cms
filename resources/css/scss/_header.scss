@@ -1,0 +1,19 @@
+@use 'colors.scss' as col;
+
+.fi-logo {
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	font-weight: 300;
+	letter-spacing: 1px;
+	color: col.$la-white;
+}
+
+.fi-simple-header {
+	.fi-logo {
+		width: 4rem;
+	}
+}
+
+.fi-dropdown-panel.\!max-w-xs {
+	max-width: 30rem !important;
+}

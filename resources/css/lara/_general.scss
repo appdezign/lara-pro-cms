@@ -1,0 +1,73 @@
+.fi-body {
+	background-color: rgb(247, 249, 253);
+}
+
+.fi-sc-form {
+	max-width: 70rem;
+	margin: 0 auto;
+}
+
+.fi-resource-relation-manager {
+	max-width: 70rem;
+	margin: 0 auto;
+}
+
+.fi-wi-chart-filter .fi-icon {
+	display: none;
+}
+
+.lara-focus-mode {
+	padding-top: 5rem;
+}
+.lara-focus-mode .fi-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	padding: .75rem 1.5rem;
+	background-color: #fff;
+	box-shadow: 0 2px 3px #0000001f;
+	z-index: 10;
+}
+
+@media (min-width: 40rem) {
+	.fi-fo-field.fi-fo-field-has-inline-label .fi-fo-field-content-col {
+		grid-column: span 3/span 3
+	}
+}
+
+@media (min-width: 1136px) {
+	.lara-focus-mode .fi-header {
+		padding: .75rem calc((100vw - 1120px) / 2)
+	}
+}
+
+@media (min-width: 1024px) {
+	.lara-publish-group {
+		float: right;
+		width: 200px
+	}
+}
+
+.fi-section:not(.fi-section-not-contained):not(.fi-aside) {
+	box-shadow: 0 0 0 1px rgba(9, 9, 11, 0.05);
+}
+
+.fi-section-header-heading {
+	font-size:1.125rem;
+	font-weight: 400;
+	color: rgb(0, 131, 166);
+}
+
+.first-entity-section .fi-section {
+	min-height: 680px;
+}
+
+.language-version-link {
+	color: rgb(0, 131, 166);
+}
+.language-version-link:hover {
+	color: #d81b60;
+}
+

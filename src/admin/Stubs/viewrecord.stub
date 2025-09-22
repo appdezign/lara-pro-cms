@@ -1,0 +1,11 @@
+<?php
+
+namespace {{ NAMESPACE }};
+
+use Lara\Admin\Pages\Lara\LaraViewRecord;
+use Lara\App\Filament\Resources\{{ RESOURCEDIR }}\{{ RESOURCE }};
+
+class {{ CLASS }} extends LaraViewRecord
+{
+    protected static string $resource = {{ RESOURCE }}::class;
+}
