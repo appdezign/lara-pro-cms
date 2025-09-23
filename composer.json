@@ -1,7 +1,7 @@
 {
     "name": "appdezign/lara-pro-cms",
     "description": "Lara Pro CMS",
-	"version": "10.0.5",
+	"version": "10.0.6",
     "keywords": ["Lara", "CMS"],
     "license": "proprietary",
     "homepage": "https://firmaq.nl",
@@ -14,10 +14,13 @@
     ],
     "require": {
 		"php": "^8.2",
+		"appdezign/lara-pro-base-theme": "^10.0",
+		"appdezign/lara-pro-demo-theme": "^10.0",
 		"arrilot/laravel-widgets": "^3.14",
 		"barryvdh/laravel-httpcache": "^1.0",
 		"bezhansalleh/filament-google-analytics": "3.0.0",
 		"binafy/laravel-stub": "^1.1",
+		"composer/installers": "~1.0",
 		"cviebrock/eloquent-sluggable": "^11.0",
 		"filament/filament": "4.0.19",
 		"intervention/image-laravel": "^1.5",
