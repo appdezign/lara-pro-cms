@@ -1,7 +1,7 @@
 {
     "name": "appdezign/lara-pro-cms",
     "description": "Lara Pro CMS",
-	"version": "10.0.6",
+	"version": "10.0.7",
     "keywords": ["Lara", "CMS"],
     "license": "proprietary",
     "homepage": "https://firmaq.nl",
@@ -22,7 +22,7 @@
 		"binafy/laravel-stub": "^1.1",
 		"composer/installers": "~1.0",
 		"cviebrock/eloquent-sluggable": "^11.0",
-		"filament/filament": "4.0.19",
+		"filament/filament": "^4.0",
 		"intervention/image-laravel": "^1.5",
 		"jeffgreco13/filament-breezy": "^3.0",
 		"jenssegers/agent": "^2.6",
