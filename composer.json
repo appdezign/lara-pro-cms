@@ -60,11 +60,11 @@
 		},
 		"installer-paths": {
 			"laracms/core": [
-				"appdezign/lara-cms"
+				"appdezign/lara-pro-cms"
 			],
 			"laracms/themes/{$name}": [
-				"appdezign/lara-base-theme",
-				"appdezign/lara-demo-theme"
+				"appdezign/lara-pro-base-theme",
+				"appdezign/lara-pro-demo-theme"
 			]
 		}
 	}
