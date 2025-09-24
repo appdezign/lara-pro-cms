@@ -12,6 +12,7 @@ use Lara\Front\View\Components\FrontShowRowComponent;
 
 use Lara\Front\Http\Concerns\hasFrontend;
 use Lara\Front\Http\Concerns\hasTheme;
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 
 
 use Lara\Common\Models\Setting;
@@ -26,6 +27,7 @@ class LaraFrontServiceProvider extends ServiceProvider
 
 	use hasFrontend;
 	use hasTheme;
+	use HasSetup;
 
 	/**
 	 * Bootstrap the module services.
@@ -65,7 +67,7 @@ class LaraFrontServiceProvider extends ServiceProvider
 
 			Theme::set($theme, $parent);
 
-			if (!config('lara.needs_setup')) {
+			if (!$this->laraNeedsSetup()) {
 
 				// Share the settings with all views
 				$settings = Setting::pluck('value', 'key')->toArray();

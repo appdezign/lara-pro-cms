@@ -8,11 +8,15 @@
 
 use Illuminate\Support\Facades\App;
 
+use Illuminate\Support\Facades\Schema;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Redirect;
 use Lara\Common\Models\Entity;
 
-if (!App::runningInConsole() && !config('lara.needs_setup')) {
+$tablename = config('lara-common.database.ent.entities');
+$laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+
+if (!App::runningInConsole() && !$laraNeedsSetup) {
 
 	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'httpcache', 'throttle:60,1', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
 

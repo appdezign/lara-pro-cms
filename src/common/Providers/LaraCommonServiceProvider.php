@@ -24,9 +24,13 @@ use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 use PragmaRX\Google2FALaravel\Middleware;
 use Spatie\Permission\Models\Role;
 
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
+
 
 class LaraCommonServiceProvider extends ServiceProvider
 {
+
+	use HasSetup;
 
 	/**
 	 * Bootstrap the module services.
@@ -74,7 +78,7 @@ class LaraCommonServiceProvider extends ServiceProvider
 		/**
 		 * Override Image cache directories
 		 */
-		if (!config('lara.needs_setup') && !App::runningInConsole()) {
+		if (!$this->laraNeedsSetup() && !App::runningInConsole()) {
 
 			$paths = array();
 			$entities = Entity::get();

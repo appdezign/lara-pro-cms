@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('lara_object_files', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('entity_type')->nullable();
+            $table->unsignedBigInteger('entity_id')->index('entity_id');
+            $table->json('entity_files')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('lara_object_files');
+    }
+};

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -9,15 +10,20 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+$tablename = config('lara-common.database.ent.entities');
+$laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+
 if (!App::runningInConsole()) {
 
-	Route::group(['middleware' => ['web']], function () {
+	Route::group(['middleware' => ['web']], function () use ($laraNeedsSetup) {
 
 		// Setup
-		if (config('lara.needs_setup')) {
+		if ($laraNeedsSetup) {
 
-			// Redirect root
+			// Redirect root && admin
 			Route::get('/', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+			Route::get('/admin', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+			Route::get('/admin/{anyroute}', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
 
 			// Setup
 			Route::get('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@show')->name('setup.show');
