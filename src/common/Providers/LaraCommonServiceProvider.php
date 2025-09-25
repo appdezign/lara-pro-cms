@@ -40,6 +40,10 @@ class LaraCommonServiceProvider extends ServiceProvider
 	public function boot(\Illuminate\Routing\Router $router)
 	{
 
+		$this->loadMigrationsFrom([
+			base_path('laracms/core/src/common/Database/Migrations'),
+		]);
+
 		// register global middleware
 		$router->aliasMiddleware('userLocale', UserLocale::class);
 		$router->aliasMiddleware('dateLocale', DateLocale::class);

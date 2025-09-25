@@ -7,18 +7,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-
 use Illuminate\View\View;
 
-use Illuminate\Http\Request;
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 
-use Lara\Common\Models\Entity;
-use Lara\Common\Models\User;
+class SetupController extends Controller
+{
 
-class SetupController extends Controller {
+	use HasSetup;
 
 	/**
 	 * @var string
@@ -30,7 +28,8 @@ class SetupController extends Controller {
 	 */
 	protected $dest;
 
-	public function __construct() {
+	public function __construct()
+	{
 
 		$this->migrationSource = base_path('laracms/core/src/common/Database/Migrations');
 		$this->migrationDest = base_path('database/migrations');
@@ -43,7 +42,8 @@ class SetupController extends Controller {
 	/**
 	 * @return Application|Factory|View
 	 */
-	public function show() {
+	public function show()
+	{
 
 		try {
 
@@ -76,7 +76,8 @@ class SetupController extends Controller {
 	 * @param int $step
 	 * @return Application|Factory|View
 	 */
-	public function stepshow(int $step) {
+	public function stepshow(int $step)
+	{
 
 		$dbname = DB::connection()->getDatabaseName();
 
@@ -84,28 +85,28 @@ class SetupController extends Controller {
 
 			return view('lara-common::setup.step', [
 				'dbname' => $dbname,
-				'step' => $step,
+				'step'   => $step,
 			]);
 
 		} elseif ($step == 2) {
 
 			return view('lara-common::setup.step', [
 				'dbname' => $dbname,
-				'step' => $step,
+				'step'   => $step,
 			]);
 
 		} elseif ($step == 3) {
 
 			return view('lara-common::setup.step', [
 				'dbname' => $dbname,
-				'step'     => $step,
+				'step'   => $step,
 			]);
 
 		} else {
 
 			return view('lara-common::setup.step', [
 				'dbname' => $dbname,
-				'step' => 1,
+				'step'   => 1,
 			]);
 
 		}
@@ -115,7 +116,8 @@ class SetupController extends Controller {
 	/**
 	 * @return RedirectResponse
 	 */
-	public function start() {
+	public function start()
+	{
 
 		flash('Setup has started')->success();
 
@@ -128,7 +130,8 @@ class SetupController extends Controller {
 	 * @param int $step
 	 * @return \Illuminate\Foundation\Application|RedirectResponse|\Illuminate\Routing\Redirector
 	 */
-	public function stepprocess(Request $request, int $step) {
+	public function stepprocess(Request $request, int $step)
+	{
 
 		if ($step == 1) {
 
@@ -147,66 +150,6 @@ class SetupController extends Controller {
 		$nextstep = $step + 1;
 
 		return redirect()->route('setup.stepshow', ['step' => $nextstep]);
-
-	}
-
-	/**
-	 * @param int $step
-	 * @return void
-	 */
-	private function migrateFresh(int $step) {
-
-		// Purge old migration files
-		File::cleanDirectory($this->migrationDest);
-
-		// Copy migration files
-		File::copyDirectory($this->migrationSource, $this->migrationDest);
-
-		// Migrate everything except the entity groups content, block, form
-		Artisan::call('migrate:fresh', [
-			'--force' => true,
-		]);
-
-		// Purge migration files
-		File::cleanDirectory($this->migrationDest);
-
-		flash('Step ' . $step . ' was completed successfully')->success();
-
-	}
-
-	/**
-	 * @param int $step
-	 * @return void
-	 */
-	private function runSeeders(int $step) {
-
-		// Purge old migration files
-		File::cleanDirectory($this->seederDest);
-
-		// copy migration files from this step
-		File::copyDirectory($this->seederSource, $this->seederDest);
-
-		// Seed Entities
-		Artisan::call('db:seed', [
-			'--class' => 'DatabaseCustomSeeder',
-			'--force' => true,
-		]);
-
-		// Purge migration files
-		File::cleanDirectory($this->seederDest);
-
-		flash('Step ' . $step . ' was completed successfully')->success();
-
-	}
-
-	/**
-	 * @return void
-	 */
-	private function clearAllCache() {
-
-		Artisan::call('cache:clear');
-		Artisan::call('config:clear');
-		Artisan::call('view:clear');
 
 	}
 
