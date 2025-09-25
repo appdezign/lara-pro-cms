@@ -20,22 +20,22 @@ trait HasMigrations
 		$seedpath = base_path('database/seeders');
 		File::delete(File::glob($seedpath . '/Lara*'));
 
-		// get all tables
-		$tables = DB::select('SHOW TABLES');
-		$dbname = config('lara-common.database.db_database');
-		$varname = 'Tables_in_' . $dbname;
-
+		$tables = DB::connection()->getSchemaBuilder()->getTables();
 		foreach ($tables as $table) {
 
-			$tablename = $table->$varname;
+			$tablename = $table['name'];
 
-			$exclude = array();
-
-			// exclude migration table
-			$exclude[] = config('database.migrations');
-
-			// exclude users table
-			// $exclude[] = config('lara-common.database.auth.users');
+			$exclude = [
+				'breezy_sessions',
+				'cache',
+				'cache_locks',
+				'failed_jobs',
+				'job_batches',
+				'jobs',
+				'migrations',
+				'resource_locks',
+				'sessions',
+			];
 
 			if (!in_array($tablename, $exclude)) {
 				Artisan::call('iseed', [

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;;
+namespace Lara\Common\Database\Seeders;;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -76,20 +76,6 @@ class DatabaseCustomSeeder extends Seeder
         $this->call(LaraSysLanguagesTableSeeder::class);
         $this->call(LaraSysSettingsTableSeeder::class);
         $this->call(LaraSysTranslationsTableSeeder::class);
-
-		// 3rd party
-	    $this->call(BreezySessionsTableSeeder::class);
-	    $this->call(CacheTableSeeder::class);
-	    $this->call(CacheLocksTableSeeder::class);
-	    $this->call(CuratorTableSeeder::class);
-	    $this->call(ResourceLocksTableSeeder::class);
-
-		// Laravel
-	    $this->call(MigrationsTableSeeder::class);
-	    $this->call(SessionsTableSeeder::class);
-	    $this->call(FailedJobsTableSeeder::class);
-	    $this->call(JobBatchesTableSeeder::class);
-	    $this->call(JobsTableSeeder::class);
 
 	    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
