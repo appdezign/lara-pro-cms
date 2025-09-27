@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="" style="background-image: url('/assets/admin/img/auth-bg.jpg')">
+<body class="" style="background-image: url('/assets/filament/img/auth-bg.jpg')">
 
 <div class="setup-container d-flex justify-content-center align-items-center h-100">
 
