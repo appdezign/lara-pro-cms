@@ -85,7 +85,7 @@ class MenuItemForm
 						Select::make('parent_id')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.parent'))
 							->placeholder('root')
-							->options(MenuItem::langIs(static::getContentLanguage())->where('type', 'parent')->pluck('title', 'id')),
+							->options(fn ($record) => static::prepareMenuItems($record->id)),
 						Fieldset::make('Content')
 							->columns(1)
 							->schema([
@@ -152,6 +152,19 @@ class MenuItemForm
 
 					]),
 			]);
+	}
+
+	private static function prepareMenuItems($activeMenuItemId): array
+	{
+		$menuArray = array();
+		$items = MenuItem::langIs(static::getContentLanguage())
+			->whereNot('id', $activeMenuItemId)
+			->get();
+		foreach($items as $item) {
+			$prefix = str_repeat('- ', $item->depth);
+			$menuArray[$item->id] = $prefix . $item->title;
+		}
+		return $menuArray;
 	}
 
 	private static function resetMenuContent(callable $set, $state): void
