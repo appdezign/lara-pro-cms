@@ -12,7 +12,7 @@ use Lara\Common\Models\Tag;
 
 use LaravelLocalization;
 
-use Lara\Front\Http\Concerns\HasFrontTags;
+use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\hasFrontend;
@@ -23,7 +23,7 @@ class VideoWidget extends AbstractWidget
 	use hasFrontend;
 	use HasFrontEntity;
 	use HasFrontRoutes;
-	use HasFrontTags;
+	use HasFrontTerms;
 
 	protected $config = [
 		'term' => 'home',

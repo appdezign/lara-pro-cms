@@ -9,7 +9,7 @@ use Lara\Common\Models\Taxonomy;
 use stdClass;
 use Cache;
 
-trait HasFrontTags
+trait HasFrontTerms
 {
 
 	/**
@@ -74,6 +74,27 @@ trait HasFrontTags
 		}
 
 		return $tags;
+
+	}
+
+	/**
+	 * @param $language
+	 * @param $entity
+	 * @return void|null
+	 */
+	private function getTagTreeWithCount($language, $entity) {
+
+		if ($this->entity->hasTags()) {
+			$terms = new stdClass;
+			$taxonomies = Taxonomy::get();
+			foreach ($taxonomies as $taxonomy) {
+				$taxonomySlug = $taxonomy->slug;
+				$terms->$taxonomySlug = $this->getTags($language, $entity, 'tree', $taxonomySlug);
+			}
+			return $terms;
+		} else {
+			return null;
+		}
 
 	}
 

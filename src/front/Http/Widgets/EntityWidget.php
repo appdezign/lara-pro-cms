@@ -15,7 +15,7 @@ use LaravelLocalization;
 use Lara\Front\Http\Concerns\hasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-use Lara\Front\Http\Concerns\HasFrontTags;
+use Lara\Front\Http\Concerns\HasFrontTerms;
 
 use Carbon\Carbon;
 
@@ -25,7 +25,7 @@ class EntityWidget extends AbstractWidget
 	use hasFrontend;
 	use HasFrontEntity;
 	use HasFrontRoutes;
-	use HasFrontTags;
+	use HasFrontTerms;
 
 	protected $config = [
 		'resource_slug'  => null,
