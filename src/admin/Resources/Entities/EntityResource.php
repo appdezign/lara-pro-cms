@@ -70,11 +70,7 @@ class EntityResource extends Resource
 
 	public static function getRelations(): array
 	{
-		return [
-			RelationManagers\CustomFieldsRelationManager::class,
-			RelationManagers\EntityViewsRelationManager::class,
-			RelationManagers\EntRelRelationManager::class,
-		];;
+		return [];
 	}
 
 	public static function getPages(): array

@@ -17,6 +17,11 @@ use Lara\Admin\Enums\EntityOrder;
 use Lara\Admin\Enums\NavGroup;
 
 use Lara\Admin\Resources\Entities\EntityResource;
+use Lara\Admin\Resources\Entities\RelationManagers\CustomFieldsRelationManager;
+use Lara\Admin\Resources\Entities\RelationManagers\EntityViewsRelationManager;
+use Lara\Admin\Resources\Entities\RelationManagers\EntRelRelationManager;
+
+use Njxqlus\Filament\Components\Forms\RelationManager;
 
 class EntityForm
 {
@@ -105,9 +110,21 @@ class EntityForm
 									->extraAttributes(['class' => 'first-entity-section']),
 							])
 							->visible(fn(Get $get, string $operation) => $operation == 'edit'),
-						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.manager', true))
-							->schema([])
-							->visible(fn(string $operation): bool => $operation === 'edit'),
+
+						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.custom_fields', true))
+							->schema([
+							RelationManager::make()->manager(CustomFieldsRelationManager::class)
+						]),
+
+						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.entity_views', true))
+							->schema([
+								RelationManager::make()->manager(EntityViewsRelationManager::class)
+							]),
+
+						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.entity_relations', true))
+							->schema([
+								RelationManager::make()->manager(EntRelRelationManager::class)
+							]),
 
 					])
 					->persistTab()
