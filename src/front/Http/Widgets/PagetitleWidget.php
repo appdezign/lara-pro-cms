@@ -15,7 +15,7 @@ use Lara\Common\Models\Tag;
 use Lara\Front\Http\Concerns\hasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-use Lara\Front\Http\Concerns\HasFrontTags;
+use Lara\Front\Http\Concerns\HasFrontTerms;
 
 use LaravelLocalization;
 
@@ -25,7 +25,7 @@ class PagetitleWidget extends AbstractWidget
 	use hasFrontend;
 	use HasFrontMenu;
 	use HasFrontRoutes;
-	use HasFrontTags;
+	use HasFrontTerms;
 
 	protected $config = [
 		'term' => 'pagetitle',

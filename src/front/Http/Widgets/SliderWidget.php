@@ -11,7 +11,7 @@ use Lara\Common\Models\Tag;
 
 use LaravelLocalization;
 
-use Lara\Front\Http\Concerns\HasFrontTags;
+use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\hasFrontend;
 
@@ -20,7 +20,7 @@ class SliderWidget extends AbstractWidget
 
 	use hasFrontend;
 	use HasFrontEntity;
-	use HasFrontTags;
+	use HasFrontTerms;
 
 	protected $config = [
 		'term'        => 'home',

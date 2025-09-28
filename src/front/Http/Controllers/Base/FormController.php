@@ -24,7 +24,7 @@ use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
-use Lara\Front\Http\Concerns\HasFrontTags;
+use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\hasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
@@ -51,7 +51,7 @@ class FormController extends Controller
 	use HasFrontObject;
 	use HasFrontRoutes;
 	use HasFrontSecurity;
-	use HasFrontTags;
+	use HasFrontTerms;
 	use hasTheme;
 	use HasFrontView;
 

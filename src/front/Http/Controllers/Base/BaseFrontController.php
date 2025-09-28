@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+use Lara\Common\Models\Taxonomy;
 use Lara\Front\Http\Concerns\hasFrontend;
 use Lara\Front\Http\Concerns\HasFrontAuth;
 use Lara\Front\Http\Concerns\HasFrontEntity;
@@ -19,7 +20,7 @@ use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
-use Lara\Front\Http\Concerns\HasFrontTags;
+use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\hasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
@@ -43,7 +44,7 @@ class BaseFrontController extends Controller
 	use HasFrontObject;
 	use HasFrontRoutes;
 	use HasFrontSecurity;
-	use HasFrontTags;
+	use HasFrontTerms;
 	use hasTheme;
 	use HasFrontView;
 
@@ -130,7 +131,7 @@ class BaseFrontController extends Controller
 		$this->data->objects = $this->getFrontObjects($request, $this->language, $this->entity, $this->activeroute, $this->data->menutag, $this->data->params);
 
 		// get terms
-		$this->data->terms = $this->getEntityTerms($this->language, $this->entity, null);
+		$this->data->terms = $this->getTagTreeWithCount($this->language, $this->entity);
 
 		// filter by taxonomy
 		$this->data = $this->setTaxonomyFilter($this->data, $this->data);
