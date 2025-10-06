@@ -1,21 +1,117 @@
+@php
+	use Filament\Forms\Components\TextInput\Actions\HidePasswordAction;
+	use Filament\Forms\Components\TextInput\Actions\ShowPasswordAction;
+
+	$fieldWrapperView = $getFieldWrapperView();
+	$datalistOptions = $getDatalistOptions();
+	$extraAlpineAttributes = $getExtraAlpineAttributes();
+	$extraAttributeBag = $getExtraAttributeBag();
+	$id = $getId();
+	$isConcealed = $isConcealed();
+	$isDisabled = $isDisabled();
+	$isPasswordRevealable = $isPasswordRevealable();
+	$isPrefixInline = $isPrefixInline();
+	$isSuffixInline = $isSuffixInline();
+	$mask = $getMask();
+	$prefixActions = $getPrefixActions();
+	$prefixIcon = $getPrefixIcon();
+	$prefixIconColor = $getPrefixIconColor();
+	$prefixLabel = $getPrefixLabel();
+	$suffixActions = $getSuffixActions();
+	$suffixIcon = $getSuffixIcon();
+	$suffixIconColor = $getSuffixIconColor();
+	$suffixLabel = $getSuffixLabel();
+	$statePath = $getStatePath();
+	$placeholder = $getPlaceholder();
+
+	if ($isPasswordRevealable) {
+		$xData = '{ isPasswordRevealed: false }';
+	} elseif (count($extraAlpineAttributes) || filled($mask)) {
+		$xData = '{}';
+	} else {
+		$xData = null;
+	}
+
+	if ($isPasswordRevealable) {
+		$type = null;
+	} elseif (filled($mask)) {
+		$type = 'text';
+	} else {
+		$type = $getType();
+	}
+
+	$inputAttributes = $getExtraInputAttributeBag()
+		->merge($extraAlpineAttributes, escape: false)
+		->merge([
+			'autocapitalize' => $getAutocapitalize(),
+			'autocomplete' => $getAutocomplete(),
+			'autofocus' => $isAutofocused(),
+			'disabled' => $isDisabled,
+			'id' => $id,
+			'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
+			'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
+			'inputmode' => $getInputMode(),
+			'list' => $datalistOptions ? $id . '-list' : null,
+			'max' => (! $isConcealed) ? $getMaxValue() : null,
+			'maxlength' => (! $isConcealed) ? $getMaxLength() : null,
+			'min' => (! $isConcealed) ? $getMinValue() : null,
+			'minlength' => (! $isConcealed) ? $getMinLength() : null,
+			'placeholder' => filled($placeholder) ? e($placeholder) : null,
+			'readonly' => $isReadOnly(),
+			'required' => $isRequired() && (! $isConcealed),
+			'step' => $getStep(),
+			'type' => $type,
+			$applyStateBindingModifiers('wire:model') => $statePath,
+			'x-bind:type' => $isPasswordRevealable ? 'isPasswordRevealed ? \'text\' : \'password\'' : null,
+			'x-mask' . ($mask instanceof \Filament\Support\RawJs ? ':dynamic' : '') => filled($mask) ? $mask : null,
+		], escape: false)
+		->class([
+			'fi-revealable' => $isPasswordRevealable,
+		]);
+@endphp
+
 <x-dynamic-component
-	:component="$getFieldWrapperView()"
-	:field="$field"
+		:component="$fieldWrapperView"
+		:field="$field"
+		:inline-label-vertical-alignment="\Filament\Support\Enums\VerticalAlignment::Center"
 >
-	<div x-data="{ state: $wire.$entangle('{{ $getStatePath() }}') }">
+	<x-filament::input.wrapper
+			:disabled="$isDisabled"
+			:inline-prefix="$isPrefixInline"
+			:inline-suffix="$isSuffixInline"
+			:prefix="$prefixLabel"
+			:prefix-actions="$prefixActions"
+			:prefix-icon="$prefixIcon"
+			:prefix-icon-color="$prefixIconColor"
+			:suffix="$suffixLabel"
+			:suffix-actions="$suffixActions"
+			:suffix-icon="$suffixIcon"
+			:suffix-icon-color="$suffixIconColor"
+			:valid="! $errors->has($statePath)"
+			:x-data="$xData"
+			:attributes="
+            \Filament\Support\prepare_inherited_attributes($extraAttributeBag)
+                ->class(['fi-fo-text-input'])
+        "
+	>
+		<input
+				{{
+					$inputAttributes->class([
+						'fi-input',
+						'fi-input-has-inline-prefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
+						'fi-input-has-inline-suffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
+					])
+				}}
+		/>
+	</x-filament::input.wrapper>
 
-		<div
-			class="fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white [&amp;:not(:has(.fi-ac-action:focus))]:focus-within:ring-2 ring-gray-950/10 [&amp;:not(:has(.fi-ac-action:focus))]:focus-within:ring-primary-600 fi-fo-text-input overflow-hidden">
-			<div class="fi-input-wrp-input min-w-0 flex-1">
-				<input
-					type="text"
-					x-model="state"
-					class="fi-input block w-full border-none py-1.5 text-base text-gray-950 transition duration-75 placeholder:text-gray-400 focus:ring-0 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.400)] sm:text-sm sm:leading-6 bg-white/0 ps-3 pe-3"
-				/>
-			</div>
-		</div>
-
-	</div>
+	@if ($datalistOptions)
+		<datalist id="{{ $id }}-list">
+			@foreach ($datalistOptions as $option)
+				<option value="{{ $option }}"></option>
+			@endforeach
+		</datalist>
+	@endif
 
 	@if($getState() && strlen($getState()) == 11)
 		<div class="video-preview ratio ratio-16x9">
@@ -26,3 +122,6 @@
 	@endif
 
 </x-dynamic-component>
+
+
+
