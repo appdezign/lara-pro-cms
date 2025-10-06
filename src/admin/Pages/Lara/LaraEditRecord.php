@@ -6,6 +6,7 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Components\Concerns\HasContainerGridLayout;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 
@@ -16,6 +17,8 @@ use Lara\Admin\Traits\HasMedia;
 use Lara\Common\Models\ObjectLayout;
 
 use Lara\Common\Models\Entity;
+
+use Spatie\Geocoder\Facades\Geocoder;
 
 class LaraEditRecord extends EditRecord
 {
@@ -53,11 +56,39 @@ class LaraEditRecord extends EditRecord
 			}
 		}
 
+		if (array_key_exists('geo_location', $data)) {
+			if ($data['geo_location'] === 'auto') {
+				if (empty($data['geo_latitude']) || $data['geo_latitude'] == 0 || empty($data['geo_longitude']) || $data['geo_longitude'] == 0) {
+
+					// check address
+					if (!empty($data['geo_address']) && !empty($data['geo_pcode']) && !empty($data['geo_city']) && !empty($data['geo_country'])) {
+
+						$geoAddress = $data['geo_address'] . ', ' . $data['geo_pcode'] . ', ' . $data['geo_city'] . ', ' . $data['geo_country'];
+
+						// Get GEO Coordinates from Google API
+						$geo = Geocoder::getCoordinatesForAddress($geoAddress);
+
+						// Save coordinates
+						if (!empty($geo['lat']) && !empty($geo['lng'])) {
+							$data['geo_latitude'] = $geo['lat'];
+							$data['geo_longitude'] = $geo['lng'];
+						}
+
+					}
+				}
+			}
+		}
+
 		return $data;
 	}
 
 	protected function afterSave(): void
 	{
+
+		if ($this->record->geo_location && $this->record->geo_location == 'auto') {
+			$this->fillForm();
+		}
+
 		// save the image count, so we can use it in the tables
 		static::saveImageCount($this->record);
 
@@ -92,7 +123,7 @@ class LaraEditRecord extends EditRecord
 					$this->save();
 					$this->refreshFormData(['slug']);
 				})
-				->extraAttributes(['class' => 'mx-4']),
+				->extraAttributes(['class' => 'mx-4 js-lara-save-button']),
 
 			Action::make('preview')
 				->url(route($previewRoute, $this->record->id), true)
