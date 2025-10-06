@@ -54,11 +54,11 @@ trait HasLaraBuilder
 
 		// make directories for resource pages
 		$resourceDirPath = $resourcesPath . DIRECTORY_SEPARATOR . $resourceDir;
-		if(!File::isDirectory($resourceDirPath)) {
+		if (!File::isDirectory($resourceDirPath)) {
 			File::makeDirectory($resourceDirPath);
 		}
 		$resourcePagesPath = $resourceDirPath . DIRECTORY_SEPARATOR . 'Pages';
-		if(!File::isDirectory($resourcePagesPath)) {
+		if (!File::isDirectory($resourcePagesPath)) {
 			File::makeDirectory($resourcePagesPath);
 		}
 
@@ -105,7 +105,7 @@ trait HasLaraBuilder
 		$pagesNamespace = 'Lara\App\Filament\Resources\\' . $resourceDir . '\Pages';
 
 		// stub - create record page
-		if(!$isForm) {
+		if (!$isForm) {
 			LaravelStub::from($fromPath . 'createrecord.stub')
 				->to($resourcePagesPath)
 				->name('CreateRecord')
@@ -159,7 +159,6 @@ trait HasLaraBuilder
 			])
 			->generate();
 
-
 		// stub - view record page
 		LaravelStub::from($fromPath . 'viewrecord.stub')
 			->to($resourcePagesPath)
@@ -185,7 +184,7 @@ trait HasLaraBuilder
 
 		$tablenames = config('lara-common.database');
 
-		if($isForm) {
+		if ($isForm) {
 
 			if (!Schema::hasTable($tablename)) {
 				Schema::create($tablename, function (Blueprint $table) {
@@ -249,8 +248,6 @@ trait HasLaraBuilder
 			}
 		}
 
-
-
 	}
 
 	private static function checkExtraDatabaseColumns(Entity $entity): void
@@ -258,7 +255,7 @@ trait HasLaraBuilder
 
 		$extraFieldCount = $entity->col_extra_body_fields;
 
-		if($extraFieldCount > 0) {
+		if ($extraFieldCount > 0) {
 
 			// check table first
 			static::checkDatabaseTable($entity);
@@ -273,7 +270,7 @@ trait HasLaraBuilder
 				$after = 'id';
 			}
 
-			for($i = 1; $i <= $extraFieldCount; $i++) {
+			for ($i = 1; $i <= $extraFieldCount; $i++) {
 				$fieldName = 'body' . $i + 1;
 				if (!Schema::hasColumn($tablename, $fieldName)) {
 					Schema::table($tablename, function ($table) use ($fieldName, $after) {
@@ -370,25 +367,21 @@ trait HasLaraBuilder
 		if ($customField->field_type == 'geolocation') {
 
 			// delete old backup columns
-			if (Schema::hasColumn($tablename, '_geo_full_address')) {
-				Schema::table($tablename, function ($table) {
-					$table->dropColumn('_geo_full_address');
-				});
-			}
-			if (Schema::hasColumn($tablename, '_geo_latitude')) {
-				Schema::table($tablename, function ($table) {
-					$table->dropColumn('_geo_latitude');
-				});
-			}
-			if (Schema::hasColumn($tablename, '_geo_longitude')) {
-				Schema::table($tablename, function ($table) {
-					$table->dropColumn('_geo_longitude');
-				});
-			}
+			static::dropColumn($tablename, '_geo_address');
+			static::dropColumn($tablename, '_geo_pcode');
+			static::dropColumn($tablename, '_geo_city');
+			static::dropColumn($tablename, '_geo_country');
+			static::dropColumn($tablename, '_geo_location');
+			static::dropColumn($tablename, '_geo_latitude');
+			static::dropColumn($tablename, '_geo_longitude');
 
 			// rename current column, so we don't lose data
 			Schema::table($tablename, function ($table) {
-				$table->renameColumn('geo_full_address', '_geo_full_address');
+				$table->renameColumn('geo_address', '_geo_address');
+				$table->renameColumn('geo_pcode', '_geo_pcode');
+				$table->renameColumn('geo_city', '_geo_city');
+				$table->renameColumn('geo_country', '_geo_country');
+				$table->renameColumn('geo_location', '_geo_location');
 				$table->renameColumn('geo_latitude', '_geo_latitude');
 				$table->renameColumn('geo_longitude', '_geo_longitude');
 			});
@@ -404,11 +397,7 @@ trait HasLaraBuilder
 			$backupColumn = '_' . $fieldName;
 
 			// delete old backup column
-			if (Schema::hasColumn($tablename, $backupColumn)) {
-				Schema::table($tablename, function ($table) use ($backupColumn) {
-					$table->dropColumn($backupColumn);
-				});
-			}
+			static::dropColumn($tablename, $backupColumn);
 
 			// rename current column, so we don't lose data
 			Schema::table($tablename, function ($table) use ($fieldName, $backupColumn) {
@@ -421,6 +410,15 @@ trait HasLaraBuilder
 				->send();
 		}
 
+	}
+
+	private static function dropColumn($tablename, $column): void
+	{
+		if (Schema::hasColumn($tablename, $column)) {
+			Schema::table($tablename, function ($table) use ($column) {
+				$table->dropColumn($column);
+			});
+		}
 	}
 
 	private static function addCustomColumn(EntityCustomField $customField, string $after = null): string
@@ -526,9 +524,41 @@ trait HasLaraBuilder
 
 		$after = 'body';
 
-		if (!Schema::hasColumn($tablename, 'geo_full_address')) {
+		if (!Schema::hasColumn($tablename, 'geo_address')) {
 			Schema::table($tablename, function ($table) use ($after) {
-				$table->string('geo_full_address')
+				$table->string('geo_address')
+					->nullable()
+					->after($after);
+			});
+		}
+
+		if (!Schema::hasColumn($tablename, 'geo_pcode')) {
+			Schema::table($tablename, function ($table) use ($after) {
+				$table->string('geo_pcode')
+					->nullable()
+					->after($after);
+			});
+		}
+
+		if (!Schema::hasColumn($tablename, 'geo_city')) {
+			Schema::table($tablename, function ($table) use ($after) {
+				$table->string('geo_city')
+					->nullable()
+					->after($after);
+			});
+		}
+
+		if (!Schema::hasColumn($tablename, 'geo_country')) {
+			Schema::table($tablename, function ($table) use ($after) {
+				$table->string('geo_country')
+					->nullable()
+					->after($after);
+			});
+		}
+
+		if (!Schema::hasColumn($tablename, 'geo_location')) {
+			Schema::table($tablename, function ($table) use ($after) {
+				$table->string('geo_location')
 					->nullable()
 					->after($after);
 			});
@@ -548,36 +578,6 @@ trait HasLaraBuilder
 					->nullable()
 					->after($after);
 			});
-		}
-
-		// check model for specific geolocation methods
-		// see: https://github.com/cheesegrits/filament-google-maps
-		$methods = [
-			'getGeoLocationAttribute',
-			'setGeoLocationAttribute',
-			'getLatLngAttributes',
-			'getComputedLocation',
-		];
-		foreach ($methods as $method) {
-			if (!method_exists($modelClass, $method)) {
-				Notification::make()
-					->title('Method not found !')
-					->body('Method: ' . $method . '() not found in model: ' . $modelClass . '<br><br>Make sure you add the appropriate method to your model.')
-					->seconds(30)
-					->danger()
-					->send();
-			}
-		}
-
-		// check appends
-		$object = new $modelClass;
-		if (!method_exists($object, 'getAppends') || !in_array('geo_location', $object->getAppends())) {
-			Notification::make()
-				->title('Appends not found !')
-				->body('Appends: geo_location not found in model: ' . $modelClass . '<br><br>Make sure you add the appropriate appends to your model.')
-				->seconds(30)
-				->danger()
-				->send();
 		}
 
 	}

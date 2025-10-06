@@ -19,6 +19,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentColor;
@@ -35,6 +36,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Vite;
 
+use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Components\LanguageVersions;
 use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\NavGroup;
@@ -46,6 +48,8 @@ use Lara\Admin\Widgets\Analytics;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 
 // use Awcodes\Curator\CuratorPlugin;
+use Awcodes\Versions\VersionsPlugin;
+use Awcodes\Versions\VersionsWidget;
 use BezhanSalleh\GoogleAnalytics\GoogleAnalyticsPlugin;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Kenepa\ResourceLock\ResourceLockPlugin;
@@ -92,6 +96,7 @@ class AdminPanelProvider extends PanelProvider
 				Analytics\LaraSessionsByCountryWidget::class,
 				Analytics\LaraMostVisitedPagesWidget::class,
 				Analytics\LaraTopReferrersListWidget::class,
+				VersionsWidget::class,
 			])
 			->middleware([
 				EncryptCookies::class,
@@ -106,6 +111,10 @@ class AdminPanelProvider extends PanelProvider
 			])
 			->plugins([
 				GoogleAnalyticsPlugin::make(),
+				VersionsPlugin::make()
+					->hasNavigationView(false)
+					->widgetColumnSpan('full')
+					->widgetSort(99999),
 				/*
 				CuratorPlugin::make()
 					->label('Media')
@@ -161,8 +170,8 @@ class AdminPanelProvider extends PanelProvider
 
 		Select::configureUsing(function (Select $select) {
 			$select->inlineLabel()
-				->native()
-				->searchable();
+				->native(false)
+				->searchable(true);
 		});
 
 		DateTimePicker::configureUsing(function (DateTimePicker $dateTimePicker) {
@@ -173,6 +182,10 @@ class AdminPanelProvider extends PanelProvider
 
 		YouTubeField::configureUsing(function (YouTubeField $youtubeField) {
 			$youtubeField->inlineLabel();
+		});
+
+		GeoLocationField::configureUsing(function (GeoLocationField $geolocationField) {
+			$geolocationField->inlineLabel();
 		});
 
 		LanguageVersions::configureUsing(function (LanguageVersions $LanguageVersions) {
@@ -278,7 +291,6 @@ class AdminPanelProvider extends PanelProvider
 			],
 		]);
 
-
 		// Replace default icons
 		FilamentIcon::register([
 			'actions::edit-action'   => 'heroicon-o-pencil-square',
@@ -307,16 +319,19 @@ class AdminPanelProvider extends PanelProvider
 			fn(): View => view('lara-admin::partials.builder-menu'),
 		);
 
+		FilamentView::registerRenderHook(
+			PanelsRenderHook::BODY_END,
+			fn(): View => view('lara-admin::partials.google-maps'),
+		);
+
 		FilamentAsset::register([
 			Css::make('lara', Vite::asset('laracms/core/resources/css/lara.scss', 'assets/admin/build'))
 		]);
 
-		/*
 		// JS
 		FilamentAsset::register([
-			Js::make('custom-script-1', base_path('laracms/core/resources/js/custom.js')),
+			Js::make('custom-script', base_path('laracms/core/resources/js/custom.js')),
 		]);
-		*/
 
 		// Translations
 		/*
@@ -353,7 +368,7 @@ class AdminPanelProvider extends PanelProvider
 
 	private static function getRichEditorToolbarOptions(): array
 	{
-		if(!empty(config('lara-admin.rich_editor.toolbar_buttons'))) {
+		if (!empty(config('lara-admin.rich_editor.toolbar_buttons'))) {
 			return config('lara-admin.rich_editor.toolbar_buttons');
 		} else {
 			// default

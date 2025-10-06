@@ -9,7 +9,6 @@ use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
@@ -31,28 +30,18 @@ use Filament\Support\Enums\Alignment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
+use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Components\LanguageVersions;
-use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\EntityHook;
-use Lara\Admin\Enums\ImageFields;
-use Lara\Admin\Enums\ImageHooks;
 use Lara\Admin\Enums\LayoutSections;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Language;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\ObjectLayout;
-use Lara\Common\Models\Page;
 use Lara\Common\Models\Tag;
 use Lara\Common\Models\User;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea as TextAreaWithCounter;
-
-// use Awcodes\Curator\Components\Forms\CuratorPicker;
-
-use Lara\Admin\Components\CustomBlocks\HeroBlock;
 
 trait LaraBaseForm
 {
@@ -327,6 +316,7 @@ trait LaraBaseForm
 		$rows[] = TextInput::make('title')
 			->label(_q(static::getModule() . '::' . static::getSlug() . '.column.title'))
 			->maxLength(255)
+			->extraAttributes(['class' => 'js-title-input'])
 			->required();
 
 		// Custom Fields
@@ -886,7 +876,6 @@ trait LaraBaseForm
 	private static function getFilamentComponent($field): array
 	{
 
-
 		$rows = array();
 
 		$state = $field->rule_state;
@@ -1038,57 +1027,50 @@ trait LaraBaseForm
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
 				break;
 			case 'geolocation':
+				$rows[] = Fieldset::make(_q('lara-admin::default.group.geolocation'))
+					->schema([
+						TextInput::make('geo_address')
+							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_address'))
+							->columnSpanFull(),
 
-				// temp
-				$rows[] = Select::make($field->field_name)
-					->label($label)
-					->options([
-						'auto'   => 'auto',
-						'manual' => 'manual',
-						'hidden' => 'hidden',
-					]);
-			/*
-			// see: https://github.com/cheesegrits/filament-google-maps
-			$rows[] = TextInput::make('geo_full_address')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.full_address'))
-				->hintIcon('heroicon-m-question-mark-circle', tooltip: _q('lara-admin::geolocation.message.search_google_places'));
+						TextInput::make('geo_pcode')
+							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_pcode'))
+							->columnSpanFull(),
 
-			$rows[] = Map::make('geo_location')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_location'))
-				->live()
-				->type('roadmap')
-				->height('400px')
-				->defaultZoom(13)
-				->autocomplete('geo_full_address')
-				->draggable(false)
-				->clickable(false)
-				->afterStateUpdated(function ($state, callable $get, callable $set) {
-					$set('geo_latitude', $state['lat']);
-					$set('geo_longitude', $state['lng']);
-				});
-			$rows[] = TextInput::make('geo_latitude')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.latitude'))
-				->live()
-				->readOnly()
-				->afterStateUpdated(function ($state, callable $get, callable $set) {
-					$set('geo_location', [
-						'lat' => floatVal($state),
-						'lng' => floatVal($get('geo_longitude')),
+						TextInput::make('geo_city')
+							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_city'))
+							->columnSpanFull(),
+
+						TextInput::make('geo_country')
+							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_country'))
+							->columnSpanFull(),
+
+						GeoLocationField::make('geo_location')
+							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_location'))
+							->live()
+							->native(false)
+							->options([
+								'auto'   => 'auto',
+								'manual' => 'manual',
+								'hidden' => 'hidden',
+							])
+							->columnSpanFull(),
+
+						TextInput::make('geo_latitude')
+							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_latitude'))
+							->visible(fn(Get $get) => $get('geo_location') != 'hidden')
+							->disabled(fn(Get $get) => $get('geo_location') == 'auto')
+							->extraAttributes(['class' => 'js-geo-latitude'])
+							->columnSpanFull(),
+
+						TextInput::make('geo_longitude')
+							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_longitude'))
+							->visible(fn(Get $get) => $get('geo_location') != 'hidden')
+							->disabled(fn(Get $get) => $get('geo_location') == 'auto')
+							->extraAttributes(['class' => 'js-geo-longitude'])
+							->columnSpanFull(),
 					]);
-				})
-				->lazy();
-			$rows[] = TextInput::make('geo_longitude')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.longitude'))
-				->live()
-				->readOnly()
-				->afterStateUpdated(function ($state, callable $get, callable $set) {
-					$set('geo_location', [
-						'lat' => floatval($get('geo_latitude')),
-						'lng' => floatVal($state),
-					]);
-				})
-				->lazy();
-			*/
+
 		}
 
 		// Add hidden fields if necessary
