@@ -149,7 +149,9 @@
 		</a>
 
 		<div class="js-maps-container mt-2 hidden">
-			<div id="map-canvas">
+			<div id="map-canvas"
+			     style="display: flex; justify-content: center; align-items: center;  height: 500px; width: 100%; color: #b4bec8; background-color: #f8fafc; border: 1px solid #c8d2e1;">
+				Loading Map ...
 			</div>
 		</div>
 
