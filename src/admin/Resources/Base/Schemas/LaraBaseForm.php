@@ -1027,26 +1027,26 @@ trait LaraBaseForm
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
 				break;
 			case 'geolocation':
-				$rows[] = Fieldset::make(_q('lara-admin::default.group.geolocation'))
+				$rows[] = Fieldset::make(_q('lara-admin::default.group.geolocation', true))
 					->schema([
 						TextInput::make('geo_address')
-							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_address'))
+							->label(_q('lara-admin::default.column.geo_address'))
 							->columnSpanFull(),
 
 						TextInput::make('geo_pcode')
-							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_pcode'))
+							->label(_q('lara-admin::default.column.geo_pcode'))
 							->columnSpanFull(),
 
 						TextInput::make('geo_city')
-							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_city'))
+							->label(_q('lara-admin::default.column.geo_city'))
 							->columnSpanFull(),
 
 						TextInput::make('geo_country')
-							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_country'))
+							->label(_q('lara-admin::default.column.geo_country'))
 							->columnSpanFull(),
 
 						GeoLocationField::make('geo_location')
-							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_location'))
+							->label(_q('lara-admin::default.column.geo_location'))
 							->live()
 							->native(false)
 							->options([
@@ -1057,14 +1057,14 @@ trait LaraBaseForm
 							->columnSpanFull(),
 
 						TextInput::make('geo_latitude')
-							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_latitude'))
+							->label(_q('lara-admin::default.column.geo_latitude'))
 							->visible(fn(Get $get) => $get('geo_location') != 'hidden')
 							->disabled(fn(Get $get) => $get('geo_location') == 'auto')
 							->extraAttributes(['class' => 'js-geo-latitude'])
 							->columnSpanFull(),
 
 						TextInput::make('geo_longitude')
-							->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_longitude'))
+							->label(_q('lara-admin::default.column.geo_longitude'))
 							->visible(fn(Get $get) => $get('geo_location') != 'hidden')
 							->disabled(fn(Get $get) => $get('geo_location') == 'auto')
 							->extraAttributes(['class' => 'js-geo-longitude'])
