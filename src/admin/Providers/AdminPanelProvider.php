@@ -3,14 +3,18 @@
 namespace Lara\Admin\Providers;
 
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -160,8 +164,20 @@ class AdminPanelProvider extends PanelProvider
 			$toggle->inlineLabel();
 		});
 
+		ToggleButtons::configureUsing(function (ToggleButtons $toggleButtons) {
+			$toggleButtons->inlineLabel();
+		});
+
 		Checkbox::configureUsing(function (Checkbox $checkbox) {
 			$checkbox->inlineLabel();
+		});
+
+		CheckboxList::configureUsing(function (CheckboxList $checkboxList) {
+			$checkboxList->inlineLabel();
+		});
+
+		Radio::configureUsing(function (Radio $radio) {
+			$radio->inlineLabel();
 		});
 
 		Tagsinput::configureUsing(function (Tagsinput $tagsinput) {
@@ -172,6 +188,10 @@ class AdminPanelProvider extends PanelProvider
 			$select->inlineLabel()
 				->native(false)
 				->searchable(true);
+		});
+
+		ColorPicker::configureUsing(function (ColorPicker $colorPicker) {
+			$colorPicker->inlineLabel();
 		});
 
 		DateTimePicker::configureUsing(function (DateTimePicker $dateTimePicker) {

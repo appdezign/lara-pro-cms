@@ -321,12 +321,9 @@ trait hasFrontend
 	{
 
 		if (session()->has('lara_first_page_load') && session()->get('lara_first_page_load') === true) {
-			ray('found session var');
 			return false;
 		} else {
 			session(['lara_first_page_load' => true]);
-			ray('create session var');
-
 			return true;
 		}
 

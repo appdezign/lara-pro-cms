@@ -55,7 +55,7 @@ class EntityForm
 									->schema(static::getColumnsSection())
 									->extraAttributes(['class' => 'first-entity-section']),
 							])
-							->visible(fn(Get $get, string $operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.object_relations', true))
 							->schema([
 								Section::make('objectrelations')
@@ -63,7 +63,7 @@ class EntityForm
 									->schema(static::getObjectRelationsSection())
 									->extraAttributes(['class' => 'first-entity-section']),
 							])
-							->visible(fn(Get $get, string $operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.filters', true))
 							->schema([
 								Section::make('filters')
@@ -71,7 +71,7 @@ class EntityForm
 									->schema(static::getFilterSection())
 									->extraAttributes(['class' => 'first-entity-section']),
 							])
-							->visible(fn(Get $get, string $operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.sections', true))
 							->schema([
 								Section::make('Table')
@@ -84,7 +84,7 @@ class EntityForm
 									->collapsible()
 									->schema(static::getActionSection()),
 							])
-							->visible(fn(Get $get, string $operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.media', true))
 							->schema([
 								Section::make('Images')
@@ -100,7 +100,7 @@ class EntityForm
 									->collapsible()
 									->schema(static::getFileSection()),
 							])
-							->visible(fn(Get $get, string $operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.sort_order', true))
 							->schema([
@@ -109,22 +109,25 @@ class EntityForm
 									->schema(static::getSortOrderSection())
 									->extraAttributes(['class' => 'first-entity-section']),
 							])
-							->visible(fn(Get $get, string $operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.custom_fields', true))
 							->schema([
-							RelationManager::make()->manager(CustomFieldsRelationManager::class)
-						]),
+								RelationManager::make()->manager(CustomFieldsRelationManager::class)
+							])
+							->visible(fn(string $operation) => $operation == 'edit'),
 
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.entity_views', true))
 							->schema([
 								RelationManager::make()->manager(EntityViewsRelationManager::class)
-							]),
+							])
+							->visible(fn(string $operation) => $operation == 'edit'),
 
 						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.entity_relations', true))
 							->schema([
 								RelationManager::make()->manager(EntRelRelationManager::class)
-							]),
+							])
+							->visible(fn(string $operation) => $operation == 'edit'),
 
 					])
 					->persistTab()

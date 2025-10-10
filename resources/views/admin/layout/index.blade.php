@@ -22,18 +22,41 @@
         'fi-body-has-navigation' => $hasNavigation,
         'fi-body-has-sidebar-collapsible-on-desktop' => $isSidebarCollapsibleOnDesktop,
         'fi-body-has-sidebar-fully-collapsible-on-desktop' => $isSidebarFullyCollapsibleOnDesktop,
+        'fi-body-has-topbar' => $hasTopbar,
         'fi-body-has-top-navigation' => $hasTopNavigation,
     ])
 >
     @if ($hasTopbar)
         {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::TOPBAR_BEFORE, scopes: $renderHookScopes) }}
 
-        @livewire(\Filament\Livewire\Topbar::class)
+        @livewire(filament()->getTopbarLivewireComponent())
 
         {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::TOPBAR_AFTER, scopes: $renderHookScopes) }}
+    @elseif ($hasNavigation)
+        <div
+            @if ($isSidebarFullyCollapsibleOnDesktop)
+                x-data="{}"
+                x-bind:class="{ 'lg:fi-hidden': $store.sidebar.isOpen }"
+            @endif
+            @class([
+                'fi-layout-sidebar-toggle-btn-ctn',
+                'lg:fi-hidden' => ! $isSidebarFullyCollapsibleOnDesktop,
+            ])
+        >
+            <x-filament::icon-button
+                color="gray"
+                :icon="\Filament\Support\Icons\Heroicon::OutlinedBars3"
+                :icon-alias="\Filament\View\PanelsIconAlias::SIDEBAR_EXPAND_BUTTON"
+                icon-size="lg"
+                :label="__('filament-panels::layout.actions.sidebar.expand.label')"
+                x-cloak
+                x-data="{}"
+                x-on:click="$store.sidebar.open()"
+                class="fi-layout-sidebar-toggle-btn"
+            />
+        </div>
     @endif
 
-    {{-- The sidebar is after the page content in the markup to fix issues with page content overlapping dropdown content from the sidebar. --}}
     <div class="fi-layout">
         {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::LAYOUT_START, scopes: $renderHookScopes) }}
 
@@ -47,7 +70,7 @@
                 class="fi-sidebar-close-overlay"
             ></div>
 
-            @livewire(\Filament\Livewire\Sidebar::class)
+            @livewire(filament()->getSidebarLivewireComponent())
         @endif
 
         <div
@@ -71,6 +94,8 @@
             @endif
             class="fi-main-ctn"
         >
+            {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::CONTENT_BEFORE, scopes: $renderHookScopes) }}
+
             <main
                 @class([
                     'fi-main',
@@ -83,6 +108,8 @@
 
                 {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::CONTENT_END, scopes: $renderHookScopes) }}
             </main>
+
+            {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::CONTENT_AFTER, scopes: $renderHookScopes) }}
 
             {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::FOOTER, scopes: $renderHookScopes) }}
         </div>

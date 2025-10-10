@@ -105,33 +105,35 @@ class LaraEditRecord extends EditRecord
 	protected function getHeaderActions(): array
 	{
 
+		$rows = array();
+
+		$rows[] = Action::make('backtoindex')
+			->url(static::getResource()::getUrl())
+			->icon('heroicon-o-chevron-left')
+			->iconButton()
+			->color('gray');
+
+		$rows[] = Action::make('save')
+			->label(_q('lara-admin::default.action.save'))
+			->color('danger')
+			->submit(null)
+			->action(function () {
+				$this->save();
+				$this->refreshFormData(['slug']);
+			})
+			->extraAttributes(['class' => 'mx-4 js-lara-save-button']);
+
 		$previewRoute = static::getPreviewRoute($this->record, static::getResource());
-
-		return [
-
-			Action::make('backtoindex')
-				->url(static::getResource()::getUrl())
-				->icon('heroicon-o-chevron-left')
-				->iconButton()
-				->color('gray'),
-
-			Action::make('save')
-				->label(_q('lara-admin::default.action.save'))
-				->color('danger')
-				->submit(null)
-				->action(function () {
-					$this->save();
-					$this->refreshFormData(['slug']);
-				})
-				->extraAttributes(['class' => 'mx-4 js-lara-save-button']),
-
-			Action::make('preview')
+		if($previewRoute) {
+			$rows[] = Action::make('preview')
 				->url(route($previewRoute, $this->record->id), true)
 				->icon('heroicon-o-arrow-top-right-on-square')
 				->iconButton()
-				->color('gray'),
+				->color('gray');
+		}
 
-		];
+		return $rows;
+
 	}
 
 	public function render(): View
@@ -144,14 +146,19 @@ class LaraEditRecord extends EditRecord
 			]);
 	}
 
-	private static function getPreviewRoute($record, $resource): string
+	private static function getPreviewRoute($record, $resource): ?string
 	{
 		$resourceSlug = $resource::getSlug();
 		$entity = $resource::getEntity();
-		$prefix = ($entity->objrel_has_terms == 1) ? 'contenttag.' : 'content.';
-		$method = ($resourceSlug != 'pages') ? '.index.show' : '.show';
+		$checkview = $entity->views()->where('method', 'show')->first();
+		if ($checkview) {
+			$prefix = ($entity->objrel_has_terms == 1) ? 'contenttag.' : 'content.';
+			$method = ($resourceSlug != 'pages') ? '.index.show' : '.show';
 
-		return $prefix . $resourceSlug . $method;
+			return $prefix . $resourceSlug . $method;
+		} else {
+			return null;
+		}
 	}
 
 }
