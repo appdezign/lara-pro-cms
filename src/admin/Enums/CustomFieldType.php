@@ -19,6 +19,7 @@ enum CustomFieldType: string implements HasLabel
 	case TAGS_INPUT = 'tagsinput';
 	case TOGGLE = 'toggle';
 	case TOGGLE_BUTTONS = 'togglebuttons';
+	case MULTI_TOGGLE_BUTTONS = 'multitogglebuttons';
 	case CHECKBOX = 'checkbox';
 	case CHECKBOX_LIST = 'checkboxlist';
 	case RADIO = 'radio';
@@ -54,6 +55,7 @@ enum CustomFieldType: string implements HasLabel
 			self::TAGS_INPUT => 'Tags Input',
 			self::TOGGLE => 'Toggle',
 			self::TOGGLE_BUTTONS => 'Toggle Buttons',
+			self::MULTI_TOGGLE_BUTTONS => 'Multi Toggle Buttons',
 			self::CHECKBOX => 'Checkbox',
 			self::CHECKBOX_LIST => 'Checkbox List',
 			self::RADIO => 'Radio',
@@ -83,13 +85,14 @@ enum CustomFieldType: string implements HasLabel
 			CustomFieldType::COLOR_PICKER => 'varchar',
 			CustomFieldType::TEXT,
 			CustomFieldType::TEXTAREA,
+			CustomFieldType::TOGGLE_BUTTONS,
 			CustomFieldType::SELECT => 'text',
-			CustomFieldType::NUMBER,
-			CustomFieldType::RADIO => 'int',
+			CustomFieldType::NUMBER => 'int',
 			CustomFieldType::CHECKBOX,
 			CustomFieldType::TOGGLE => 'tinyint',
+			CustomFieldType::RADIO,
 			CustomFieldType::CHECKBOX_LIST,
-			CustomFieldType::TOGGLE_BUTTONS,
+			CustomFieldType::MULTI_TOGGLE_BUTTONS,
 			CustomFieldType::TAGS_INPUT,
 			CustomFieldType::MULTI_SELECT => 'json',
 			CustomFieldType::LATITUDE,
@@ -110,6 +113,7 @@ enum CustomFieldType: string implements HasLabel
 			CustomFieldType::SELECT,
 			CustomFieldType::MULTI_SELECT,
 			CustomFieldType::TOGGLE_BUTTONS,
+			CustomFieldType::MULTI_TOGGLE_BUTTONS,
 			CustomFieldType::CHECKBOX_LIST,
 			CustomFieldType::RADIO => true,
 			CustomFieldType::STRING,

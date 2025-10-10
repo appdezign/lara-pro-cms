@@ -354,6 +354,18 @@ trait HasLaraBuilder
 				}
 
 			}
+
+			if($columnType == 'json') {
+				$object = new $modelClass;
+				if(!key_exists($fieldName, $object->getCasts())) {
+					Notification::make()
+						->title('Cast missing !')
+						->body('Cast array for ' . $fieldName . ' not found in model: ' . $modelClass . '<br><br>Make sure you add the appropriate cast to your model.')
+						->seconds(30)
+						->danger()
+						->send();
+				}
+			}
 		}
 
 	}

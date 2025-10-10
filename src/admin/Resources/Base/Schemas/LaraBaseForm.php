@@ -10,6 +10,7 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -903,6 +904,7 @@ trait LaraBaseForm
 				$rows[] = TextInput::make($field->field_name)
 					->label($label)
 					->numeric()
+					->default(0)
 					->required($field->is_required == 1)
 					->disabled($state == 'disabled')
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
@@ -919,6 +921,7 @@ trait LaraBaseForm
 					->label($label)
 					->live()
 					->options(fn($record) => static::getSelectFieldOptions($record, $field))
+					->searchable(false)
 					->required($field->is_required == 1)
 					->disabled($state == 'disabled')
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
@@ -928,6 +931,7 @@ trait LaraBaseForm
 					->label($label)
 					->multiple()
 					->options(array_combine($field->field_options, $field->field_options))
+					->searchable(false)
 					->required($field->is_required == 1)
 					->disabled($state == 'disabled')
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
@@ -950,6 +954,15 @@ trait LaraBaseForm
 			case 'togglebuttons':
 				$rows[] = ToggleButtons::make($field->field_name)
 					->label($label)
+					->options(array_combine($field->field_options, $field->field_options))
+					->required($field->is_required == 1)
+					->disabled($state == 'disabled')
+					->visible(fn(Get $get) => static::getFieldState($get, $field));
+				break;
+			case 'multitogglebuttons':
+				$rows[] = ToggleButtons::make($field->field_name)
+					->label($label)
+					->multiple()
 					->options(array_combine($field->field_options, $field->field_options))
 					->required($field->is_required == 1)
 					->disabled($state == 'disabled')
@@ -993,8 +1006,8 @@ trait LaraBaseForm
 			case 'longitude_11_8':
 				$rows[] = TextInput::make($field->field_name)
 					->label($label)
-					->default(0)
 					->numeric()
+					->default(0)
 					->step('any')
 					->required($field->is_required == 1)
 					->disabled($state == 'disabled')
