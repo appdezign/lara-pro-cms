@@ -10,6 +10,15 @@ class {{ CLASS }} extends BaseModel
 {
     protected $table = '{{ TABLE }}';
 
+	protected array $appendCasts = [];
+
+	public function __construct($attributes = [])
+	{
+		$this->mergeCasts($this->appendCasts);
+		parent::__construct($attributes);
+	}
+
+
     public function languageParent(): BelongsTo
 	{
 		return $this->belongsTo(self::class, 'language_parent');

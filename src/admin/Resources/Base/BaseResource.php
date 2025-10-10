@@ -83,7 +83,13 @@ class BaseResource extends Resource
 					->tabs(static::getLaraFormTabs())
 					->columnSpanFull()
 					->persistTab()
-					->id(fn ($record): string => static::getSlug() . '-' . $record->id . '-tab'),
+					->id(function ($operation, $record): string {
+						if($operation == 'edit') {
+							return static::getSlug() . '-' . $record->id . '-tab';
+						} else {
+							return static::getSlug() . '-tab';
+						}
+					}),
 			]);
 	}
 

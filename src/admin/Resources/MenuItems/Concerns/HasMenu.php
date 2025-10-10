@@ -75,18 +75,13 @@ trait HasMenu
 
 		} elseif ($type == 'form') {
 			$viewId = $data['entity_form_view_id'];
-			ray($viewId);
 			$data['entity_view_id'] = $viewId;
 			$view = EntityView::find($viewId);
-			ray($view);
 			if ($view) {
-				ray($view->entity_id);
 				$data['entity_id'] = $view->entity_id;
 			}
 			$data['object_id'] = null;
 			$data['url'] = null;
-
-			ray($data);
 		} elseif ($type == 'url') {
 			$data['entity_id'] = null;
 			$data['entity_view_id'] = null;
