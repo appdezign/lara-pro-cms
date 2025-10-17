@@ -26,7 +26,7 @@ class MenuItemResource extends Resource
 
 	protected static ?int $navigationSort = 900;
 
-	protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-bars-3';
+	protected static string | BackedEnum | null $navigationIcon = 'bi-menu-button';
 
 	protected static ?string $clanguage = null;
 

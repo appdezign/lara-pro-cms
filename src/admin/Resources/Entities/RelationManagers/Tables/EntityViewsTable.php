@@ -32,10 +32,10 @@ class EntityViewsTable
 			    IconColumn::make('is_single')
 				    ->label(_q(static::module() . '::' . static::slug() . '.column.is_single'))
 				    ->boolean()
-				    ->trueIcon('heroicon-o-check-circle')
+				    ->trueIcon('bi-check2-circle')
 				    ->trueColor('gray')
 				    ->state(fn($record) => ($record->is_single == 1) ? 1 : null)
-				    ->size('md'),
+				    ->size('sm'),
 			    TextColumn::make('list_type')
 				    ->label(_q(static::module() . '::' . static::slug() . '.column.list_type')),
 			    TextColumn::make('showtags')
@@ -45,17 +45,17 @@ class EntityViewsTable
 			    IconColumn::make('prevnext')
 				    ->label(_q(static::module() . '::' . static::slug() . '.column.prevnext'))
 				    ->boolean()
-				    ->trueIcon('heroicon-o-check-circle')
+				    ->trueIcon('bi-check2-circle')
 				    ->trueColor('gray')
 				    ->state(fn($record) => ($record->prevnext == 1) ? 1 : null)
-				    ->size('md'),
+				    ->size('sm'),
 			    TextColumn::make('template')
 				    ->label(_q(static::module() . '::' . static::slug() . '.column.template')),
 
 		    ])
 		    ->headerActions([
 			    CreateAction::make()
-				    ->icon('heroicon-s-plus')
+				    ->icon('bi-plus-lg')
 				    ->iconButton(),
 		    ])
 		    ->actions([

@@ -46,13 +46,13 @@ class EntityRelationsTable
 			    IconColumn::make('is_filter')
 				    ->label(_q(static::module() . '::' . static::slug() . '.column.is_filter'))
 				    ->boolean()
-				    ->trueIcon('heroicon-o-check-circle')
-				    ->size('md'),
+				    ->trueIcon('bi-check2-circle')
+				    ->size('sm'),
 
 		    ])
 		    ->headerActions([
 			    CreateAction::make()
-				    ->icon('heroicon-s-plus')
+				    ->icon('bi-plus-lg')
 				    ->iconButton()
 				    ->after(function ($record) {
 					    static::checkRelations($record->entity);

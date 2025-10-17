@@ -32,7 +32,7 @@ class ListEntities extends ListRecords
 		        ->modalHeading('Export DB'),
 
 	        CreateAction::make()
-		        ->icon('heroicon-s-plus')
+		        ->icon('bi-plus-lg')
 		        ->iconButton(),
         ];
     }

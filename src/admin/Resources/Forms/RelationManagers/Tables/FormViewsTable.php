@@ -34,7 +34,7 @@ class FormViewsTable
 		    ])
 		    ->headerActions([
 			    CreateAction::make()
-				    ->icon('heroicon-s-plus')
+				    ->icon('bi-plus-lg')
 				    ->iconButton(),
 		    ])
 		    ->actions([

@@ -63,7 +63,7 @@ class MenuItemForm
 						TextInput::make('slug')
 							->label(_q('lara-admin::default.column.slug'))
 							->maxLength(255)
-							->hintIcon(fn(Get $get): ?string => $get('slug_lock') ? 'heroicon-s-lock-closed' : null)
+							->hintIcon(fn(Get $get): ?string => $get('slug_lock') ? 'bi-lock-fill' : null)
 							->disabled()
 							->visible(fn($operation) => $operation == 'edit'),
 						Toggle::make('slug_edit')
@@ -85,7 +85,10 @@ class MenuItemForm
 						Select::make('parent_id')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.parent'))
 							->placeholder('root')
-							->options(fn ($record) => static::prepareMenuItems($record->id)),
+							->options(function ($record) {
+								$recordId = $record->id ?? null;
+								return static::prepareMenuItems($recordId);
+							}),
 						Fieldset::make('Content')
 							->columns(1)
 							->schema([
@@ -154,12 +157,19 @@ class MenuItemForm
 			]);
 	}
 
-	private static function prepareMenuItems($activeMenuItemId): array
+	private static function prepareMenuItems($activeMenuItemId = null): array
 	{
 		$menuArray = array();
-		$items = MenuItem::langIs(static::getContentLanguage())
-			->whereNot('id', $activeMenuItemId)
-			->get();
+
+		if($activeMenuItemId) {
+			$items = MenuItem::langIs(static::getContentLanguage())
+				->whereNot('id', $activeMenuItemId)
+				->get();
+		} else {
+			$items = MenuItem::langIs(static::getContentLanguage())
+				->get();
+		}
+
 		foreach($items as $item) {
 			$prefix = str_repeat('- ', $item->depth);
 			$menuArray[$item->id] = $prefix . $item->title;

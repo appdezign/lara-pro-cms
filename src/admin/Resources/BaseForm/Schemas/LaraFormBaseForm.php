@@ -240,8 +240,6 @@ trait LaraFormBaseForm
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
 				break;
 			case 'geolocation':
-
-				// temp
 				$rows[] = Select::make($field->field_name)
 					->label($label)
 					->options([
@@ -249,48 +247,6 @@ trait LaraFormBaseForm
 						'manual' => 'manual',
 						'hidden' => 'hidden',
 					]);
-			/*
-			// see: https://github.com/cheesegrits/filament-google-maps
-			$rows[] = TextInput::make('geo_full_address')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.full_address'))
-				->hintIcon('heroicon-m-question-mark-circle', tooltip: _q('lara-admin::geolocation.message.search_google_places'));
-
-			$rows[] = Map::make('geo_location')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.geo_location'))
-				->live()
-				->type('roadmap')
-				->height('400px')
-				->defaultZoom(13)
-				->autocomplete('geo_full_address')
-				->draggable(false)
-				->clickable(false)
-				->afterStateUpdated(function ($state, callable $get, callable $set) {
-					$set('geo_latitude', $state['lat']);
-					$set('geo_longitude', $state['lng']);
-				});
-			$rows[] = TextInput::make('geo_latitude')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.latitude'))
-				->live()
-				->readOnly()
-				->afterStateUpdated(function ($state, callable $get, callable $set) {
-					$set('geo_location', [
-						'lat' => floatVal($state),
-						'lng' => floatVal($get('geo_longitude')),
-					]);
-				})
-				->lazy();
-			$rows[] = TextInput::make('geo_longitude')
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.longitude'))
-				->live()
-				->readOnly()
-				->afterStateUpdated(function ($state, callable $get, callable $set) {
-					$set('geo_location', [
-						'lat' => floatval($get('geo_latitude')),
-						'lng' => floatVal($state),
-					]);
-				})
-				->lazy();
-			*/
 		}
 
 		// Add hidhen fields if necessary

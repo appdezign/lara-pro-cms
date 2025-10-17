@@ -28,19 +28,19 @@ class LaraListRecords extends ListRecords
 
 			Action::make('reorder')
 				->action(fn() => redirect()->route('filament.admin.resources.'.$resourceSlug.'.reorder', []))
-				->icon('heroicon-o-arrows-up-down')
+				->icon('bi-arrows-move')
 				->iconButton()
 				->visible(static::$resource::resourceIsSortable()),
 
 			Action::make('tags')
 				->action(function () use ($taxonomy, $resourceSlug) {
 					return redirect(TagResource::getUrl('index', ['filters[resource_slug][value]' => $resourceSlug, 'filters[taxonomy_id][value]' => $taxonomy->id]));
-				})->icon('heroicon-o-tag')
+				})->icon('bi-tags')
 				->iconButton()
 				->visible(static::$resource::resourceHasTerms()),
 
 			CreateAction::make()
-				->icon('heroicon-s-plus')
+				->icon('bi-plus-lg')
 				->iconButton()
 			->visible(static::$resource::getEntity()->cgroup != 'form'),
 		];

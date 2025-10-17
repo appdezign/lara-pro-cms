@@ -33,17 +33,17 @@ class ListTags extends ListRecords
 		if (static::$resourceRoute) {
 			$actions[] = Action::make('backtoindex')
 				->url(route(static::$resourceRoute))
-				->icon('heroicon-o-chevron-left')
+				->icon('bi-chevron-left')
 				->iconButton()
 				->color('gray');
 
 		}
 		$actions[] = Action::make('reorder')
 			->action(fn() => redirect()->route('filament.admin.resources.tags.reorder', []))
-			->icon('heroicon-o-arrows-up-down')
+			->icon('bi-arrows-move')
 			->iconButton();
 		$actions[] = CreateAction::make()
-			->icon('heroicon-s-plus')
+			->icon('bi-plus-lg')
 			->iconButton();
 		return $actions;
 	}

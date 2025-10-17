@@ -42,7 +42,9 @@ trait LaraBaseTable
 			->width('5%')
 			->toggleable()
 			->boolean()
-			->size('md')
+			->trueIcon('bi-check2-circle')
+			->falseIcon('bi-x-circle')
+			->size('sm')
 			->visibleFrom('md');
 
 		$customDateColumn = static::getCustomDateColumn();
@@ -100,7 +102,7 @@ trait LaraBaseTable
 				->width('5%')
 				->toggleable()
 				->boolean()
-				->trueIcon('heroicon-o-photo')
+				->trueIcon('bi-file-image')
 				->trueColor('secondary')
 				->size('md')
 				->state(fn($record) => ($record->hasImageCount()) ? true : null)
@@ -113,7 +115,7 @@ trait LaraBaseTable
 				->width('5%')
 				->toggleable()
 				->boolean()
-				->trueIcon('heroicon-o-document-text')
+				->trueIcon('bi-file-earmark-text')
 				->trueColor('secondary')
 				->size('md')
 				->state(fn($record) => ($record->hasFiles()) ? true : null)
@@ -126,7 +128,7 @@ trait LaraBaseTable
 				->width('5%')
 				->toggleable()
 				->boolean()
-				->trueIcon('heroicon-o-video-camera')
+				->trueIcon('bi-file-play')
 				->trueColor('secondary')
 				->size('md')
 				->state(fn($record) => ($record->hasVideos() || $record->hasVideoFiles()) ? true : null)

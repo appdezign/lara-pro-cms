@@ -25,11 +25,11 @@ class ListMenuItems extends ListRecords
 		return [
 			Action::make('reorder')
 				->action(fn() => redirect()->route('filament.admin.resources.menus.reorder', ['record' => static::getActiveMenuFilter()]))
-				->icon('heroicon-o-arrows-up-down')
+				->icon('bi-arrows-move')
 				->iconButton()
 				->visible(static::getActiveMenuFilter()),
 			CreateAction::make()
-				->icon('heroicon-s-plus')
+				->icon('bi-plus-lg')
 				->iconButton(),
 			Action::make('positions')
 				->label(_q('lara-admin::menu-reorder.button.positions'))

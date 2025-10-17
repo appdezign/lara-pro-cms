@@ -67,7 +67,7 @@ class TagsTable
 					->label('')
 					->width('10%')
 					->boolean()
-					->trueIcon('heroicon-o-lock-closed')
+					->trueIcon('bi-lock')
 					->trueColor('gray')
 					->state(fn($record) => ($record->locked_by_admin == 1) ? 1 : null)
 					->size('md'),
