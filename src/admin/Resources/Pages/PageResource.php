@@ -16,7 +16,7 @@ class PageResource extends BaseResource
 
 	protected static ?int $navigationSort = 10;
 
-	protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
+	protected static string|BackedEnum|null $navigationIcon = 'bi-file-earmark-text';
 
 	public static function getModule(): string
 	{

@@ -34,7 +34,7 @@ class SettingsTable
 				IconColumn::make('locked_by_admin')
 					->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.locked_by_admin'))
 					->boolean()
-					->trueIcon('heroicon-o-lock-closed')
+					->trueIcon('bi-lock')
 					->trueColor('danger')
 					->state(fn($record) => ($record->locked_by_admin) ? true : null)
 					->size('sm'),

@@ -70,7 +70,7 @@ class MenuItemsTable
 					->label('')
 					->width('5%')
 					->boolean()
-					->trueIcon('heroicon-o-lock-closed')
+					->trueIcon('bi-lock')
 					->trueColor('danger')
 					->state(fn($record) => ($record->locked_by_admin) ? true : null)
 					->size('sm'),
@@ -78,7 +78,7 @@ class MenuItemsTable
 					->label('')
 					->width('5%')
 					->boolean()
-					->trueIcon('heroicon-o-arrow-right-end-on-rectangle')
+					->trueIcon('bi-box-arrow-in-right')
 					->trueColor('danger')
 					->state(fn($record) => ($record->route_has_auth) ? true : null)
 					->size('md'),
@@ -119,18 +119,18 @@ class MenuItemsTable
 		$icon = '';
 		if ($record->type->value == 'page') {
 			if ($state == 1) {
-				$icon = 'heroicon-s-home';
+				$icon = 'bi-house-door-fill';
 			} else {
-				$icon = 'heroicon-o-document-text';
+				$icon = 'bi-file-earmark-text';
 			}
 		} elseif ($record->type->value == 'entity') {
-			$icon = 'heroicon-o-cube';
+			$icon = 'bi-box';
 		} elseif ($record->type->value == 'form') {
-			$icon = 'heroicon-o-document';
+			$icon = 'bi-file-earmark-text';
 		} elseif ($record->type->value == 'parent') {
-			$icon = 'heroicon-o-folder';
+			$icon = 'bi-folder2';
 		} elseif ($record->type->value == 'url') {
-			$icon = 'heroicon-o-link';
+			$icon = 'bi-link';
 		}
 
 		return $icon;

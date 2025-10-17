@@ -21,7 +21,7 @@ class LaraReorderRecords extends Page
 		return [
 			Action::make('backtoindex')
 				->url(static::getResource()::getUrl())->button()
-				->icon('heroicon-o-chevron-left')
+				->icon('bi-chevron-left')
 				->iconButton()
 				->color('gray'),
 		];

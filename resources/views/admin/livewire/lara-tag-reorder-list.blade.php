@@ -45,7 +45,7 @@
 											])>
 											<div class="flex content-center items-center">
 												<div class="border-r-2 border-gray-300 text-gray-400">
-													<x-heroicon-m-arrows-up-down class="w-4 h-4 m-2"/>
+													<x-bi-grip-vertical class="w-4 h-4 m-2"/>
 												</div>
 												<div class="ml-2 flex">
 													<span class="font-normal text-sm">{{ $item->title }}</span>

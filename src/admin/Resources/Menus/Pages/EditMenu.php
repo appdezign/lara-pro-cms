@@ -21,7 +21,7 @@ class EditMenu extends EditRecord
 		return [
 			Action::make('backtoindex')
 				->url(static::getResource()::getUrl())
-				->icon('heroicon-o-chevron-left')
+				->icon('bi-chevron-left')
 				->iconButton()
 				->color('gray'),
 			Action::make('save')

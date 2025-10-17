@@ -331,7 +331,7 @@ trait LaraBaseForm
 		$rows[] = TextInput::make('slug')
 			->label(_q('lara-admin::default.column.slug'))
 			->maxLength(255)
-			->hintIcon(fn(Get $get): ?string => $get('slug_lock') ? 'heroicon-s-lock-closed' : null)
+			->hintIcon(fn(Get $get): ?string => $get('slug_lock') ? 'bi-lock-fill' : null)
 			->disabled()
 			->visible(fn($operation) => $operation == 'edit');
 		$rows[] = Toggle::make('slug_edit')

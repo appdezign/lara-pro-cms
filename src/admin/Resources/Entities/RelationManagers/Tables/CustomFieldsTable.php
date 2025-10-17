@@ -38,22 +38,22 @@ class CustomFieldsTable
 				IconColumn::make('is_required')
 					->label(_q(static::module() . '::' . static::slug() . '.column.is_required'))
 					->boolean()
-					->trueIcon('heroicon-o-check-circle')
+					->trueIcon('bi-check2-circle')
 					->trueColor('gray')
 					->state(fn($record) => ($record->is_required == 1) ? 1 : null)
-					->size('md'),
+					->size('sm'),
 
 				IconColumn::make('show_in_list')
 					->label(_q(static::module() . '::' . static::slug() . '.column.show_in_list'))
 					->boolean()
-					->trueIcon('heroicon-o-check-circle')
+					->trueIcon('bi-check2-circle')
 					->trueColor('gray')
 					->state(fn($record) => ($record->show_in_list == 1) ? 1 : null)
-					->size('md'),
+					->size('sm'),
 				IconColumn::make('conditional')
 					->label(_q(static::module() . '::' . static::slug() . '.column.conditional'))
 					->boolean()
-					->trueIcon('heroicon-o-adjustments-horizontal')
+					->trueIcon('bi-sliders')
 					->trueColor('gray')
 					->state(fn($record) => ($record->conditional == 1) ? 1 : null)
 					->size('md'),
@@ -62,7 +62,7 @@ class CustomFieldsTable
 			])
 			->headerActions([
 				CreateAction::make()
-					->icon('heroicon-s-plus')
+					->icon('bi-plus-lg')
 					->iconButton()
 					->after(function (RelationManager $livewire, EntityCustomField $customField) {
 						static::checkRuleState($customField);

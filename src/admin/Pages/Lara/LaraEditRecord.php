@@ -109,7 +109,7 @@ class LaraEditRecord extends EditRecord
 
 		$rows[] = Action::make('backtoindex')
 			->url(static::getResource()::getUrl())
-			->icon('heroicon-o-chevron-left')
+			->icon('bi-chevron-left')
 			->iconButton()
 			->color('gray');
 
@@ -127,7 +127,7 @@ class LaraEditRecord extends EditRecord
 		if($previewRoute) {
 			$rows[] = Action::make('preview')
 				->url(route($previewRoute, $this->record->id), true)
-				->icon('heroicon-o-arrow-top-right-on-square')
+				->icon('bi-box-arrow-up-right')
 				->iconButton()
 				->color('gray');
 		}

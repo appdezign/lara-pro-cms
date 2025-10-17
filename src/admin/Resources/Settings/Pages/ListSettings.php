@@ -14,7 +14,7 @@ class ListSettings extends ListRecords
     {
         return [
 	        CreateAction::make()
-		        ->icon('heroicon-s-plus')
+		        ->icon('bi-plus-lg')
 		        ->iconButton(),
         ];
     }

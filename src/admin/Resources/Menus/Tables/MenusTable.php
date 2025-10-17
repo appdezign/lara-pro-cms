@@ -45,7 +45,7 @@ trait MenusTable
 
 		$actions[] = Action::make('configure_menu')
 			->label('')
-			->icon('heroicon-o-bars-3')
+			->icon('bi-menu-button')
 			->url(fn(Menu $record): string => static::getUrl('reorder', ['record' => $record]));
 
 		$actions[] = EditAction::make()

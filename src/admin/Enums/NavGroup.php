@@ -65,14 +65,14 @@ enum NavGroup: string implements HasLabel
 	{
 		return match ($this) {
 			self::Root => null,
-			self::Menu => 'heroicon-o-bars-3',
-			self::Modules => 'heroicon-o-cube',
-			self::Blocks => 'heroicon-o-square-3-stack-3d',
-			self::Forms => 'heroicon-o-document-text',
-			self::Tools => 'heroicon-o-wrench-screwdriver',
-			self::Seo => 'heroicon-o-chart-bar-square',
-			self::Users => 'heroicon-o-user-circle',
-			self::Builder => 'heroicon-o-wrench-screwdriver',
+			self::Menu => 'bi-menu-button',
+			self::Modules => 'bi-box',
+			self::Blocks => 'bi-layers',
+			self::Forms => 'bi-file-earmark-text',
+			self::Tools => 'bi-gear',
+			self::Seo => 'bi-bar-chart-line',
+			self::Users => 'bi-people',
+			self::Builder => 'bi-gear',
 		};
 	}
 

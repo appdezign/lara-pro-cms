@@ -17,12 +17,12 @@ class ListMenus extends ListRecords
         return [
 	        Action::make('backtoindex')
 		        ->url(route('filament.admin.resources.menu-items.index'))
-		        ->icon('heroicon-o-chevron-left')
+		        ->icon('bi-chevron-left')
 		        ->iconButton()
 		        ->color('gray'),
 
 	        CreateAction::make()
-		        ->icon('heroicon-s-plus')
+		        ->icon('bi-plus-lg')
 		        ->iconButton(),
         ];
     }

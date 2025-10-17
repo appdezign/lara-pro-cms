@@ -123,7 +123,7 @@ class AdminPanelProvider extends PanelProvider
 				CuratorPlugin::make()
 					->label('Media')
 					->pluralLabel('Media')
-					->navigationIcon('heroicon-o-photo')
+					->navigationIcon('bi-images')
 					->navigationGroup('Content')
 					->navigationSort(3),
 				*/
@@ -313,9 +313,9 @@ class AdminPanelProvider extends PanelProvider
 
 		// Replace default icons
 		FilamentIcon::register([
-			'actions::edit-action'   => 'heroicon-o-pencil-square',
-			'actions::view-action'   => 'heroicon-o-eye',
-			'actions::delete-action' => 'heroicon-o-trash',
+			'actions::edit-action'   => 'bi-pencil-square',
+			'actions::view-action'   => 'bi-eye',
+			'actions::delete-action' => 'bi-trash3',
 		]);
 
 		// RenderHooks
