@@ -1,9 +1,11 @@
+@use 'colors.scss' as col;
+
 .fi-sc-tabs.fi-contained {
 	background-color: transparent;
 	box-shadow: none;
 }
 .fi-tabs.fi-contained {
-	background-color: rgb(255, 255, 255);
+	background-color: col.$la-white;
 }
 .fi-sc-tabs.fi-contained .fi-sc-tabs-tab {
 	padding-left: 0;

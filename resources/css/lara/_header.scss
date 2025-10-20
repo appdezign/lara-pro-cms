@@ -1,11 +1,12 @@
+@use 'colors.scss' as col;
+
 .fi-header-heading {
 	font-weight: 300;
-	color: #647891
+	color: col.$la-slate-100
 }
 
 .fi-header .fi-ac {
 	column-gap: 24px;
-
 }
 
 .fi-page-header-main-ctn {

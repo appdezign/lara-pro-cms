@@ -1,3 +1,5 @@
+@use 'colors.scss' as col;
+
 .fi-ta-table th {
 	text-align: start;
 }
@@ -8,7 +10,7 @@
 
 .nested-indent {
 	display: inline-block;
-	color: rgb(140, 160, 185);
+	color: col.$la-slate-140;
 	padding: 0 0.5rem;
 }
 .nested-indent.nested-indent-0 {
@@ -42,16 +44,16 @@
 }
 
 .fi-ta-row.fi-clickable .fi-ta-col .fi-ta-text-item {
-	color: #1969d7 !important
+	color: col.$la-info !important
 }
 
 .fi-ta-row.fi-clickable .fi-ta-col:hover .fi-ta-text-item {
-	color: #d81b60 !important
+	color: col.$la-danger !important
 }
 
 .fi-ta-header-cell {
 	font-weight: 400 !important;
-	color: #647891
+	color: col.$la-slate-100
 }
 
 .fi-ta-cell .text-sm {

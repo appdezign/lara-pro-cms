@@ -1,3 +1,5 @@
+@use 'colors.scss' as col;
+
 input[type=checkbox].fi-checkbox-input {
 	width: 1.125rem;
 	height: 1.125rem;
@@ -29,8 +31,8 @@ input[type=checkbox].fi-checkbox-input {
 }
 
 .og-preview {
-	border: 1px solid #c8d2e1;
-	box-shadow: 0 0 12px #00000026;
+	border: 1px solid col.$la-slate-200;
+	box-shadow: 0 0 12px col.$la-black;
 	margin: 0 auto;
 	max-width: 100%;
 	text-align: left;
@@ -42,7 +44,7 @@ input[type=checkbox].fi-checkbox-input {
 }
 
 .og-preview .og-preview-content .og-preview-sitename {
-	color: #a0b4cd;
+	color: col.$la-slate-160;
 	font-size: 12px;
 	margin-bottom: 10px
 }
@@ -53,7 +55,7 @@ input[type=checkbox].fi-checkbox-input {
 }
 
 .og-preview .og-preview-content .og-preview-text {
-	color: #8ca0b9;
+	color: col.$la-slate-140;
 	font-size: 12px;
 	margin-bottom: 10px
 }

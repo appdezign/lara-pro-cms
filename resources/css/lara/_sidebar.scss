@@ -1,3 +1,5 @@
+@use 'colors.scss' as col;
+
 .fi-sidebar-header {
 	height: 3rem;
 	min-height: 3rem;
@@ -12,11 +14,11 @@
 }
 
 .fi-sidebar-header {
-	background: linear-gradient(90deg, #324d78 0, #223450) !important
+	background: linear-gradient(90deg, col.$la-topbar-bg1 0, col.$la-topbar-bg2) !important
 }
 
 .fi-sidebar {
-	background-color: rgb(21, 28, 41);
+	background-color: col.$la-sidebar-bg;
 }
 
 .fi-sidebar .fi-sidebar-item .fi-sidebar-item-btn {
@@ -39,20 +41,20 @@
 
 .fi-sidebar-item .fi-sidebar-item-btn .fi-sidebar-item-label {
 	font-weight: 400 !important;
-	color: rgb(145, 160, 180);
+	color: col.$la-sidebar-txt;
 }
 
 .fi-sidebar-item .fi-sidebar-item-btn:hover .fi-sidebar-item-label {
-	color: rgb(255, 255, 255);
+	color: col.$la-white;
 }
 
 .fi-sidebar-item.fi-active .fi-sidebar-item-btn .fi-sidebar-item-label {
-	color: rgb(255, 255, 255);
+	color: col.$la-white;
 }
 
 .fi-sidebar-group .fi-sidebar-group-btn .fi-sidebar-group-label {
 	font-weight: 400 !important;
-	color: rgb(145, 160, 180);
+	color: col.$la-sidebar-txt;
 }
 
 .fi-sidebar .fi-sidebar-item .fi-sidebar-item-btn {
@@ -85,11 +87,11 @@
 .fi-sidebar .fi-sidebar-item-grouped-border .fi-sidebar-item-grouped-border-part {
 	width: .25rem;
 	height: .25rem;
-	background-color: #788ca5 !important
+	background-color: col.$la-slate-120 !important
 }
 
 .fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-grouped-border .fi-sidebar-item-grouped-border-part {
 	width: .3125rem;
 	height: .3125rem;
-	background-color: rgb(0, 131, 166) !important
+	background-color: col.$la-primary !important
 }

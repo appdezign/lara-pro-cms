@@ -1,24 +1,26 @@
+@use 'colors.scss' as col;
+
 nav.fi-topbar {
 	height: 3rem;
 	min-height: 3rem;
-	background: linear-gradient(90deg, #324d78 0, #223450) !important;
+	background: linear-gradient(90deg, col.$la-topbar-bg1 0, col.$la-topbar-bg2) !important;
 
 	button {
-		color: #91a0b4;
+		color: col.$la-slate-140;
 		&:hover {
-			color: #fff;
+			color: col.$la-white;
 		}
 		&:disabled {
-			color: #647891;
+			color: col.$la-slate-100;
 			&:hover {
-				color: #647891;
+				color: col.$la-slate-100;
 			}
 		}
 	}
 	a {
-		color: #91a0b4;
+		color: col.$la-slate-140;
 		&:hover {
-			color: #fff
+			color: col.$la-white
 		}
 	}
 }
@@ -30,7 +32,7 @@ nav.fi-topbar {
 			width: 16.5rem;
 			height: 100%;
 			margin-inline-end: 0;
-			background: linear-gradient(90deg, #324d78 0, #223450) !important
+			background: linear-gradient(90deg, col.$la-topbar-bg1 0, col.$la-topbar-bg2) !important
 		}
 	}
 }
