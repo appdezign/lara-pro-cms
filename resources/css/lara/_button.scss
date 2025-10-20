@@ -1,17 +1,13 @@
+@use 'colors.scss' as col;
+
 a.fi-color-primary.fi-bg-color-400,
 button.fi-color-primary.fi-bg-color-400 {
-	background-color: rgb(0, 131, 166);
-	color: rgb(255, 255, 255);
+	background-color: col.$la-primary;
+	color: col.$la-white;
 }
 
 a.fi-color-primary.fi-bg-color-400:hover,
 button.fi-color-primary.fi-bg-color-400:hover {
-	background-color: rgb(0, 146, 184);
-	color: rgb(255, 255, 255);
+	background-color: col.$la-primary-darker;
+	color: col.$la-white;
 }
-
-/*
-.fi-btn.fi-color.fi-color-danger {
-	background-color: rgb(194, 24, 86) !important;
-}
-*/

@@ -1,5 +1,7 @@
+@use 'colors.scss' as col;
+
 .fi-body {
-	background-color: rgb(247, 249, 253);
+	background-color: col.$la-slate-white;
 }
 
 .fi-sc-form {
@@ -26,7 +28,7 @@
 	right: 0;
 	width: 100%;
 	padding: .75rem 1.5rem;
-	background-color: #fff;
+	background-color: col.$la-white;
 	box-shadow: 0 2px 3px #0000001f;
 	z-index: 10;
 }
@@ -57,7 +59,7 @@
 .fi-section-header-heading {
 	font-size:1.125rem;
 	font-weight: 400;
-	color: rgb(0, 131, 166);
+	color: col.$la-primary;
 }
 
 .first-entity-section .fi-section {
@@ -65,12 +67,12 @@
 }
 
 .language-version-link {
-	color: rgb(0, 131, 166);
+	color: col.$la-primary;
 }
 .language-version-link:hover {
-	color: #d81b60;
+	color: col.$la-danger;
 }
 
 .fi-fieldset > legend{
-	color: #d81b60;
+	color: col.$la-danger;
 }

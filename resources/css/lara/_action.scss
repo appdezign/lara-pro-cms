@@ -1,19 +1,21 @@
+@use 'colors.scss' as col;
+
 /* header actions */
 .fi-header .fi-icon-btn,
 .fi-resource-relation-manager .fi-icon-btn {
-	color: rgb(0, 131, 166);
-	border: solid 1px rgb(0, 131, 166);
+	color: col.$la-primary;
+	border: solid 1px col.$la-primary;
 }
 
 .fi-header .fi-icon-btn:hover,
 .fi-resource-relation-manager .fi-icon-btn:hover {
-	background-color: rgb(0, 131, 166);
-	color: #fff
+	background-color: col.$la-primary;
+	color: col.$la-white;
 }
 
 /* table actions */
 .fi-ta-actions .fi-icon {
-	color: rgb(60, 80, 105);
+	color: col.$la-slate-60;
 }
 
 .fi-ta-actions .fi-icon.fi-size-sm {
@@ -27,13 +29,13 @@
 	border-radius: 0.25rem !important;
 }
 .fi-ta-actions .fi-link:hover {
-	border-color: rgb(0, 131, 166);
+	border-color: col.$la-primary;
 }
 .fi-ta-actions .fi-link:hover .fi-icon {
-	color: rgb(0, 131, 166);
+	color: col.$la-primary;
 }
 
 .fi-resource-relation-manager .fi-ta-actions .fi-icon-btn:hover .fi-icon {
-	color: #fff
+	color: col.$la-white
 }
 

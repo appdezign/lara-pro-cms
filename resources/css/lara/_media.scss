@@ -1,3 +1,5 @@
+@use 'colors.scss' as col;
+
 .lara-gallery-section .fi-sc.fi-sc-has-gap,
 .lara-media-section .fi-sc.fi-sc-has-gap {
 	gap: 1rem;
@@ -20,7 +22,7 @@
 }
 
 .lara-files-section .filepond--file {
-	color: #666;
+	color: col.$la-slate-80;
 }
 
 .lara-files-section .fi-fo-repeater-add .fi-ac-btn-action,
@@ -29,16 +31,16 @@
 .lara-media-section .fi-fo-repeater-add .fi-ac-btn-action {
 	margin: 0.25rem 0.75rem;
 	box-shadow: none;
-	border: solid 1px rgb(0, 131, 166);
+	border: solid 1px col.$la-primary;
 	border-radius: 4px;
-	color: #007896;
+	color: col.$la-primary;
 }
 .lara-files-section .fi-fo-repeater-add .fi-ac-btn-action:hover,
 .lara-videofiles-section .fi-fo-repeater-add .fi-ac-btn-action:hover,
 .lara-videos-section .fi-fo-repeater-add .fi-ac-btn-action:hover,
 .lara-media-section .fi-fo-repeater-add .fi-ac-btn-action:hover {
-	background-color: rgb(0, 131, 166);
-	color: #fff;
+	background-color: col.$la-primary;
+	color: col.$la-white;
 }
 
 .lara-gallery-section .fi-fo-repeater-add {
@@ -49,7 +51,7 @@
 	margin-top: 1.5rem;
 	font-size: 1rem;
 	font-weight: 400;
-	color: #d81b60;
+	color: col.$la-danger;
 }
 
 .lara-media-section .filepond--image-bitmap,
