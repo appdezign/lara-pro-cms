@@ -36,7 +36,7 @@ return new class extends Migration
             $table->boolean('publish_expire')->default(false);
             $table->timestamp('publish_to')->nullable();
             $table->boolean('publish_hide')->default(false);
-            $table->unsignedInteger('position')->nullable();
+            $table->unsignedInteger('position')->default(0);
             $table->string('cgroup')->nullable();
         });
     }

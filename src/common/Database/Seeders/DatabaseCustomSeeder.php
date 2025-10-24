@@ -1,12 +1,15 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;;
+namespace Lara\Common\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class DatabaseCustomSeeder extends Seeder
 {
+	use WithoutModelEvents;
+
     /**
      * Seed the application's database.
      */
@@ -16,13 +19,13 @@ class DatabaseCustomSeeder extends Seeder
 	    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
 		// Auth
-	    $this->call(LaraAuthUsersTableSeeder::class);
-	    $this->call(LaraAuthRolesTableSeeder::class);
-	    $this->call(LaraAuthPermissionsTableSeeder::class);
 	    $this->call(LaraAuthModelHasPermissionsTableSeeder::class);
 	    $this->call(LaraAuthModelHasRolesTableSeeder::class);
-	    $this->call(LaraAuthRoleHasPermissionsTableSeeder::class);
 	    $this->call(LaraAuthPasswordResetTokensTableSeeder::class);
+	    $this->call(LaraAuthPermissionsTableSeeder::class);
+	    $this->call(LaraAuthRoleHasPermissionsTableSeeder::class);
+	    $this->call(LaraAuthRolesTableSeeder::class);
+	    $this->call(LaraAuthUsersTableSeeder::class);
 
 		// Blocks
         $this->call(LaraBlocksCtasTableSeeder::class);
@@ -31,12 +34,14 @@ class DatabaseCustomSeeder extends Seeder
 
 		// Content
         $this->call(LaraContentBlogsTableSeeder::class);
+        $this->call(LaraContentCitiesTableSeeder::class);
         $this->call(LaraContentDocsTableSeeder::class);
         $this->call(LaraContentEventsTableSeeder::class);
         $this->call(LaraContentGalleriesTableSeeder::class);
         $this->call(LaraContentLocationsTableSeeder::class);
         $this->call(LaraContentPagesTableSeeder::class);
         $this->call(LaraContentPortfoliosTableSeeder::class);
+        $this->call(LaraContentProductsTableSeeder::class);
         $this->call(LaraContentServicesTableSeeder::class);
         $this->call(LaraContentTeamsTableSeeder::class);
         $this->call(LaraContentTestimonialsTableSeeder::class);

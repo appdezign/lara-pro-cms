@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lara_content_locations', function (Blueprint $table) {
+        Schema::create('lara_content_products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index('lara_content_locations_user_id_foreign');
+            $table->unsignedBigInteger('user_id')->index('lara_content_products_user_id_foreign');
             $table->string('language')->nullable();
             $table->unsignedBigInteger('language_parent')->nullable();
             $table->string('title')->nullable();
@@ -21,13 +21,25 @@ return new class extends Migration
             $table->boolean('slug_lock')->default(false);
             $table->text('lead')->nullable();
             $table->text('body')->nullable();
-            $table->string('geo_location')->nullable();
-            $table->string('geo_country')->nullable();
-            $table->string('geo_city')->nullable();
-            $table->string('geo_pcode')->nullable();
-            $table->string('geo_address')->nullable();
-            $table->decimal('geo_longitude', 11, 8)->nullable();
-            $table->decimal('geo_latitude', 10, 8)->nullable();
+            $table->string('mycolor')->nullable();
+            $table->json('myradio')->nullable();
+            $table->boolean('mycheckbox')->default(false);
+            $table->json('mycheckboxlist')->nullable();
+            $table->json('mymultitogglebuttons')->nullable();
+            $table->text('mytogglebuttons')->nullable();
+            $table->boolean('mytoggle')->default(false);
+            $table->json('mytagsinput')->nullable();
+            $table->json('mymultiselect')->nullable();
+            $table->text('myselect_2')->nullable();
+            $table->timestamp('mydatetime')->nullable();
+            $table->time('mytime')->nullable();
+            $table->date('mydate')->nullable();
+            $table->decimal('mydecimal', 16, 4)->default(0);
+            $table->text('mytextarea')->nullable();
+            $table->integer('mynumber')->default(0);
+            $table->text('mytext')->nullable();
+            $table->string('myemail')->nullable();
+            $table->string('mystring')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->boolean('publish')->default(false);
@@ -45,6 +57,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lara_content_locations');
+        Schema::dropIfExists('lara_content_products');
     }
 };
