@@ -5,8 +5,23 @@
 	color: col.$la-slate-100
 }
 
+.lara-focus-mode {
+	.fi-header {
+		.fi-header-heading {
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	}
+}
+
 .fi-header .fi-ac {
-	column-gap: 24px;
+	column-gap: 12px;
+}
+
+@media (min-width: 992px) {
+	.fi-header .fi-ac {
+		column-gap: 24px;
+	}
 }
 
 .fi-page-header-main-ctn {

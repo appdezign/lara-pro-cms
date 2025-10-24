@@ -19,8 +19,16 @@
 }
 
 .lara-focus-mode {
-	padding-top: 5rem;
+	padding-top: 7rem;
 }
+
+@media (min-width: 640px) {
+	.lara-focus-mode {
+		padding-top: 5rem;
+	}
+}
+
+
 .lara-focus-mode .fi-header {
 	position: fixed;
 	top: 0;
