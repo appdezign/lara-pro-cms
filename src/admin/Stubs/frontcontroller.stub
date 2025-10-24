@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ NAMESPACE }};
+
+use Lara\App\Http\Controllers\Front\Base\AppFrontController;
+
+use Lara\App\Models\{{ MODEL }};
+
+class {{ CLASS }} extends AppFrontController
+{
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	protected function make(): {{ MODEL }}
+	{
+		return {{ MODEL }}::create();
+	}
+
+}
