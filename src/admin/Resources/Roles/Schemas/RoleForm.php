@@ -5,6 +5,7 @@ namespace Lara\Admin\Resources\Roles\Schemas;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -49,6 +50,9 @@ class RoleForm
 					->selectablePlaceholder(false)
 					->required(fn($operation) => $operation == 'create')
 					->disabled(fn($operation) => $operation == 'edit'),
+				Toggle::make('has_panel_access')
+					->label(_q('lara-admin::default.column.has_panel_access'))
+					->inlineLabel(true)
 
 			]);
 
