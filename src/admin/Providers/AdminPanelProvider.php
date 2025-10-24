@@ -46,6 +46,7 @@ use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\NavGroup;
 use Lara\Admin\Fonts\LaraFontProvider;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
+use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Traits\HasLanguage;
 use Lara\Admin\Traits\HasParams;
 use Lara\Admin\Widgets\Analytics;
@@ -116,7 +117,7 @@ class AdminPanelProvider extends PanelProvider
 			->plugins([
 				GoogleAnalyticsPlugin::make(),
 				VersionsPlugin::make()
-					->hasNavigationView(false)
+					->hasNavigationView(true)
 					->widgetColumnSpan('full')
 					->widgetSort(99999),
 				/*
@@ -132,7 +133,10 @@ class AdminPanelProvider extends PanelProvider
 				ResourceLockPlugin::make(),
 				BreezyCore::make()
 					->enableTwoFactorAuthentication()
-					->myProfile(),
+					->myProfile()
+					->myProfileComponents([
+						'personal_info' => LaraProfile::class,
+					]),
 			])
 			->authMiddleware([
 				FilamentAuthenticate::class,
