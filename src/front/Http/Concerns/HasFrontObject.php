@@ -10,6 +10,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
@@ -695,30 +696,32 @@ trait HasFrontObject
 	/**
 	 * @param $language
 	 * @param $entity
+	 * @param FrontActiveRoute $activeroute
 	 * @param $object
 	 * @param $menuTag
-	 * @return string
+	 * @param $ispreview
+	 * @return string|null
 	 */
-	private function getEntityListUrl($language, $entity, FrontActiveRoute $activeroute, $object, $menuTag): string
+	private function getEntityListUrl($language, $entity, FrontActiveRoute $activeroute, $object, $menuTag, $ispreview): ?string
 	{
-
-		if ($menuTag) {
-			$node = MenuItem::where('language', $language)
-				->where('entity_id', $entity->getEntityId())
-				->where('tag_id', $menuTag->id)
-				->first();
-
-			if ($node) {
-				$url = url($language . '/' . $node->route);
+		if($ispreview) {
+			return null;
+		} else {
+			if ($menuTag) {
+				$node = MenuItem::where('language', $language)
+					->where('entity_id', $entity->getEntityId())
+					->where('tag_id', $menuTag->id)
+					->first();
+				if ($node) {
+					$url = url($language . '/' . $node->route);
+				} else {
+					$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
+				}
 			} else {
 				$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
 			}
-		} else {
-			$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
+			return $url;
 		}
-
-		return $url;
-
 	}
 
 	private function getDefaultEntityListUrl($language, $entity, FrontActiveRoute $activeroute): string
@@ -735,6 +738,10 @@ trait HasFrontObject
 		}
 
 		return $url;
+	}
+
+	private function isPreview($routename) {
+		return Str::startsWith($routename, 'content.') || Str::startsWith($routename, 'contenttag.');
 	}
 
 }
