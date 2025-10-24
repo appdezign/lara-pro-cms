@@ -67,7 +67,7 @@ class CustomFieldsTable
 					->after(function (RelationManager $livewire, EntityCustomField $customField) {
 						static::checkRuleState($customField);
 						static::checkCustomDatabaseColumns($livewire->getOwnerRecord());
-						static::clearCache();
+						static::clearCacheTypes();
 					}),
 			])
 			->actions([
@@ -76,13 +76,13 @@ class CustomFieldsTable
 					->after(function (RelationManager $livewire, EntityCustomField $customField) {
 						static::checkRuleState($customField);
 						static::checkCustomDatabaseColumns($livewire->getOwnerRecord());
-						static::clearCache();
+						static::clearCacheTypes();
 					}),
 				DeleteAction::make()
 					->label('')
 					->after(function (EntityCustomField $customField) {
 						static::dropCustomColumn($customField);
-						static::clearCache();
+						static::clearCacheTypes();
 					}),
 			])
 			->bulkActions([])
