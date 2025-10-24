@@ -22,6 +22,13 @@ trait HasSetup
 	private function migrateFresh(int $step)
 	{
 
+		/*
+		 * Migrations are loaded from:
+		 * - Lara\Common\Database\Migrations
+		 * - Lara\App\Database\Migrations
+		 *
+		 * See: Lara\Common\Providers\LaraCommonServiceProvider
+		 */
 		Artisan::call('migrate:fresh', [
 			'--force' => true,
 		]);
@@ -38,7 +45,12 @@ trait HasSetup
 	{
 
 		Artisan::call('db:seed', [
-			'--class' => 'Lara\Common\Database\Seeders\DatabaseCustomSeeder',
+			'--class' => 'Lara\Common\Database\Seeders\DatabaseCommonSeeder',
+			'--force' => true,
+		]);
+
+		Artisan::call('db:seed', [
+			'--class' => 'Lara\App\Database\Seeders\DatabaseAppSeeder',
 			'--force' => true,
 		]);
 

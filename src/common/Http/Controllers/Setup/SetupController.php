@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
@@ -18,26 +19,6 @@ class SetupController extends Controller
 
 	use HasSetup;
 
-	/**
-	 * @var string
-	 */
-	protected $source;
-
-	/**
-	 * @var string
-	 */
-	protected $dest;
-
-	public function __construct()
-	{
-
-		$this->migrationSource = base_path('laracms/core/src/common/Database/Migrations');
-		$this->migrationDest = base_path('database/migrations');
-
-		$this->seederSource = base_path('laracms/core/src/common/Database/Seeders');
-		$this->seederDest = base_path('database/seeders');
-
-	}
 
 	/**
 	 * @return Application|Factory|View
