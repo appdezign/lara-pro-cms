@@ -75,6 +75,30 @@ trait HasLaraBuilder
 			])
 			->generate();
 
+		// stub - lara entity
+		LaravelStub::from($fromPath . 'laraentity.stub')
+			->to($toPath . 'Lara')
+			->name($modelNamePlural . 'Entity')
+			->ext('php')
+			->replaces([
+				'NAMESPACE'    => 'Lara\App\Lara',
+				'CLASS'        => $modelNamePlural . 'Entity',
+				'RESOURCESLUG' => $modelVarPlural,
+			])
+			->generate();
+
+		// stub - frontend controller
+		LaravelStub::from($fromPath . 'frontcontroller.stub')
+			->to($toPath . 'Http/Controllers/Front/Entity')
+			->name($modelNamePlural . 'Controller')
+			->ext('php')
+			->replaces([
+				'NAMESPACE' => 'Lara\App\Http\Controllers\Front\Entity',
+				'CLASS'     => $modelNamePlural . 'Controller',
+				'MODEL'     => $modelNameSingle,
+			])
+			->generate();
+
 		// stub - resource
 		$resourceStub = ($isForm) ? 'formresource.stub' : 'resource.stub';
 		LaravelStub::from($fromPath . $resourceStub)
@@ -104,8 +128,8 @@ trait HasLaraBuilder
 		// pages namespace
 		$pagesNamespace = 'Lara\App\Filament\Resources\\' . $resourceDir . '\Pages';
 
-		// stub - create record page
 		if (!$isForm) {
+			// stub - create record page
 			LaravelStub::from($fromPath . 'createrecord.stub')
 				->to($resourcePagesPath)
 				->name('CreateRecord')
@@ -241,7 +265,7 @@ trait HasLaraBuilder
 					$table->timestamp('publish_to')->nullable();
 					$table->boolean('publish_hide')->default(0);
 
-					$table->integer('position')->unsigned()->nullable();
+					$table->integer('position')->unsigned()->default(0);
 					$table->string('cgroup')->nullable();
 
 				});
@@ -355,9 +379,9 @@ trait HasLaraBuilder
 
 			}
 
-			if($columnType == 'json') {
+			if ($columnType == 'json') {
 				$object = new $modelClass;
-				if(!key_exists($fieldName, $object->getCasts())) {
+				if (!key_exists($fieldName, $object->getCasts())) {
 					Notification::make()
 						->title('Cast missing !')
 						->body('Cast array for ' . $fieldName . ' not found in model: ' . $modelClass . '<br><br>Make sure you add the appropriate cast to your model.')
