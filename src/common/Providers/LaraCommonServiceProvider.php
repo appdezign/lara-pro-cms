@@ -42,7 +42,7 @@ class LaraCommonServiceProvider extends ServiceProvider
 
 		$this->loadMigrationsFrom([
 			base_path('laracms/core/src/common/Database/Migrations'),
-			base_path('app/Database/Migrations'),
+			base_path('laracms/app/Database/Migrations'),
 		]);
 
 		// register global middleware

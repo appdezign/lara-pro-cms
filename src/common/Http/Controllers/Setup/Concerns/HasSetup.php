@@ -44,13 +44,18 @@ trait HasSetup
 	private function runSeeders(int $step)
 	{
 
+		/*
+		 * Seeders are loaded from:
+		 * - Lara\Common\Database\Seeders
+		 * - Lara\App\Database\Seeders
+		 *
+		 */
 		Artisan::call('db:seed', [
-			'--class' => 'Lara\Common\Database\Seeders\DatabaseCommonSeeder',
+			'--class' => '\Lara\Common\Database\Seeders\DatabaseCommonSeeder',
 			'--force' => true,
 		]);
-
 		Artisan::call('db:seed', [
-			'--class' => 'Lara\App\Database\Seeders\DatabaseAppSeeder',
+			'--class' => '\Lara\App\Database\Seeders\DatabaseAppSeeder',
 			'--force' => true,
 		]);
 
