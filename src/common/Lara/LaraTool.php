@@ -12,6 +12,7 @@ class LaraTool
 	protected ?string $module; // eve, admin
 	protected ?string $prefix = null;
 	protected ?string $method = null;
+	protected ?string $cgroup = null;
 
 	public function getModule(): ?string
 	{
