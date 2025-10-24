@@ -13,7 +13,7 @@ document.addEventListener('alpine:init', () => {
 					// root item is clicked
 					setTimeout(() => {
 						collapseAllGroups('root');
-					}, "100");
+					}, "200");
 				}
 			}
 
@@ -22,7 +22,7 @@ document.addEventListener('alpine:init', () => {
 				collapsingLabel = listItem.dataset.groupLabel;
 				setTimeout(() => {
 					collapseAllGroups(collapsingLabel);
-				}, "100");
+				}, "200");
 			}
 		})
 	})
