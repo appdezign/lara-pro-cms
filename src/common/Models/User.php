@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Yebor974\Filament\RenewPassword\Traits\RenewPassword;
 use Yebor974\Filament\RenewPassword\Contracts\RenewPasswordContract;
 
-class User extends Authenticatable  implements RenewPasswordContract
+class User extends Authenticatable  implements RenewPasswordContract, FilamentUser
 {
 	use Notifiable;
 	use SoftDeletes;
@@ -60,4 +63,20 @@ class User extends Authenticatable  implements RenewPasswordContract
 			'password'          => 'hashed',
 		];
 	}
+
+	public function canAccessPanel(Panel $panel): bool
+	{
+		return $this->hasPanelAccess();
+	}
+
+	public function hasPanelAccess(): bool
+	{
+		foreach($this->roles as $role) {
+			if($role->has_panel_access) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
