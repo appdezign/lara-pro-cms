@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
+use Lara\Common\Models\User;
 
 trait HasSetup
 {
@@ -81,6 +82,15 @@ trait HasSetup
 
 	}
 
+	private function setSuperAdminPassword()
+	{
+		$user = User::where('name', 'superadmin')->first();
+		if($user) {
+			$user->password = session('super_admin_password');
+			$user->save();
+		}
+	}
+
 	/**
 	 * @return void
 	 */
@@ -93,9 +103,10 @@ trait HasSetup
 
 	}
 
-	private function finishSetup($type) {
+	private function finishSetup($type)
+	{
 
-		if($type == 'essential') {
+		if ($type == 'essential') {
 			File::cleanDirectory(base_path('laracms/app/Filament/Resources'));
 			File::cleanDirectory(base_path('laracms/app/Lara'));
 			File::cleanDirectory(base_path('laracms/app/Models'));

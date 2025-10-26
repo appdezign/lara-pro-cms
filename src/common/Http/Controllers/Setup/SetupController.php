@@ -64,31 +64,27 @@ class SetupController extends Controller
 		if ($step == 1) {
 
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => $step,
 			]);
 
 		} elseif ($step == 2) {
 
-			$type = session('seeder_type');
-
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => $step,
-				'type'   => $type,
 			]);
 
 		} elseif ($step == 3) {
 
+			$type = session('seeder_type');
+
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => $step,
+				'type'   => $type,
 			]);
 
 		} else {
 
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => 1,
 			]);
 
@@ -118,15 +114,26 @@ class SetupController extends Controller
 
 		if ($step == 1) {
 
+			$minLength = config('lara-common.setup.passwords.min_length');
+			$validated = $request->validate([
+				'password' => 'required|min:' . $minLength,
+			]);
+
+			$password = $request->input('password');
+			session(['super_admin_password' => $password]);
+
+		} elseif ($step == 2) {
+
 			$type = $request->input('seeder_type');
 			session(['seeder_type' => $type]);
 
 			$this->migrateFresh($type, $step);
 
-		} elseif ($step == 2) {
+		} elseif ($step == 3) {
 
 			$type = $request->input('seeder_type');
 			$this->runSeeders($type, $step);
+			$this->setSuperAdminPassword();
 
 			// cleanup
 			$this->finishSetup($type);

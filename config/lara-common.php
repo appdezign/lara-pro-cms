@@ -62,4 +62,9 @@ return [
 
 	],
 
+	'setup' => [
+		'passwords'  => [
+			'min_length' => env('LARA_PASSWORDS_MIN_LENGTH', 6),
+		],
+	],
 ];

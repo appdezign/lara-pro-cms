@@ -108,7 +108,8 @@ trait HasMigrations
 		];
 		foreach ($tables as $tablename) {
 			if (!in_array($tablename, $exclude)) {
-				Iseed::generateSeed($tablename, 'Demo');
+				$where = ($tablename == 'lara_auth_users') ? "name = 'superadmin'" : null;
+				Iseed::generateSeed($tablename, 'Demo', null, null, 0, 0, null, null, null, true, true, null, 'ASC', $where);
 			}
 		}
 	}

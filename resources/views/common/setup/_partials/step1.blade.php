@@ -3,14 +3,37 @@
 	->open() }}
 
 <div class="setup-header">
-	<h3 class="fs-5 fw-light text-danger">Step 1 - Migrate Database</h3>
+	<h3 class="fs-5 fw-light text-danger">Step 1 - Create Account</h3>
 </div>
 <div class="setup-content">
-	<label for="seeder_type">Select Content</label>
-	<select name="seeder_type" class="form-select" style="width: 200px;" >
-		<option value="essential" selected>Essential</option>
-		<option value="demo">Full Demo</option>
-	</select>
+
+	@if ($errors->any())
+		<div class="alert alert-danger">
+			<ul>
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
+
+	<div class="row py-2">
+		<div class="col-3">
+			user
+		</div>
+		<div class="col-9">
+			superadmin
+		</div>
+	</div>
+
+	<div class="row py-2">
+		<div class="col-3">
+			password
+		</div>
+		<div class="col-9">
+			{{ html()->text('password')->class('form-control')->placeholder('password') }}
+		</div>
+	</div>
 </div>
 <div class="setup-footer text-end">
 	{{ html()->button('next', 'submit')->id('next-button')->class('btn btn-sm btn-danger next-button float-end')->style(['width' => '100px']) }}
