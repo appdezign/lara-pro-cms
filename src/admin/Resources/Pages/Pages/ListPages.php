@@ -34,7 +34,7 @@ class ListPages extends LaraListRecords
 
 		DB::table('lara_content_pages')
 			->where('language', static::$clanguage)
-			->update(['ishome' => 0, 'position' => 0, 'menuroute' => null]);
+			->update(['is_home' => 0, 'position' => 0, 'menuroute' => null]);
 
 		// menu pages
 		$menuItems = MenuItem::where('type', 'page')->get();
@@ -42,6 +42,7 @@ class ListPages extends LaraListRecords
 			$page = Page::find($menuItem->object_id);
 			$page->position = $menuItem->position;
 			$page->menuroute = '/' . $menuItem->route;
+			$page->is_home = $menuItem->is_home;
 			$page->save();
 		}
 
