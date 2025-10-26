@@ -4,7 +4,7 @@ namespace Lara\Common\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LaraSysBlacklistTableSeeder extends Seeder
+class LaraLaraAuthPasswordResetTokensTableSeeder extends Seeder
 {
 
     /**
@@ -16,7 +16,7 @@ class LaraSysBlacklistTableSeeder extends Seeder
     {
         
 
-        \DB::table('lara_sys_blacklist')->delete();
+        \DB::table('lara_auth_password_reset_tokens')->delete();
         
         
         

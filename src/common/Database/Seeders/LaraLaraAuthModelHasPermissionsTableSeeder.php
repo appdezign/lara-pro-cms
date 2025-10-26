@@ -4,7 +4,7 @@ namespace Lara\Common\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LaraAuthModelHasPermissionsTableSeeder extends Seeder
+class LaraLaraAuthModelHasPermissionsTableSeeder extends Seeder
 {
 
     /**

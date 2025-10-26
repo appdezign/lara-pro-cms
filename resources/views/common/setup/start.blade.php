@@ -2,29 +2,31 @@
 
 @section('content')
 
-		@if($dbsuccess)
+	@if($dbsuccess)
 
-			{{ html()->form('POST', route('setup.start'))
-				->attributes(['accept-charset' => 'UTF-8'])
-				->open() }}
+		{{ html()->form('POST', route('setup.start'))
+			->attributes(['accept-charset' => 'UTF-8'])
+			->open() }}
 
+
+		<div class="setup-header">
 			<h3 class="fs-5 fw-light text-danger">Start</h3>
-
-			<div class="row mb-5">
-				<div class="col">
-					{{ html()->button('next', 'submit')->id('next-button')->class('btn btn-sm btn-danger next-button float-end')->style(['width' => '100px']) }}
-				</div>
-			</div>
-
+		</div>
+		<div class="setup-content">
 			<p>{!! $dbmessage !!}</p>
+		</div>
+		<div class="setup-footer text-end">
+			{{ html()->button('next', 'submit')->id('next-button')->class('btn btn-sm btn-danger next-button')->style(['width' => '100px']) }}
+		</div>
 
-			{{ html()->form()->close() }}
 
-		@else
+		{{ html()->form()->close() }}
 
-			<p>{!! $dbmessage !!}</p>
+	@else
 
-		@endif
+		<p>{!! $dbmessage !!}</p>
+
+	@endif
 
 @endsection
 

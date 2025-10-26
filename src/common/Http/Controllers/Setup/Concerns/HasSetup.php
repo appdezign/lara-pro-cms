@@ -4,6 +4,7 @@ namespace Lara\Common\Http\Controllers\Setup\Concerns;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 
 trait HasSetup
@@ -19,7 +20,7 @@ trait HasSetup
 	 * @param int $step
 	 * @return void
 	 */
-	private function migrateFresh(int $step)
+	private function migrateFresh(string $type, int $step)
 	{
 
 		/*
@@ -29,9 +30,20 @@ trait HasSetup
 		 *
 		 * See: Lara\Common\Providers\LaraCommonServiceProvider
 		 */
+
+		$commonPath = 'laracms/core/src/common/Database/Migrations';
 		Artisan::call('migrate:fresh', [
 			'--force' => true,
+			'--path'  => $commonPath,
 		]);
+
+		if ($type == 'demo') {
+			$demoPath = 'laracms/app/Database/Migrations';
+			Artisan::call('migrate', [
+				'--force' => true,
+				'--path'  => $demoPath,
+			]);
+		}
 
 		flash('Step ' . $step . ' was completed successfully')->success();
 
@@ -41,7 +53,7 @@ trait HasSetup
 	 * @param int $step
 	 * @return void
 	 */
-	private function runSeeders(int $step)
+	private function runSeeders(string $type, int $step)
 	{
 
 		/*
@@ -50,14 +62,20 @@ trait HasSetup
 		 * - Lara\App\Database\Seeders
 		 *
 		 */
-		Artisan::call('db:seed', [
-			'--class' => '\Lara\Common\Database\Seeders\DatabaseCommonSeeder',
-			'--force' => true,
-		]);
-		Artisan::call('db:seed', [
-			'--class' => '\Lara\App\Database\Seeders\DatabaseAppSeeder',
-			'--force' => true,
-		]);
+
+		if ($type == 'essential') {
+			Artisan::call('db:seed', [
+				'--class' => '\Lara\Common\Database\Seeders\DatabaseCommonSeeder',
+				'--force' => true,
+			]);
+		}
+
+		if ($type == 'demo') {
+			Artisan::call('db:seed', [
+				'--class' => '\Lara\App\Database\Seeders\DatabaseDemoSeeder',
+				'--force' => true,
+			]);
+		}
 
 		flash('Step ' . $step . ' was completed successfully')->success();
 
@@ -73,6 +91,19 @@ trait HasSetup
 		Artisan::call('config:clear');
 		Artisan::call('view:clear');
 
+	}
+
+	private function finishSetup($type) {
+
+		if($type == 'essential') {
+			File::cleanDirectory(base_path('laracms/app/Filament/Resources'));
+			File::cleanDirectory(base_path('laracms/app/Lara'));
+			File::cleanDirectory(base_path('laracms/app/Models'));
+			File::cleanDirectory(base_path('laracms/app/Policies'));
+			File::cleanDirectory(base_path('laracms/themes/demo/views/content'));
+		}
+
+		$this->clearAllCache();
 	}
 
 }

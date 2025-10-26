@@ -4,7 +4,7 @@ namespace Lara\Common\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LaraObjectTaxonomiesTableSeeder extends Seeder
+class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
 {
 
     /**

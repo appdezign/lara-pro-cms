@@ -2,9 +2,9 @@
 
 namespace Lara\Common\Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseCommonSeeder extends Seeder
 {
@@ -18,50 +18,26 @@ class DatabaseCommonSeeder extends Seeder
 
 	    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-		// Auth
-	    $this->call(LaraAuthModelHasPermissionsTableSeeder::class);
-	    $this->call(LaraAuthModelHasRolesTableSeeder::class);
-	    $this->call(LaraAuthPasswordResetTokensTableSeeder::class);
-	    $this->call(LaraAuthPermissionsTableSeeder::class);
-	    $this->call(LaraAuthRoleHasPermissionsTableSeeder::class);
-	    $this->call(LaraAuthRolesTableSeeder::class);
-	    $this->call(LaraAuthUsersTableSeeder::class);
+		#iseed_start
 
-		// Blocks
-        $this->call(LaraBlocksCtasTableSeeder::class);
-        $this->call(LaraBlocksSlidersTableSeeder::class);
-        $this->call(LaraBlocksWidgetsTableSeeder::class);
-
-		// Menu
-        $this->call(LaraMenuMenuItemsTableSeeder::class);
-        $this->call(LaraMenuMenusTableSeeder::class);
-
-		// Object Relations
-        $this->call(LaraObjectFilesTableSeeder::class);
-        $this->call(LaraObjectImagesTableSeeder::class);
-        $this->call(LaraObjectLayoutTableSeeder::class);
-        $this->call(LaraObjectOpengraphTableSeeder::class);
-        $this->call(LaraObjectPageablesTableSeeder::class);
-        $this->call(LaraObjectRelatedTableSeeder::class);
-        $this->call(LaraObjectSeoTableSeeder::class);
-        $this->call(LaraObjectSyncTableSeeder::class);
-        $this->call(LaraObjectTaggablesTableSeeder::class);
-        $this->call(LaraObjectTagsTableSeeder::class);
-        $this->call(LaraObjectTaxonomiesTableSeeder::class);
-        $this->call(LaraObjectVideofilesTableSeeder::class);
-        $this->call(LaraObjectVideosTableSeeder::class);
-
-		// Resources
-        $this->call(LaraResourceEntitiesTableSeeder::class);
-        $this->call(LaraResourceEntityCustomFieldsTableSeeder::class);
-        $this->call(LaraResourceEntityRelationsTableSeeder::class);
-        $this->call(LaraResourceEntityViewsTableSeeder::class);
-
-		// System
-        $this->call(LaraSysBlacklistTableSeeder::class);
-        $this->call(LaraSysLanguagesTableSeeder::class);
-        $this->call(LaraSysSettingsTableSeeder::class);
-        $this->call(LaraSysTranslationsTableSeeder::class);
+	    $this->call(LaraLaraAuthModelHasPermissionsTableSeeder::class);
+	    $this->call(LaraLaraAuthModelHasRolesTableSeeder::class);
+	    $this->call(LaraLaraAuthPasswordResetTokensTableSeeder::class);
+	    $this->call(LaraLaraAuthPermissionsTableSeeder::class);
+	    $this->call(LaraLaraAuthRoleHasPermissionsTableSeeder::class);
+	    $this->call(LaraLaraAuthRolesTableSeeder::class);
+	    $this->call(LaraLaraAuthUsersTableSeeder::class);
+	    $this->call(LaraLaraContentPagesTableSeeder::class);
+	    $this->call(LaraLaraMenuMenuItemsTableSeeder::class);
+	    $this->call(LaraLaraMenuMenusTableSeeder::class);
+	    $this->call(LaraLaraObjectTaxonomiesTableSeeder::class);
+	    $this->call(LaraLaraResourceEntitiesTableSeeder::class);
+	    $this->call(LaraLaraResourceEntityCustomFieldsTableSeeder::class);
+	    $this->call(LaraLaraResourceEntityViewsTableSeeder::class);
+	    $this->call(LaraLaraSysLanguagesTableSeeder::class);
+	    $this->call(LaraLaraSysSettingsTableSeeder::class);
+	    $this->call(LaraLaraSysTranslationsTableSeeder::class);
+		#iseed_end
 
 	    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 

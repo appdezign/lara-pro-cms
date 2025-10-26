@@ -2,8 +2,6 @@
 
 @section('content')
 
-	<h3 class="fs-5 fw-light text-danger">Step {{ $step }}</h3>
-
 	@includeIf('lara-common::setup._partials.step'.$step)
 
 @endsection

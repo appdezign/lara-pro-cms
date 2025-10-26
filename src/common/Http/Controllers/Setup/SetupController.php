@@ -9,7 +9,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
@@ -71,9 +70,12 @@ class SetupController extends Controller
 
 		} elseif ($step == 2) {
 
+			$type = session('seeder_type');
+
 			return view('lara-common::setup.step', [
 				'dbname' => $dbname,
 				'step'   => $step,
+				'type'   => $type,
 			]);
 
 		} elseif ($step == 3) {
@@ -116,13 +118,18 @@ class SetupController extends Controller
 
 		if ($step == 1) {
 
-			$this->migrateFresh($step);
+			$type = $request->input('seeder_type');
+			session(['seeder_type' => $type]);
+
+			$this->migrateFresh($type, $step);
 
 		} elseif ($step == 2) {
 
-			$this->runSeeders($step);
+			$type = $request->input('seeder_type');
+			$this->runSeeders($type, $step);
 
-			$this->clearAllCache();
+			// cleanup
+			$this->finishSetup($type);
 
 			return redirect('/admin');
 

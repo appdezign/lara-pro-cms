@@ -4,7 +4,7 @@ namespace Lara\Common\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LaraMenuMenusTableSeeder extends Seeder
+class LaraLaraMenuMenusTableSeeder extends Seeder
 {
 
     /**
@@ -25,7 +25,7 @@ class LaraMenuMenusTableSeeder extends Seeder
                 'title' => 'Main',
                 'slug' => 'main',
                 'created_at' => '2025-04-22 14:57:57',
-                'updated_at' => '2025-09-28 09:29:19',
+                'updated_at' => '2025-10-25 17:11:48',
             ),
             1 => 
             array (
