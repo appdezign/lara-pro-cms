@@ -83,6 +83,7 @@ class AdminPanelProvider extends PanelProvider
 				provider: LaraFontProvider::class,
 			)
 			->brandName('Lara 10')
+			->favicon(asset('assets/filament/img/favicon.png'))
 			->navigationGroups(static::getNavigationGroups())
 			->discoverResources(in: base_path('laracms/core/src/admin/Resources'), for: 'Lara\\Admin\\Resources')
 			->discoverPages(in: base_path('laracms/core/src/admin/Pages'), for: 'Lara\\Admin\\Pages')
