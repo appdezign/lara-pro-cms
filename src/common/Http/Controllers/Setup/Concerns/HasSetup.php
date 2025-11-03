@@ -108,6 +108,8 @@ trait HasSetup
 
 		if ($type == 'essential') {
 			File::cleanDirectory(base_path('laracms/app/Filament/Resources'));
+			File::cleanDirectory(base_path('laracms/app/Http/Controllers/Front/Entity'));
+			File::cleanDirectory(base_path('laracms/app/Http/Controllers/Front/Form'));
 			File::cleanDirectory(base_path('laracms/app/Lara'));
 			File::cleanDirectory(base_path('laracms/app/Models'));
 			File::cleanDirectory(base_path('laracms/app/Policies'));
