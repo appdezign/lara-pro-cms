@@ -18,26 +18,6 @@ class SetupController extends Controller
 
 	use HasSetup;
 
-	/**
-	 * @var string
-	 */
-	protected $source;
-
-	/**
-	 * @var string
-	 */
-	protected $dest;
-
-	public function __construct()
-	{
-
-		$this->migrationSource = base_path('laracms/core/src/common/Database/Migrations');
-		$this->migrationDest = base_path('database/migrations');
-
-		$this->seederSource = base_path('laracms/core/src/common/Database/Seeders');
-		$this->seederDest = base_path('database/seeders');
-
-	}
 
 	/**
 	 * @return Application|Factory|View
@@ -84,28 +64,27 @@ class SetupController extends Controller
 		if ($step == 1) {
 
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => $step,
 			]);
 
 		} elseif ($step == 2) {
 
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => $step,
 			]);
 
 		} elseif ($step == 3) {
 
+			$type = session('seeder_type');
+
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => $step,
+				'type'   => $type,
 			]);
 
 		} else {
 
 			return view('lara-common::setup.step', [
-				'dbname' => $dbname,
 				'step'   => 1,
 			]);
 
@@ -135,13 +114,29 @@ class SetupController extends Controller
 
 		if ($step == 1) {
 
-			$this->migrateFresh($step);
+			$minLength = config('lara-common.setup.passwords.min_length');
+			$validated = $request->validate([
+				'password' => 'required|min:' . $minLength,
+			]);
+
+			$password = $request->input('password');
+			session(['super_admin_password' => $password]);
 
 		} elseif ($step == 2) {
 
-			$this->runSeeders($step);
+			$type = $request->input('seeder_type');
+			session(['seeder_type' => $type]);
 
-			$this->clearAllCache();
+			$this->migrateFresh($type, $step);
+
+		} elseif ($step == 3) {
+
+			$type = $request->input('seeder_type');
+			$this->runSeeders($type, $step);
+			$this->setSuperAdminPassword();
+
+			// cleanup
+			$this->finishSetup($type);
 
 			return redirect('/admin');
 

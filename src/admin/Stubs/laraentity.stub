@@ -1,0 +1,11 @@
+<?php
+
+namespace {{ NAMESPACE }};
+
+use Lara\Common\Lara\LaraEntity;
+
+class {{ CLASS }} extends LaraEntity
+{
+	public ?string $resource_slug = '{{ RESOURCESLUG }}';
+	protected ?string $module = 'lara-app';
+}

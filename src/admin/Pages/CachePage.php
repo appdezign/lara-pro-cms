@@ -5,6 +5,7 @@ namespace Lara\Admin\Pages;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Panel;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
 use Lara\Admin\Traits\HasNavGroup;
 
@@ -37,6 +38,11 @@ class CachePage extends Page
 	public static function getNavigationGroup(): ?string
 	{
 		return static::getNavGroup('tools');
+	}
+
+	public function getTitle(): string | Htmlable
+	{
+		return 'Cache';
 	}
 
 

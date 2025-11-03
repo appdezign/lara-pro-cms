@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('guard_name');
+            $table->boolean('has_panel_access')->default(false);
             $table->timestamps();
 
             $table->unique(['name', 'guard_name'], 'roles_name_guard_name_unique');

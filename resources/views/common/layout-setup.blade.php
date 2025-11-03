@@ -17,6 +17,24 @@
 			max-width: 90%;
 			background-color: #fff;
 		}
+		.setup-container .card .card-body {
+			padding:2rem;
+		}
+		.setup-header {
+			margin-bottom: 1rem;
+			padding-bottom: 0.5rem;
+			border-bottom: 1px solid #dce6f0;
+		}
+		.setup-content {
+			min-height: 150px;
+			padding: 1rem;
+
+		}
+		.setup-footer {
+			margin: 1rem 0;
+			padding-top: 1rem;
+			border-top: 1px solid #dce6f0;
+		}
 	</style>
 
 </head>

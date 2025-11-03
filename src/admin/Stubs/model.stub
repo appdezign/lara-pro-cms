@@ -18,8 +18,7 @@ class {{ CLASS }} extends BaseModel
 		parent::__construct($attributes);
 	}
 
-
-    public function languageParent(): BelongsTo
+	public function languageParent(): BelongsTo
 	{
 		return $this->belongsTo(self::class, 'language_parent');
 	}
@@ -28,4 +27,5 @@ class {{ CLASS }} extends BaseModel
 	{
 		return $this->hasMany(self::class, 'language_parent');
 	}
+
 }

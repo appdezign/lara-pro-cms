@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-use Lara\Front\Http\Concerns\hasFrontRedirect;
+use Lara\Front\Http\Concerns\HasFrontRedirect;
 
 class FrontRedirectorController extends Controller
 {

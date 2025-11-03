@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('body3')->nullable();
             $table->text('body2')->nullable();
             $table->string('menuroute')->nullable();
-            $table->string('ishome')->nullable();
+	        $table->boolean('is_home')->default(false);
             $table->string('template')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -46,6 +46,7 @@ use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\NavGroup;
 use Lara\Admin\Fonts\LaraFontProvider;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
+use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Traits\HasLanguage;
 use Lara\Admin\Traits\HasParams;
 use Lara\Admin\Widgets\Analytics;
@@ -82,6 +83,7 @@ class AdminPanelProvider extends PanelProvider
 				provider: LaraFontProvider::class,
 			)
 			->brandName('Lara 10')
+			->favicon(asset('assets/filament/img/favicon.png'))
 			->navigationGroups(static::getNavigationGroups())
 			->discoverResources(in: base_path('laracms/core/src/admin/Resources'), for: 'Lara\\Admin\\Resources')
 			->discoverPages(in: base_path('laracms/core/src/admin/Pages'), for: 'Lara\\Admin\\Pages')
@@ -116,7 +118,7 @@ class AdminPanelProvider extends PanelProvider
 			->plugins([
 				GoogleAnalyticsPlugin::make(),
 				VersionsPlugin::make()
-					->hasNavigationView(false)
+					->hasNavigationView(true)
 					->widgetColumnSpan('full')
 					->widgetSort(99999),
 				/*
@@ -132,7 +134,10 @@ class AdminPanelProvider extends PanelProvider
 				ResourceLockPlugin::make(),
 				BreezyCore::make()
 					->enableTwoFactorAuthentication()
-					->myProfile(),
+					->myProfile()
+					->myProfileComponents([
+						'personal_info' => LaraProfile::class,
+					]),
 			])
 			->authMiddleware([
 				FilamentAuthenticate::class,

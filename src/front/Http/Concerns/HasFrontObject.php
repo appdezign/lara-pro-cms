@@ -10,6 +10,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
@@ -52,7 +53,7 @@ trait HasFrontObject
 
 		$object = $collection->first();
 
-		if($object) {
+		if ($object) {
 			return $object;
 		} else {
 			return redirect(route('error.show.404', '404'))->send();
@@ -118,88 +119,90 @@ trait HasFrontObject
 
 			$related = array();
 
-			// Related Pages
-			$relatedPages = $relatedItems->related_page_objects;
-			foreach ($relatedPages as $rel) {
+			if ($relatedItems) {
+				// Related Pages
+				$relatedPages = $relatedItems->related_page_objects;
+				foreach ($relatedPages as $rel) {
 
-				$item = new stdClass;
-				$object_id = $rel['page_object_id'];
+					$item = new stdClass;
+					$object_id = $rel['page_object_id'];
 
-				// get related object
-				$object = Page::find($object_id);
-				if ($object) {
-					$item->title = $object->title;
-					$item->route = 'entity.pages.show.' . $object_id;
-					$item->params = null;
-					$item->url = null;
-					$item->target = '_self';
-					$related[] = $item;
+					// get related object
+					$object = Page::find($object_id);
+					if ($object) {
+						$item->title = $object->title;
+						$item->route = 'entity.pages.show.' . $object_id;
+						$item->params = null;
+						$item->url = null;
+						$item->target = '_self';
+						$related[] = $item;
+					}
+
 				}
 
-			}
+				// Related Entity Objects
+				$relatedEntityObjects = $relatedItems->related_entity_objects;
 
-			// Related Entity Objects
-			$relatedEntityObjects = $relatedItems->related_entity_objects;
+				foreach ($relatedEntityObjects as $rel) {
 
-			foreach ($relatedEntityObjects as $rel) {
+					$item = new stdClass;
 
-				$item = new stdClass;
+					$object_id = $rel['object_id'];
+					$resource_slug = $rel['resource_slug'];
 
-				$object_id = $rel['object_id'];
-				$resource_slug = $rel['resource_slug'];
+					// get related object
+					$entity = Entity::where('resource_slug', $resource_slug)->first();
+					if ($entity) {
+						$modelClass = $entity->model_class;
+						$object = $modelClass::find($object_id);
+						if ($object) {
 
-				// get related object
-				$entity = Entity::where('resource_slug', $resource_slug)->first();
-				if ($entity) {
-					$modelClass = $entity->model_class;
-					$object = $modelClass::find($object_id);
+							$item->title = $object->title;
+							$prefix = ($entity->objrel_has_terms) ? 'entitytag' : 'entity';
+							$item->route = $prefix . '.' . $resource_slug . '.index.show';
+							$item->params = [
+								'slug' => $object->slug
+							];
+							$item->url = null;
+							$item->target = '_self';
+
+							// If the related object is a document, we need to get the document URL
+							if ($resource_slug == 'docs') {
+								$filename = $object->files->entity_files[0]['doc_filename'];
+								$filepath = Storage::disk(config('lara.uploads.disk'))->url($filename);
+								$item->route = null;
+								$item->params = null;
+								$item->url = $filepath;
+								$item->target = '_blank';
+							}
+
+							$related[] = $item;
+						}
+					}
+
+				}
+
+				// Related Entities
+				$relatedEntities = $relatedItems->related_entities;
+				foreach ($relatedEntities as $rel) {
+
+					$item = new stdClass;
+
+					$object_id = $rel['module_page_menu_id'];
+
+					// get related object
+					$object = MenuItem::find($object_id);
 					if ($object) {
-
 						$item->title = $object->title;
-						$prefix = ($entity->objrel_has_terms) ? 'entitytag' : 'entity';
-						$item->route = $prefix . '.' . $resource_slug . '.index.show';
-						$item->params = [
-							'slug' => $object->slug
-						];
+						$item->route = $object->routename;
+						$item->params = null;
 						$item->url = null;
 						$item->target = '_self';
 
-						// If the related object is a document, we need to get the document URL
-						if ($resource_slug == 'docs') {
-							$filename = $object->files->entity_files[0]['doc_filename'];
-							$filepath = Storage::disk(config('lara.uploads.disk'))->url($filename);
-							$item->route = null;
-							$item->params = null;
-							$item->url = $filepath;
-							$item->target = '_blank';
-						}
-
 						$related[] = $item;
 					}
+
 				}
-
-			}
-
-			// Related Entities
-			$relatedEntities = $relatedItems->related_entities;
-			foreach ($relatedEntities as $rel) {
-
-				$item = new stdClass;
-
-				$object_id = $rel['module_page_menu_id'];
-
-				// get related object
-				$object = MenuItem::find($object_id);
-				if ($object) {
-					$item->title = $object->title;
-					$item->route = $object->routename;
-					$item->params = null;
-					$item->url = null;
-					$item->target = '_self';
-
-					$related[] = $item;
-				}
-
 			}
 
 			return $related;
@@ -695,30 +698,33 @@ trait HasFrontObject
 	/**
 	 * @param $language
 	 * @param $entity
+	 * @param FrontActiveRoute $activeroute
 	 * @param $object
 	 * @param $menuTag
-	 * @return string
+	 * @param $ispreview
+	 * @return string|null
 	 */
-	private function getEntityListUrl($language, $entity, FrontActiveRoute $activeroute, $object, $menuTag): string
+	private function getEntityListUrl($language, $entity, FrontActiveRoute $activeroute, $object, $menuTag, $ispreview): ?string
 	{
-
-		if ($menuTag) {
-			$node = MenuItem::where('language', $language)
-				->where('entity_id', $entity->getEntityId())
-				->where('tag_id', $menuTag->id)
-				->first();
-
-			if ($node) {
-				$url = url($language . '/' . $node->route);
+		if ($ispreview) {
+			return null;
+		} else {
+			if ($menuTag) {
+				$node = MenuItem::where('language', $language)
+					->where('entity_id', $entity->getEntityId())
+					->where('tag_id', $menuTag->id)
+					->first();
+				if ($node) {
+					$url = url($language . '/' . $node->route);
+				} else {
+					$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
+				}
 			} else {
 				$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
 			}
-		} else {
-			$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
+
+			return $url;
 		}
-
-		return $url;
-
 	}
 
 	private function getDefaultEntityListUrl($language, $entity, FrontActiveRoute $activeroute): string
@@ -735,6 +741,11 @@ trait HasFrontObject
 		}
 
 		return $url;
+	}
+
+	private function isPreview($routename)
+	{
+		return Str::startsWith($routename, 'content.') || Str::startsWith($routename, 'contenttag.');
 	}
 
 }

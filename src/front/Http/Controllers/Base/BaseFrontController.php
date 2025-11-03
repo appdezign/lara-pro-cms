@@ -56,6 +56,7 @@ class BaseFrontController extends Controller
 	protected ?object $data;
 	protected ?object $globalwidgets;
 	protected bool $ismobile;
+	protected bool $ispreview;
 
 	public function __construct()
 	{
@@ -72,6 +73,9 @@ class BaseFrontController extends Controller
 
 			// get route name
 			$this->routename = Route::current()->getName();
+
+			// preview
+			$this->ispreview = $this->isPreview($this->routename);
 
 			// get entity
 			$this->entity = $this->getFrontEntity($this->routename);
@@ -101,6 +105,7 @@ class BaseFrontController extends Controller
 				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
 				view()->share('ismobile', $this->ismobile);
+				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
 				view()->share('activemenu', $this->getActiveMenuArray());
 				view()->share('firstpageload', $this->getFirstPageLoad());
@@ -228,7 +233,7 @@ class BaseFrontController extends Controller
 		}
 
 		// get entity list url
-		$this->data->entityListUrl = $this->getEntityListUrl($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->menutag);
+		$this->data->entityListUrl = $this->getEntityListUrl($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->menutag, $this->ispreview);
 
 		// get view file
 		$viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);

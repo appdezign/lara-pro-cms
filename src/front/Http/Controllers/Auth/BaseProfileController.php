@@ -39,6 +39,7 @@ class BaseProfileController extends Controller
 	protected ?string $modelClass = User::class;
 	protected ?string $routename;
 	protected ?object $entity;
+	protected ?object $activeroute;
 	protected ?string $language;
 	protected ?object $data;
 	protected ?object $globalwidgets;
@@ -57,6 +58,12 @@ class BaseProfileController extends Controller
 
 			// get route name
 			$this->routename = Route::current()->getName();
+
+			// preview
+			$this->ispreview = $this->isPreview($this->routename);
+
+			// get active route
+			$this->activeroute = $this->getLaraActiveRoute($this->routename);
 
 			// get entity
 			$this->entity = $this->getFrontEntity($this->routename);
@@ -80,8 +87,10 @@ class BaseProfileController extends Controller
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
+				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
 				view()->share('ismobile', $this->ismobile);
+				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
 
 				return $next($request);
@@ -115,7 +124,7 @@ class BaseProfileController extends Controller
 		$this->data->opengraph = $this->getOpengraph($this->data->modulepage);
 
 		// get language versions
-		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
+		$this->data->langversions = [];
 
 		// override default layout with custom module page layout
 		$this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
@@ -150,9 +159,6 @@ class BaseProfileController extends Controller
 
 		// save object
 		$object->update($request->all());
-
-		// update profile
-		$this->saveFrontUserProfile($request, $object);
 
 		flash(_q('lara-front::user.message.profile_saved_successfully'))->success();
 

@@ -2,11 +2,11 @@
 
 namespace Lara\Common\Lara;
 
-use Lara\Common\Lara\LaraEntity;
+use Lara\Common\Lara\LaraTool;
 
-class UsersEntity extends LaraEntity
+class UsersEntity extends LaraTool
 {
-	public ?string $resource_slug = 'user';
+	public ?string $resource_slug = 'users';
 	protected ?string $module = 'admin';
 }
 

@@ -57,4 +57,5 @@ class {{ MODEL }}Policy
     {
         return $user->can('delete_any_{{ MODELVARIABLE }}');
     }
+
 }

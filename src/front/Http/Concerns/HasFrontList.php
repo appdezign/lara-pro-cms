@@ -714,7 +714,6 @@ trait HasFrontList
 	 */
 	private function getFrontParams(object $entity, FrontActiveRoute $activeroute, Request $request)
 	{
-		// NOTE: v10
 
 		$params = new FrontParams;
 
@@ -727,148 +726,157 @@ trait HasFrontList
 
 			return $params;
 
-		}
+		} elseif($entity->resource_slug == 'users') {
 
-		// get method
-		$method = $activeroute->getMethod();
-		if (empty($method)) {
-			// set default method
-			$method = ($entity->resource_slug == 'page') ? 'show' : 'index';
-		}
-
-		// get view
-		$view = $entity->getViews()->where('method', $method)->first();
-		if (empty($view)) {
-			$view = $this->createDefaultView();
-		}
-
-		$params->setViewType($view->list_type);
-
-		if (Str::contains($params->getViewType(), 'grid')) {
-			$params->setIsGrid(true);
-			$params->setListType('grid');
-		} else {
-			$params->setIsGrid(false);
-			$params->setListType('list');
-		}
-
-		$params->setShowTags($view->showtags);
-
-		if ($view->showtags == '_sortbytaxonomy') {
-			$params->setTagsView('sort');
-
-		} elseif ($view->showtags == 'filterbytaxonomy') {
-			$params->setTagsView('filter');
-		} else {
-			$params->setTagsView('default');
-		}
-
-		if ($view->list_type == '_single') {
-
+			$params->setListType('_single');
 			$params->setVType('single');
-			$params->setGridCols(0);
-			$params->setGridCol(0);
-			$params->setPrevNext((bool)$view->prevnext);
+			$params->setShowTags('none');
+			$params->setTagsView('default');
+
+			return $params;
 
 		} else {
+			// get method
+			$method = $activeroute->getMethod();
+			if (empty($method)) {
+				// set default method
+				$method = ($entity->resource_slug == 'page') ? 'show' : 'index';
+			}
 
-			if ($params->getIsGrid()) {
-				$params->setVType('grid');
-				$params->setGridCols(substr($view->list_type, -1));
-				$params->setGridCol((12 / $params->getGridCols()));
+			// get view
+			$view = $entity->getViews()->where('method', $method)->first();
+			if (empty($view)) {
+				$view = $this->createDefaultView();
+			}
+
+			$params->setViewType($view->list_type);
+
+			if (Str::contains($params->getViewType(), 'grid')) {
+				$params->setIsGrid(true);
+				$params->setListType('grid');
 			} else {
-				$params->setVType('list');
+				$params->setIsGrid(false);
+				$params->setListType('list');
+			}
+
+			$params->setShowTags($view->showtags);
+
+			if ($view->showtags == '_sortbytaxonomy') {
+				$params->setTagsView('sort');
+
+			} elseif ($view->showtags == 'filterbytaxonomy') {
+				$params->setTagsView('filter');
+			} else {
+				$params->setTagsView('default');
+			}
+
+			if ($view->list_type == '_single') {
+
+				$params->setVType('single');
 				$params->setGridCols(0);
 				$params->setGridCol(0);
-			}
+				$params->setPrevNext((bool)$view->prevnext);
 
-		}
+			} else {
 
-		if ($view->infinite == 1) {
-			$params->setInfinite(true);
-		} else {
-			$params->setInfinite(false);
-		}
-
-		if ($view->showtags == '_sortbytaxonomy') {
-
-			$params->setPaginate(false);
-
-		} elseif ($view->showtags == 'filterbytaxonomy') {
-
-			$hasPagination = $view->paginate > 0;
-			$params->setPaginate($hasPagination);
-
-		} else {
-
-			$hasPagination = $view->paginate > 0;
-			$params->setPaginate($hasPagination);
-
-		}
-
-		if ($view->showtags == 'filterbytaxonomy' || $view->showtags == '_sortbytaxonomy' || $view->list_type == '_single') {
-
-			// primary tags (URL)
-			if (!empty($activeroute->getActiveTags())) {
-				$activeTags = $activeroute->getActiveTags();
-				$term = end($activeTags);
-
-				$tag = Tag::where('slug', $term)->first();
-				$taxonomy = $tag->taxonomy;
-				$params->setTaxonomy($taxonomy->slug);
-
-				if ($taxonomy) {
-					if ($taxonomy->is_default == 1) {
-						$params->setIsDefaultTaxonomy(true);
-					} else {
-						$params->setIsDefaultTaxonomy(false);
-					}
-				}
-
-			}
-
-			if (!empty($term)) {
-				$params->setFilter(true);
-				$params->setFilterByTaxonomy($term);
-
-			}
-
-			// secondary tags (GET)
-			$taxonomies = Taxonomy::where('is_default', 0)->get();
-			foreach ($taxonomies as $taxonomy) {
-				$taxonomySlug = $taxonomy->slug;
-				$tagSlug = $this->getFrontRequestParam($request, $taxonomySlug, null, $entity->resource_slug, true);
-
-				if ($tagSlug) {
-
-					if ($view->showtags == 'filterbytaxonomy') {
-						// redirect if tag is not in GET variables
-						if (!isset($_GET[$taxonomySlug])) {
-							return redirect()->route(Route::currentRouteName(), [$taxonomySlug => $tagSlug])->send();
-						}
-					}
-
-					// get Tag object
-					$tag = Tag::where('slug', $tagSlug)->first();
-					if ($tag) {
-						$params->setXtraTags($taxonomySlug, ['slug' => $tag->slug, 'title' => $tag->title]);
-					}
-
+				if ($params->getIsGrid()) {
+					$params->setVType('grid');
+					$params->setGridCols(substr($view->list_type, -1));
+					$params->setGridCol((12 / $params->getGridCols()));
 				} else {
+					$params->setVType('list');
+					$params->setGridCols(0);
+					$params->setGridCol(0);
+				}
 
-					if ($view->showtags == 'filterbytaxonomy') {
-						// redirect if empty tag is in GET variables
-						if (isset($_GET[$taxonomySlug]) && $_GET[$taxonomySlug] == '') {
-							return redirect()->route(Route::currentRouteName())->send();
+			}
+
+			if ($view->infinite == 1) {
+				$params->setInfinite(true);
+			} else {
+				$params->setInfinite(false);
+			}
+
+			if ($view->showtags == '_sortbytaxonomy') {
+
+				$params->setPaginate(false);
+
+			} elseif ($view->showtags == 'filterbytaxonomy') {
+
+				$hasPagination = $view->paginate > 0;
+				$params->setPaginate($hasPagination);
+
+			} else {
+
+				$hasPagination = $view->paginate > 0;
+				$params->setPaginate($hasPagination);
+
+			}
+
+			if ($view->showtags == 'filterbytaxonomy' || $view->showtags == '_sortbytaxonomy' || $view->list_type == '_single') {
+
+				// primary tags (URL)
+				if (!empty($activeroute->getActiveTags())) {
+					$activeTags = $activeroute->getActiveTags();
+					$term = end($activeTags);
+
+					$tag = Tag::where('slug', $term)->first();
+					$taxonomy = $tag->taxonomy;
+					$params->setTaxonomy($taxonomy->slug);
+
+					if ($taxonomy) {
+						if ($taxonomy->is_default == 1) {
+							$params->setIsDefaultTaxonomy(true);
+						} else {
+							$params->setIsDefaultTaxonomy(false);
 						}
 					}
 
 				}
 
-			}
-		}
+				if (!empty($term)) {
+					$params->setFilter(true);
+					$params->setFilterByTaxonomy($term);
 
-		return $params;
+				}
+
+				// secondary tags (GET)
+				$taxonomies = Taxonomy::where('is_default', 0)->get();
+				foreach ($taxonomies as $taxonomy) {
+					$taxonomySlug = $taxonomy->slug;
+					$tagSlug = $this->getFrontRequestParam($request, $taxonomySlug, null, $entity->resource_slug, true);
+
+					if ($tagSlug) {
+
+						if ($view->showtags == 'filterbytaxonomy') {
+							// redirect if tag is not in GET variables
+							if (!isset($_GET[$taxonomySlug])) {
+								return redirect()->route(Route::currentRouteName(), [$taxonomySlug => $tagSlug])->send();
+							}
+						}
+
+						// get Tag object
+						$tag = Tag::where('slug', $tagSlug)->first();
+						if ($tag) {
+							$params->setXtraTags($taxonomySlug, ['slug' => $tag->slug, 'title' => $tag->title]);
+						}
+
+					} else {
+
+						if ($view->showtags == 'filterbytaxonomy') {
+							// redirect if empty tag is in GET variables
+							if (isset($_GET[$taxonomySlug]) && $_GET[$taxonomySlug] == '') {
+								return redirect()->route(Route::currentRouteName())->send();
+							}
+						}
+
+					}
+
+				}
+			}
+
+			return $params;
+		}
 
 	}
 

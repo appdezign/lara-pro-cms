@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Lara\Admin\Livewire\ClearCache;
 use Lara\Admin\Livewire\LaraEntityReorder;
 use Lara\Admin\Livewire\LaraMenuReorder;
+use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Livewire\LaraTagReorder;
 use Lara\Admin\Widgets\Analytics;
 use Livewire\Livewire;
@@ -43,6 +44,7 @@ class LaraAdminServiceProvider extends ServiceProvider
 		Livewire::component('lara-tag-reorder-nested', LaraTagReorder::class);
 		Livewire::component('lara-tag-reorder-list', LaraTagReorder::class);
 		Livewire::component('lara-entity-reorder', LaraEntityReorder::class);
+		Livewire::component('lara_profile', LaraProfile::class);
 
 		// GA4 Widgets
 		Livewire::component('lara-active-users-seven-day-widget', Analytics\LaraActiveUsersSevenDayWidget::class);
