@@ -1,11 +1,13 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../../../vendor/awcodes/richer-editor/resources/css/index.css';
+@import '../../../../vendor/awcodes/filament-curator/resources/css/plugin.css';
 
+@source '../../../../vendor/awcodes/filament-curator/resources/**/*.blade.php';
+@source '../../../../vendor/awcodes/filament-versions/resources/**/*.blade.php';
+@source '../../../../vendor/awcodes/richer-editor/resources/views/**/*.blade.php';
 @source '../../../../vendor/bezhansalleh/filament-google-analytics/resources/views/**/*';
 @source '../../../../vendor/bezhansalleh/filament-google-analytics/src/{Widgets,Support}/*';
-
 @source '../../../../vendor/jeffgreco13/filament-breezy/resources/**/*';
-
-@source '../../../../vendor/awcodes/filament-versions/resources/**/*.blade.php';
 
 @source '../../../../laracms/core/src/admin/**/*';
 @source '../../../../laracms/core/src/common/**/*';
