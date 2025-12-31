@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -31,7 +31,7 @@ class LaraLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'page',
                 'is_home' => 1,
                 'route' => NULL,
-                'routename' => 'entity.pages.show.5',
+                'routename' => 'entity.pages.1.show.5',
                 'route_has_auth' => 0,
                 'entity_id' => 1,
                 'entity_view_id' => 101,

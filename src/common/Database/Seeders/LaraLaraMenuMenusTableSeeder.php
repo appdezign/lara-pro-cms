@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -25,7 +25,7 @@ class LaraLaraMenuMenusTableSeeder extends Seeder
                 'title' => 'Main',
                 'slug' => 'main',
                 'created_at' => '2025-04-22 14:57:57',
-                'updated_at' => '2025-10-25 17:11:48',
+                'updated_at' => '2025-12-30 15:46:09',
             ),
             1 => 
             array (
@@ -33,7 +33,7 @@ class LaraLaraMenuMenusTableSeeder extends Seeder
                 'title' => 'Top',
                 'slug' => 'top',
                 'created_at' => '2025-04-22 15:08:00',
-                'updated_at' => '2025-09-12 19:09:14',
+                'updated_at' => '2025-12-30 11:23:56',
             ),
         ));
         

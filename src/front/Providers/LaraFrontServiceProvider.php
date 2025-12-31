@@ -14,7 +14,6 @@ use Lara\Front\Http\Concerns\hasFrontend;
 use Lara\Front\Http\Concerns\hasTheme;
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 
-
 use Lara\Common\Models\Setting;
 
 use LaravelLocalization;

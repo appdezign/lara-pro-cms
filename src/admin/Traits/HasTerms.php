@@ -61,8 +61,6 @@ trait HasTerms
 
 		// route
 		if ($node->depth == 0) {
-			$node->route = null;
-		} elseif ($node->depth == 1) {
 			$node->route = $node->slug;
 		} else {
 			$node->route = $parentRoute . '.' . $node->slug;

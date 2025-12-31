@@ -29,12 +29,6 @@ trait HasFrontRoutes
 	/**
 	 * Get a complete Frontent SEO Route for a specific entity list or object
 	 *
-	 * Prefix options:
-	 * - entity (entity is defined in the main menu)
-	 * - entitytag (entity is defined in the main menu, and has tags)
-	 * - content (entity is NOT defined in the main menu, use preview route)
-	 * - contenttag (entity is NOT defined in the main menu, and has tags)
-	 *
 	 * @param string $resourceSlug
 	 * @param string $method
 	 * @return string
@@ -42,18 +36,23 @@ trait HasFrontRoutes
 	private function getFrontSeoRoute(string $resourceSlug, string $method)
 	{
 
-		// entity
-		if (Route::has('entitytag.' . $resourceSlug . '.' . $method)) {
-			$route = 'entitytag.' . $resourceSlug . '.' . $method;
-		} elseif (Route::has('entity.' . $resourceSlug . '.' . $method)) {
-			$route = 'entity.' . $resourceSlug . '.' . $method;
-		} elseif (Route::has('contenttag.' . $resourceSlug . '.' . $method)) {
-			$route = 'contenttag.' . $resourceSlug . '.' . $method;
-		} else {
-			$route = 'content.' . $resourceSlug . '.' . $method;
+		$entity = $this->getResourceBySlug($resourceSlug);
+		$entityView = $entity->getViews()->where('method', $method)->first();
+
+		if ($entityView) {
+			$menuItem = MenuItem::where('entity_id', $entity->getEntityId())
+				->where('entity_view_id', $entityView->id)
+				->first();
+			if ($menuItem) {
+				return $menuItem->routename;
+			}
 		}
 
-		return $route;
+		if (Route::has('contenttag.' . $resourceSlug . '.' . $method)) {
+			return 'contenttag.' . $resourceSlug . '.' . $method;
+		} else {
+			return 'content.' . $resourceSlug . '.' . $method;
+		}
 
 	}
 

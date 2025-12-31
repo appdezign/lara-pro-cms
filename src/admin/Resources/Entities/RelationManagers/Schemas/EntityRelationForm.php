@@ -6,11 +6,13 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
+use function PHPUnit\Framework\isFalse;
 
 class EntityRelationForm
 {
@@ -30,7 +32,15 @@ class EntityRelationForm
 							->visible(fn($operation) => $operation == 'edit'),
 						Select::make('entity_id')
 							->label(_q(static::module() . '::' . static::slug() . '.column.entity_id'))
-							->relationship('entity', 'title')
+							->options(function (RelationManager $livewire) {
+								$entity = $livewire->getOwnerRecord();
+								return [
+									$entity->id => $entity->title,
+								];
+							})
+							->default(function (RelationManager $livewire) {
+								return $livewire->getOwnerRecord()->id;
+							})
 							->preload()
 							->visible(fn($operation) => $operation == 'create'),
 						Select::make('type')
@@ -40,21 +50,21 @@ class EntityRelationForm
 								'hasMany' => 'hasMany',
 							])
 							->required()
-							->visible(function ($state) {
-								return $state != 'belongsTo';
-							}),
-						Placeholder::make('type')
+							->visible(fn($operation) => $operation == 'create'),
+						Select::make('type')
 							->label(_q(static::module() . '::' . static::slug() . '.column.type'))
-							->content('belongsTo')
-							->visible(function (Get $get) {
-								return $get('type') == 'belongsTo';
-							}),
+							->options([
+								'hasOne'  => 'hasOne',
+								'hasMany' => 'hasMany',
+								'belongsTo' => 'belongsTo',
+							])
+							->required()
+							->visible(fn($operation) => $operation == 'edit')
+						->disabled(),
 						Select::make('related_entity_id')
 							->label(_q(static::module() . '::' . static::slug() . '.column.related_entity_id'))
 							->live()
-							->options(
-								Entity::where('cgroup', 'entity')->pluck('resource_slug', 'id')
-							)
+							->options(fn($state) => static::getRelatableEntities($state))
 							->afterStateUpdated(function (callable $set, Get $get) {
 								$entityId = $get('entity_id');
 								if ($entityId) {
@@ -66,10 +76,10 @@ class EntityRelationForm
 									}
 								}
 							})
-							->disabled(fn(Get $get, string $operation) => $get('type') == 'belongsTo' || $operation == 'edit'),
+							->disabled(fn(string $operation) => $operation == 'edit'),
 						TextInput::make('foreign_key')
 							->label(_q(static::module() . '::' . static::slug() . '.column.foreign_key'))
-							->disabled(fn(Get $get, string $operation) => $get('type') == 'belongsTo' || $operation == 'edit'),
+							->disabled(fn(string $operation) => $operation == 'edit'),
 
 						Toggle::make('is_filter')
 							->label(_q(static::module() . '::' . static::slug() . '.column.is_filter'))
@@ -88,5 +98,30 @@ class EntityRelationForm
 		return static::$module;
 	}
 
+	private static function getRelatableEntities($state): array
+	{
+		$relatableEntities = array();
+
+		if($state) {
+			// get current entity
+			$entity = Entity::find($state);
+			if($entity) {
+				$relatableEntities[$entity->id] = $entity->resource_slug;
+			}
+		} else {
+			// get entities with no records
+			$entities = Entity::where('cgroup', 'entity')->get();
+			foreach ($entities as $entity) {
+				$entityModelClass = $entity->model_class;
+				$entcount = $entityModelClass::count();
+				if ($entcount == 0) {
+					$relatableEntities[$entity->id] = $entity->resource_slug;
+				}
+			}
+		}
+
+
+		return $relatableEntities;
+	}
 
 }

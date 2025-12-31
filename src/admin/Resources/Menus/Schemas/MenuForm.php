@@ -2,6 +2,7 @@
 
 namespace Lara\Admin\Resources\Menus\Schemas;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -20,7 +21,7 @@ class MenuForm
 		return $schema
 			->components([
 				Section::make('Content')
-					->collapsible()
+					->columnSpanFull()
 					->schema([
 						TextInput::make('title')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'))

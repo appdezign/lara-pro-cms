@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -14,12 +14,12 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_resource_entity_custom_fields')->delete();
-
+        
         \DB::table('lara_resource_entity_custom_fields')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 64,
                 'entity_id' => 42,
@@ -39,7 +39,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 110,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 65,
                 'entity_id' => 42,
@@ -59,7 +59,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'caption',
                 'sort_order' => 120,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 66,
                 'entity_id' => 42,
@@ -79,7 +79,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 130,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 67,
                 'entity_id' => 42,
@@ -99,7 +99,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 140,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 68,
                 'entity_id' => 42,
@@ -119,7 +119,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 150,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 69,
                 'entity_id' => 42,
@@ -139,7 +139,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 160,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 70,
                 'entity_id' => 42,
@@ -159,7 +159,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 170,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 71,
                 'entity_id' => 42,
@@ -179,7 +179,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 180,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 72,
                 'entity_id' => 42,
@@ -199,7 +199,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 190,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 73,
                 'entity_id' => 42,
@@ -219,7 +219,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 200,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 74,
                 'entity_id' => 42,
@@ -239,14 +239,14 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'payoff',
                 'sort_order' => 210,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 94,
                 'entity_id' => 1,
-                'title' => 'is_home',
+                'title' => 'ishome',
                 'field_hook' => 'after-last',
-                'field_type' => 'toggle',
-                'field_name' => 'is_home',
+                'field_type' => 'string',
+                'field_name' => 'ishome',
                 'field_name_temp' => NULL,
                 'field_options' => NULL,
                 'is_required' => 0,
@@ -259,7 +259,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 95,
                 'entity_id' => 1,
@@ -279,7 +279,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 100,
                 'entity_id' => 52,
@@ -299,7 +299,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 110,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 101,
                 'entity_id' => 52,
@@ -319,7 +319,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 130,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 102,
                 'entity_id' => 52,
@@ -339,7 +339,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'module',
                 'sort_order' => 131,
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 103,
                 'entity_id' => 52,
@@ -359,7 +359,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'module',
                 'sort_order' => 132,
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 104,
                 'entity_id' => 52,
@@ -379,7 +379,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 120,
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 105,
                 'entity_id' => 52,
@@ -399,7 +399,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'module',
                 'sort_order' => 133,
             ),
-            19 =>
+            19 => 
             array (
                 'id' => 106,
                 'entity_id' => 52,
@@ -419,7 +419,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'module',
                 'sort_order' => 134,
             ),
-            20 =>
+            20 => 
             array (
                 'id' => 107,
                 'entity_id' => 52,
@@ -439,7 +439,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'icon',
                 'sort_order' => 141,
             ),
-            21 =>
+            21 => 
             array (
                 'id' => 108,
                 'entity_id' => 52,
@@ -459,7 +459,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'icon',
                 'sort_order' => 142,
             ),
-            22 =>
+            22 => 
             array (
                 'id' => 109,
                 'entity_id' => 52,
@@ -479,7 +479,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'module',
                 'sort_order' => 150,
             ),
-            23 =>
+            23 => 
             array (
                 'id' => 110,
                 'entity_id' => 52,
@@ -499,7 +499,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => 'module',
                 'sort_order' => 155,
             ),
-            24 =>
+            24 => 
             array (
                 'id' => 111,
                 'entity_id' => 52,
@@ -519,7 +519,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 125,
             ),
-            25 =>
+            25 => 
             array (
                 'id' => 112,
                 'entity_id' => 52,
@@ -539,7 +539,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 126,
             ),
-            26 =>
+            26 => 
             array (
                 'id' => 113,
                 'entity_id' => 52,
@@ -559,7 +559,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 160,
             ),
-            27 =>
+            27 => 
             array (
                 'id' => 114,
                 'entity_id' => 59,
@@ -579,7 +579,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            28 =>
+            28 => 
             array (
                 'id' => 115,
                 'entity_id' => 59,
@@ -599,7 +599,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            29 =>
+            29 => 
             array (
                 'id' => 116,
                 'entity_id' => 59,
@@ -619,7 +619,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            30 =>
+            30 => 
             array (
                 'id' => 117,
                 'entity_id' => 59,
@@ -639,7 +639,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            31 =>
+            31 => 
             array (
                 'id' => 118,
                 'entity_id' => 59,
@@ -659,7 +659,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            32 =>
+            32 => 
             array (
                 'id' => 119,
                 'entity_id' => 59,
@@ -680,7 +680,7 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'sort_order' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

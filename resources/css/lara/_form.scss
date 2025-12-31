@@ -6,29 +6,6 @@ input[type=checkbox].fi-checkbox-input {
 	border-radius: 0 !important;
 }
 
-@media (min-width: 786px) {
-	.filepond--item {
-		width: calc(33% - 0.5em);
-	}
-	.fi-fo-repeater-items .filepond--item {
-		width: 100%;
-	}
-}
-
-@media (min-width: 1200px) {
-	.filepond--item {
-		width: calc(25% - 0.5em);
-	}
-	.fi-fo-repeater-items .filepond--item {
-		width: 100%;
-		/* width: calc(50% - 0.5em); */
-	}
-
-}
-
-.lara-media-section .filepond--item {
-	width: 100% !important;
-}
 
 .og-preview {
 	border: 1px solid col.$la-slate-200;

@@ -131,8 +131,10 @@ trait HasFrontObject
 					$object = Page::find($object_id);
 					if ($object) {
 						$item->title = $object->title;
-						$item->route = 'entity.pages.show.' . $object_id;
-						$item->params = null;
+						$item->route = 'content.pages.show';
+						$item->params = $item->params = [
+							'id' => $object->id
+						];
 						$item->url = null;
 						$item->target = '_self';
 						$related[] = $item;
@@ -169,7 +171,7 @@ trait HasFrontObject
 							// If the related object is a document, we need to get the document URL
 							if ($resource_slug == 'docs') {
 								$filename = $object->files->entity_files[0]['doc_filename'];
-								$filepath = Storage::disk(config('lara.uploads.disk'))->url($filename);
+								$filepath = Storage::disk($entity->media_disk_files)->url($filename);
 								$item->route = null;
 								$item->params = null;
 								$item->url = $filepath;
@@ -654,24 +656,13 @@ trait HasFrontObject
 		}
 
 		// Image
-		if ($object->hasImages()) {
-
-			if ($object->opengraph && !empty($object->opengraph->og_image)) {
-				$og->og_image = $object->opengraph->og_image;
+		if ($object->hasOpenGraphImage() || $object->hasFeatured()) {
+			$width = $settngz->og_image_width ?? 1200;
+			$height = $settngz->og_image_height ?? 630;
+			if ($object->hasOpenGraphImage()) {
+				$og->og_image = glideUrl($object->ogimage->path, $width, $height);
 			} else {
-				// use featured image
-				$og->og_image = $object->getFeatured()->filename;
-			}
-
-			if (isset($settngz->og_image_width)) {
-				$og->og_image_width = $settngz->og_image_width;
-			} else {
-				$og->og_image_width = 1200; // Facebook recommended width
-			}
-			if (isset($settngz->og_image_height)) {
-				$og->og_image_height = $settngz->og_image_height;
-			} else {
-				$og->og_image_height = 630; // Facebook recommended height
+				$og->og_image = glideUrl($object->featured()->path, $width, $height);
 			}
 		} else {
 			$og->og_image = null;

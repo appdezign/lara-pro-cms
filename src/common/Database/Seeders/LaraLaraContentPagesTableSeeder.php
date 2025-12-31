@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -32,10 +32,10 @@ class LaraLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => '<p></p>',
                 'menuroute' => '/',
-                'is_home' => 1,
+                'ishome' => 1,
                 'template' => 'standard',
                 'created_at' => '2025-04-24 16:04:06',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-12-30 15:46:18',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-04-24 16:04:00',

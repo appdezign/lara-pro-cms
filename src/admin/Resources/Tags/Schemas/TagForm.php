@@ -34,13 +34,9 @@ trait TagForm
 		$tabs[] = Tab::make(_q('lara-admin::default.tabs.media', true))
 			->schema([
 				Section::make(_q('lara-admin::default.section.main_images', true))
-					->relationship('images')
 					->columnSpanFull()
 					->collapsible()
 					->schema(static::getMainImageSection())
-					->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
-						return static::mutateGalleryData($data);
-					})
 					->extraAttributes(['class' => 'lara-media-tab'])
 			])
 			->visible(fn(string $operation) => $operation === 'edit');

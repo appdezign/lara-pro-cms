@@ -41,6 +41,10 @@ class CreateForm extends CreateRecord
         $entity = $this->getRecord();
         static::createEntity($entity);
         static::checkDatabaseTable($entity);
+
+	    // refresh route cache
+	    session(['routecacheclear' => true]);
+
     }
 
 	public function render(): View

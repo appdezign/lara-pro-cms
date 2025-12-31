@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('entity_id')->index('entity_id');
             $table->string('og_title')->nullable();
             $table->text('og_description')->nullable();
-            $table->string('og_image')->nullable();
+            $table->unsignedBigInteger('og_image')->nullable();
         });
     }
 

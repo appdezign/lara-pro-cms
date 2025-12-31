@@ -48,6 +48,10 @@ class CreateMenuItem extends CreateRecord
 	protected function afterCreate(): void
 	{
 		static::processMenuNodes($this->record->language, $this->record->menu_id);
+
+		// refresh route cache
+		session(['routecacheclear' => true]);
+
 	}
 
 	public function render(): View

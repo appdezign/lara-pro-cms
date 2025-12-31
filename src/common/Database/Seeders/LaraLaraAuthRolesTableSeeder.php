@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -44,7 +44,7 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'has_panel_access' => 1,
                 'created_at' => '2025-06-17 19:21:45',
-                'updated_at' => '2025-10-23 07:21:53',
+                'updated_at' => '2025-12-19 14:07:13',
             ),
         ));
         

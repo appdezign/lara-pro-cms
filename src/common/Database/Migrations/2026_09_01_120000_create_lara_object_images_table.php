@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('lara_object_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('entity_type')->nullable();
-            $table->unsignedBigInteger('entity_id')->index('entity_id');
-            $table->json('featured')->nullable();
-            $table->json('thumb')->nullable();
-            $table->json('hero')->nullable();
-            $table->json('icon')->nullable();
-            $table->json('gallery')->nullable();
-            $table->json('gallery_upload')->nullable();
-            $table->integer('image_count')->nullable();
+            $table->string('mediable_type');
+            $table->unsignedBigInteger('mediable_id');
+            $table->unsignedBigInteger('media_id')->index('media_items_media_id_foreign');
+            $table->integer('order');
+            $table->string('type');
+            $table->timestamps();
+
+            $table->index(['mediable_type', 'mediable_id'], 'media_items_mediable_type_mediable_id_index');
         });
     }
 

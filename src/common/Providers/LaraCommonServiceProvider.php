@@ -5,6 +5,8 @@ namespace Lara\Common\Providers;
 use Barryvdh\HttpCache\Middleware\CacheRequests;
 use Barryvdh\HttpCache\Middleware\SetTtl;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +28,10 @@ use Spatie\Permission\Models\Role;
 
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 
+use Awcodes\Curator\CuratorPlugin;
+use Awcodes\Curator\Facades\Curator;
+use Awcodes\Curator\Facades\Glide;
+use Awcodes\Curator\Models\Media;
 
 class LaraCommonServiceProvider extends ServiceProvider
 {
@@ -57,17 +63,19 @@ class LaraCommonServiceProvider extends ServiceProvider
 		$router->aliasMiddleware('httpcache', CacheRequests::class);
 		$router->aliasMiddleware('ttl', SetTtl::class);
 
+		Gate::policy(Models\Cta::class, Policies\CtaPolicy::class);
 		Gate::policy(Models\Entity::class, Policies\EntityPolicy::class);
 		Gate::policy(Models\Menu::class, Policies\MenuPolicy::class);
 		Gate::policy(Models\MenuItem::class, Policies\MenuItemPolicy::class);
 		Gate::policy(Models\Page::class, Policies\PagePolicy::class);
 		Gate::policy(Models\Setting::class, Policies\SettingPolicy::class);
 		Gate::policy(Models\Translation::class, Policies\TranslationPolicy::class);
-		Gate::policy(Models\User::class, Policies\UserPolicy::class);
+		Gate::policy(Models\Translation::class, Policies\TranslationPolicy::class);
+		Gate::policy(Models\LaraWidget::class, Policies\WidgetPolicy::class);
 
 		// 3rd party libraries
 		Gate::policy(Role::class, Policies\RolePolicy::class);
-
+		Gate::policy(Media::class, Policies\MediaPolicy::class);
 
 		// Publish Views
 		$this->publishes([
@@ -110,6 +118,13 @@ class LaraCommonServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		//
+		// set media path for Glide (awcodes/curator)
+		Glide::basePath('glide');
+
+		// Curator settings for Media Resource
+		Curator::imageResizeMode(config('lara.uploads.images.resize_mode', 'contain'));
+		Curator::imageResizeTargetWidth(config('lara.uploads.images.max_width', 1920));
+		Curator::imageResizeTargetHeight(config('lara.uploads.images.max_height', 1920));
+
 	}
 }

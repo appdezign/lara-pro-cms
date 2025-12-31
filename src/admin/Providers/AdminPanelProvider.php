@@ -2,10 +2,12 @@
 
 namespace Lara\Admin\Providers;
 
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\RichEditor;
@@ -19,6 +21,7 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
+use Filament\Notifications\Notification;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -31,14 +34,18 @@ use Filament\Support\Facades\FilamentIcon;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 
+
+
 use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Facades\Session;
 
 use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Components\LanguageVersions;
@@ -52,9 +59,13 @@ use Lara\Admin\Traits\HasParams;
 use Lara\Admin\Widgets\Analytics;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 
-// use Awcodes\Curator\CuratorPlugin;
+use Awcodes\Curator\CuratorPlugin;
 use Awcodes\Versions\VersionsPlugin;
 use Awcodes\Versions\VersionsWidget;
+
+use Awcodes\RicherEditor\Plugins\FullScreenPlugin;
+use Awcodes\RicherEditor\Plugins\SourceCodePlugin;
+
 use BezhanSalleh\GoogleAnalytics\GoogleAnalyticsPlugin;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Kenepa\ResourceLock\ResourceLockPlugin;
@@ -121,14 +132,14 @@ class AdminPanelProvider extends PanelProvider
 					->hasNavigationView(true)
 					->widgetColumnSpan('full')
 					->widgetSort(99999),
-				/*
 				CuratorPlugin::make()
 					->label('Media')
 					->pluralLabel('Media')
-					->navigationIcon('bi-images')
-					->navigationGroup('Content')
-					->navigationSort(3),
-				*/
+					->navigationIcon('')
+					->navigationGroup('Tools')
+					->navigationSort(3)
+					->curations(false)
+					->fileSwap(false),
 				RenewPasswordPlugin::make()
 					->passwordExpiresIn(days: 90),
 				ResourceLockPlugin::make(),
@@ -149,6 +160,10 @@ class AdminPanelProvider extends PanelProvider
 	public function boot(): void
 	{
 
+		Notification::configureUsing(function (Notification $notification) {
+			$notification->duration(2000);
+		});
+
 		TextInput::configureUsing(function (TextInput $textInput) {
 			$textInput->inlineLabel()
 				->dehydrateStateUsing(function (?string $state): ?string {
@@ -162,6 +177,10 @@ class AdminPanelProvider extends PanelProvider
 
 		RichEditor::configureUsing(function (RichEditor $editor) {
 			$editor->inlineLabel()
+				->plugins([
+					FullScreenPlugin::make(),
+					SourceCodePlugin::make(),
+				])
 				->toolbarButtons(static::getRichEditorToolbarOptions());
 		});
 
@@ -205,6 +224,12 @@ class AdminPanelProvider extends PanelProvider
 				->extraAttributes(['class' => 'max-w-80']);
 		});
 
+		CuratorPicker::configureUsing(function (CuratorPicker $curatorPicker) {
+			$curatorPicker->imageResizeMode(config('lara.uploads.images.resize_mode'))
+				->imageResizeTargetWidth(config('lara.uploads.images.max_width'))
+				->imageResizeTargetHeight(config('lara.uploads.images.max_height'));
+		});
+
 		YouTubeField::configureUsing(function (YouTubeField $youtubeField) {
 			$youtubeField->inlineLabel();
 		});
@@ -220,19 +245,6 @@ class AdminPanelProvider extends PanelProvider
 		Placeholder::configureUsing(function (Placeholder $placeholder) {
 			$placeholder->inlineLabel();
 		});
-
-		/*
-		FileUpload::configureUsing(function (FileUpload $fileUpload) {
-			$fileUpload->disk(config('lara.uploads.disk'))
-				->imageResizeMode('contain')
-				->imageResizeTargetWidth(config('lara.uploads.images.max_width'))
-				->imageResizeTargetHeight(config('lara.uploads.images.max_height'))
-				->itemPanelAspectRatio('0.75')
-				->visibility('public')
-
-			;
-		});
-		*/
 
 		FilamentColor::register([
 			'primary'   => [
@@ -347,6 +359,11 @@ class AdminPanelProvider extends PanelProvider
 		FilamentView::registerRenderHook(
 			PanelsRenderHook::BODY_END,
 			fn(): View => view('lara-admin::partials.google-maps'),
+		);
+
+		FilamentView::registerRenderHook(
+			PanelsRenderHook::BODY_END,
+			fn(): View => view('lara-admin::partials.routecache'),
 		);
 
 		FilamentAsset::register([

@@ -355,6 +355,10 @@ class EntityForm
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.media_has_hero'));
 		$rows[] = Toggle::make('media_has_icon')
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.media_has_icon'));
+		$rows[] = Select::make('media_disk_images')
+			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.media_disk_images'))
+			->options(array_combine(config('lara.uploads.disks'), config('lara.uploads.disks')))
+			->required();
 
 		return $rows;
 
@@ -419,6 +423,11 @@ class EntityForm
 			->tooltips()
 			->visible(fn(Get $get): bool => $get('media_has_videofiles'));
 
+		$rows[] = Select::make('media_disk_videos')
+			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.media_disk_videos'))
+			->options(array_combine(config('lara.uploads.disks'), config('lara.uploads.disks')))
+			->required();
+
 		return $rows;
 
 	}
@@ -443,6 +452,11 @@ class EntityForm
 			->decimalPlaces(0)
 			->tooltips()
 			->visible(fn(Get $get): bool => $get('media_has_files'));
+
+		$rows[] = Select::make('media_disk_files')
+			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.media_disk_files'))
+			->options(array_combine(config('lara.uploads.disks'), config('lara.uploads.disks')))
+			->required();
 
 		return $rows;
 

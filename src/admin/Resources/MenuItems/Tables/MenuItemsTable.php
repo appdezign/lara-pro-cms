@@ -31,6 +31,7 @@ class MenuItemsTable
 	public static function rs(): MenuItemResource
 	{
 		$class = MenuItemResource::class;
+
 		return new $class;
 	}
 
@@ -54,15 +55,7 @@ class MenuItemsTable
 					->label('')
 					->width('35%')
 					->html()
-					->url(function ($record) {
-						if ($record->publish && $record->routename) {
-							// TODO
-							return route('filament.admin.pages.dashboard');
-							// return route($record->routename);
-						} else {
-							return null;
-						}
-					}, true)
+					->url(fn($record) => static::getMenuItemUrl($record), true)
 					->getStateUsing(fn($record) => static::formatNestedTitle($record->title, $record->depth))
 					->formatStateUsing(fn($state, $record) => ($record->publish == 0) ? '<span class="text-gray-400">' . $state . '</span>' : $state)
 					->searchable(),
@@ -113,9 +106,27 @@ class MenuItemsTable
 			->paginated(false);
 	}
 
+	private static function getMenuItemUrl($record): ?string
+	{
+		$url = null;
+		if ($record->publish) {
+			if ($record->is_home == 1) {
+				$url = url(static::$clanguage . '/');
+			} else {
+				if ($record->type->value == 'url') {
+					$url = url($record->url);
+				} else {
+					if ($record->route) {
+						$url = url(static::$clanguage . '/' . $record->route);
+					}
+				}
+			}
+		}
+		return $url;
+	}
+
 	private static function getMenuItemIcon($state, $record): string
 	{
-
 		$icon = '';
 		if ($record->type->value == 'page') {
 			if ($state == 1) {

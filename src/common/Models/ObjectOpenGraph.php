@@ -2,7 +2,9 @@
 
 namespace Lara\Common\Models;
 
+use Awcodes\Curator\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ObjectOpenGraph extends Model
 {
@@ -17,5 +19,10 @@ class ObjectOpenGraph extends Model
     protected $guarded = [
         'id',
     ];
+
+	public function ogImg(): BelongsTo
+	{
+		return $this->belongsTo(Media::class, 'og_image', 'id');
+	}
 
 }

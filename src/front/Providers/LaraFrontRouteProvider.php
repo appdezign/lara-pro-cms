@@ -2,13 +2,11 @@
 
 namespace Lara\Front\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-class LaraFrontRouteProvider extends ServiceProvider
+class LaraFrontRouteProvider extends RouteServiceProvider
 {
-
-	use \Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
 
 	/**
      * This namespace is applied to your controller routes.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -14,12 +14,12 @@ class LaraLaraResourceEntityViewsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_resource_entity_views')->delete();
-
+        
         \DB::table('lara_resource_entity_views')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 101,
                 'entity_id' => 1,
@@ -37,7 +37,7 @@ class LaraLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 102,
                 'entity_id' => 1,
@@ -56,7 +56,7 @@ class LaraLaraResourceEntityViewsTableSeeder extends Seeder
                 'publish' => 1,
             ),
         ));
-
-
+        
+        
     }
 }

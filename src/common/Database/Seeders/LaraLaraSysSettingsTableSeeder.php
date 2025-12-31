@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -14,12 +14,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_sys_settings')->delete();
-
+        
         \DB::table('lara_sys_settings')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 101,
                 'title' => 'Company Name',
@@ -32,7 +32,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2024-10-25 15:33:18',
                 'deleted_at' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 102,
                 'title' => 'Company Street',
@@ -45,7 +45,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-04-16 20:18:56',
                 'deleted_at' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 103,
                 'title' => 'Company Email Address',
@@ -58,7 +58,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-10-14 16:28:36',
                 'deleted_at' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 105,
                 'title' => 'Translation File Sync',
@@ -71,7 +71,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-03-07 10:38:57',
                 'deleted_at' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 106,
                 'title' => 'Company Street Nr',
@@ -84,7 +84,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-02-10 20:29:45',
                 'deleted_at' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 107,
                 'title' => 'Company Postal Code',
@@ -97,7 +97,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-10-13 16:30:42',
                 'deleted_at' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 108,
                 'title' => 'Company City',
@@ -110,7 +110,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-02-10 20:30:06',
                 'deleted_at' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 109,
                 'title' => 'Company Telephone',
@@ -123,7 +123,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2021-11-10 17:08:09',
                 'deleted_at' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 110,
                 'title' => 'Company Region',
@@ -136,7 +136,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2019-12-18 12:52:15',
                 'deleted_at' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 111,
                 'title' => 'Company Country',
@@ -149,7 +149,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2018-01-24 12:43:58',
                 'deleted_at' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 112,
                 'title' => 'google_analytics_sync',
@@ -162,7 +162,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2024-10-25 15:27:01',
                 'deleted_at' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 113,
                 'title' => 'Google Analytics 4 ID',
@@ -175,7 +175,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-09-21 11:15:58',
                 'deleted_at' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 114,
                 'title' => 'AddThis ID',
@@ -188,7 +188,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-02-10 20:28:37',
                 'deleted_at' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 115,
                 'title' => 'Lara DB Version',
@@ -201,7 +201,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-01-20 10:34:45',
                 'deleted_at' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 116,
                 'title' => 'Company Latitude',
@@ -214,7 +214,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-03-17 15:48:11',
                 'deleted_at' => NULL,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 117,
                 'title' => 'Company Longitude',
@@ -227,7 +227,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-03-17 15:48:11',
                 'deleted_at' => NULL,
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 118,
                 'title' => 'Company Url',
@@ -240,7 +240,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-02-10 20:27:48',
                 'deleted_at' => NULL,
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 119,
                 'title' => 'Google Maps Zoom',
@@ -253,7 +253,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2018-06-18 14:07:50',
                 'deleted_at' => NULL,
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 120,
                 'title' => 'lara_cleanup_orphans',
@@ -266,7 +266,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2020-05-19 14:26:14',
                 'deleted_at' => NULL,
             ),
-            19 =>
+            19 => 
             array (
                 'id' => 121,
                 'title' => 'Company Telephone Clean',
@@ -279,7 +279,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2019-07-21 18:54:45',
                 'deleted_at' => NULL,
             ),
-            20 =>
+            20 => 
             array (
                 'id' => 122,
                 'title' => 'Google Tag manager ID',
@@ -292,7 +292,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-02-10 20:27:53',
                 'deleted_at' => NULL,
             ),
-            21 =>
+            21 => 
             array (
                 'id' => 127,
                 'title' => 'OpenGraph Type',
@@ -305,7 +305,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2019-10-18 12:36:50',
                 'deleted_at' => NULL,
             ),
-            22 =>
+            22 => 
             array (
                 'id' => 128,
                 'title' => 'OpenGraph Image Width',
@@ -318,7 +318,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2019-10-03 21:01:51',
                 'deleted_at' => NULL,
             ),
-            23 =>
+            23 => 
             array (
                 'id' => 129,
                 'title' => 'OpenGraph Image Height',
@@ -331,7 +331,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2019-10-18 12:36:57',
                 'deleted_at' => NULL,
             ),
-            24 =>
+            24 => 
             array (
                 'id' => 130,
                 'title' => 'OpenGraph Description Max Length',
@@ -344,7 +344,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2019-10-03 21:04:54',
                 'deleted_at' => NULL,
             ),
-            25 =>
+            25 => 
             array (
                 'id' => 131,
                 'title' => 'OpenGraph Site Name',
@@ -357,7 +357,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2019-10-18 13:31:43',
                 'deleted_at' => NULL,
             ),
-            26 =>
+            26 => 
             array (
                 'id' => 132,
                 'title' => 'Eve Version',
@@ -370,7 +370,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2024-11-06 11:25:54',
                 'deleted_at' => NULL,
             ),
-            27 =>
+            27 => 
             array (
                 'id' => 134,
                 'title' => 'Top post range days',
@@ -383,7 +383,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2021-08-05 18:31:10',
                 'deleted_at' => NULL,
             ),
-            28 =>
+            28 => 
             array (
                 'id' => 135,
                 'title' => 'Company Facebook Account',
@@ -396,7 +396,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-03-12 13:11:40',
                 'deleted_at' => NULL,
             ),
-            29 =>
+            29 => 
             array (
                 'id' => 136,
                 'title' => 'Company Instagram Account',
@@ -409,7 +409,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-03-12 13:12:10',
                 'deleted_at' => NULL,
             ),
-            30 =>
+            30 => 
             array (
                 'id' => 137,
                 'title' => 'Company Twitter Account',
@@ -422,7 +422,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-03-12 13:12:53',
                 'deleted_at' => NULL,
             ),
-            31 =>
+            31 => 
             array (
                 'id' => 138,
                 'title' => 'Company Linkedin Account',
@@ -435,7 +435,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-03-12 13:13:26',
                 'deleted_at' => NULL,
             ),
-            32 =>
+            32 => 
             array (
                 'id' => 139,
                 'title' => 'Team Photo Ratio',
@@ -448,7 +448,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2023-06-29 14:21:34',
                 'deleted_at' => NULL,
             ),
-            33 =>
+            33 => 
             array (
                 'id' => 143,
                 'title' => 'Lara Translation Version',
@@ -461,7 +461,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-09-03 16:53:58',
                 'deleted_at' => NULL,
             ),
-            34 =>
+            34 => 
             array (
                 'id' => 144,
                 'title' => 'Seo Description Max Length',
@@ -474,7 +474,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2024-04-19 11:08:59',
                 'deleted_at' => NULL,
             ),
-            35 =>
+            35 => 
             array (
                 'id' => 145,
                 'title' => 'Seo Keywords Max Length',
@@ -487,7 +487,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2024-04-19 11:10:40',
                 'deleted_at' => NULL,
             ),
-            36 =>
+            36 => 
             array (
                 'id' => 146,
                 'title' => 'last_media_file_sync_page',
@@ -500,7 +500,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-07-06 14:42:58',
                 'deleted_at' => NULL,
             ),
-            37 =>
+            37 => 
             array (
                 'id' => 147,
                 'title' => 'last_media_videofile_sync_page',
@@ -513,7 +513,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-07-06 14:42:58',
                 'deleted_at' => NULL,
             ),
-            38 =>
+            38 => 
             array (
                 'id' => 148,
                 'title' => 'last_media_file_sync_blog',
@@ -526,7 +526,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-04-12 17:37:06',
                 'deleted_at' => NULL,
             ),
-            39 =>
+            39 => 
             array (
                 'id' => 149,
                 'title' => 'last_media_videofile_sync_blog',
@@ -539,7 +539,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-04-12 17:37:06',
                 'deleted_at' => NULL,
             ),
-            40 =>
+            40 => 
             array (
                 'id' => 150,
                 'title' => 'last_media_file_sync_team',
@@ -552,7 +552,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-04-10 20:05:32',
                 'deleted_at' => NULL,
             ),
-            41 =>
+            41 => 
             array (
                 'id' => 152,
                 'title' => 'Company 2FA App Name',
@@ -565,7 +565,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-01-17 13:36:28',
                 'deleted_at' => NULL,
             ),
-            42 =>
+            42 => 
             array (
                 'id' => 153,
                 'title' => 'last_media_file_sync_product',
@@ -578,7 +578,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'updated_at' => '2025-05-09 15:00:48',
                 'deleted_at' => NULL,
             ),
-            43 =>
+            43 => 
             array (
                 'id' => 154,
                 'title' => 'last_media_videofile_sync_product',
@@ -592,7 +592,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

@@ -11,11 +11,14 @@ trait HasCache
 	{
 		if ($force) {
 
-			File::cleanDirectory(storage_path('framework/cache/data'));
 			File::delete(base_path('bootstrap/cache/config.php'));
+			File::delete(base_path('bootstrap/cache/routes-v7.php'));
+			File::cleanDirectory(storage_path('framework/cache/data'));
 			File::cleanDirectory(storage_path('framework/views'));
 			File::cleanDirectory(storage_path('httpcache'));
 			File::cleanDirectory(storage_path('imgcache'));
+
+			session(['routecacheclear' => true]);
 
 			return true;
 
@@ -47,6 +50,7 @@ trait HasCache
 
 				if (in_array('route_cache', $types)) {
 					File::delete(base_path('bootstrap/cache/routes-v7.php'));
+					session(['routecacheclear' => true]);
 				}
 
 				return true;

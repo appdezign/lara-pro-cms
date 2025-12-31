@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -79,6 +79,9 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_max_videos' => 1,
                 'media_max_videofiles' => 0,
                 'media_max_files' => 12,
+                'media_disk_images' => 'public',
+                'media_disk_videos' => 'public',
+                'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 1,
                 'objrel_group_values' => '["page", "module", "email"]',
@@ -145,6 +148,9 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_max_videos' => 0,
                 'media_max_videofiles' => 0,
                 'media_max_files' => 0,
+                'media_disk_images' => 'public',
+                'media_disk_videos' => 'public',
+                'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
                 'objrel_group_values' => NULL,
@@ -211,6 +217,9 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_max_videos' => 0,
                 'media_max_videofiles' => 0,
                 'media_max_files' => 0,
+                'media_disk_images' => 'public',
+                'media_disk_videos' => 'public',
+                'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
                 'objrel_group_values' => NULL,
@@ -277,6 +286,9 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_max_videos' => 0,
                 'media_max_videofiles' => 0,
                 'media_max_files' => 0,
+                'media_disk_images' => 'public',
+                'media_disk_videos' => 'public',
+                'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
                 'objrel_group_values' => NULL,
@@ -292,7 +304,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'resource' => 'Lara\\Admin\\Resources\\Widgets\\WidgetResource',
                 'policy' => 'Lara\\Common\\Policies\\WidgetPolicy',
                 'model_class' => 'Lara\\Common\\Models\\LaraWidget',
-                'controller' => 'WidgetsController',
+                'controller' => 'LaraWidgetsController',
                 'nav_group' => 'blocks',
                 'has_front_auth' => 0,
                 'created_at' => '2025-07-10 10:12:08',
@@ -343,6 +355,9 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_max_videos' => 0,
                 'media_max_videofiles' => 0,
                 'media_max_files' => 0,
+                'media_disk_images' => 'public',
+                'media_disk_videos' => 'public',
+                'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
                 'objrel_group_values' => NULL,
@@ -409,6 +424,9 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_max_videos' => 0,
                 'media_max_videofiles' => 0,
                 'media_max_files' => 0,
+                'media_disk_images' => 'public',
+                'media_disk_videos' => 'public',
+                'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
                 'objrel_group_values' => NULL,

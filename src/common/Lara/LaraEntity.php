@@ -2,6 +2,8 @@
 
 namespace Lara\Common\Lara;
 
+use Illuminate\Support\Facades\Storage;
+
 use Lara\Common\Models\Entity;
 use Cache;
 
@@ -305,6 +307,36 @@ class LaraEntity
 	public function getRelations()
 	{
 		return $this->entity->relations;
+	}
+
+	public function getImageUrl($filename)
+	{
+		return  Storage::disk($this->getImageDisk())->url($filename);
+	}
+
+	public function getVideoUrl($filename)
+	{
+		return  Storage::disk($this->getVideoDisk())->url($filename);
+	}
+
+	public function getFileUrl($filename)
+	{
+		return  Storage::disk($this->getFileDisk())->url( $filename);
+	}
+
+	public function getImageDisk()
+	{
+		return  $this->entity->media_disk_images;
+	}
+
+	public function getVideoDisk()
+	{
+		return $this->entity->media_disk_videos;
+	}
+
+	public function getFileDisk()
+	{
+		return  $this->entity->media_disk_files;
 	}
 
 }

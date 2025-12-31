@@ -16,7 +16,7 @@ use Lara\Common\Models\Entity;
 $tablename = config('lara-common.database.ent.entities');
 $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
 
-if (!App::runningInConsole() && !$laraNeedsSetup) {
+if (!$laraNeedsSetup) {
 
 	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'httpcache', 'throttle:60,1', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
 
