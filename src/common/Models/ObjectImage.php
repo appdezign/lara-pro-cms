@@ -4,12 +4,13 @@ namespace Lara\Common\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Awcodes\Curator\Models\Media;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class ObjectImage extends Model
 {
 
     protected $table = 'lara_object_images';
-
-	public $timestamps = false;
 
     /**
      * @var array
@@ -18,14 +19,10 @@ class ObjectImage extends Model
         'id',
     ];
 
-	protected $casts = [
-		'featured' => 'array',
-		'thumb' => 'array',
-		'hero' => 'array',
-		'icon' => 'array',
-		'gallery_upload' => 'array',
-		'gallery' => 'array',
-	];
+	public function media(): BelongsTo
+	{
+		return $this->belongsTo(Media::class, 'media_id', 'id');
+	}
 
 
 }

@@ -49,3 +49,9 @@ if (!function_exists('get_youtube_id')) {
 	}
 
 }
+if (!function_exists('glideUrl')) {
+	function glideUrl($path, $width = 480, $height = 480, $fit = 'crop', $format = 'webp')
+	{
+		return url(glide()->getUrl($path, ['w' => $width, 'h' => $height, 'fit' => $fit, 'fm' => $format]));
+	}
+}

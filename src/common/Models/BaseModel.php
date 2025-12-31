@@ -2,6 +2,8 @@
 
 namespace Lara\Common\Models;
 
+use Awcodes\Curator\Glide\GlideBuilder;
+use Awcodes\Curator\Models\Media;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -15,13 +17,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-use Kenepa\ResourceLock\Models\Concerns\HasLocks;
 
 use Filament\Forms\Components\RichEditor\Models\Concerns\InteractsWithRichContent;
 use Filament\Forms\Components\RichEditor\Models\Contracts\HasRichContent;
 
-use Lara\Admin\Components\CustomBlocks\HeroBlock;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Kenepa\ResourceLock\Models\Concerns\HasLocks;
+
+use Lara\Common\Models\Concerns\HasLaraMedia;
 
 use Cache;
 
@@ -31,6 +34,8 @@ class BaseModel extends Model implements HasRichContent
 	use SoftDeletes;
 	use HasLocks;
 	use InteractsWithRichContent;
+
+	use HasLaraMedia;
 
 	protected $guarded = [
 		'id',
@@ -164,17 +169,16 @@ class BaseModel extends Model implements HasRichContent
 		return $this->morphOne('Lara\Common\Models\ObjectOpenGraph', 'entity');
 	}
 
-	/**
-	 * @return MorphOne
-	 */
-	public function images(): MorphOne
+	public function ogimage()
 	{
-		return $this->morphOne('Lara\Common\Models\ObjectImage', 'entity');
+		return $this->opengraph()->firstOrCreate()->ogImg();
 	}
 
-	/**
-	 * @return MorphOne
-	 */
+	public function hasOpenGraphImage() {
+		return !empty($this->ogimage);
+
+	}
+
 	public function files(): MorphOne
 	{
 		return $this->morphOne('Lara\Common\Models\ObjectFile', 'entity');
@@ -218,175 +222,6 @@ class BaseModel extends Model implements HasRichContent
 	public function user(): BelongsTo
 	{
 		return $this->belongsTo('Lara\Common\Models\User')->withTrashed();
-	}
-
-	public function getFeatured()
-	{
-		return $this->getMediaRepeaterData($this->images, 'featured', 'featured', true);
-	}
-
-	public function hasFeatured(): bool
-	{
-		return isset($this->images) && !empty($this->images->featured);
-	}
-
-	public function getThumb()
-	{
-		return $this->getMediaRepeaterData($this->images, 'thumb', 'thumb', true);
-	}
-
-	public function hasThumb(): bool
-	{
-		return isset($this->images) && !empty($this->images->thumb);
-	}
-
-	public function hasThumbOrFeatured(): bool
-	{
-		return isset($this->images) && (!empty($this->images->thumb || !empty($this->images->featured)));
-	}
-
-	public function getThumbOrFeatured()
-	{
-		if ($this->hasThumb()) {
-			return $this->getMediaRepeaterData($this->images, 'thumb', 'thumb', true);
-		} elseif ($this->hasFeatured()) {
-			return $this->getMediaRepeaterData($this->images, 'featured', 'featured', true);
-		} else {
-			return null;
-		}
-	}
-
-	public function getHero()
-	{
-		return $this->getMediaRepeaterData($this->images, 'hero', 'hero', true);
-	}
-
-	public function hasHero(): bool
-	{
-		return isset($this->images) && !empty($this->images->hero);
-	}
-
-	public function getIcon()
-	{
-		return $this->getMediaRepeaterData($this->images, 'icon', 'icon', true);
-	}
-
-	public function hasIcon(): bool
-	{
-		return isset($this->images) && !empty($this->images->icon);
-	}
-
-	public function getGallery(): ?array
-	{
-		return $this->getMediaRepeaterData($this->images, 'gallery', 'gallery');
-	}
-
-	public function hasGallery(): bool
-	{
-		return isset($this->images) && !empty($this->images->gallery);
-	}
-
-	public function hasImages(): bool
-	{
-		return $this->hasFeatured()
-			|| $this->hasThumb()
-			|| $this->hasHero()
-			|| $this->hasIcon()
-			|| $this->hasGallery();
-	}
-
-	public function getFile(): ?\stdClass
-	{
-		// get single file
-		return $this->getMediaRepeaterData($this->files, 'entity_files', 'doc', true);
-	}
-
-	public function getFiles(): ?array
-	{
-		// get array of files
-		return $this->getMediaRepeaterData($this->files, 'entity_files', 'doc');
-	}
-
-	public function hasFiles(): bool
-	{
-		return isset($this->files) && !empty($this->files->entity_files);
-	}
-
-	public function getVideoFile(): ?\stdClass
-	{
-		// get single video file
-		return $this->getMediaRepeaterData($this->videofiles, 'entity_videofiles', 'videofile', true);
-	}
-
-	public function getVideoFiles(): ?array
-	{
-		// get array of video files
-		return $this->getMediaRepeaterData($this->videofiles, 'entity_videofiles', 'videofile');
-	}
-
-	public function hasVideoFiles(): bool
-	{
-		return isset($this->videofiles) && !empty($this->videofiles->entity_videofiles);
-	}
-
-	public function getVideo(): ?\stdClass
-	{
-		// get single video
-		return $this->getMediaRepeaterData($this->videos, 'entity_videos', 'video', true);
-	}
-
-	public function getVideos()
-	{
-		// get array of videos
-		return $this->getMediaRepeaterData($this->videos, 'entity_videos', 'video');
-	}
-
-	public function hasVideos(): bool
-	{
-		return isset($this->videos) && !empty($this->videos->entity_videos);
-	}
-
-	public function hasImageCount(): ?int
-	{
-		return $this->images->image_count ?? null;
-	}
-
-	private function getMediaRepeaterData($data, string $column, ?string $prefix = null, bool $single = false)
-	{
-
-		if ($data && $data->$column) {
-			$array = array();
-			foreach ($data->$column as $item) {
-				$object = new \stdClass();
-				foreach ($item as $key => $value) {
-					if ($prefix) {
-						$newKey = Str::replaceStart($prefix . '_', '', $key);
-						$object->$newKey = $value;
-					} else {
-						$object->$key = $value;
-					}
-				}
-				if (property_exists($object, 'filename')) {
-					$filename = $object->filename;
-					$parts = explode('/', $filename);
-					if (sizeof($parts) == 2) {
-						$object->filedir = $parts[0];
-						$object->filename = $parts[1];
-					} else {
-						$object->filedir = null;
-						$object->filename = $filename;
-					}
-				}
-				$array[] = $object;
-			}
-			if ($single) {
-				return $array[0];
-			} else {
-				return $array;
-			}
-		} else {
-			return null;
-		}
 	}
 
 }

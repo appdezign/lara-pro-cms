@@ -2,18 +2,16 @@
 use Illuminate\Support\Str;
 use Lara\Common\Models\Setting;
 
-$imageUrl = null;
-
 $companyName = Setting::where('key', 'company_name')->value('value');
 
 ?>
 @if($getRecord()->opengraph)
 	<div class="og-preview">
 
-		@if($imageUrl)
-			<div class="ratio ratio-2x1"
-			     style="">
-			</div>
+		@if($getRecord()->hasOpenGraphImage())
+			<img src="{{ glideUrl($getRecord()->ogimage->path, 1200, 630) }}" />
+		@elseif($getRecord()->hasFeatured())
+			<img src="{{ glideUrl($getRecord()->featured()->path, 1200, 630) }}" />
 		@else
 			<img src="https://dummyimage.com/1200x630/e8ecf0/d4d8dc?text=OG Preview"
 		@endif
