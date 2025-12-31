@@ -2,6 +2,8 @@
 
 namespace Lara\Admin\Traits;
 
+use Awcodes\Curator\Components\Forms\CuratorPicker;
+use Awcodes\Curator\Models\Media;
 use Carbon\Carbon;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
@@ -16,6 +18,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\ImageHooks;
+use Lara\Common\Models\objectImage;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait HasMedia
@@ -31,191 +34,34 @@ trait HasMedia
 			$entityMediaFieldSetting = $hook->getEntityField();
 			if (static::getEntity()->$entityMediaFieldSetting) {
 
-				$rows[] = Repeater::make($hook->value)
-					->label(new HtmlString('<h3>' . ucfirst($hook->value) . '</h3>'))
-					->columnSpanFull()
-					->columns([
-						'sm' => 2,
-						'lg' => 3,
-						'xl' => 4,
-					])
-					->addActionLabel(_q('lara-admin::default.button.repeater_add'))
-					->addActionAlignment(Alignment::Start)
-					->schema([
-						FileUpload::make($hook->value . '_filename')
-							->hiddenLabel()
-							->live()
-							->required()
-							->itemPanelAspectRatio('0.75')
-							->panelAspectRatio('4:3')
-							->disk(config('lara.uploads.disk'))
-							->directory(static::getSlug())
-							->imageResizeMode('contain')
-							->imageResizeTargetWidth(config('lara.uploads.images.max_width'))
-							->imageResizeTargetHeight(config('lara.uploads.images.max_height'))
-							->visibility('public')
-							->storeFileNamesIn($hook->value . '_original')
-							->getUploadedFileNameForStorageUsing(fn(TemporaryUploadedFile $file): string => static::cleanupFilename($file))
-							->extraAttributes(['class' => 'lara-file-upload']),
-						Group::make([
-							TextInput::make($hook->value . '_original')
-								->label(_q('lara-admin::default.fileupload.original'))
-								->readonly(true),
-							TextInput::make($hook->value . '_seo_alt')
-								->label(_q('lara-admin::default.fileupload.seo_alt')),
-							TextInput::make($hook->value . '_seo_title')
-								->label(_q('lara-admin::default.fileupload.seo_title')),
-							TextInput::make($hook->value . '_caption')
-								->label(_q('lara-admin::default.fileupload.caption')),
-							Toggle::make($hook->value . '_prevent_cropping')
-								->label(_q('lara-admin::default.fileupload.prevent_cropping'))
-								->visible($hook->value == 'featured'),
-							Select::make($hook->value . '_hero_size')
-								->label(_q('lara-admin::default.fileupload.hero_size'))
-								->options([
-									0 => 'small',
-									1 => 'medium',
-									2 => 'large',
-									3 => 'xl',
-									4 => 'xxl',
-									5 => 'xxxl',
-								])
-								->visible($hook->value == 'hero'),
-						])
-							->columnSpan([
-								'sm' => 1,
-								'lg' => 2,
-								'xl' => 2,
-							])->columnStart([
-								'sm' => 0,
-								'lg' => 0,
-								'xl' => 3,
-							])->visible(fn(Get $get) => !empty($get($hook->value . '_filename'))),
-
-					])
+				$rows[] = CuratorPicker::make($hook->value . '_ids')
+					->label($hook->value)
+					->multiple()
 					->maxItems(1)
-					->defaultItems(0)
-					->extraAttributes(['class' => 'lara-media-section hide-media-sort']);
+					->directory(static::getSlug())
+					->relationship('images', 'id')
+					->orderColumn('order')
+					->typeColumn('type')
+					->typeValue($hook->value);
+
 			}
 		}
 
 		if (static::resourceHasGallery()) {
 
-			$rows[] = FileUpload::make('gallery_upload')
-				->label(function (Get $get) {
-					return new HtmlString('<h3>' . _q('lara-admin::default.section.gallery', true) . '</h3><p class="fi-section-header-description mb-4">(' . sizeof($get('gallery')) . '/' . static::getMaxGallery() . ')</p>');
-				})
-				->columnSpanFull()
-				->panelLayout('grid')
-				->itemPanelAspectRatio('0.75')
+			$rows[] = CuratorPicker::make('gallery_ids')
+				->label('gallery')
 				->multiple()
-				->maxFiles(static::getMaxGallery())
-				->reorderable()
-				->disk(config('lara.uploads.disk'))
-				->directory(static::getSlug())
-				->imageResizeMode('contain')
-				->imageResizeTargetWidth(config('lara.uploads.images.max_width'))
-				->imageResizeTargetHeight(config('lara.uploads.images.max_height'))
-				->visibility('public')
-				->getUploadedFileNameForStorageUsing(fn(TemporaryUploadedFile $file): string => static::cleanupFilename($file))
-				->disabled(fn (Get $get) => sizeof($get('gallery')) >= static::getMaxGallery());
-
-			$rows[] = Repeater::make('gallery')
-				->hiddenLabel()
-				->columnSpanFull()
-				->columns([
-					'sm' => 2,
-					'lg' => 3,
-					'xl' => 4,
-				])
-				->addActionLabel(_q('lara-admin::default.button.repeater_add'))
-				->addActionAlignment(Alignment::Start)
-				->live()
-				->defaultItems(0)
 				->maxItems(static::getMaxGallery())
-				->schema([
-
-					FileUpload::make('gallery_filename')
-						->hiddenLabel()
-						->live()
-						->panelAspectRatio('4:3')
-						->itemPanelAspectRatio('0.75')
-						->disk(config('lara.uploads.disk'))
-						->directory(static::getSlug())
-						->imageResizeMode('contain')
-						->imageResizeTargetWidth(config('lara.uploads.images.max_width'))
-						->imageResizeTargetHeight(config('lara.uploads.images.max_height'))
-						->visibility('public')
-						->getUploadedFileNameForStorageUsing(fn(TemporaryUploadedFile $file): string => static::cleanupFilename($file))
-						->storeFileNamesIn('gallery_original'),
-
-					Group::make([
-						TextInput::make('gallery_original')
-							->label(_q('lara-admin::default.fileupload.original'))
-							->readonly(true)
-							->visible(fn($state) => !empty($state)),
-						TextInput::make('gallery_seo_alt')
-							->label(_q('lara-admin::default.fileupload.seo_alt')),
-						TextInput::make('gallery_seo_title')
-							->label(_q('lara-admin::default.fileupload.seo_title')),
-						TextInput::make('gallery_caption')
-							->label(_q('lara-admin::default.fileupload.caption')),
-
-					])->columnSpan([
-						'sm' => 1,
-						'lg' => 2,
-						'xl' => 2,
-					])->columnStart([
-						'sm' => 0,
-						'lg' => 0,
-						'xl' => 3,
-					])->visible(fn(Get $get) => !empty($get('gallery_filename'))),
-				])->extraAttributes(['class' => 'lara-gallery-section']);
+				->directory(static::getSlug())
+				->relationship('images', 'id')
+				->orderColumn('order')
+				->typeColumn('type')
+				->typeValue('gallery');
 
 		}
 
 		return $rows;
-	}
-
-	private static function mutateGalleryData($data): array
-	{
-
-		if (static::resourceHasGallery()) {
-			if (array_key_exists('gallery_upload', $data) && array_key_exists('gallery', $data)) {
-				$galleryPro = $data['gallery'];
-
-				foreach ($data['gallery_upload'] as $imageFileName) {
-
-					$imageArray = [
-						'gallery_filename'  => $imageFileName,
-						'gallery_original'  => static::getOriginalFilename($imageFileName),
-						'gallery_seo_alt'   => null,
-						'gallery_seo_title' => null,
-						'gallery_caption'   => null,
-					];
-
-					$galleryPro[] = $imageArray;
-
-				}
-				$data['gallery'] = $galleryPro;
-				$data['gallery_upload'] = [];
-			}
-		}
-
-		return $data;
-	}
-
-	private static function getOriginalFilename($imageFileName): string
-	{
-		$pos = strpos($imageFileName, '-');
-		if ($pos !== false) {
-			$originalFilename = substr($imageFileName, $pos + 1);
-		} else {
-			$originalFilename = $imageFileName;
-		}
-
-		return $originalFilename;
-
 	}
 
 	private static function getFilesSection(): array
@@ -240,7 +86,8 @@ trait HasMedia
 					->acceptedFileTypes(config('lara.uploads.accepted_file_types'))
 					->previewable(true)
 					->itemPanelAspectRatio('0.75')
-					->directory(static::getSlug())
+					->disk(static::getDiskForFiles())
+					->directory(static::getSlug() . '/file')
 					->storeFileNamesIn('doc_original')
 					->visibility('public')
 					->getUploadedFileNameForStorageUsing(fn(TemporaryUploadedFile $file): string => static::cleanupFilename($file))
@@ -318,7 +165,8 @@ trait HasMedia
 					->required()
 					->acceptedFileTypes(config('lara.uploads.accepted_videofile_types'))
 					->previewable(true)
-					->directory(static::getSlug())
+					->disk(static::getDiskForVideos())
+					->directory(static::getSlug() . '/video')
 					->visibility('public')
 					->storeFileNamesIn('vidfile_original')
 					->getUploadedFileNameForStorageUsing(fn(TemporaryUploadedFile $file): string => static::cleanupFilename($file))
@@ -358,29 +206,72 @@ trait HasMedia
 		return $timestamp . '-' . $cleanFilename . '.' . $extension;;
 	}
 
-	private static function saveImageCount($record): void
+	private static function lockMediaItems($record)
 	{
-		$imageRecord = $record->images;
+		if ($record->hasFeatured()) {
+			static::lockMedia($record->featured());
+		}
+		if ($record->hasThumb()) {
+			static::lockMedia($record->thumb());
+		}
+		if ($record->hasHero()) {
+			static::lockMedia($record->hero());
+		}
+		if ($record->hasIcon()) {
+			static::lockMedia($record->icon());
+		}
+		if ($record->HasGallery()) {
+			$gallery = $record->gallery();
+			foreach ($gallery as $item) {
+				static::lockMedia($item);
+			}
+		}
 
-		if ($imageRecord) {
-			$imageCount = 0;
-			if ($record->hasFeatured()) {
-				$imageCount++;
+	}
+
+	private static function syncFullMediaLibrary()
+	{
+
+		$dateFormat = 'Y-m-d H:i:s';
+		$syncInterval = config('lara-admin.lara-media.sync-interval', 60); // seconds
+		if (session()->has('laracms.media.sync')) {
+			$lastSyncStr = session()->get('laracms.media.sync');
+			$lastSync = Carbon::createFromFormat($dateFormat, $lastSyncStr);
+			if ($lastSync->diffInSeconds(Carbon::now()) < $syncInterval) {
+				return false;
 			}
-			if ($record->hasThumb()) {
-				$imageCount++;
-			}
-			if ($record->hasHero()) {
-				$imageCount++;
-			}
-			if ($record->hasIcon()) {
-				$imageCount++;
-			}
-			if ($record->hasGallery()) {
-				$imageCount = $imageCount + count($record->getGallery());
-			}
-			$imageRecord->image_count = $imageCount;
-			$imageRecord->save();
+		}
+
+		// reset
+		$media = Media::all();
+		foreach ($media as $item) {
+			static::unlockMedia($item);
+		}
+
+		// sync
+		$images = objectImage::all();
+		foreach ($images as $image) {
+			static::lockMedia($image->media);
+		}
+
+		session()->put('laracms.media.sync', date($dateFormat));
+
+		return true;
+	}
+
+	private static function lockMedia($media)
+	{
+		if (!empty($media) && $media instanceof Media) {
+			$media->in_use = 1;
+			$media->save();
+		}
+	}
+
+	private static function unlockMedia($media)
+	{
+		if (!empty($media) && $media instanceof Media) {
+			$media->in_use = 0;
+			$media->save();
 		}
 	}
 

@@ -1,3 +1,14 @@
+
+window.addEventListener('insert-media', afterInsertMedia);
+function afterInsertMedia() {
+	let savebutton = document.querySelector('.js-lara-save-button');
+	if(savebutton) {
+		setTimeout(() => {
+			savebutton.click();
+		}, "250");
+	}
+}
+
 document.addEventListener('alpine:init', () => {
 
 	navGroups = document.querySelectorAll('.fi-sidebar-group.fi-collapsible');

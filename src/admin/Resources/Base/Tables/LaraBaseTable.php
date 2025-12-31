@@ -105,7 +105,7 @@ trait LaraBaseTable
 				->trueIcon('bi-file-image')
 				->trueColor('secondary')
 				->size('md')
-				->state(fn($record) => ($record->hasImageCount()) ? true : null)
+				->state(fn($record) => ($record->hasImages()) ? true : null)
 				->visibleFrom('2xl');
 		}
 

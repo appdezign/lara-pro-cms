@@ -2,6 +2,7 @@
 
 namespace Lara\Admin\Resources\Base\Schemas;
 
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Cache;
 use Carbon\Carbon;
 use Filament\Forms\Components\Checkbox;
@@ -69,13 +70,9 @@ trait LaraBaseForm
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.media', true))
 				->schema([
 					Section::make(_q('lara-admin::default.section.main_images', true))
-						->relationship('images')
 						->columnSpanFull()
 						->collapsible()
 						->schema(static::getMainImageSection())
-						->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
-							return static::mutateGalleryData($data);
-						})
 						->extraAttributes(['class' => 'lara-media-tab'])
 				])
 				->visible(fn(string $operation) => $operation === 'edit');
@@ -511,11 +508,10 @@ trait LaraBaseForm
 		$rows[] = TextAreaWithCounter::make('og_description')
 			->label(_q('lara-admin::default.column.og_description'));
 
-		/*
-		$rows[] = MediaPicker::make('og_image')
-			->hiddenLabel()
-			->folder(static::getEntityMediaFolder());
-		*/
+		$rows[] = CuratorPicker::make('og_image')
+					->label('OG Image')
+					->inlineLabel()
+					->directory(static::getSlug());
 
 		return $rows;
 
@@ -1163,14 +1159,23 @@ trait LaraBaseForm
 		} else {
 
 			$themepath = config('theme.active');
+			$parentpath = config('theme.parent');
+
 			$widgetpath = 'laracms/themes/' . $themepath . '/views/_widgets/lara/';
+			$fallbackpath = 'laracms/themes/' . $parentpath . '/views/_widgets/lara/';
 
 			$fileArray = array();
 
 			if ($record->type == 'module') {
 
 				$bladepath = $widgetpath . 'entity';
+
 				$files = Storage::disk('lara')->files($bladepath);
+
+				if(empty($files)) {
+					$bladepath = $fallbackpath . 'entity';
+					$files = Storage::disk('lara')->files($bladepath);
+				}
 
 				foreach ($files as $file) {
 					$filename = basename($file);
@@ -1188,6 +1193,11 @@ trait LaraBaseForm
 
 				$bladepath = $widgetpath . 'text';
 				$files = Storage::disk('lara')->files($bladepath);
+
+				if(empty($files)) {
+					$bladepath = $fallbackpath . 'text';
+					$files = Storage::disk('lara')->files($bladepath);
+				}
 
 				foreach ($files as $file) {
 					$filename = basename($file);

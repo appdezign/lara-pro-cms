@@ -284,4 +284,19 @@ trait HasLaraEntity
 		return static::getEntity()->media_max_files;
 	}
 
+	public static function getDiskForImages(): string
+	{
+		return static::getEntity()->media_disk_images;
+	}
+
+	public static function getDiskForFiles(): string
+	{
+		return static::getEntity()->media_disk_files;
+	}
+
+	public static function getDiskForVideos(): string
+	{
+		return static::getEntity()->media_disk_videos;
+	}
+
 }
