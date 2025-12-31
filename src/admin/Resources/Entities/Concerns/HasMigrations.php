@@ -5,6 +5,7 @@ namespace Lara\Admin\Resources\Entities\Concerns;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Translation;
@@ -15,11 +16,36 @@ trait HasMigrations
 	private static function createMigrations()
 	{
 
-		File::cleanDirectory(base_path('database/migrations'));
+		$tables = static::getAllTables();
+		$demoTables = [];
+		foreach ($tables as $tablename) {
+			if(
+				(Str::startsWith($tablename, 'lara_content_')
+				&& $tablename != 'lara_content_pages')
+				|| Str::startsWith($tablename, 'lara_form_')
+			) {
+				$demoTables[] = $tablename;
+			}
+		}
 
+		$demoTablesStr = implode(",", 	$demoTables);
+
+		// Lara
+		File::cleanDirectory(base_path('database/migrations/lara'));
 		Artisan::call('migrate:generate', [
 			'--date'     => '01-09-2026 12:00:00',
 			'--skip-log' => true,
+			'--path' => base_path('database/migrations/lara'),
+			'--ignore' => $demoTablesStr,
+		]);
+
+		// Lara
+		File::cleanDirectory(base_path('database/migrations/demo'));
+		Artisan::call('migrate:generate', [
+			'--date'     => '01-09-2026 12:00:00',
+			'--skip-log' => true,
+			'--path' => base_path('database/migrations/demo'),
+			'--tables' => $demoTablesStr,
 		]);
 	}
 
@@ -57,7 +83,7 @@ trait HasMigrations
 		$entityIds = Entity::whereIn('cgroup', $cgroups)->pluck('id')->toArray();
 		$entityIdStr = implode(', ', $entityIds);
 
-		// get entities and forms, so w ecvan exclude them for translations
+		// get entities and forms, so we can exclude them for translations
 		$excludeEntities = Entity::whereIn('cgroup', ['entity', 'form'])->pluck('resource_slug')->toArray();;
 		$excludeStr = implode('\', \'', $excludeEntities);
 		$excludeStr = '\'' . $excludeStr . '\'';
@@ -69,6 +95,8 @@ trait HasMigrations
 					$where = "name = 'superadmin'";
 					break;
 				case 'lara_content_pages':
+					$where = "ishome = 1";
+					break;
 				case 'lara_menu_menu_items':
 					$where = "is_home = 1";
 					break;
@@ -100,6 +128,7 @@ trait HasMigrations
 			'cache_locks',
 			'curator',
 			'failed_jobs',
+			'health_check_result_history_items',
 			'job_batches',
 			'jobs',
 			'migrations',

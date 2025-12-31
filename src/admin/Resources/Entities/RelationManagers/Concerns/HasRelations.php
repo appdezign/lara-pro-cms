@@ -12,6 +12,7 @@ trait HasRelations
 	private static function checkRelations($entity): void
 	{
 
+		// hasOne, hasMany relations
 		$relations = $entity->relations()->whereIn('type', ['hasOne', 'hasMany'])->get();
 		foreach ($relations as $relation) {
 			// find opposite relation
@@ -20,15 +21,18 @@ trait HasRelations
 				->where('related_entity_id', $relation->entity_id)
 				->first();
 			if (empty($check)) {
-				EntityRelation::create([
+				$belongsToRelation = EntityRelation::create([
 					'type'              => 'belongsTo',
 					'entity_id'         => $relation->related_entity_id,
 					'related_entity_id' => $relation->entity_id,
 					'foreign_key'       => $relation->foreign_key,
 				]);
+				static::checkForeignKeyColumn($belongsToRelation);
 			}
+
 		}
 
+		// belongsTo relations
 		$relations = $entity->relations()->where('type', 'belongsTo')->get();
 		foreach ($relations as $relation) {
 			// find opposite relation
@@ -41,21 +45,7 @@ trait HasRelations
 				$relation->delete();
 			} else {
 				// check table
-				$modelClass = $relation->entity->model_class;
-				$relatedModelClass = $relation->relatedEntity->model_class;
-				$tablename = $modelClass::getTableName();
-				$reltablename = $relatedModelClass::getTableName();
-				$colname = $relation->foreign_key;
-
-				if (!Schema::hasColumn($tablename, $colname)) {
-					Schema::table($tablename, function ($table) use ($reltablename, $colname) {
-						$table->bigInteger($colname)->unsigned()->after('id');
-						$table->foreign($colname)
-							->references('id')
-							->on($reltablename)
-							->onDelete('cascade');
-					});
-				}
+				static::checkForeignKeyColumn($relation);
 			}
 		}
 
@@ -78,6 +68,27 @@ trait HasRelations
 					->seconds(30)
 					->danger()
 					->send();
+			}
+		}
+	}
+
+	private static function checkForeignKeyColumn($relation): void
+	{
+		if ($relation->type == 'belongsTo') {
+			$modelClass = $relation->entity->model_class;
+			$relatedModelClass = $relation->relatedEntity->model_class;
+			$tablename = $modelClass::getTableName();
+			$reltablename = $relatedModelClass::getTableName();
+			$colname = $relation->foreign_key;
+
+			if (!Schema::hasColumn($tablename, $colname)) {
+				Schema::table($tablename, function ($table) use ($reltablename, $colname) {
+					$table->bigInteger($colname)->unsigned()->after('id');
+					$table->foreign($colname)
+						->references('id')
+						->on($reltablename)
+						->onDelete('cascade');
+				});
 			}
 		}
 	}

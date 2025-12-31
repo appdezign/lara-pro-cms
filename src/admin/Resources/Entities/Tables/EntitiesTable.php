@@ -2,6 +2,7 @@
 
 namespace Lara\Admin\Resources\Entities\Tables;
 
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
@@ -15,6 +16,7 @@ class EntitiesTable
 	private static function rs(): EntityResource
 	{
 		$class = EntityResource::class;
+
 		return new $class;
 	}
 
@@ -44,10 +46,17 @@ class EntitiesTable
 			->deferFilters(false)
 			->actions([
 				EditAction::make()->label(''),
+				DeleteAction::make()
+					->label('')
+					->disabled(function ($record) {
+						$entityModelClass = $record->model_class;
+						return $entityModelClass::count() > 0;
+					}),
 			])
 			->bulkActions([])
 			->modifyQueryUsing(function ($query) {
 				$query->orderBy('position');
+
 				return $query;
 			});
 	}

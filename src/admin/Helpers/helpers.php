@@ -19,8 +19,6 @@ if (!function_exists('_q')) {
 
 		if (__($fullkey, $replace, $locale) == $fullkey) {
 
-			// ray(__($fullkey, $replace, $locale) . ' | ' . $fullkey);
-
 			if (str_contains($fullkey, '::')) {
 
 				list($module, $langkey) = explode('::', $fullkey);

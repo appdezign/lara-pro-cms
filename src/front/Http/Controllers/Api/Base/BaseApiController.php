@@ -86,9 +86,7 @@ class BaseApiController extends Controller
 		}
 
 		// add standard fields to the default fields
-		if ($this->entity->hasSlug()) {
-			$this->columns[] = 'slug';
-		}
+		$this->columns[] = 'slug';
 		if ($this->entity->hasLead()) {
 			$this->columns[] = 'lead';
 		}
@@ -98,7 +96,7 @@ class BaseApiController extends Controller
 
 		// add custom fields to the default fields
 		foreach ($this->entity->getCustomColumns() as $field) {
-			$this->columns[] = $field->fieldname;
+			$this->columns[] = $field->field_name;
 		}
 
 		$collection = new $this->modelClass;
@@ -118,24 +116,22 @@ class BaseApiController extends Controller
 		foreach ($objects as $object) {
 
 			// add seo
-			if ($this->entity->hasSeo()) {
-				$object->seo_title = $object->seo->seo_title;
-				$object->seo_description = $object->seo->seo_description;
-				$object->seo_keywords = $object->seo->seo_keywords;
-				unset($object->seo);
-			}
+			$object->seo_title = $object->seo->seo_title;
+			$object->seo_description = $object->seo->seo_description;
+			$object->seo_keywords = $object->seo->seo_keywords;
+			unset($object->seo);
 
 			// add featured image
-			if ($object->media()->count()) {
-				$object->image = _cimg($object->featured->filename, 1280, 960);
+			if ($object->hasFeatured()) {
+				$object->image = glideUrl($object->featured()->path, 1280, 960);
 			} else {
 				$object->image = null;
 			}
 			// add all images
-			if ($object->media()->count()) {
+			if ($object->gallery()->count()) {
 				$gallery = array();
-				foreach ($object->media as $img) {
-					$gallery[] = _cimg($img->filename, 1280, 960);
+				foreach ($object->gallery as $img) {
+					$gallery[] = glideUrl($img->path, 1280, 960);
 				}
 				$object->images = $gallery;
 			} else {
@@ -182,9 +178,7 @@ class BaseApiController extends Controller
 		}
 
 		// add standard fields to the default fields
-		if ($this->entity->hasSlug()) {
-			$this->columns[] = 'slug';
-		}
+		$this->columns[] = 'slug';
 		if ($this->entity->hasLead()) {
 			$this->columns[] = 'lead';
 		}
@@ -194,7 +188,7 @@ class BaseApiController extends Controller
 
 		// add custom fields to the default fields
 		foreach ($this->entity->getCustomColumns() as $field) {
-			$this->columns[] = $field->fieldname;
+			$this->columns[] = $field->field_name;
 		}
 
 		if (is_numeric($id)) {
@@ -206,39 +200,37 @@ class BaseApiController extends Controller
 		if ($object) {
 
 			// add seo
-			if ($this->entity->hasSeo()) {
-				$seo = $object->seo;
-				if ($seo) {
-					$object->seo_title = $seo->seo_title;
-					$object->seo_description = $seo->seo_description;
-					$object->seo_keywords = $seo->seo_keywords;
-				} else {
-					$object->seo_title = null;
-					$object->seo_description = null;
-					$object->seo_keywords = null;
-				}
-				unset($object->seo);
+			if ($seo) {
+				$object->seo_title = $seo->seo_title;
+				$object->seo_description = $seo->seo_description;
+				$object->seo_keywords = $seo->seo_keywords;
+			} else {
+				$object->seo_title = null;
+				$object->seo_description = null;
+				$object->seo_keywords = null;
 			}
+			unset($object->seo);
 
 			// add featured image
-			if ($object->media()->count()) {
+			if ($object->hasFeatured()) {
+
 				if ($getFullImages) {
-					$object->image = $this->entity->getUrlForImages() . '/' . $object->featured->filename;
+					$object->image = glideUrl($img->filename, 1920, 1440);
 				} else {
-					$object->image = _cimg($object->featured->filename, 1280, 960);
+					$object->image = glideUrl($img->filename, 1280, 960);
 				}
 			} else {
 				$object->image = null;
 			}
 
 			// add all images
-			if ($object->media()->count()) {
+			if ($object->gallery()->count()) {
 				$gallery = array();
-				foreach ($object->media as $img) {
+				foreach ($object->fallery as $img) {
 					if ($getFullImages) {
-						$imagePath = $this->entity->getUrlForImages() . '/' . $img->filename;
+						$imagePath = glideUrl($img->filename, 1920, 1440);
 					} else {
-						$imagePath = _cimg($img->filename, 1280, 960);
+						$imagePath = glideUrl($img->filename, 1280, 960);
 					}
 					$gallery[] = $imagePath;
 					$img->image_url = $imagePath;
