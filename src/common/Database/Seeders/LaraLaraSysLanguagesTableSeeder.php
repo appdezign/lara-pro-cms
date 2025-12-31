@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -14,12 +14,12 @@ class LaraLaraSysLanguagesTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_sys_languages')->delete();
-
+        
         \DB::table('lara_sys_languages')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'code' => 'nl',
@@ -32,7 +32,7 @@ class LaraLaraSysLanguagesTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => '2024-03-05 17:50:09',
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'code' => 'en',
@@ -46,7 +46,7 @@ class LaraLaraSysLanguagesTableSeeder extends Seeder
                 'updated_at' => '2024-03-05 17:50:09',
             ),
         ));
-
-
+        
+        
     }
 }

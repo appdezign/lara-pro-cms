@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -14,12 +14,12 @@ class LaraLaraAuthUsersTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_auth_users')->delete();
-
+        
         \DB::table('lara_auth_users')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 3,
                 'name' => 'superadmin',
@@ -29,8 +29,9 @@ class LaraLaraAuthUsersTableSeeder extends Seeder
                 'middlename' => 'Admin',
                 'lastname' => 'Firmaq',
                 'locale' => 'nl',
-                'password' => '',
+                'password' => '$2y$12$M5VlPPZUdbxUdmoLm2KPcuigoZ1PppkPJ8kNyAORXWN4q41BVPWAu',
                 'remember_token' => NULL,
+                'api_token' => '',
                 'created_at' => '2025-06-18 09:07:53',
                 'deleted_at' => NULL,
                 'updated_at' => '2025-10-24 09:46:03',
@@ -38,7 +39,7 @@ class LaraLaraAuthUsersTableSeeder extends Seeder
                 'force_renew_password' => 0,
             ),
         ));
-
-
+        
+        
     }
 }

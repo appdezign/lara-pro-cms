@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -1274,6 +1274,62 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
+            ),
+            157 => 
+            array (
+                'id' => 256,
+                'name' => 'view_any_media',
+                'guard_name' => 'web',
+                'created_at' => '2025-12-17 19:17:03',
+                'updated_at' => '2025-12-17 19:17:03',
+            ),
+            158 => 
+            array (
+                'id' => 257,
+                'name' => 'view_media',
+                'guard_name' => 'web',
+                'created_at' => '2025-12-17 19:17:03',
+                'updated_at' => '2025-12-17 19:17:03',
+            ),
+            159 => 
+            array (
+                'id' => 258,
+                'name' => 'create_media',
+                'guard_name' => 'web',
+                'created_at' => '2025-12-17 19:17:03',
+                'updated_at' => '2025-12-17 19:17:03',
+            ),
+            160 => 
+            array (
+                'id' => 259,
+                'name' => 'update_media',
+                'guard_name' => 'web',
+                'created_at' => '2025-12-17 19:17:03',
+                'updated_at' => '2025-12-17 19:17:03',
+            ),
+            161 => 
+            array (
+                'id' => 260,
+                'name' => 'delete_media',
+                'guard_name' => 'web',
+                'created_at' => '2025-12-17 19:17:03',
+                'updated_at' => '2025-12-17 19:17:03',
+            ),
+            162 => 
+            array (
+                'id' => 261,
+                'name' => 'delete_any_media',
+                'guard_name' => 'web',
+                'created_at' => '2025-12-17 19:17:03',
+                'updated_at' => '2025-12-17 19:17:03',
+            ),
+            163 => 
+            array (
+                'id' => 262,
+                'name' => 'view any_media',
+                'guard_name' => 'web',
+                'created_at' => '2025-12-17 19:20:09',
+                'updated_at' => '2025-12-17 19:20:09',
             ),
         ));
         

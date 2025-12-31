@@ -69,6 +69,9 @@ return new class extends Migration
             $table->integer('media_max_videos')->default(0);
             $table->integer('media_max_videofiles')->default(0);
             $table->integer('media_max_files')->default(0);
+            $table->string('media_disk_images')->nullable();
+            $table->string('media_disk_videos')->nullable();
+            $table->string('media_disk_files')->nullable();
             $table->boolean('objrel_has_terms')->default(false);
             $table->boolean('objrel_has_groups')->default(false);
             $table->json('objrel_group_values')->nullable();

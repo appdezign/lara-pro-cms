@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('locale');
             $table->string('password');
             $table->rememberToken();
+            $table->string('api_token');
             $table->timestamp('created_at')->nullable();
             $table->softDeletes();
             $table->timestamp('updated_at')->nullable();
