@@ -10,6 +10,7 @@ use Lara\Common\Models\EntityView;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Page;
+use Lara\Common\Models\Tag;
 use function Lara\Admin\Traits\createNewPage;
 
 trait HasMenu
@@ -154,13 +155,18 @@ trait HasMenu
 		$entity = Entity::find($node->entity_id);
 		if ($node->type->value == 'page') {
 			$prefix = 'entity';
-			$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $entityView->method . '.' . $node->object_id;
+			$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $entityView->method . '.' . $node->object_id;
 		} elseif ($node->type->value == 'entity') {
 			$prefix = ($entity->objrel_has_terms) ? 'entitytag' : 'entity';
-			$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $entityView->method;
+			if($node->tag_id) {
+				$tag = Tag::find($node->tag_id);
+				$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $tag->route . '.' . $entityView->method;
+			} else {
+				$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $entityView->method;
+			}
 		} elseif ($node->type->value == 'form') {
 			$prefix = 'form';
-			$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $entityView->method;
+			$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $entityView->method;
 		}
 
 		$node->save();

@@ -89,11 +89,14 @@ class LaraEditRecord extends EditRecord
 			$this->fillForm();
 		}
 
-		// save the image count, so we can use it in the tables
-		static::saveImageCount($this->record);
+		// lock media items.
+		static::lockMediaItems($this->record);
 
 		// replace default layout values with null
 		static::replaceDefaultLayoutValues($this->record);
+
+		// refresh route cache
+		session(['routecacheclear' => true]);
 
 	}
 
@@ -118,7 +121,7 @@ class LaraEditRecord extends EditRecord
 			->color('danger')
 			->submit(null)
 			->action(function () {
-				$this->save();
+				$this->save(true, false);
 				$this->refreshFormData(['slug']);
 			})
 			->extraAttributes(['class' => 'mx-4 js-lara-save-button']);

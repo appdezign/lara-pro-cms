@@ -370,7 +370,7 @@ trait HasFrontMenu
 					$menu_array['entity'][$item->entity->resource_slug] = $item->routename;
 				}
 				if ($item->type->value == 'page') {
-					$menu_array['page'][$item->slug] = 'entity.pages.show.' . $item->object_id;
+					$menu_array['page'][$item->slug] = $item->routename;
 				}
 				if ($item->type->value == 'form') {
 					$menu_array['form'][$item->slug] = $item->routename;

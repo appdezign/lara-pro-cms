@@ -28,6 +28,12 @@ class LaraCreateRecord extends CreateRecord
         ];
     }
 
+	protected function afterCreate(): void
+	{
+		// refresh route cache
+		session(['routecacheclear' => true]);
+	}
+
     protected function getRedirectUrl(): string
     {
         // redirect to Edit Page instead of the View Page (default)

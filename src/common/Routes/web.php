@@ -13,44 +13,45 @@ use Illuminate\Support\Facades\Schema;
 $tablename = config('lara-common.database.ent.entities');
 $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
 
-if (!App::runningInConsole()) {
+Route::group(['middleware' => ['web']], function () use ($laraNeedsSetup) {
 
-	Route::group(['middleware' => ['web']], function () use ($laraNeedsSetup) {
+	// Setup
+	if ($laraNeedsSetup) {
+
+		// Redirect root && admin
+		Route::get('/', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+		Route::get('/admin', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+		Route::get('/admin/{anyroute}', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
 
 		// Setup
-		if ($laraNeedsSetup) {
+		Route::get('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@show')->name('setup.show');
 
-			// Redirect root && admin
-			Route::get('/', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
-			Route::get('/admin', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
-			Route::get('/admin/{anyroute}', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+		Route::post('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@start')->name('setup.start');
 
-			// Setup
-			Route::get('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@show')->name('setup.show');
+		Route::get('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepshow')->name('setup.stepshow');
 
-			Route::post('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@start')->name('setup.start');
+		Route::post('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepprocess')->name('setup.stepprocess');
 
-			Route::get('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepshow')->name('setup.stepshow');
+	} else {
 
-			Route::post('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepprocess')->name('setup.stepprocess');
+		// Auth
+		Auth::routes(['verify' => true]);
 
-		} else {
+		Route::get('routecache/clear', 'Tools\RoutecacheController@clear')->name('routecache.clear');
+		Route::get('routecache/cache', 'Tools\RoutecacheController@cache')->name('routecache.cache');
 
-			// Auth
-			Auth::routes(['verify' => true]);
+		// Route::post('2fa/verify', '\Lara\Common\Http\Controllers\Auth\TwoFactorController@verify')->name('2fa.verify');
 
-			// Route::post('2fa/verify', '\Lara\Common\Http\Controllers\Auth\TwoFactorController@verify')->name('2fa.verify');
+		// Dynamic Images
+		// Route::get('images/cache/{width}/{height}/{fit}/{fitpos}/{quality}/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@process')->name('imgcache');
 
-			// Dynamic Images
-			Route::get('images/cache/{width}/{height}/{fit}/{fitpos}/{quality}/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@process')->name('imgcache');
+		// Original Images
+		// Route::get('images/nocache/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@nocache')->name('imgnocache');
 
-			// Original Images
-			Route::get('images/nocache/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@nocache')->name('imgnocache');
+	}
 
-		}
+});
 
-	});
 
-}
 
 

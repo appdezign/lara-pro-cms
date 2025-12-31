@@ -7,7 +7,9 @@ class FrontActiveRoute
 	protected ?string $prefix = null;
 	protected ?string $method = null;
 	protected ?string $active_route = null;
+	protected ?string $single_route = null;
 	protected ?int $object_id = null;
+	protected ?int $menu_id = null;
 	protected array $activetags = [];
 
 	/**
@@ -60,6 +62,27 @@ class FrontActiveRoute
 	public function setObjectId(int $object_id = null)
 	{
 		$this->object_id = $object_id;
+	}
+
+	/**
+	 * Get the menu ID
+	 *
+	 * @return int|null
+	 */
+	public function getMenuId()
+	{
+		return $this->menu_id;
+	}
+
+	/**
+	 * Set the menu ID
+	 *
+	 * @param int|null $menu_id
+	 * @return void
+	 */
+	public function setMenuId(int $menu_id = null)
+	{
+		$this->menu_id = $menu_id;
 	}
 
 	/**
@@ -123,6 +146,27 @@ class FrontActiveRoute
 	public function setActiveRoute(string $active_route = null)
 	{
 		$this->active_route = $active_route;
+	}
+
+	/**
+	 * Get the single route
+	 *
+	 * @return string|null
+	 */
+	public function getSingleRoute()
+	{
+		return $this->single_route;
+	}
+
+	/**
+	 * Set the single route
+	 *
+	 * @param string|null $single_route
+	 * @return void
+	 */
+	public function setSingleRoute(string $single_route = null)
+	{
+		$this->single_route = $single_route;
 	}
 
 }

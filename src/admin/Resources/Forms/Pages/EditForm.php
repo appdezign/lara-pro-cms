@@ -45,6 +45,15 @@ class EditForm extends EditRecord
         ];
     }
 
+	protected function afterSave(): void
+	{
+		$this->checkExtraDatabaseColumns($this->record);
+
+		// refresh route cache
+		session(['routecacheclear' => true]);
+
+	}
+
 	public function render(): View
 	{
 		return view($this->getView(), $this->getViewData())
