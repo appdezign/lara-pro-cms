@@ -50,6 +50,7 @@ class RoutecacheController extends Controller {
 	public function cache(Request $request) {
 
 		Artisan::call('route:trans:cache');
+		Artisan::call('config:cache');
 
 		session()->forget('routecacheclear');
 
