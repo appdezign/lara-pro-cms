@@ -2,6 +2,7 @@
 
 namespace Lara\Admin\Traits;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 
 trait HasCache
@@ -16,7 +17,6 @@ trait HasCache
 			File::cleanDirectory(storage_path('framework/cache/data'));
 			File::cleanDirectory(storage_path('framework/views'));
 			File::cleanDirectory(storage_path('httpcache'));
-			File::cleanDirectory(storage_path('imgcache'));
 
 			session(['routecacheclear' => true]);
 
@@ -42,10 +42,6 @@ trait HasCache
 
 				if (in_array('http_cache', $types)) {
 					File::cleanDirectory(storage_path('httpcache'));
-				}
-
-				if (in_array('image_cache', $types)) {
-					File::cleanDirectory(storage_path('imgcache'));
 				}
 
 				if (in_array('route_cache', $types)) {

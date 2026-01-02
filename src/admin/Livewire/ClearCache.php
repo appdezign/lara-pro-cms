@@ -36,13 +36,12 @@ class ClearCache extends Component implements HasSchemas
 						'config_cache' => 'Config cache',
 						'view_cache'   => 'View cache',
 						'http_cache'   => 'Http cache',
-						'image_cache'  => 'Image cache',
 						'route_cache'  => 'Route cache',
 					])
 					->bulkToggleable()
 					->afterStateHydrated(function ($component, $state) {
 						if (!filled($state)) {
-							$component->state(['app_cache','config_cache', 'view_cache', 'http_cache', 'image_cache', 'route_cache']);
+							$component->state(['app_cache','config_cache', 'view_cache', 'http_cache', 'route_cache']);
 						}
 					}),
 			])

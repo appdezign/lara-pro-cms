@@ -2,7 +2,7 @@
 
 namespace Lara\Admin\Providers;
 
-use Awcodes\Curator\Components\Forms\CuratorPicker;
+
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
@@ -59,12 +59,13 @@ use Lara\Admin\Traits\HasParams;
 use Lara\Admin\Widgets\Analytics;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 
+use Awcodes\Curator\Components\Forms\CuratorPicker;
+use Awcodes\Curator\Components\Forms\RichEditor\AttachCuratorMediaPlugin;
 use Awcodes\Curator\CuratorPlugin;
-use Awcodes\Versions\VersionsPlugin;
-use Awcodes\Versions\VersionsWidget;
-
 use Awcodes\RicherEditor\Plugins\FullScreenPlugin;
 use Awcodes\RicherEditor\Plugins\SourceCodePlugin;
+use Awcodes\Versions\VersionsPlugin;
+use Awcodes\Versions\VersionsWidget;
 
 use BezhanSalleh\GoogleAnalytics\GoogleAnalyticsPlugin;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
@@ -180,6 +181,7 @@ class AdminPanelProvider extends PanelProvider
 				->plugins([
 					FullScreenPlugin::make(),
 					SourceCodePlugin::make(),
+					AttachCuratorMediaPlugin::make(),
 				])
 				->toolbarButtons(static::getRichEditorToolbarOptions());
 		});
@@ -418,7 +420,7 @@ class AdminPanelProvider extends PanelProvider
 				['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'link'],
 				['h2', 'h3', 'alignStart', 'alignCenter', 'alignEnd'],
 				['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
-				['table', 'attachFiles'],
+				['table', 'attachFiles', 'attachCuratorMedia'],
 				['undo', 'redo'],
 			];
 		}

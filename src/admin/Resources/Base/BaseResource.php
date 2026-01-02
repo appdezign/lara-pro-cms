@@ -23,6 +23,7 @@ use Lara\Admin\Traits\HasMedia;
 use Lara\Admin\Traits\HasNestedSet;
 use Lara\Admin\Traits\HasParams;
 
+
 class BaseResource extends Resource
 {
 
@@ -34,6 +35,7 @@ class BaseResource extends Resource
 	use HasMedia;
 	use HasNestedSet;
 	use HasParams;
+
 
 	protected static ?string $model = null;
 
