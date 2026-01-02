@@ -22,6 +22,20 @@ class ClearCache extends Component implements HasSchemas
 
 	public function mount(): void
 	{
+
+		/*
+		session()->forget('laratest');
+
+		$array = ['app_cache','config_cache', 'view_cache', 'http_cache', 'route_cache'];
+
+		$product = $array;
+		session()->push('laratest', $product);
+
+		$test = session('laratest');
+
+		dd($test);
+		*/
+
 		$this->form->fill();
 	}
 

@@ -37,8 +37,8 @@ Route::group(['middleware' => ['web']], function () use ($laraNeedsSetup) {
 		// Auth
 		Auth::routes(['verify' => true]);
 
-		Route::get('routecache/clear', 'Tools\RoutecacheController@clear')->name('routecache.clear');
-		Route::get('routecache/cache', 'Tools\RoutecacheController@cache')->name('routecache.cache');
+		Route::get('laracache/clear', 'Tools\LaraCacheController@clear')->name('laracache.clear');
+		Route::get('laracache/cache', 'Tools\LaraCacheController@cache')->name('laracache.cache');
 
 		// Route::post('2fa/verify', '\Lara\Common\Http\Controllers\Auth\TwoFactorController@verify')->name('2fa.verify');
 
