@@ -12,6 +12,14 @@ use Lara\Admin\Livewire\LaraTagReorder;
 use Lara\Admin\Widgets\Analytics;
 use Livewire\Livewire;
 
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\CacheCheck;
+use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\DebugModeCheck;
+use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
+
 class LaraAdminServiceProvider extends ServiceProvider
 {
 
@@ -59,6 +67,14 @@ class LaraAdminServiceProvider extends ServiceProvider
 		Livewire::component('lara-visitors-widget', Analytics\LaraVisitorsWidget::class);
 
 
+		Health::checks([
+			CacheCheck::new(),
+			OptimizedAppCheck::new(),
+			DatabaseCheck::new(),
+			SecurityAdvisoriesCheck::new(),
+			EnvironmentCheck::new(),
+			DebugModeCheck::new(),
+		]);
 
 
 	}
