@@ -49,9 +49,9 @@ class LaraFrontServiceProvider extends ServiceProvider
 
 		// Publish Views
 		$this->publishes([
-			__DIR__.'/../Resources/Views' => resource_path('views/vendor/lara-front'),
-		], 'larafront');
-		$this->loadViewsFrom(__DIR__.'/../Resources/Views', 'lara-front');
+			__DIR__.'/../../../resources/views/front' => resource_path('views/vendor/lara-front'),
+		], 'laraviews');
+		$this->loadViewsFrom(__DIR__.'/../../../resources/views/front', 'lara-front');
 
 		// register components
 		Blade::component('frontformrow', FrontFormRowComponent::class);
