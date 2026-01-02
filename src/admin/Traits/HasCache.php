@@ -12,13 +12,22 @@ trait HasCache
 	{
 		if ($force) {
 
+			/*
 			File::delete(base_path('bootstrap/cache/config.php'));
-			File::delete(base_path('bootstrap/cache/routes-v7.php'));
 			File::cleanDirectory(storage_path('framework/cache/data'));
 			File::cleanDirectory(storage_path('framework/views'));
 			File::cleanDirectory(storage_path('httpcache'));
+			*/
 
-			session(['routecacheclear' => true]);
+			$types = [
+				'app_cache',
+				'config_cache',
+				'view_cache',
+				'http_cache',
+				'route_cache',
+			];
+
+			session()->push('laracacheclear', $types);
 
 			return true;
 
@@ -28,6 +37,7 @@ trait HasCache
 				return false;
 			} else {
 
+				/*
 				if (in_array('app_cache', $types)) {
 					File::cleanDirectory(storage_path('framework/cache/data'));
 				}
@@ -45,11 +55,14 @@ trait HasCache
 				}
 
 				if (in_array('route_cache', $types)) {
-					File::delete(base_path('bootstrap/cache/routes-v7.php'));
-					session(['routecacheclear' => true]);
+					// session(['laracacheclear' => true]);
 				}
+				*/
+
+				session()->push('laracacheclear', $types);
 
 				return true;
+
 			}
 
 		}
