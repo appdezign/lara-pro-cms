@@ -131,7 +131,8 @@ trait LaraFormBaseTable
 				->width('5%')
 				->toggleable()
 				->boolean()
-				->size('md');
+				->size('md')
+				->visibleFrom('xl');
 
 		} elseif (in_array($field->field_type, $arrayTypes)) {
 			//
@@ -139,7 +140,8 @@ trait LaraFormBaseTable
 
 			return TextColumn::make($field->field_name)
 				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.' . $field->field_name))
-				->toggleable();
+				->toggleable()
+				->visibleFrom('xl');
 
 		}
 

@@ -70,10 +70,7 @@ class FormResource extends Resource
 
 	public static function getRelations(): array
 	{
-		return [
-			RelationManagers\CustomFieldsRelationManager::class,
-			RelationManagers\EntityViewsRelationManager::class,
-		];
+		return [];
 	}
 
 	public static function getPages(): array

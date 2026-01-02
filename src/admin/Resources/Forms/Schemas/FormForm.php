@@ -12,6 +12,10 @@ use Lara\Admin\Enums\FormGroup;
 use Lara\Admin\Enums\NavGroup;
 
 use Lara\Admin\Resources\Forms\FormResource;
+use Lara\Admin\Resources\Forms\RelationManagers\CustomFieldsRelationManager;
+use Lara\Admin\Resources\Forms\RelationManagers\EntityViewsRelationManager;
+
+use Njxqlus\Filament\Components\Forms\RelationManager;
 
 class FormForm
 {
@@ -37,9 +41,17 @@ class FormForm
 									->schema(static::getInfoSection())
 									->extraAttributes(['class' => 'first-entity-section']),
 							]),
-						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.manager', true))
-							->schema([])
-							->visible(fn(string $operation): bool => $operation === 'edit'),
+						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.custom_fields', true))
+							->schema([
+								RelationManager::make()->manager(CustomFieldsRelationManager::class)
+							])
+							->visible(fn(string $operation) => $operation == 'edit'),
+
+						Tab::make(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.tabs.entity_views', true))
+							->schema([
+								RelationManager::make()->manager(EntityViewsRelationManager::class)
+							])
+							->visible(fn(string $operation) => $operation == 'edit'),
 
 					])
 					->persistTab()
