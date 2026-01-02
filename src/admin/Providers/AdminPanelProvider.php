@@ -45,7 +45,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Vite;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Components\LanguageVersions;
@@ -54,10 +54,12 @@ use Lara\Admin\Enums\NavGroup;
 use Lara\Admin\Fonts\LaraFontProvider;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Admin\Livewire\LaraProfile;
+use Lara\Admin\Pages\LaraHealthCheckResults;
 use Lara\Admin\Traits\HasLanguage;
 use Lara\Admin\Traits\HasParams;
 use Lara\Admin\Widgets\Analytics;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
+
 
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Forms\RichEditor\AttachCuratorMediaPlugin;
@@ -70,7 +72,9 @@ use Awcodes\Versions\VersionsWidget;
 use BezhanSalleh\GoogleAnalytics\GoogleAnalyticsPlugin;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Kenepa\ResourceLock\ResourceLockPlugin;
+use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -150,6 +154,9 @@ class AdminPanelProvider extends PanelProvider
 					->myProfileComponents([
 						'personal_info' => LaraProfile::class,
 					]),
+				FilamentSpatieLaravelHealthPlugin::make()
+					->usingPage(LaraHealthCheckResults::class)
+					->authorize(fn (): bool => Auth::user()->hasRole('superadmin')),
 			])
 			->authMiddleware([
 				FilamentAuthenticate::class,
@@ -365,7 +372,7 @@ class AdminPanelProvider extends PanelProvider
 
 		FilamentView::registerRenderHook(
 			PanelsRenderHook::BODY_END,
-			fn(): View => view('lara-admin::partials.routecache'),
+			fn(): View => view('lara-admin::partials.laracache'),
 		);
 
 		FilamentAsset::register([
