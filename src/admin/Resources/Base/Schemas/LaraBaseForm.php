@@ -415,47 +415,14 @@ trait LaraBaseForm
 	{
 		if ($hasRichEditor) {
 
-			if ($toggle && auth()->user()->hasRole('superadmin')) {
-				$rows[] = Toggle::make('show_html_' . $fieldname)
-					->hiddenLabel()
-					->live()
-					->extraFieldWrapperAttributes(['class' => 'rich-editor-toggle-button'])
-					->afterStateUpdated(function ($state, Set $set, Get $get) use ($fieldname) {
-						if ($state) {
-							$set('_' . $fieldname, $get($fieldname));
-						} else {
-							$set($fieldname, $get('_' . $fieldname));
-						}
-					})
-					->visible(fn(Get $get): bool => is_null($extraFieldNumber) || static::templateHasExtraField($get, $extraFieldNumber));
-
-				$rows[] = Textarea::make('_' . $fieldname)
-					->label(_q('lara-admin::default.column.html'))
-					->live()
-					->extraInputAttributes(['style' => 'min-height: 16rem;'])
-					->visible(function (Get $get) use ($fieldname, $extraFieldNumber): bool {
-						if ($extraFieldNumber) {
-							return static::templateHasExtraField($get, $extraFieldNumber) && $get('show_html_' . $fieldname);
-						} else {
-							return $get('show_html_' . $fieldname);
-						}
-					});
-
-			}
-
 			$rows[] = RichEditor::make($fieldname)
 				->label(_q('lara-admin::default.column.' . $fieldname))
 				->live()
 				->customBlocks(config('lara-admin.rich_editor.custom_blocks'))
 				->extraInputAttributes(['style' => 'min-height: 8rem;'])
-				->visible(function (Get $get) use ($fieldname, $extraFieldNumber): bool {
-					if ($extraFieldNumber) {
-						return static::templateHasExtraField($get, $extraFieldNumber) && !$get('show_html_' . $fieldname);
-					} else {
-						return !$get('show_html_' . $fieldname);
-					}
-				});
+				->visible(fn(Get $get): bool => is_null($extraFieldNumber) || static::templateHasExtraField($get, $extraFieldNumber));
 		} else {
+
 			$rows[] = Textarea::make($fieldname)
 				->label(_q('lara-admin::default.column.' . $fieldname))
 				->extraInputAttributes(['style' => 'min-height: 16rem;'])
@@ -699,7 +666,6 @@ trait LaraBaseForm
 							->label(_q('lara-admin::default.repeaterfield.page', true))
 							->options(function () {
 								return MenuItem::where('type', 'page')->pluck('title', 'object_id')->toArray();
-								// return Page::langIs('nl')->pluck('title', 'id')->toArray();
 							}),
 					])
 					->columnSpanFull(),
@@ -726,7 +692,7 @@ trait LaraBaseForm
 									if ($entity) {
 										$modelClass = $entity->model_class;
 
-										return $modelClass::langIs('nl')->pluck('title', 'id')->toArray();
+										return $modelClass::langIs(static::$clanguage)->pluck('title', 'id')->toArray();
 									}
 								}
 							}),
@@ -770,16 +736,17 @@ trait LaraBaseForm
 				->live()
 				->options(function () use ($layout, $section) {
 					$sectionOptions = [];
-					foreach ($layout->$section as $options) {
-						$optionValue = $options->partialFile;
-						$optionLabel = $options->friendlyName;
-						if ($options->isDefault == 'true') {
-							$sectionOptions[$optionValue] = $optionLabel . ' [default]';
-						} else {
-							$sectionOptions[$optionValue] = $optionLabel;
+					if(property_exists($layout, $section)) {
+						foreach ($layout->$section as $options) {
+							$optionValue = $options->partialFile;
+							$optionLabel = $options->friendlyName;
+							if ($options->isDefault == 'true') {
+								$sectionOptions[$optionValue] = $optionLabel . ' [default]';
+							} else {
+								$sectionOptions[$optionValue] = $optionLabel;
+							}
 						}
 					}
-
 					return $sectionOptions;
 				})
 				->placeholder('[default]');
@@ -819,25 +786,19 @@ trait LaraBaseForm
 	private static function getStatus(Get $get): string
 	{
 
-		if ($get('publish')) {
-			if (strtotime($get('publish_from')) > time()) {
-				$status_str = 'Planned';
-			} else {
-				if ($get('publish_expire')) {
-					if (strtotime($get('publish_to')) < time()) {
-						$status_str = 'Expired';
-					} else {
-						$status_str = 'Published';
-					}
-				} else {
-					$status_str = 'Published';
-				}
-			}
-		} else {
-			$status_str = 'Draft';
+		if (!$get('publish')) {
+			return 'Draft';
 		}
 
-		return $status_str;
+		if (strtotime($get('publish_from')) > time()) {
+			return 'Planned';
+		}
+
+		if (!$get('publish_expire')) {
+			return 'Published';
+		}
+
+		return strtotime($get('publish_to')) < time() ? 'Expired' : 'Published';
 
 	}
 
