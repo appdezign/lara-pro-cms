@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
+use Lara\Common\Models\Page;
 
 class LaraWidget extends BaseModel
 {
@@ -16,7 +17,7 @@ class LaraWidget extends BaseModel
 	 */
 	public function onpages()
 	{
-		return $this->morphToMany('Lara\Common\Models\Page', 'entity', config('lara-common.database.object.pageables'));
+		return $this->morphToMany(Page::class, 'entity', config('lara-common.database.object.pageables'));
 	}
 	/**
 	 * @return BelongsTo

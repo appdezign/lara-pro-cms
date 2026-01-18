@@ -6,6 +6,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Lara\Common\Models\MenuItem;
+
 class Menu extends Model
 {
 	use Sluggable;

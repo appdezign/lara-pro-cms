@@ -103,7 +103,7 @@ class Tag extends Model
 	 */
 	public function taxonomy()
 	{
-		return $this->belongsTo('Lara\Common\Models\Taxonomy', 'taxonomy_id');
+		return $this->belongsTo(\Lara\Common\Models\Taxonomy::class, 'taxonomy_id');
 	}
 
 
