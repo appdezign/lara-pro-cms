@@ -45,8 +45,14 @@ return [
         ]
     ],
 	'uploads' => [
-		'disk' => 'public',
+		'disks' => [
+			// 'local',
+			'public',
+			'larapublic',
+			// 's3'
+		],
 		'images' => [
+			'resize_mode' => 'contain',
 			'max_width' => 1920,
 			'max_height' => 1920,
 		],
