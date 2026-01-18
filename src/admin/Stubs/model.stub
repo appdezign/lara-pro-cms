@@ -2,30 +2,22 @@
 
 namespace {{ NAMESPACE }};
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Lara\Common\Models\BaseModel;
+use Lara\Common\Http\Concerns\HasLanguage;
 
 class {{ CLASS }} extends BaseModel
 {
-    protected $table = '{{ TABLE }}';
+	use HasLanguage;
 
-	protected array $appendCasts = [];
+	protected $table = '{{ TABLE }}';
 
-	public function __construct($attributes = [])
+	/*
+	protected function casts(): array
 	{
-		$this->mergeCasts($this->appendCasts);
-		parent::__construct($attributes);
+		return array_merge(parent::casts(), [
+			// add model specific casts here
+		]);
 	}
-
-	public function languageParent(): BelongsTo
-	{
-		return $this->belongsTo(self::class, 'language_parent');
-	}
-
-	public function languageChildren(): HasMany
-	{
-		return $this->hasMany(self::class, 'language_parent');
-	}
+	*/
 
 }
