@@ -308,6 +308,7 @@ trait LaraBaseTable
 		static::setContentLanguage();
 
 		$query->langIs(static::$clanguage)
+			->with('terms')
 			->withCount('images')
 			->withCount('files')
 			->withCount('videos')
