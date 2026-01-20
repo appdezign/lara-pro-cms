@@ -51,7 +51,7 @@ class EntityCustomField extends Model
 	 */
 	public function entity()
 	{
-		return $this->belongsTo('Lara\Common\Models\Entity');
+		return $this->belongsTo(\Lara\Common\Models\Entity::class);
 	}
 
 }

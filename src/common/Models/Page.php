@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
+use Lara\Common\Models\LaraWidget;
+
 class Page extends BaseModel
 {
 
@@ -32,7 +34,7 @@ class Page extends BaseModel
 	 */
 	public function widgets()
 	{
-		return $this->morphedByMany('Lara\Common\Models\LaraWidget', 'entity', config('lara-common.database.object.pageables'))
+		return $this->morphedByMany(LaraWidget::class, 'entity', config('lara-common.database.object.pageables'))
 			->where('is_global', 0)
 			->orderBy('hook', 'asc')
 			->orderBy('sortorder', 'asc');

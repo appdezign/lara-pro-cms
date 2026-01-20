@@ -23,6 +23,10 @@ use Lara\Admin\Components\GeoLocationField;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Tag;
 
+
+use Awcodes\Mason\Mason;
+use Awcodes\Mason\Bricks\Section;
+
 use Cache;
 
 trait HasBaseForm {
@@ -200,6 +204,18 @@ trait HasBaseForm {
 					->required($field->is_required == 1)
 					->disabled($state == 'disabled')
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
+				break;
+			case 'mason':
+				$rows[] = Mason::make($field->field_name)
+					->label($label)
+					->bricks([
+						Section::class,
+					])
+					->placeholder(_q('lara-admin::default.mason.drag_and_drop_bricks'))
+					->doubleClickToEdit()
+					->required($field->is_required == 1)
+					->disabled($state == 'disabled')
+					->visible(fn(Get $get) => static::getFieldState($get, $field));;
 				break;
 			case 'geolocation':
 				$rows[] = Fieldset::make(_q('lara-admin::default.group.geolocation', true))

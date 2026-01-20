@@ -1,7 +1,9 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 @import '../../../../vendor/awcodes/richer-editor/resources/css/index.css';
 @import '../../../../vendor/awcodes/filament-curator/resources/css/plugin.css';
+@import '../../../../vendor/awcodes/mason/resources/css/plugin.css';
 
+@source '../../../../vendor/awcodes/mason/resources/**/*.blade.php';
 @source '../../../../vendor/awcodes/filament-curator/resources/**/*.blade.php';
 @source '../../../../vendor/awcodes/filament-versions/resources/**/*.blade.php';
 @source '../../../../vendor/awcodes/richer-editor/resources/views/**/*.blade.php';

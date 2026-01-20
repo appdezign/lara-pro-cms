@@ -160,8 +160,6 @@ trait LaraBaseTable
 				->visibleFrom('2xl');
 		}
 
-		// dd($columns);
-
 		return $columns;
 	}
 
@@ -215,7 +213,7 @@ trait LaraBaseTable
 						name: 'categories',
 						titleAttribute: 'title',
 						modifyQueryUsing: function ($query) {
-							return $query->where('language', 'nl')->where('resource_slug', static::getSlug());
+							return $query->where('language', static::$clanguage)->where('resource_slug', static::getSlug());
 						}
 					);
 
@@ -228,7 +226,7 @@ trait LaraBaseTable
 						name: 'tags',
 						titleAttribute: 'title',
 						modifyQueryUsing: function ($query) {
-							return $query->where('language', 'nl')->where('resource_slug', static::getSlug());
+							return $query->where('language', static::$clanguage)->where('resource_slug', static::getSlug());
 						}
 					);
 			}
@@ -310,6 +308,7 @@ trait LaraBaseTable
 		static::setContentLanguage();
 
 		$query->langIs(static::$clanguage)
+			->with('terms')
 			->withCount('images')
 			->withCount('files')
 			->withCount('videos')

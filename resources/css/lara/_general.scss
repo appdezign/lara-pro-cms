@@ -84,3 +84,23 @@
 .fi-fieldset > legend{
 	color: col.$la-danger;
 }
+
+.lara-focus-mode {
+	.fi-modal {
+		> .fi-modal-window-ctn  {
+			> .fi-modal-window {
+				&.fi-width-lg {
+					max-width: 96% !important;
+
+					.fi-modal-header ,
+					.fi-modal-content,
+					.fi-modal-footer {
+						max-width: 960px;
+						margin: 0 auto;
+					}
+				}
+			}
+		}
+	}
+}
+

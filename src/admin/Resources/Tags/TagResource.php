@@ -79,13 +79,6 @@ class TagResource extends Resource
 		return static::getNavGroup('modules');
 	}
 
-	/*
-	public static function form(Schema $schema): Schema
-	{
-		return TagForm::configure($schema);
-	}
-	*/
-
 	public static function form(Schema $schema): Schema
 	{
 		return $schema
@@ -108,7 +101,7 @@ class TagResource extends Resource
 		return [
 			'index'   => Pages\ListTags::route('/'),
 			'create'  => Pages\CreateTag::route('/create'),
-			'edit'    => Pages\Edittag::route('/{record}/edit'),
+			'edit'    => Pages\EditTag::route('/{record}/edit'),
 			'reorder' => Pages\ReorderTags::route('/reorder'),
 		];
 	}

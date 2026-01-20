@@ -5,14 +5,15 @@ namespace Lara\Common\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Lara\Common\Models\EntityCustomField;
+use Lara\Common\Models\EntityRelation;
+use Lara\Common\Models\EntityView;
+
 class Entity extends Model
 {
 
 	protected $table = 'lara_resource_entities';
 
-	/**
-	 * @var array
-	 */
 	protected $guarded = [
 		'id',
 		'created_at',
@@ -25,27 +26,18 @@ class Entity extends Model
 		'objrel_group_values' => 'array',
 	];
 
-	/*
-	* @return HasMany
-	*/
-	public function customfields()
+	public function customfields(): HasMany
 	{
-		return $this->hasMany('Lara\Common\Models\EntityCustomField');
+		return $this->hasMany(EntityCustomField::class);
 	}
 
-	/*
-	* @return HasMany
-	*/
 	public function relations(): HasMany
 	{
-		return $this->hasMany('Lara\Common\Models\EntityRelation');
+		return $this->hasMany(EntityRelation::class);
 	}
 
-	/*
-	* @return HasMany
-	*/
 	public function views(): HasMany
 	{
-		return $this->hasMany('Lara\Common\Models\EntityView');
+		return $this->hasMany(EntityView::class);
 	}
 }

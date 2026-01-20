@@ -4,12 +4,13 @@ namespace Lara\Common\Models\Concerns;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 
+use Lara\Common\Models\ObjectImage;
 trait HasLaraMedia {
 
 
 	public function images(): MorphMany
 	{
-		return $this->morphMany('Lara\Common\Models\ObjectImage', 'mediable')->orderBy('order');
+		return $this->morphMany(ObjectImage::class, 'mediable')->orderBy('order');
 	}
 
 	public function featured()

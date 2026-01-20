@@ -32,7 +32,7 @@ class EntityRelation extends Model
 	 */
 	public function entity()
 	{
-		return $this->belongsTo('Lara\Common\Models\Entity', 'entity_id');
+		return $this->belongsTo(\Lara\Common\Models\Entity::class, 'entity_id');
 	}
 
 	/**
@@ -40,7 +40,7 @@ class EntityRelation extends Model
 	 */
 	public function relatedEntity(): BelongsTo
 	{
-		return $this->belongsTo('Lara\Common\Models\Entity', 'related_entity_id');
+		return $this->belongsTo(\Lara\Common\Models\Entity::class, 'related_entity_id');
 	}
 
 }

@@ -124,7 +124,7 @@ class MenuItem extends Model
 	 */
 	public function entity()
 	{
-		return $this->belongsTo('Lara\Common\Models\Entity', 'entity_id');
+		return $this->belongsTo(\Lara\Common\Models\Entity::class, 'entity_id');
 	}
 
 	/**
@@ -132,7 +132,7 @@ class MenuItem extends Model
 	 */
 	public function entityview()
 	{
-		return $this->belongsTo('Lara\Common\Models\EntityView', 'entity_view_id');
+		return $this->belongsTo(\Lara\Common\Models\EntityView::class, 'entity_view_id');
 	}
 
 }
