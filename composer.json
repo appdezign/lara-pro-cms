@@ -26,7 +26,7 @@
 		"composer/installers": "~1.0",
 		"cviebrock/eloquent-sluggable": "^11.0|^12.0",
 		"davidhsianturi/blade-bootstrap-icons": "^2.1",
-		"filament/filament": "^4.1",
+		"filament/filament": "^4.5|^5.0",
 		"intervention/image-laravel": "^1.5",
 		"jeffgreco13/filament-breezy": "^3.0",
 		"jenssegers/agent": "^2.6",
