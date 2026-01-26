@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
+use Lara\Admin\Resources\Base\Concerns\HasBasePolicy;
 use Lara\Admin\Resources\BaseForm\Schemas\LaraFormBaseForm;
 use Lara\Admin\Resources\BaseForm\Tables\LaraFormBaseTable;
 use Lara\Admin\Traits\HasLanguage;
@@ -32,6 +33,7 @@ class BaseFormResource extends Resource
 	use HasLayout;
 	use HasNestedSet;
 	use HasParams;
+	use HasBasePolicy;
 
 	protected static ?string $model = null;
 
@@ -118,62 +120,6 @@ class BaseFormResource extends Resource
 	private static function getSingleSlug(): string
 	{
 		return Str::singular(static::getSlug());
-	}
-
-	// Use Spatie Roles and Permissions for access
-	public static function canViewAny(): bool
-	{
-		return auth()->user()->can('view_any_' . static::getSingleSlug());
-	}
-
-	public static function canView(Model $record): bool
-	{
-		return auth()->user()->can('view_' . static::getSingleSlug());
-	}
-
-	public static function canCreate(): bool
-	{
-		return auth()->user()->can('create_' . static::getSingleSlug());
-	}
-
-	public static function canEdit(Model $record): bool
-	{
-		return auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canDelete(Model $record): bool
-	{
-		return auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canReorder(): bool
-	{
-		return auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canReplicate(Model $record): bool
-	{
-		return auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canForceDelete(Model $record): bool
-	{
-		return auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canForceDeleteAny(): bool
-	{
-		return auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canRestore(Model $record): bool
-	{
-		return auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canRestoreAny(): bool
-	{
-		return auth()->user()->can('delete_' . static::getSingleSlug());
 	}
 
 }

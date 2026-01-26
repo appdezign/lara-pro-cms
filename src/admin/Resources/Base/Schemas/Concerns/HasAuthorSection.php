@@ -17,14 +17,14 @@ trait HasAuthorSection
 			->native(false)
 			->default(auth()->id())
 			->selectablePlaceholder(false)
-			->visible(fn($operation) => $operation == 'create');
+			->visible(fn(string $operation) => $operation == 'create');
 
 		$rows[] = Select::make('user_id')
 			->label(_q('lara-admin::default.column.user_id'))
 			->relationship('user', 'name')
 			->preload()
 			->selectablePlaceholder(false)
-			->visible(fn($operation) => $operation == 'edit');
+			->visible(fn(string $operation) => $operation == 'edit');
 
 		return $rows;
 

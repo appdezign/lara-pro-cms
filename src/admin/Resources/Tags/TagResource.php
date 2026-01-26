@@ -41,8 +41,6 @@ class TagResource extends Resource
 
 	protected static bool $shouldRegisterNavigation = false;
 
-	public static ?string $clanguage = null;
-
 	protected static string|BackedEnum|null $navigationIcon = null;
 
 	protected static ?string $resourceSlug = null;

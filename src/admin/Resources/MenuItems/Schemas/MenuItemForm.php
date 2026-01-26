@@ -65,11 +65,11 @@ class MenuItemForm
 							->maxLength(255)
 							->hintIcon(fn(Get $get): ?string => $get('slug_lock') ? 'bi-lock-fill' : null)
 							->disabled()
-							->visible(fn($operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Toggle::make('slug_edit')
 							->label(_q('lara-admin::default.column.slug_edit'))
 							->live()
-							->visible(fn($operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Fieldset::make(_q('lara-admin::default.group.slug_edit'))
 							->schema([
 								TextInput::make('slug')
