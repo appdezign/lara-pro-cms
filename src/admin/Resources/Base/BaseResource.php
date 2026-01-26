@@ -10,10 +10,10 @@ use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
+use Lara\Admin\Resources\Base\Concerns\HasBasePolicy;
 use Lara\Admin\Resources\Base\Schemas\LaraBaseForm;
 use Lara\Admin\Resources\Base\Tables\LaraBaseTable;
 use Lara\Admin\Traits\HasLanguage;
@@ -27,15 +27,15 @@ use Lara\Admin\Traits\HasParams;
 class BaseResource extends Resource
 {
 
-	use HasLaraEntity;
-	use LaraBaseForm;
-	use LaraBaseTable;
 	use HasLanguage;
+	use HasLaraEntity;
 	use HasLayout;
 	use HasMedia;
 	use HasNestedSet;
 	use HasParams;
-
+	use HasBasePolicy;
+	use LaraBaseTable;
+	use LaraBaseForm;
 
 	protected static ?string $model = null;
 
@@ -129,62 +129,6 @@ class BaseResource extends Resource
 	private static function getSingleSlug(): string
 	{
 		return Str::singular(static::getSlug());
-	}
-
-	// Use Spatie Roles and Permissions for access
-	public static function canViewAny(): bool
-	{
-		return auth()->check() && auth()->user()->can('view_any_' . static::getSingleSlug());
-	}
-
-	public static function canView(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('view_' . static::getSingleSlug());
-	}
-
-	public static function canCreate(): bool
-	{
-		return auth()->check() && auth()->user()->can('create_' . static::getSingleSlug());
-	}
-
-	public static function canEdit(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canDelete(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canReorder(): bool
-	{
-		return auth()->check() && auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canReplicate(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canForceDelete(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canForceDeleteAny(): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canRestore(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canRestoreAny(): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
 	}
 
 }

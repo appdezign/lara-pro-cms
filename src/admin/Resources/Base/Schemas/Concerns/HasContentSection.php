@@ -1,7 +1,10 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Concerns;
+namespace Lara\Admin\Resources\Base\Schemas\Concerns;
 
+use Awcodes\Mason\Bricks\Section;
+use Awcodes\Mason\Mason;
+use Cache;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
@@ -9,6 +12,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
@@ -20,16 +24,160 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Utilities\Get;
 use Illuminate\Support\Facades\Storage;
 use Lara\Admin\Components\GeoLocationField;
+use Lara\Admin\Enums\EntityHook;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Tag;
 
+trait HasContentSection
+{
 
-use Awcodes\Mason\Mason;
-use Awcodes\Mason\Bricks\Section;
+	private static function getContentSection(): array
+	{
 
-use Cache;
+		static::setContentLanguage();
 
-trait HasBaseForm {
+		$rows = array();
+
+		// Custom Fields
+		foreach (static::getCustomFieldsByHook(EntityHook::BEFORE_TITLE->value) as $customField) {
+			if (!empty(static::getFilamentComponent($customField))) {
+				$rows = array_merge($rows, static::getFilamentComponent($customField));
+			}
+		}
+
+		// Title
+		$rows[] = TextInput::make('title')
+			->label(_q(static::getModule() . '::' . static::getSlug() . '.column.title'))
+			->maxLength(255)
+			->extraAttributes(['class' => 'js-title-input'])
+			->required();
+
+		// Custom Fields
+		foreach (static::getCustomFieldsByHook(EntityHook::AFTER_TITLE->value) as $customField) {
+			if (!empty(static::getFilamentComponent($customField))) {
+				$rows = array_merge($rows, static::getFilamentComponent($customField));
+			}
+		}
+
+		// Slug
+		$rows[] = TextInput::make('slug')
+			->label(_q('lara-admin::default.column.slug'))
+			->maxLength(255)
+			->hintIcon(fn(Get $get): ?string => $get('slug_lock') ? 'bi-lock-fill' : null)
+			->disabled()
+			->visible(fn($operation) => $operation == 'edit');
+		$rows[] = Toggle::make('slug_edit')
+			->label(_q('lara-admin::default.column.slug_edit'))
+			->live()
+			->visible(fn($operation) => $operation == 'edit');
+		$rows[] = Fieldset::make(_q('lara-admin::default.group.slug_edit'))
+			->schema([
+				TextInput::make('slug')
+					->label(_q('lara-admin::default.column.slug'))
+					->maxLength(255)
+					->disabled(fn(Get $get): bool => $get('slug_lock')),
+				Toggle::make('slug_lock')
+					->label(_q('lara-admin::default.column.slug_lock'))
+					->live(),
+			])
+			->visible(fn(Get $get): bool => $get('slug_edit'));
+
+		// Relations
+		foreach (static::getEntity()->relations as $relation) {
+			if ($relation->type == 'belongsTo') {
+				$relatedEntityClass = $relation->relatedEntity->model_class;
+				$rows[] = Select::make($relation->foreign_key)
+					->label(_q(static::getModule() . '::' . static::getSlug() . '.column.' . $relation->foreign_key))
+					->options($relatedEntityClass::langIs(static::$clanguage)->pluck('title', 'id')->toArray())
+					->required();
+			}
+		}
+
+		// Custom Fields
+		foreach (static::getCustomFieldsByHook(EntityHook::AFTER_SLUG->value) as $customField) {
+			if (!empty(static::getFilamentComponent($customField))) {
+				$rows = array_merge($rows, static::getFilamentComponent($customField));
+			}
+		}
+
+		// Lead
+		if (static::resourceHasLead()) {
+			$rows = static::getRichEditorSection($rows, 'lead', static::leadHasRichEditor(), true);
+		}
+
+		// Body
+		if (static::resourceHasBody()) {
+			$rows = static::getRichEditorSection($rows, 'body', static::bodyHasRichEditor(), true);
+		}
+
+		$maxExtraFields = static::maxBodyFields();
+
+		if ($maxExtraFields > 0) {
+			for ($i = 1; $i <= $maxExtraFields; $i++) {
+				$fieldNumber = $i + 1;
+				$extraFieldname = 'body' . $fieldNumber;
+				$rows = static::getRichEditorSection($rows, $extraFieldname, static::bodyHasRichEditor(), true, $fieldNumber);
+			}
+		}
+
+		// Template (Pages only)
+		if (static::getSlug() == 'pages') {
+			$rows[] = Select::make('template')
+				->label(_q('lara-admin::default.column.template'))
+				->options(static::getEntity()->views()->IsSingle()->pluck('template', 'template')->toArray())
+				->required();
+		}
+
+		// Custom Fields
+		foreach (static::getCustomFieldsByHook(EntityHook::AFTER_LAST->value) as $customField) {
+			if (!empty(static::getFilamentComponent($customField))) {
+				$rows = array_merge($rows, static::getFilamentComponent($customField));
+			}
+		}
+
+		$rows[] = Hidden::make('language')->default(static::$clanguage);
+
+		return $rows;
+
+	}
+
+	private static function getRichEditorSection(array $rows, string $fieldname, bool $hasRichEditor = false, bool $toggle = false, ?int $extraFieldNumber = null): array
+	{
+		if ($hasRichEditor) {
+
+			$rows[] = RichEditor::make($fieldname)
+				->label(_q('lara-admin::default.column.' . $fieldname))
+				->live()
+				->customBlocks(config('lara-admin.rich_editor.custom_blocks'))
+				->extraInputAttributes(['style' => 'min-height: 8rem;'])
+				->visible(fn(Get $get): bool => is_null($extraFieldNumber) || static::templateHasExtraField($get, $extraFieldNumber));
+		} else {
+
+			$rows[] = Textarea::make($fieldname)
+				->label(_q('lara-admin::default.column.' . $fieldname))
+				->extraInputAttributes(['style' => 'min-height: 16rem;'])
+				->visible(fn(Get $get): bool => is_null($extraFieldNumber) || static::templateHasExtraField($get, $extraFieldNumber));
+
+		}
+
+		return $rows;
+	}
+
+	private static function templateHasExtraField($get, $fieldNumber): bool
+	{
+		$template = $get('template');
+		if ($template) {
+			$view = static::getEntity()->views()->where('template', $template)->first();
+			$templateExtraFields = $view->template_extra_fields;
+			if ($templateExtraFields + 1 >= $fieldNumber) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 
 	private static function getCustomFieldsByHook($hook)
 	{
