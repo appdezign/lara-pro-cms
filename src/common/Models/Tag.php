@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Kalnoy\Nestedset\NodeTrait;
 
+use Lara\Common\Models\Concerns\HasLaraLocks;
 use Lara\Common\Models\Concerns\HasLaraMedia;
 
 class Tag extends Model
@@ -20,6 +21,7 @@ class Tag extends Model
 	}
 
 	use HasLaraMedia;
+	use HasLaraLocks;
 
 	/**
 	 * @var string

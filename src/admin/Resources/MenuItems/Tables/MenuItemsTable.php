@@ -96,10 +96,15 @@ class MenuItemsTable
 			->deferFilters(false)
 			->persistFiltersInSession()
 			->actions([
+				// NOTE: New Lara Lock Feature
 				EditAction::make()
-					->label(''),
+					->label('')
+					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')
+					->disabled(fn($record) => $record->isLocked()),
 				DeleteAction::make()
-					->label(''),
+					->label('')
+					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-trash3')
+					->disabled(fn($record) => $record->isLocked()),
 			])
 			->modifyQueryUsing(fn(Builder $query) => $query->langIs(static::$clanguage))
 			->defaultSort('position', 'asc')

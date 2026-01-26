@@ -9,15 +9,23 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use Lara\Admin\Resources\Tags\TagResource;
 use Lara\Admin\Traits\HasFilters;
+use Lara\Admin\Traits\HasLocks;
 
 class ListTags extends ListRecords
 {
 
 	use HasFilters;
+	use HasLocks;
 
 	protected static string $resource = TagResource::class;
 
 	protected static ?string $resourceRoute = null;
+
+	public function mount(): void
+	{
+		parent::mount();
+		static::unlockAbandonedObjects();
+	}
 
 	protected function getHeaderActions(): array
 	{

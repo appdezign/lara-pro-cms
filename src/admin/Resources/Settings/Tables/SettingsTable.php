@@ -46,13 +46,15 @@ class SettingsTable
 			->deferFilters(false)
 			->actions([
 				ViewAction::make()
-					->label('')
-					->modal(),
+					->label(''),
 				EditAction::make()
 					->label('')
-					->modal(),
+					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')
+					->disabled(fn($record) => $record->isLocked()),
 				DeleteAction::make()
-					->label(''),
+					->label('')
+					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-trash3')
+					->disabled(fn($record) => $record->isLocked()),
 			]);
 	}
 }

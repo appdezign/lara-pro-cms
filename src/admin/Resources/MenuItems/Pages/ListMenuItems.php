@@ -8,6 +8,7 @@ use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Lara\Admin\Resources\MenuItems\MenuItemResource;
 use Lara\Admin\Traits\HasFilters;
+use Lara\Admin\Traits\HasLocks;
 use Lara\Common\Models\Menu;
 
 use Lara\Admin\Traits\HasReorder;
@@ -17,8 +18,16 @@ class ListMenuItems extends ListRecords
 
 	use HasFilters;
 	use HasReorder;
+	use HasLocks;
 
 	protected static string $resource = MenuItemResource::class;
+
+	public function mount(): void
+	{
+		// NOTE: New Lara Lock Feature
+		parent::mount();
+		static::unlockAbandonedObjects();
+	}
 
 	protected function getHeaderActions(): array
 	{

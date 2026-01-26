@@ -11,6 +11,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
+use Lara\Common\Models\Concerns\HasLaraLocks;
 use Spatie\Permission\Traits\HasRoles;
 use Yebor974\Filament\RenewPassword\Traits\RenewPassword;
 use Yebor974\Filament\RenewPassword\Contracts\RenewPasswordContract;
@@ -22,6 +23,7 @@ class User extends Authenticatable  implements RenewPasswordContract, FilamentUs
 	use HasRoles;
 	use RenewPassword;
 	use TwoFactorAuthenticatable;
+	use HasLaraLocks;
 
 	protected $table = 'lara_auth_users';
 

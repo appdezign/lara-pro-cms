@@ -7,13 +7,22 @@ use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
 use Lara\Admin\Resources\MenuItems\Concerns\HasMenu;
 use Lara\Admin\Resources\MenuItems\MenuItemResource;
+use Lara\Admin\Traits\HasLocks;
 
 class EditMenuItem extends EditRecord
 {
 
 	use HasMenu;
+	use HasLocks;
 
     protected static string $resource = MenuItemResource::class;
+
+	public function mount(int|string $record): void
+	{
+		parent::mount($record);
+		static::checkRecordLock($this->record);
+		static::lockRecord($this->record);
+	}
 
 	public function getFormActions(): array
 	{
@@ -23,11 +32,15 @@ class EditMenuItem extends EditRecord
 	protected function getHeaderActions(): array
 	{
 		return [
-			Action::make('backtoindex')
-				->url(static::getResource()::getUrl())
+			// NOTE: New Lara Lock Feature
+			Action::make('unlockrecord')
 				->icon('bi-chevron-left')
 				->iconButton()
-				->color('gray'),
+				->color('gray')
+				->action(function () {
+					static::unlockRecord($this->record);
+					return redirect()->route('filament.admin.resources.menu-items.index');
+				}),
 			Action::make('save')
 				->label(_q('lara-admin::default.action.save'))
 				->color('danger')

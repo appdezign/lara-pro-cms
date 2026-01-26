@@ -10,6 +10,7 @@ use Lara\Admin\Enums\MenuItemType;
 
 use Kalnoy\Nestedset\NodeTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Lara\Common\Models\Concerns\HasLaraLocks;
 
 class MenuItem extends Model
 {
@@ -17,6 +18,9 @@ class MenuItem extends Model
 		NodeTrait::replicate insteadof Sluggable;
 		Sluggable::replicate as replct;
 	}
+
+	// NOTE: New Lara Lock Feature
+	use HasLaraLocks;
 
 	protected $table = 'lara_menu_menu_items';
 

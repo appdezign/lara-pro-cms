@@ -6,16 +6,26 @@ use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
 use Lara\Admin\Resources\Tags\TagResource;
+use Lara\Admin\Traits\HasLocks;
 use Lara\Admin\Traits\HasTerms;
 
 class EditTag extends EditRecord
 {
 
 	use HasTerms;
+	use HasLocks;
 
     protected static string $resource = TagResource::class;
 
-    public function getTitle(): string
+	public function mount(int|string $record): void
+	{
+		parent::mount($record);
+		static::checkRecordLock($this->record);
+		static::lockRecord($this->record);
+	}
+
+
+	public function getTitle(): string
     {
         $entity = $this->getRecord();
         return $entity->title;
@@ -29,11 +39,14 @@ class EditTag extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('backtoindex')
-                ->url(static::getResource()::getUrl())
-                ->icon('bi-chevron-left')
-                ->iconButton()
-                ->color('gray'),
+	        Action::make('unlockrecord')
+		        ->icon('bi-chevron-left')
+		        ->iconButton()
+		        ->color('gray')
+		        ->action(function () {
+			        static::unlockRecord($this->record);
+			        return redirect()->route('filament.admin.resources.tags.index');
+		        }),
 	        Action::make('save')
 		        ->label('save')
 		        ->color('danger')

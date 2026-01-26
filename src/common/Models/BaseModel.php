@@ -13,20 +13,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Filament\Forms\Components\RichEditor\Models\Concerns\InteractsWithRichContent;
 use Filament\Forms\Components\RichEditor\Models\Contracts\HasRichContent;
 
-use Awcodes\Curator\Models\Media;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Kenepa\ResourceLock\Models\Concerns\HasLocks;
 
 use Lara\Common\Models\Concerns\HasLaraMedia;
+use Lara\Common\Models\Concerns\HasLaraLocks;
 
 class BaseModel extends Model implements HasRichContent
 {
 	use Sluggable;
 	use SoftDeletes;
-	use HasLocks;
 	use InteractsWithRichContent;
 
 	use HasLaraMedia;
+	use HasLaraLocks;
 
 	protected $guarded = [
 		'id',

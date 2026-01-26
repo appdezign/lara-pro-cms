@@ -49,10 +49,14 @@ trait MenusTable
 			->url(fn(Menu $record): string => static::getUrl('reorder', ['record' => $record]));
 
 		$actions[] = EditAction::make()
-			->label('');
+			->label('')
+			->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')
+			->disabled(fn($record) => $record->isLocked());
 
 		$actions[] = DeleteAction::make()
-			->label('');
+			->label('')
+			->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-trash3')
+			->disabled(fn($record) => $record->isLocked());
 
 		return $actions;
 	}
