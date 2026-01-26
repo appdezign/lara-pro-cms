@@ -3,34 +3,36 @@
 namespace Lara\Admin\Pages\Lara;
 
 use Filament\Actions\Action;
-use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Components\Concerns\HasContainerGridLayout;
-use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 
-use Kenepa\ResourceLock\Resources\Pages\Concerns\UsesResourceLock;
-use Lara\Admin\Enums\LayoutSections;
+
+use Lara\Admin\Traits\HasLocks;
 use Lara\Admin\Traits\HasLayout;
 use Lara\Admin\Traits\HasMedia;
-use Lara\Common\Models\ObjectLayout;
-
-use Lara\Common\Models\Entity;
 
 use Spatie\Geocoder\Facades\Geocoder;
 
 class LaraEditRecord extends EditRecord
 {
 
-	use UsesResourceLock;
 	use HasContainerGridLayout;
 	use HasLayout;
+	use HasLocks;
 	use HasMedia;
+
+	public function mount(int|string $record): void
+	{
+		parent::mount($record);
+		static::checkRecordLock($this->record);
+		static::lockRecord($this->record);
+	}
 
 	public function getTitle(): string|Htmlable
 	{
-
 		return $this->record->title ?? parent::getTitle();
 	}
 
@@ -110,11 +112,14 @@ class LaraEditRecord extends EditRecord
 
 		$rows = array();
 
-		$rows[] = Action::make('backtoindex')
-			->url(static::getResource()::getUrl())
+		$rows[] = Action::make('unlockrecord')
 			->icon('bi-chevron-left')
 			->iconButton()
-			->color('gray');
+			->color('gray')
+			->action(function () {
+				static::unlockRecord($this->record);
+				return redirect()->route('filament.admin.resources.'.static::getResource()::getSlug().'.index');
+			});
 
 		$rows[] = Action::make('save')
 			->label(_q('lara-admin::default.action.save'))
@@ -127,7 +132,7 @@ class LaraEditRecord extends EditRecord
 			->extraAttributes(['class' => 'mx-4 js-lara-save-button']);
 
 		$previewRoute = static::getPreviewRoute($this->record, static::getResource());
-		if($previewRoute) {
+		if ($previewRoute) {
 			$rows[] = Action::make('preview')
 				->url(route($previewRoute, $this->record->id), true)
 				->icon('bi-box-arrow-up-right')

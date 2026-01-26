@@ -39,8 +39,8 @@ class RoleForm
 			->columnSpanFull()
 			->schema([
 				TextInput::make('name')
-					->required(fn($operation) => $operation == 'create')
-					->disabled(fn($operation) => $operation == 'edit')
+					->required(fn(string $operation) => $operation == 'create')
+					->disabled(fn(string $operation) => $operation == 'edit')
 					->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.name')),
 				Select::make('guard_name')
 					->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.guard_name'))
@@ -48,8 +48,8 @@ class RoleForm
 						'web' => 'web',
 					])
 					->selectablePlaceholder(false)
-					->required(fn($operation) => $operation == 'create')
-					->disabled(fn($operation) => $operation == 'edit'),
+					->required(fn(string $operation) => $operation == 'create')
+					->disabled(fn(string $operation) => $operation == 'edit'),
 				Toggle::make('has_panel_access')
 					->label(_q('lara-admin::default.column.has_panel_access'))
 					->inlineLabel(true)
@@ -65,7 +65,7 @@ class RoleForm
 				->collapsible()
 				->columnSpanFull()
 				->schema(static::getEntityPermissions($modelNames))
-				->visible(fn($operation) => $operation == 'edit');
+				->visible(fn(string $operation) => $operation == 'edit');
 
 		}
 
@@ -74,7 +74,7 @@ class RoleForm
 			->collapsible()
 			->columnSpanFull()
 			->schema(static::getCustomPermissions())
-			->visible(fn($operation) => $operation == 'edit');
+			->visible(fn(string $operation) => $operation == 'edit');
 
 
 		return $rows;

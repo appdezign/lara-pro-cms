@@ -268,6 +268,13 @@ trait HasLaraBuilder
 					$table->integer('position')->unsigned()->default(0);
 					$table->string('cgroup')->nullable();
 
+					$table->timestamp('locked_at')->nullable();
+					$table->bigInteger('locked_by')->nullable()->unsigned();
+					$table->foreign('locked_by')
+						->references('id')
+						->on($tablenames['auth']['users'])
+						->onDelete('cascade');
+
 				});
 			}
 		}

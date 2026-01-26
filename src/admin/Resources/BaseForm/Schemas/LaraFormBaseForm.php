@@ -3,17 +3,16 @@
 namespace Lara\Admin\Resources\BaseForm\Schemas;
 
 use Cache;
-
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs\Tab;
 use Lara\Admin\Enums\EntityHook;
 
-use Lara\Admin\Resources\Base\Concerns\HasBaseForm;
+use Lara\Admin\Resources\Base\Schemas\Concerns\HasContentSection;
 
 trait LaraFormBaseForm
 {
 
-	use HasBaseForm;
+	use HasContentSection;
 
 	private static function getLaraFormTabs(): array
 	{

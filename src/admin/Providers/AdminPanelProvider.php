@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Components\LanguageVersions;
+use Lara\Admin\Components\TextAreaWithCounter;
 use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\NavGroup;
 use Lara\Admin\Fonts\LaraFontProvider;
@@ -71,7 +72,6 @@ use Awcodes\Versions\VersionsWidget;
 
 use BezhanSalleh\GoogleAnalytics\GoogleAnalyticsPlugin;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
-use Kenepa\ResourceLock\ResourceLockPlugin;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
 
@@ -147,7 +147,6 @@ class AdminPanelProvider extends PanelProvider
 					->fileSwap(false),
 				RenewPasswordPlugin::make()
 					->passwordExpiresIn(days: 90),
-				ResourceLockPlugin::make(),
 				BreezyCore::make()
 					->enableTwoFactorAuthentication()
 					->myProfile()
@@ -245,6 +244,10 @@ class AdminPanelProvider extends PanelProvider
 
 		GeoLocationField::configureUsing(function (GeoLocationField $geolocationField) {
 			$geolocationField->inlineLabel();
+		});
+
+		TextAreaWithCounter::configureUsing(function (TextAreaWithCounter $textareaField) {
+			$textareaField->inlineLabel();
 		});
 
 		LanguageVersions::configureUsing(function (LanguageVersions $LanguageVersions) {

@@ -117,7 +117,7 @@ class CustomFieldForm
 							->afterStateUpdated(function (Set $set) {
 								$set('rule_state', 'enabled');
 							})
-							->visible(fn($operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Hidden::make('rule_state')
 							->default('enabled'),
 						Fieldset::make('Status')

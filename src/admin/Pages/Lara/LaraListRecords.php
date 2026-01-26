@@ -8,10 +8,21 @@ use Filament\Resources\Pages\ListRecords;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Lara\Admin\Resources\Tags\TagResource;
+use Lara\Admin\Traits\HasLocks;
 use Lara\Common\Models\Taxonomy;
 
 class LaraListRecords extends ListRecords
 {
+
+	use HasLocks;
+
+	public function mount(): void
+	{
+		parent::mount();
+		static::unlockAbandonedObjects();
+	}
+
+
 	public function getTitle(): string | Htmlable
 	{
 		return _q('lara-app::' . static::$resource::getSlug() . '.entity.title', true);

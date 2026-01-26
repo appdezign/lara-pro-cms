@@ -5,6 +5,8 @@ namespace Lara\Admin\Traits;
 trait HasLanguage
 {
 
+	protected static ?string $clanguage = null;
+
 	public static function setContentLanguage(): void
 	{
 		static::$clanguage = static::getContentLanguage();

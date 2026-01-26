@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
+use Lara\Admin\Resources\Base\Concerns\HasBasePolicy;
 use Lara\Admin\Resources\Base\Schemas\LaraBaseForm;
 use Lara\Admin\Resources\Base\Tables\LaraBaseTable;
 use Lara\Admin\Traits\HasLanguage;
@@ -23,25 +24,26 @@ use Lara\Admin\Traits\HasMedia;
 use Lara\Admin\Traits\HasNestedSet;
 use Lara\Admin\Traits\HasParams;
 
-
 class BaseResource extends Resource
 {
 
-	use HasLaraEntity;
-	use LaraBaseForm;
-	use LaraBaseTable;
 	use HasLanguage;
+	use HasLaraEntity;
 	use HasLayout;
 	use HasMedia;
 	use HasNestedSet;
 	use HasParams;
-
+	use HasBasePolicy;
+	use LaraBaseTable;
+	use LaraBaseForm;
 
 	protected static ?string $model = null;
 
 	protected static ?string $module = 'lara-app';
 
 	protected static bool $shouldRegisterNavigation = false;
+
+	protected static string|BackedEnum|null $navigationIcon = null;
 
 	public static function getModule(): string
 	{
@@ -73,10 +75,6 @@ class BaseResource extends Resource
 		return static::getEntity()->position;
 	}
 
-	protected static string|BackedEnum|null $navigationIcon = null;
-
-	protected static ?string $clanguage = null;
-
 	public static function form(Schema $schema): Schema
 	{
 		return $schema
@@ -85,12 +83,11 @@ class BaseResource extends Resource
 					->tabs(static::getLaraFormTabs())
 					->columnSpanFull()
 					->persistTab()
-					->id(function ($operation, $record): string {
-						if($operation == 'edit') {
+					->id(function (string $operation, Model $record): string {
+						if ($operation === 'edit') {
 							return static::getSlug() . '-' . $record->id . '-tab';
-						} else {
-							return static::getSlug() . '-tab';
 						}
+						return static::getSlug() . '-tab';
 					}),
 			]);
 	}
@@ -99,7 +96,9 @@ class BaseResource extends Resource
 	{
 		static::setContentLanguage();
 
-		$filterLayout = (static::getEntity()->filter_is_open) ? FiltersLayout::AboveContent : FiltersLayout::AboveContentCollapsible;
+		$filterLayout = static::getEntity()->filter_is_open
+			? FiltersLayout::AboveContent
+			: FiltersLayout::AboveContentCollapsible;
 
 		return $table
 			->columns(static::getBaseTableColumns())
@@ -110,81 +109,22 @@ class BaseResource extends Resource
 			->actions(static::getBaseTableActions())
 			->bulkActions(static::getBaseTableBulkActions())
 			->modifyQueryUsing(fn(Builder $query) => static::getBaseQuery($query))
-			->defaultSort(fn (Builder $query) => static::getSortOrder($query));
+			->defaultSort(fn(Builder $query) => static::getSortOrder($query));
 	}
 
 	public static function getEloquentQuery(): Builder
 	{
+		$query = parent::getEloquentQuery();
 		if (static::getEntity()->filter_by_trashed) {
-			return parent::getEloquentQuery()
-				->withoutGlobalScopes([
-					SoftDeletingScope::class,
-				]);
-
-		} else {
-			return parent::getEloquentQuery();
+			$query->withoutGlobalScopes([SoftDeletingScope::class]);
 		}
+
+		return $query;
 	}
 
 	private static function getSingleSlug(): string
 	{
 		return Str::singular(static::getSlug());
-	}
-
-	// Use Spatie Roles and Permissions for access
-	public static function canViewAny(): bool
-	{
-		return auth()->check() && auth()->user()->can('view_any_' . static::getSingleSlug());
-	}
-
-	public static function canView(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('view_' . static::getSingleSlug());
-	}
-
-	public static function canCreate(): bool
-	{
-		return auth()->check() && auth()->user()->can('create_' . static::getSingleSlug());
-	}
-
-	public static function canEdit(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canDelete(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canReorder(): bool
-	{
-		return auth()->check() && auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canReplicate(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('update_' . static::getSingleSlug());
-	}
-
-	public static function canForceDelete(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canForceDeleteAny(): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canRestore(Model $record): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
-	}
-
-	public static function canRestoreAny(): bool
-	{
-		return auth()->check() && auth()->user()->can('delete_' . static::getSingleSlug());
 	}
 
 }

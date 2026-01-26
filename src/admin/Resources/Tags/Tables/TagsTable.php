@@ -84,7 +84,10 @@ class TagsTable
 			->deferFilters(false)
 			->persistFiltersInSession()
 			->actions([
-				EditAction::make()->label('')
+				EditAction::make()
+					->label('')
+					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')
+					->disabled(fn($record) => $record->isLocked()),
 			])
 			->modifyQueryUsing(fn($query) => $query->langIs(static::$clanguage))
 			->defaultSort('position')

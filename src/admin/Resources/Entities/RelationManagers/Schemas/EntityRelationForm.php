@@ -29,7 +29,7 @@ class EntityRelationForm
 						Placeholder::make('source')
 							->label(_q(static::module() . '::' . static::slug() . '.column.source'))
 							->content(fn ($record) => $record->entity->resource_slug)
-							->visible(fn($operation) => $operation == 'edit'),
+							->visible(fn(string $operation) => $operation == 'edit'),
 						Select::make('entity_id')
 							->label(_q(static::module() . '::' . static::slug() . '.column.entity_id'))
 							->options(function (RelationManager $livewire) {
@@ -42,7 +42,7 @@ class EntityRelationForm
 								return $livewire->getOwnerRecord()->id;
 							})
 							->preload()
-							->visible(fn($operation) => $operation == 'create'),
+							->visible(fn(string $operation) => $operation == 'create'),
 						Select::make('type')
 							->label(_q(static::module() . '::' . static::slug() . '.column.type'))
 							->options([
@@ -50,7 +50,7 @@ class EntityRelationForm
 								'hasMany' => 'hasMany',
 							])
 							->required()
-							->visible(fn($operation) => $operation == 'create'),
+							->visible(fn(string $operation) => $operation == 'create'),
 						Select::make('type')
 							->label(_q(static::module() . '::' . static::slug() . '.column.type'))
 							->options([
@@ -59,7 +59,7 @@ class EntityRelationForm
 								'belongsTo' => 'belongsTo',
 							])
 							->required()
-							->visible(fn($operation) => $operation == 'edit')
+							->visible(fn(string $operation) => $operation == 'edit')
 						->disabled(),
 						Select::make('related_entity_id')
 							->label(_q(static::module() . '::' . static::slug() . '.column.related_entity_id'))
