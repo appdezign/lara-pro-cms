@@ -96,7 +96,6 @@ class MenuItemsTable
 			->deferFilters(false)
 			->persistFiltersInSession()
 			->actions([
-				// NOTE: New Lara Lock Feature
 				EditAction::make()
 					->label('')
 					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')

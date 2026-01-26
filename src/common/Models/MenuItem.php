@@ -19,7 +19,6 @@ class MenuItem extends Model
 		Sluggable::replicate as replct;
 	}
 
-	// NOTE: New Lara Lock Feature
 	use HasLaraLocks;
 
 	protected $table = 'lara_menu_menu_items';

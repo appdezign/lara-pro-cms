@@ -24,7 +24,6 @@ class ListMenuItems extends ListRecords
 
 	public function mount(): void
 	{
-		// NOTE: New Lara Lock Feature
 		parent::mount();
 		static::unlockAbandonedObjects();
 	}

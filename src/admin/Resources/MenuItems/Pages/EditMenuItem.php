@@ -32,7 +32,6 @@ class EditMenuItem extends EditRecord
 	protected function getHeaderActions(): array
 	{
 		return [
-			// NOTE: New Lara Lock Feature
 			Action::make('unlockrecord')
 				->icon('bi-chevron-left')
 				->iconButton()
