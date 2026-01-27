@@ -42,9 +42,9 @@ class Tag extends Model
 		'updated_at' => 'datetime',
 	];
 
-	public function __construct(array $attributes = [])
+	public static function getTableName()
 	{
-		parent::__construct($attributes);
+		return with(new static)->getTable();
 	}
 
 	/**
@@ -57,16 +57,6 @@ class Tag extends Model
 				'source' => 'title',
 			],
 		];
-	}
-
-	/**
-	 * get Table Columns
-	 *
-	 * @return array
-	 */
-	public function getTableColumns()
-	{
-		return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
 	}
 
 	/**
