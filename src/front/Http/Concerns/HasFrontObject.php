@@ -160,8 +160,7 @@ trait HasFrontObject
 						if ($object) {
 
 							$item->title = $object->title;
-							$prefix = ($entity->objrel_has_terms) ? 'entitytag' : 'entity';
-							$item->route = $prefix . '.' . $resource_slug . '.index.show';
+							$item->route = $this->getFrontSeoRoute($resource_slug, 'index') . '.show';
 							$item->params = [
 								'slug' => $object->slug
 							];
@@ -212,70 +211,6 @@ trait HasFrontObject
 		} else {
 			return null;
 		}
-
-	}
-
-	/**
-	 * Get the URL for a specific entity method
-	 * For single detail pages (show) we also need the parent method (index)
-	 *
-	 * @param string $resourceSlug
-	 * @param string $method
-	 * @param string|null $parentMethod
-	 * @param object|null $object
-	 * @return string
-	 */
-	private function getFrontSeoUrl(string $resourceSlug, string $method, $parentMethod = null, $object = null)
-	{
-
-		if ($resourceSlug == 'pages') {
-
-			// page
-			if (Route::has('entity.pages.show.' . $object->id)) {
-				$route = route('entity.pages.show.' . $object->id);
-			} else {
-				$route = route('content.pages.show', ['id' => $object->slug]);
-			}
-
-		} else {
-
-			// entity
-
-			if (!empty($object)) {
-
-				// single (show)
-				if (Route::has('entitytag.' . $resourceSlug . '.' . $parentMethod . '.' . $method)) {
-					$route = route('entitytag.' . $resourceSlug . '.' . $parentMethod . '.' . $method,
-						['slug' => $object->slug]);
-				} elseif (Route::has('entity.' . $resourceSlug . '.' . $parentMethod . '.' . $method)) {
-					$route = route('entity.' . $resourceSlug . '.' . $parentMethod . '.' . $method,
-						['slug' => $object->slug]);
-				} elseif (Route::has('contenttag.' . $resourceSlug . '.' . $parentMethod . '.' . $method)) {
-					$route = route('contenttag.' . $resourceSlug . '.' . $parentMethod . '.' . $method,
-						['id' => $object->id]);
-				} else {
-					$route = route('content.' . $resourceSlug . '.' . $parentMethod . '.' . $method,
-						['id' => $object->id]);
-				}
-
-			} else {
-
-				// list (index)
-				if (Route::has('entitytag.' . $resourceSlug . '.' . $method)) {
-					$route = route('entitytag.' . $resourceSlug . '.' . $method);
-				} elseif (Route::has('entity.' . $resourceSlug . '.' . $method)) {
-					$route = route('entity.' . $resourceSlug . '.' . $method);
-				} elseif (Route::has('contenttag.' . $resourceSlug . '.' . $method)) {
-					$route = route('contenttag.' . $resourceSlug . '.' . $method);
-				} else {
-					$route = route('content.' . $resourceSlug . '.' . $method);
-				}
-
-			}
-
-		}
-
-		return $route;
 
 	}
 

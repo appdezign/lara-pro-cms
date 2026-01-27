@@ -33,27 +33,47 @@ trait HasFrontRoutes
 	 * @param string $method
 	 * @return string
 	 */
-	private function getFrontSeoRoute(string $resourceSlug, string $method)
+	private function getFrontSeoRoute(string $resourceSlug, string $method, bool $single = false)
 	{
 
+		if ($resourceSlug == 'pages') {
+			$method = 'show';
+		}
+
 		$entity = $this->getResourceBySlug($resourceSlug);
+
 		$entityView = $entity->getViews()->where('method', $method)->first();
 
 		if ($entityView) {
 			$menuItem = MenuItem::where('entity_id', $entity->getEntityId())
 				->where('entity_view_id', $entityView->id)
+				->whereNull('tag_id')
 				->first();
+
 			if ($menuItem) {
-				return $menuItem->routename;
+				if ($menuItem->is_home == 1) {
+					return 'special.home.show';
+				} else {
+					return $this->buildRouteName($menuItem->routename, $single);
+				}
 			}
 		}
 
 		if (Route::has('contenttag.' . $resourceSlug . '.' . $method)) {
-			return 'contenttag.' . $resourceSlug . '.' . $method;
+			return $this->buildRouteName('contenttag.' . $resourceSlug . '.' . $method, $single);
 		} else {
-			return 'content.' . $resourceSlug . '.' . $method;
+			return $this->buildRouteName('content.' . $resourceSlug . '.' . $method, $single);
 		}
 
+	}
+
+	private function buildRouteName(string $routename, bool $single = false)
+	{
+		if($single) {
+			return $routename . '.show';
+		} else {
+			return $routename;
+		}
 	}
 
 	private function checkFrontRedirect($language, $entity, $activeroute, $object)

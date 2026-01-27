@@ -202,15 +202,15 @@ class EntityCacheWidget extends AbstractWidget
 			}
 
 			$widgetEntityRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index');
+			$widgetEntitySingleRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index', true);
 
 		} else {
-
-			dd($this->config['resource_slug']);
 
 			$widgetObjects = null;
 			$widgetTaxonomy = null;
 			$widgetTaxonomies = null;
 			$widgetEntityRoute = null;
+			$widgetEntitySingleRoute = null;
 
 		}
 
@@ -223,14 +223,15 @@ class EntityCacheWidget extends AbstractWidget
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'            => $this->config,
-				'grid'              => $this->config['grid'],
-				'widgetObjects'     => $widgetObjects,
-				'widgetTerm'        => $term,
-				'widgetTaxonomy'    => $widgetTaxonomy,
-				'widgetTaxonomies'  => $widgetTaxonomies,
-				'widgetEntityRoute' => $widgetEntityRoute,
-				'widgetTitle'       => $this->config['title'],
+				'config'                  => $this->config,
+				'grid'                    => $this->config['grid'],
+				'widgetObjects'           => $widgetObjects,
+				'widgetTerm'              => $term,
+				'widgetTaxonomy'          => $widgetTaxonomy,
+				'widgetTaxonomies'        => $widgetTaxonomies,
+				'widgetEntityRoute'       => $widgetEntityRoute,
+				'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
+				'widgetTitle'             => $this->config['title'],
 			]);
 
 		} else {

@@ -139,6 +139,7 @@ class LaraEntityWidget extends AbstractWidget
 			}
 
 			$widgetEntityRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index');
+			$widgetEntitySingleRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index', true);
 
 		} else {
 
@@ -146,6 +147,7 @@ class LaraEntityWidget extends AbstractWidget
 			$widgetTaxonomy = null;
 			$widgetTaxonomies = null;
 			$widgetEntityRoute = null;
+			$widgetEntitySingleRoute = null;
 
 		}
 
@@ -167,6 +169,7 @@ class LaraEntityWidget extends AbstractWidget
 				'widgetTaxonomy'    => $widgetTaxonomy,
 				'widgetTaxonomies'  => $widgetTaxonomies,
 				'widgetEntityRoute' => $widgetEntityRoute,
+				'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
 				'larawidget'        => $larawidget,
 			]);
 
