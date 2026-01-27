@@ -1,7 +1,8 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Schemas\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
+use Cache;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Fieldset;
@@ -9,8 +10,6 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Support\Enums\Alignment;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
-
-use Cache;
 
 trait HasRelatedSection
 {

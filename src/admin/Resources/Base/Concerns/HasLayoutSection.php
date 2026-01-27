@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Schemas\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Schema;

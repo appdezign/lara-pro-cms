@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Schemas\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms\Components\TextInput;

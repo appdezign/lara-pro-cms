@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Tables\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
