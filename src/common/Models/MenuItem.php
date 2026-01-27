@@ -56,6 +56,11 @@ class MenuItem extends Model
 		];
 	}
 
+	public static function getTableName()
+	{
+		return with(new static)->getTable();
+	}
+
 	// Nested set scope
 	// TODO: add language
 	protected function getScopeAttributes(): array
