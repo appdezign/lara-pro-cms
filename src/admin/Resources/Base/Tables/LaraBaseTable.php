@@ -6,10 +6,10 @@ use Cache;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Lara\Admin\Enums\EntityHook;
-use Lara\Admin\Resources\Base\Tables\Concerns\HasTableActions;
-use Lara\Admin\Resources\Base\Tables\Concerns\HasTableCustomColumns;
-use Lara\Admin\Resources\Base\Tables\Concerns\HasTableFilters;
-use Lara\Admin\Resources\Base\Tables\Concerns\HasTableQuery;
+use Lara\Admin\Resources\Base\Concerns\HasTableActions;
+use Lara\Admin\Resources\Base\Concerns\HasTableCustomColumns;
+use Lara\Admin\Resources\Base\Concerns\HasTableFilters;
+use Lara\Admin\Resources\Base\Concerns\HasTableQuery;
 
 trait LaraBaseTable
 {

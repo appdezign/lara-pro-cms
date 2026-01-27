@@ -8,19 +8,18 @@ use Filament\Forms\Components\Hidden;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasAuthorSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasContentSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasGroupSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasLanguageSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasLayoutSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasOnPagesSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasOpenGraphSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasRelatedSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasSeoSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasStatusSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasSyncSection;
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasTagSection;
-
+use Lara\Admin\Resources\Base\Concerns\HasAuthorSection;
+use Lara\Admin\Resources\Base\Concerns\HasContentSection;
+use Lara\Admin\Resources\Base\Concerns\HasGroupSection;
+use Lara\Admin\Resources\Base\Concerns\HasLanguageSection;
+use Lara\Admin\Resources\Base\Concerns\HasLayoutSection;
+use Lara\Admin\Resources\Base\Concerns\HasOnPagesSection;
+use Lara\Admin\Resources\Base\Concerns\HasOpenGraphSection;
+use Lara\Admin\Resources\Base\Concerns\HasRelatedSection;
+use Lara\Admin\Resources\Base\Concerns\HasSeoSection;
+use Lara\Admin\Resources\Base\Concerns\HasStatusSection;
+use Lara\Admin\Resources\Base\Concerns\HasSyncSection;
+use Lara\Admin\Resources\Base\Concerns\HasTagSection;
 
 trait LaraBaseForm
 {

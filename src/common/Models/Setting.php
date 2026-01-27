@@ -30,5 +30,9 @@ class Setting extends Model
 		'deleted_at'   => 'datetime',
 	];
 
+	public static function getTableName()
+	{
+		return with(new static)->getTable();
+	}
 
 }

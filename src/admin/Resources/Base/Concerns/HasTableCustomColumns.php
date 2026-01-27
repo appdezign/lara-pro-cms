@@ -1,12 +1,12 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Tables\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
+use Cache;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Lara\Admin\Enums\CustomFieldType;
 
-use Cache;
 trait HasTableCustomColumns
 {
 	private static function getCustomColumnsByHook($hook)

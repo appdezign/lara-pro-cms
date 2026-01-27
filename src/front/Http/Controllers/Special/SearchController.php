@@ -224,8 +224,8 @@ class SearchController extends Controller
 
 				// get menu urls
 				foreach ($objects as $object) {
-					$obj = $object;
-					$object->url = $this->getFrontSeoUrl($resource_slug, 'show', 'index', $obj);
+					$object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
+
 				}
 
 				$this->data->results->$resource_slug = new stdClass;
@@ -320,8 +320,7 @@ class SearchController extends Controller
 
 				// get menu urls
 				foreach ($objects as $object) {
-					$obj = $object;
-					$object->url = $this->getFrontSeoUrl($resource_slug, 'show', 'index', $obj);
+					$object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
 				}
 
 				$this->data->results->$resource_slug = new stdClass;

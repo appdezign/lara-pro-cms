@@ -1,12 +1,11 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Tables\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
+use Cache;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Lara\Common\Models\User;
-
-use Cache;
 
 trait HasTableFilters
 {

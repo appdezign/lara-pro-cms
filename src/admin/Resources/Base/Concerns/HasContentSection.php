@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Schemas\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
 use Awcodes\Mason\Bricks\Section;
 use Awcodes\Mason\Mason;

@@ -6,8 +6,7 @@ use Cache;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs\Tab;
 use Lara\Admin\Enums\EntityHook;
-
-use Lara\Admin\Resources\Base\Schemas\Concerns\HasContentSection;
+use Lara\Admin\Resources\Base\Concerns\HasContentSection;
 
 trait LaraFormBaseForm
 {

@@ -134,7 +134,7 @@ class AdminPanelProvider extends PanelProvider
 			->plugins([
 				GoogleAnalyticsPlugin::make(),
 				VersionsPlugin::make()
-					->hasNavigationView(true)
+					->hasNavigationView(false)
 					->widgetColumnSpan('full')
 					->widgetSort(99999),
 				CuratorPlugin::make()

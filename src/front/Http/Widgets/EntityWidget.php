@@ -93,7 +93,7 @@ class EntityWidget extends AbstractWidget
 
 				// get the full Tag object
 				$widgetTaxonomy = Tag::langIs($language)
-					->entityIs($entity->getResourceSlug())
+					->resourceIs($entity->getResourceSlug())
 					->where('slug', $activeTerm)->first();
 				if (empty($widgetTaxonomy)) {
 					$term = null;
@@ -107,6 +107,8 @@ class EntityWidget extends AbstractWidget
 			$modelClass = $entity->getEntityModelClass();
 			$collection = new $modelClass;
 
+			$collection = $collection->langIs($language);
+
 			if ($this->config['exclude']) {
 				$collection = $collection->where('id', '!=', $this->config['exclude']);
 			}
@@ -115,8 +117,6 @@ class EntityWidget extends AbstractWidget
 				$days = $this->config['since'];
 				$collection = $collection->where('created_at', '>', Carbon::now()->subDays($days)->toDateTimeString());
 			}
-
-			$collection = $collection->langIs($language);
 
 			if ($entity->hasStatus()) {
 				$collection = $collection->isPublished();
@@ -196,6 +196,7 @@ class EntityWidget extends AbstractWidget
 			}
 
 			$widgetEntityRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index');
+			$widgetEntitySingleRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index', true);
 
 		} else {
 
@@ -203,6 +204,7 @@ class EntityWidget extends AbstractWidget
 			$widgetTaxonomy = null;
 			$widgetTaxonomies = null;
 			$widgetEntityRoute = null;
+			$widgetEntitySingleRoute = null;
 
 		}
 
@@ -222,6 +224,7 @@ class EntityWidget extends AbstractWidget
 				'widgetTaxonomy'    => $widgetTaxonomy,
 				'widgetTaxonomies'  => $widgetTaxonomies,
 				'widgetEntityRoute' => $widgetEntityRoute,
+				'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
 				'widgetTitle'       => $this->config['title'],
 			]);
 

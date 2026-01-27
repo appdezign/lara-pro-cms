@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Schemas\Concerns;
+namespace Lara\Admin\Resources\Base\Concerns;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;

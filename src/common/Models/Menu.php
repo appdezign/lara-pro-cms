@@ -40,6 +40,11 @@ class Menu extends Model
 		];
 	}
 
+	public static function getTableName()
+	{
+		return with(new static)->getTable();
+	}
+
     public function items(): HasMany
     {
         return $this->hasMany(MenuItem::class);
