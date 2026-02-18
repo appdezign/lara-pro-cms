@@ -2,7 +2,6 @@
 
 namespace Lara\Admin\Resources\Base\Concerns;
 
-use Awcodes\Mason\Bricks\Section;
 use Awcodes\Mason\Mason;
 use Cache;
 use Filament\Forms\Components\Checkbox;
@@ -27,6 +26,10 @@ use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Enums\EntityHook;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Tag;
+
+use Lara\App\Filament\Components\Mason\Section;
+use Lara\App\Filament\Components\Mason\BrickCollection;
+
 
 trait HasContentSection
 {
@@ -356,14 +359,13 @@ trait HasContentSection
 			case 'mason':
 				$rows[] = Mason::make($field->field_name)
 					->label($label)
-					->bricks([
-						Section::class,
-					])
+					->extraInputAttributes(['style' => 'min-height: 40rem;'])
+					->bricks(BrickCollection::make())
 					->placeholder(_q('lara-admin::default.mason.drag_and_drop_bricks'))
 					->doubleClickToEdit()
 					->required($field->is_required == 1)
 					->disabled($state == 'disabled')
-					->visible(fn(Get $get) => static::getFieldState($get, $field));;
+					->visible(fn(Get $get) => static::getFieldState($get, $field) && !empty(BrickCollection::make()));
 				break;
 			case 'geolocation':
 				$rows[] = Fieldset::make(_q('lara-admin::default.group.geolocation', true))

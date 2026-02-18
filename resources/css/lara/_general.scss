@@ -90,14 +90,8 @@
 		> .fi-modal-window-ctn  {
 			> .fi-modal-window {
 				&.fi-width-lg {
-					max-width: 96% !important;
-
-					.fi-modal-header ,
-					.fi-modal-content,
-					.fi-modal-footer {
-						max-width: 960px;
-						margin: 0 auto;
-					}
+					width: 1120px !important;
+					max-width: 90% !important;
 				}
 			}
 		}
