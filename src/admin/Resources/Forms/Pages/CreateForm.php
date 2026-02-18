@@ -43,7 +43,7 @@ class CreateForm extends CreateRecord
         static::checkDatabaseTable($entity);
 
 	    // refresh route cache
-	    session(['laracacheclear' => true]);
+	    session()->push('laracacheclear', ['http_cache', 'route_cache']);
 
     }
 

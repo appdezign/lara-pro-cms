@@ -12,20 +12,8 @@ use Illuminate\Support\Facades\File;
 class LaraCacheController extends Controller
 {
 
-	public function __construct()
+	public function clear(Request $request): JsonResponse
 	{
-
-	}
-
-	/**
-	 * Flush the route cache
-	 *
-	 * @param Request $request
-	 * @return JsonResponse
-	 */
-	public function clear(Request $request)
-	{
-
 
 		$types = session('laracacheclear');
 
@@ -63,7 +51,7 @@ class LaraCacheController extends Controller
 
 	}
 
-	public function cache(Request $request)
+	public function cache(Request $request): JsonResponse
 	{
 
 		$this->callArtisanCommand('route:trans:cache');

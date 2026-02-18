@@ -24,22 +24,6 @@ class Sync extends Model
 		'id',
 	];
 
-	// set table name
-	public function __construct(array $attributes = [])
-	{
-		parent::__construct($attributes);
-	}
-
-	/**
-	 * get Table Columns
-	 *
-	 * @return array
-	 */
-	public function getTableColumns()
-	{
-		return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
-	}
-
 	/**
 	 * @return MorphTo
 	 */
