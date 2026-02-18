@@ -13,7 +13,7 @@ $companyName = Setting::where('key', 'company_name')->value('value');
 		@elseif($getRecord()->hasFeatured())
 			<img src="{{ glideUrl($getRecord()->featured()->path, 1200, 630) }}" />
 		@else
-			<img src="https://dummyimage.com/1200x630/e8ecf0/d4d8dc?text=OG Preview"
+			<img src="https://dummyimage.com/1200x630/e8ecf0/d4d8dc?text=OG Preview" />
 		@endif
 
 		<div class="og-preview-content">
