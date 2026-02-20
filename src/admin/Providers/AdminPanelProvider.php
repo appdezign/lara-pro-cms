@@ -21,6 +21,7 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
+use Filament\Notifications\Livewire\Notifications;
 use Filament\Notifications\Notification;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
@@ -28,12 +29,13 @@ use Filament\PanelProvider;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\VerticalAlignment;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
-
 
 
 use Illuminate\Contracts\View\View;
@@ -166,6 +168,9 @@ class AdminPanelProvider extends PanelProvider
 
 	public function boot(): void
 	{
+
+		Notifications::alignment(Alignment::Center);
+		Notifications::verticalAlignment(VerticalAlignment::Start);
 
 		Notification::configureUsing(function (Notification $notification) {
 			$notification->duration(2000);
