@@ -10,7 +10,7 @@ use Illuminate\View\View;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 
@@ -19,7 +19,7 @@ use LaravelLocalization;
 class MenuSubCacheWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontMenu;
 	use HasFrontRoutes;
 

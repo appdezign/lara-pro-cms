@@ -16,7 +16,7 @@ use Lara\Common\Models\Page;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\User;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
@@ -31,7 +31,7 @@ use stdClass;
 class ErrorController extends Controller
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
 	use HasFrontMenu;

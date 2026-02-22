@@ -12,7 +12,7 @@ use Illuminate\View\View;
 use Lara\Common\Models\Slider;
 use Lara\Common\Models\Tag;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontTerms;
@@ -22,7 +22,7 @@ use LaravelLocalization;
 class PagetitleWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontMenu;
 	use HasFrontRoutes;
 	use HasFrontTerms;
@@ -76,7 +76,7 @@ class PagetitleWidget extends AbstractWidget
 
 		$taxonomy = $this->getFrontDefaultTaxonomy();
 		$tag = Tag::langIs($language)
-			->entityIs('slider')
+			->resourceIs('sliders')
 			->taxonomyIs($taxonomy->id)
 			->where('slug', $activeTerm)->first();
 
@@ -96,6 +96,8 @@ class PagetitleWidget extends AbstractWidget
 
 		}
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		// identifier
 		$templateFileName = $this->config['term'];
 
@@ -106,6 +108,7 @@ class PagetitleWidget extends AbstractWidget
 			return view($widgetview, [
 				'config'          => $this->config,
 				'grid'            => $this->config['grid'],
+				'eroutes'         => $eroutes,
 				'widgetpagetitle' => $widgetpagetitle,
 				'menulevelone'    => $menulevelone,
 				'menucurrent'     => $menucurrent,

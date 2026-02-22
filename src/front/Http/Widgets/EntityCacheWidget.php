@@ -12,8 +12,9 @@ use Arrilot\Widgets\AbstractWidget;
 
 use LaravelLocalization;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
+use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontTerms;
 
@@ -22,8 +23,9 @@ use Carbon\Carbon;
 class EntityCacheWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
+	use HasFrontMenu;
 	use HasFrontRoutes;
 	use HasFrontTerms;
 
@@ -214,6 +216,8 @@ class EntityCacheWidget extends AbstractWidget
 
 		}
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		// identifier
 		$templateFileName = $this->config['parent'] . '_' . $this->config['resource_slug'];
 
@@ -225,6 +229,7 @@ class EntityCacheWidget extends AbstractWidget
 			return view($widgetview, [
 				'config'                  => $this->config,
 				'grid'                    => $this->config['grid'],
+				'eroutes'                 => $eroutes,
 				'widgetObjects'           => $widgetObjects,
 				'widgetTerm'              => $term,
 				'widgetTaxonomy'          => $widgetTaxonomy,

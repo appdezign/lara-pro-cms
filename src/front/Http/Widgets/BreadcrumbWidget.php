@@ -38,6 +38,8 @@ class BreadcrumbWidget extends AbstractWidget
 	public function run()
 	{
 
+		$language = LaravelLocalization::getCurrentLocale();
+
 		$activemenu = $this->getActiveMenuArray(true);
 
 		$breadcrumb = array();
@@ -55,18 +57,22 @@ class BreadcrumbWidget extends AbstractWidget
 
 		$breadcrumb = array_reverse($breadcrumb);
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		$widgetview = '_widgets.menu.breadcrumb';
 
-		if(view()->exists($widgetview)) {
+		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
 				'config'     => $this->config,
 				'grid'       => $this->config['grid'],
+				'eroutes'    => $eroutes,
 				'breadcrumb' => $breadcrumb,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+
 			return view('_widgets._error.' . $errorView, [
 				'widgetview' => $widgetview,
 			]);

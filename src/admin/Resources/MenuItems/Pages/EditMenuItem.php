@@ -66,7 +66,7 @@ class EditMenuItem extends EditRecord
 		static::checkModulePage($this->record);
 
 		// refresh route cache
-		session()->push('laracacheclear', ['http_cache', 'route_cache']);
+		session(['laracacheclear' => ['http_cache', 'route_cache']]);
 
 	}
 

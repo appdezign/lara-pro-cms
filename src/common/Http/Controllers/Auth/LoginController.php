@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 
 use Lara\Common\Lara\UsersEntity;
 
@@ -29,7 +29,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-	use hasFrontend;
+	use HasFrontend;
 
     /**
      * Where to redirect users after login.

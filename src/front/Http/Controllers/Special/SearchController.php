@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\View\View;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-use Lara\Front\Http\Concerns\hasTheme;
+use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
 use Jenssegers\Agent\Agent;
@@ -35,13 +35,13 @@ use stdClass;
 class SearchController extends Controller
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
 	use HasFrontMenu;
 	use HasFrontObject;
 	use HasFrontRoutes;
-	use hasTheme;
+	use HasTheme;
 	use HasFrontView;
 
 	/**

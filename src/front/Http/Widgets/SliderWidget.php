@@ -13,13 +13,15 @@ use LaravelLocalization;
 
 use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\HasFrontEntity;
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontMenu;
+use Lara\Front\Http\Concerns\HasFrontend;
 
 class SliderWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
+	use HasFrontMenu;
 	use HasFrontTerms;
 
 	protected $config = [
@@ -86,6 +88,8 @@ class SliderWidget extends AbstractWidget
 
 		}
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		// identifier
 		$templateFileName = $this->config['term'];
 
@@ -96,12 +100,14 @@ class SliderWidget extends AbstractWidget
 			return view($widgetview, [
 				'config'        => $this->config,
 				'grid'          => $this->config['grid'],
+				'eroutes'       => $eroutes,
 				'sliderclass'   => $this->config['sliderclass'],
 				'widgetsliders' => $widgetsliders,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+
 			return view('_widgets._error.' . $errorView, [
 				'widgetview' => $widgetview,
 			]);

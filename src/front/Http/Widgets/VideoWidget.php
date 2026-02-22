@@ -14,14 +14,16 @@ use LaravelLocalization;
 
 use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\HasFrontEntity;
+use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 
 class VideoWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
+	use HasFrontMenu;
 	use HasFrontRoutes;
 	use HasFrontTerms;
 
@@ -63,7 +65,7 @@ class VideoWidget extends AbstractWidget
 
 		$taxonomy = $this->getFrontDefaultTaxonomy();
 		$tag = Tag::langIs($language)
-			->entityIs('slider')
+			->resourceIs('slider')
 			->taxonomyIs($taxonomy->id)
 			->where('slug', $activeTerm)->first();
 
@@ -87,21 +89,25 @@ class VideoWidget extends AbstractWidget
 
 		}
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		// identifier
 		$templateFileName = $this->config['term'];
 
 		$widgetview = '_widgets.video.' . $templateFileName;
 
-		if(view()->exists($widgetview)) {
+		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
 				'config'      => $this->config,
 				'grid'        => $this->config['grid'],
+				'eroutes'     => $eroutes,
 				'widgetvideo' => $widgetvideo,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+
 			return view('_widgets._error.' . $errorView, [
 				'widgetview' => $widgetview,
 			]);

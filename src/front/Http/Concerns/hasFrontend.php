@@ -13,7 +13,7 @@ use Lara\Common\Models\Setting;
 use stdClass;
 use Cache;
 
-trait hasFrontend
+trait HasFrontend
 {
 
 	/**

@@ -389,7 +389,7 @@ class AdminPanelProvider extends PanelProvider
 
 		// JS
 		FilamentAsset::register([
-			Js::make('custom-script', base_path('laracms/core/resources/js/custom.js')),
+			Js::make('custom', base_path('laracms/core/resources/js/custom.js')),
 		]);
 
 		// Translations
@@ -427,8 +427,8 @@ class AdminPanelProvider extends PanelProvider
 
 	private static function getRichEditorToolbarOptions(): array
 	{
-		if (!empty(config('lara-admin.rich_editor.toolbar_buttons'))) {
-			return config('lara-admin.rich_editor.toolbar_buttons');
+		if (!empty(config('lara-admin.rich_editor.full.toolbar_buttons'))) {
+			return config('lara-admin.rich_editor.full.toolbar_buttons');
 		} else {
 			// default
 			return [

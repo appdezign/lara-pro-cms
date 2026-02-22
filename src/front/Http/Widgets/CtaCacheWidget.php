@@ -8,14 +8,16 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\Cta;
+use Lara\Front\Http\Concerns\HasFrontend;
+use Lara\Front\Http\Concerns\HasFrontMenu;
 
 use LaravelLocalization;
 
-use Lara\Front\Http\Concerns\hasFrontend;
 
 class CtaCacheWidget extends AbstractWidget
 {
-	use hasFrontend;
+	use HasFrontend;
+	use HasFrontMenu;
 
 	protected $config = [
 		'hook'     => null,
@@ -51,11 +53,14 @@ class CtaCacheWidget extends AbstractWidget
 
 		$widgetview = '_widgets.cta.' . $templateFileName;
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
 				'config'    => $this->config,
 				'grid'      => $this->config['grid'],
+				'eroutes'   => $eroutes,
 				'widgetcta' => $widgetcta,
 			]);
 

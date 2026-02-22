@@ -13,16 +13,18 @@ use Arrilot\Widgets\AbstractWidget;
 
 use LaravelLocalization;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
+use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontTerms;
 
 class LaraEntityWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
+	use HasFrontMenu;
 	use HasFrontRoutes;
 	use HasFrontTerms;
 
@@ -59,7 +61,7 @@ class LaraEntityWidget extends AbstractWidget
 				// get the full Tag object
 				$taxonomy = $this->getFrontDefaultTaxonomy();
 				$widgetTaxonomy = Tag::langIs($language)
-					->entityIs($entity->getResourceSlug())
+					->resourceIs($entity->getResourceSlug())
 					->taxonomyIs($taxonomy->id)
 					->where('slug', $term)->first();
 				if (empty($widgetTaxonomy)) {
@@ -73,7 +75,7 @@ class LaraEntityWidget extends AbstractWidget
 			$modelClass = $entity->getEntityModelClass();
 			$collection = new $modelClass;
 
-				$collection = $collection->langIs($language);
+			$collection = $collection->langIs($language);
 
 			if ($entity->hasStatus()) {
 				$collection = $collection->isPublished();
@@ -151,6 +153,8 @@ class LaraEntityWidget extends AbstractWidget
 
 		}
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		// identifier
 		if ($larawidget->template) {
 			$templateFileName = $larawidget->template;
@@ -163,14 +167,15 @@ class LaraEntityWidget extends AbstractWidget
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'            => $this->config,
-				'grid'              => $this->config['grid'],
-				'widgetObjects'     => $widgetObjects,
-				'widgetTaxonomy'    => $widgetTaxonomy,
-				'widgetTaxonomies'  => $widgetTaxonomies,
-				'widgetEntityRoute' => $widgetEntityRoute,
+				'config'                  => $this->config,
+				'grid'                    => $this->config['grid'],
+				'eroutes'                 => $eroutes,
+				'widgetObjects'           => $widgetObjects,
+				'widgetTaxonomy'          => $widgetTaxonomy,
+				'widgetTaxonomies'        => $widgetTaxonomies,
+				'widgetEntityRoute'       => $widgetEntityRoute,
 				'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
-				'larawidget'        => $larawidget,
+				'larawidget'              => $larawidget,
 			]);
 
 		} else {

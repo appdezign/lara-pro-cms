@@ -12,6 +12,8 @@ enum CustomFieldType: string implements HasLabel
 	case NUMBER = 'number';
 
 	case TEXTAREA = 'textarea';
+	case RICHEDITOR = 'richeditor';
+	case RICHEDITORMIN = 'richeditormin';
 
 	case SELECT = 'select';
 	case MULTI_SELECT = 'multiselect';
@@ -50,6 +52,8 @@ enum CustomFieldType: string implements HasLabel
 			self::NUMBER => 'Number',
 
 			self::TEXTAREA => 'Textarea',
+			self::RICHEDITOR => 'Rich Editor',
+			self::RICHEDITORMIN => 'Rich Editor (minimal)',
 
 			self::SELECT => 'Select',
 			self::MULTI_SELECT => 'Multi Select',
@@ -89,6 +93,8 @@ enum CustomFieldType: string implements HasLabel
 			CustomFieldType::COLOR_PICKER => 'varchar',
 			CustomFieldType::TEXT,
 			CustomFieldType::TEXTAREA,
+			CustomFieldType::RICHEDITOR,
+			CustomFieldType::RICHEDITORMIN,
 			CustomFieldType::TOGGLE_BUTTONS,
 			CustomFieldType::RADIO,
 			CustomFieldType::SELECT => 'text',
@@ -126,6 +132,8 @@ enum CustomFieldType: string implements HasLabel
 			CustomFieldType::TEXT,
 			CustomFieldType::NUMBER,
 			CustomFieldType::TEXTAREA,
+			CustomFieldType::RICHEDITOR,
+			CustomFieldType::RICHEDITORMIN,
 			CustomFieldType::TAGS_INPUT,
 			CustomFieldType::TOGGLE,
 			CustomFieldType::CHECKBOX,
