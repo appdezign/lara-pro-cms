@@ -66,6 +66,11 @@ class User extends Authenticatable  implements RenewPasswordContract, FilamentUs
 		];
 	}
 
+	public static function getTableName()
+	{
+		return with(new static)->getTable();
+	}
+
 	public function canAccessPanel(Panel $panel): bool
 	{
 		return $this->hasPanelAccess();
