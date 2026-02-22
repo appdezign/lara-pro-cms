@@ -2,6 +2,7 @@
 
 namespace Lara\Admin\Resources\Tags\Tables;
 
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -87,6 +88,10 @@ class TagsTable
 				EditAction::make()
 					->label('')
 					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')
+					->disabled(fn($record) => $record->isLocked()),
+				DeleteAction::make()
+					->label('')
+					->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-trash3')
 					->disabled(fn($record) => $record->isLocked()),
 			])
 			->modifyQueryUsing(fn($query) => $query->langIs(static::$clanguage))
