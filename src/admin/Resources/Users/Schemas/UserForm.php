@@ -3,6 +3,7 @@
 namespace Lara\Admin\Resources\Users\Schemas;
 
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -33,6 +34,20 @@ class UserForm
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.email'))
 							->email()
 							->required(),
+						TextInput::make('firstname')
+							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.firstname'))
+							->required(),
+						TextInput::make('middlename')
+							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.middlename')),
+						TextInput::make('lastname')
+							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.lastname'))
+							->required(),
+						TextInput::make('displayname')
+							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.displayname'))
+							->required(),
+						Textarea::make('biography')
+							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.biography'))
+							->extraInputAttributes(['style' => 'min-height: 16rem;']),
 						TextInput::make('password')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.password'))
 							->password()
