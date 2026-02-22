@@ -87,6 +87,7 @@ class MenuItemsTable
 					->getStateUsing(fn($record) => static::getMenuItemContent($record))
 					->formatStateUsing(fn($state, $record) => ($record->publish == 0) ? '<span class="text-gray-400"><em>' . $state . '</em></span>' : '<em>' . $state . '</em>'),
 			])
+			->searchable(false)
 			->filters([
 				SelectFilter::make('menu_id')
 					->options(Menu::pluck('title', 'id')->toArray())
