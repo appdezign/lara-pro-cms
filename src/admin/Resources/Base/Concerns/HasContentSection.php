@@ -30,7 +30,6 @@ use Lara\Common\Models\Tag;
 use Lara\App\Filament\Components\Mason\Section;
 use Lara\App\Filament\Components\Mason\BrickCollection;
 
-
 trait HasContentSection
 {
 
@@ -150,7 +149,6 @@ trait HasContentSection
 
 			$rows[] = RichEditor::make($fieldname)
 				->label(_q('lara-admin::default.column.' . $fieldname))
-				->live()
 				->customBlocks(config('lara-admin.rich_editor.custom_blocks'))
 				->extraInputAttributes(['style' => 'min-height: 8rem;'])
 				->visible(fn(Get $get): bool => is_null($extraFieldNumber) || static::templateHasExtraField($get, $extraFieldNumber));
@@ -231,6 +229,20 @@ trait HasContentSection
 					->label($label)
 					->extraInputAttributes(['style' => 'min-height: 8rem;'])
 					->disabled($state == 'disabled')
+					->visible(fn(Get $get) => static::getFieldState($get, $field));
+				break;
+			case 'richeditor':
+				$rows[] = RichEditor::make($field->field_name)
+					->label($label)
+					->toolbarButtons(static::getRichEditorToolbar('full'))
+					->extraInputAttributes(['style' => 'min-height: 6rem;'])
+					->visible(fn(Get $get) => static::getFieldState($get, $field));
+				break;
+			case 'richeditormin':
+				$rows[] = RichEditor::make($field->field_name)
+					->label($label)
+					->toolbarButtons(static::getRichEditorToolbar('minimal'))
+					->extraInputAttributes(['style' => 'min-height: 6rem;'])
 					->visible(fn(Get $get) => static::getFieldState($get, $field));
 				break;
 			case 'select':
@@ -434,6 +446,15 @@ trait HasContentSection
 
 	}
 
+	private static function getRichEditorToolbar(string $type = 'full')
+	{
+		if ($type == 'minimal') {
+			return config('lara-admin.rich_editor.minimal.toolbar_buttons');
+		} else {
+			return config('lara-admin.rich_editor.full.toolbar_buttons');
+		}
+	}
+
 	private static function getSelectFieldOptions($record, $field): array
 	{
 		if (!empty($field->field_options)) {
@@ -504,7 +525,7 @@ trait HasContentSection
 
 				$files = Storage::disk('lara')->files($bladepath);
 
-				if(empty($files)) {
+				if (empty($files)) {
 					$bladepath = $fallbackpath . 'entity';
 					$files = Storage::disk('lara')->files($bladepath);
 				}
@@ -526,7 +547,7 @@ trait HasContentSection
 				$bladepath = $widgetpath . 'text';
 				$files = Storage::disk('lara')->files($bladepath);
 
-				if(empty($files)) {
+				if (empty($files)) {
 					$bladepath = $fallbackpath . 'text';
 					$files = Storage::disk('lara')->files($bladepath);
 				}
