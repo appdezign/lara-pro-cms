@@ -11,6 +11,8 @@ use Lara\Common\Models\Page;
 use Cache;
 use Lara\Common\Models\Tag;
 
+use stdClass;
+
 trait HasFrontMenu
 {
 
@@ -167,7 +169,6 @@ trait HasFrontMenu
 		return $route;
 
 	}
-
 
 	private function getMenuTag(string $language, object $entity, Request $request)
 	{
@@ -342,13 +343,13 @@ trait HasFrontMenu
 	 * so we can access the routes from blade views.
 	 *
 	 * Examples for a read-more button (blade):
-	 * {{ route($data->eroutes['page']['about']) }}
-	 * {{ route($data->eroutes['entity']['blog']) }}
+	 * {{ route($data->eroutes->page->about) }}
+	 * {{ route($data->eroutes->entity->blog) }}
 	 *
 	 * @param string $language
 	 * @return mixed
 	 */
-	private function getMenuEntityRoutes(string $language)
+	private function getMenuEntityRoutes(string $language): mixed
 	{
 
 		$cache_key = 'front_menu_entity_routes';
@@ -357,27 +358,32 @@ trait HasFrontMenu
 
 			$mainMenuID = $this->getMainMenuId();
 
-			$menu_array = array();
+			$menuRoutes = new stdClass;
 
 			// entities
 			$entitymenu = MenuItem::langIs($language)
 				->menuIs($mainMenuID)
+				->where('is_home', 0)
 				->get();
+
+			$menuRoutes->entity = array();
+			$menuRoutes->page = array();
+			$menuRoutes->form = array();
 
 			foreach ($entitymenu as $item) {
 
-				if ($item->type->value == 'entity') {
-					$menu_array['entity'][$item->entity->resource_slug] = $item->routename;
-				}
 				if ($item->type->value == 'page') {
-					$menu_array['page'][$item->slug] = $item->routename;
+					$menuRoutes->page[$item->slug] = $item->routename;
+				}
+				if ($item->type->value == 'entity') {
+					$menuRoutes->entity[$item->entity->resource_slug] = $item->routename;
 				}
 				if ($item->type->value == 'form') {
-					$menu_array['form'][$item->slug] = $item->routename;
+					$menuRoutes->form[$item->entity->resource_slug] = $item->routename;
 				}
 			}
 
-			return $menu_array;
+			return $menuRoutes;
 
 		});
 
