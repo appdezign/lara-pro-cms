@@ -2,7 +2,7 @@
 
 namespace Lara\Front\Http\Concerns;
 
-trait hasTheme
+trait HasTheme
 {
 
 	private function getFrontTheme()

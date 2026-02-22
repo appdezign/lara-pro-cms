@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 
 use Lara\Common\Models\Upload;
@@ -22,7 +22,7 @@ use LaravelLocalization;
 class UploadController extends Controller
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
 
 	public function __construct()

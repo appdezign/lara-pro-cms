@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\View;
 use Lara\Front\View\Components\FrontFormRowComponent;
 use Lara\Front\View\Components\FrontShowRowComponent;
 
-use Lara\Front\Http\Concerns\hasFrontend;
-use Lara\Front\Http\Concerns\hasTheme;
+use Lara\Front\Http\Concerns\HasFrontend;
+use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 
 use Lara\Common\Models\Setting;
@@ -24,8 +24,8 @@ use Qirolab\Theme\Theme;
 class LaraFrontServiceProvider extends ServiceProvider
 {
 
-	use hasFrontend;
-	use hasTheme;
+	use HasFrontend;
+	use HasTheme;
 	use HasSetup;
 
 	/**

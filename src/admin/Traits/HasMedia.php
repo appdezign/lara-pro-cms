@@ -18,7 +18,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\ImageHooks;
-use Lara\Common\Models\objectImage;
+use Lara\Common\Models\ObjectImage;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait HasMedia
@@ -249,7 +249,7 @@ trait HasMedia
 		}
 
 		// sync
-		$images = objectImage::all();
+		$images = ObjectImage::all();
 		foreach ($images as $image) {
 			static::lockMedia($image->media);
 		}

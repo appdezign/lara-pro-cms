@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\View\View;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontAuth;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
@@ -25,7 +25,7 @@ use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
 use Lara\Front\Http\Concerns\HasFrontTerms;
-use Lara\Front\Http\Concerns\hasTheme;
+use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
 use Jenssegers\Agent\Agent;
@@ -43,7 +43,7 @@ use stdClass;
 class FormController extends Controller
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontAuth;
 	use HasFrontEntity;
 	use HasFrontList;
@@ -52,7 +52,7 @@ class FormController extends Controller
 	use HasFrontRoutes;
 	use HasFrontSecurity;
 	use HasFrontTerms;
-	use hasTheme;
+	use HasTheme;
 	use HasFrontView;
 
 	protected ?string $modelClass;

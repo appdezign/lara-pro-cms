@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use Lara\Front\Http\Concerns\hasTheme;
+use Lara\Front\Http\Concerns\HasTheme;
 
 // use Theme;
 use Qirolab\Theme\Theme;
@@ -16,7 +16,7 @@ class MailConfirmation extends Mailable {
 
 	use Queueable, SerializesModels;
 
-	use hasTheme;
+	use HasTheme;
 
 	/**
 	 * @var object
