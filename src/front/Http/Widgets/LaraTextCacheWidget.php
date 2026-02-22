@@ -9,12 +9,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\LaraWidget;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
+use Lara\Front\Http\Concerns\HasFrontMenu;
 
 class LaraTextCacheWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
+	use HasFrontMenu;
 
 	protected $config = [
 		'widget_id' => null,
@@ -42,6 +44,8 @@ class LaraTextCacheWidget extends AbstractWidget
 
 		$larawidget = LaraWidget::find($this->config['widget_id']);
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		if ($larawidget->template) {
 			$templateFileName = $larawidget->type . '_' . $larawidget->template;
 		} else {
@@ -55,6 +59,7 @@ class LaraTextCacheWidget extends AbstractWidget
 			return view($widgetview, [
 				'config'     => $this->config,
 				'grid'       => $this->config['grid'],
+				'eroutes'    => $eroutes,
 				'larawidget' => $larawidget,
 			]);
 

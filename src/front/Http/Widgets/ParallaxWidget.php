@@ -13,13 +13,15 @@ use LaravelLocalization;
 
 use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\HasFrontEntity;
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontMenu;
+use Lara\Front\Http\Concerns\HasFrontend;
 
 class ParallaxWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
+	use HasFrontMenu;
 	use HasFrontTerms;
 
 	protected $config = [
@@ -60,7 +62,7 @@ class ParallaxWidget extends AbstractWidget
 
 		$taxonomy = $this->getFrontDefaultTaxonomy();
 		$tag = Tag::langIs($language)
-			->entityIs('slider')
+			->resourceIs('slider')
 			->taxonomyIs($taxonomy->id)
 			->where('slug', $activeTerm)->first();
 
@@ -85,6 +87,8 @@ class ParallaxWidget extends AbstractWidget
 
 		}
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		// identifier
 		$templateFileName = $this->config['term'];
 
@@ -95,6 +99,7 @@ class ParallaxWidget extends AbstractWidget
 			return view($widgetview, [
 				'config'        => $this->config,
 				'grid'          => $this->config['grid'],
+				'eroutes'       => $eroutes,
 				'widgetsliders' => $widgetsliders,
 			]);
 

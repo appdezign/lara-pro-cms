@@ -13,16 +13,18 @@ use Arrilot\Widgets\AbstractWidget;
 
 use LaravelLocalization;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
+use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontTerms;
 
 class LaraEntityCacheWidget extends AbstractWidget
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontEntity;
+	use HasFrontMenu;
 	use HasFrontRoutes;
 	use HasFrontTerms;
 
@@ -65,7 +67,7 @@ class LaraEntityCacheWidget extends AbstractWidget
 				// get the full Tag object
 				$taxonomy = $this->getFrontDefaultTaxonomy();
 				$widgetTaxonomy = Tag::langIs($language)
-					->entityIs($entity->getResourceSlug())
+					->resourceIs($entity->getResourceSlug())
 					->taxonomyIs($taxonomy->id)
 					->where('slug', $term)->first();
 				if (empty($widgetTaxonomy)) {
@@ -157,6 +159,8 @@ class LaraEntityCacheWidget extends AbstractWidget
 
 		}
 
+		$eroutes = $this->getMenuEntityRoutes($language);
+
 		// identifier
 		if ($larawidget->template) {
 			$templateFileName = $larawidget->template;
@@ -171,6 +175,7 @@ class LaraEntityCacheWidget extends AbstractWidget
 			return view($widgetview, [
 				'config'                  => $this->config,
 				'grid'                    => $this->config['grid'],
+				'eroutes'                 => $eroutes,
 				'widgetObjects'           => $widgetObjects,
 				'widgetTaxonomy'          => $widgetTaxonomy,
 				'widgetTaxonomies'        => $widgetTaxonomies,
