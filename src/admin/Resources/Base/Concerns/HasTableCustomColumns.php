@@ -53,6 +53,8 @@ trait HasTableCustomColumns
 				->width('5%')
 				->toggleable()
 				->boolean()
+				->trueIcon('bi-check2-circle')
+				->falseIcon(false)
 				->size('md')
 				->visibleFrom('xl');
 
