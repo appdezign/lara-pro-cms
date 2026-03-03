@@ -12,7 +12,7 @@ if (!function_exists('_q')) {
 	 * @param $locale
 	 * @return string|null
 	 */
-	function _q(string $fullkey, bool $uppercase = false, array $replace = [], string $locale = null): ?string
+	function _q(string $fullkey, bool $uppercase = false, array $replace = [], ?string $locale = null): ?string
 	{
 
 		$translation = null;
