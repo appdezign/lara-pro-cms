@@ -47,7 +47,7 @@ class ListTags extends ListRecords
 
 		}
 		$actions[] = Action::make('reorder')
-			->action(fn() => redirect()->route('filament.admin.resources.tags.reorder', []))
+			->action(fn() => redirect($this->getResource()::getUrl('reorder')))
 			->icon('bi-arrows-move')
 			->iconButton();
 		$actions[] = CreateAction::make()

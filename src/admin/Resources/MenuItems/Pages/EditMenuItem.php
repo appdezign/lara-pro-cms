@@ -38,7 +38,11 @@ class EditMenuItem extends EditRecord
 				->color('gray')
 				->action(function () {
 					static::unlockRecord($this->record);
-					return redirect()->route('filament.admin.resources.menu-items.index');
+					if($this->previousUrl) {
+						return redirect($this->previousUrl);
+					} else {
+						return redirect($this->getResource()::getUrl('index'));
+					}
 				}),
 			Action::make('save')
 				->label(_q('lara-admin::default.action.save'))
