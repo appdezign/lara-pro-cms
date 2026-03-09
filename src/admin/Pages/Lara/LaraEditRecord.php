@@ -118,7 +118,11 @@ class LaraEditRecord extends EditRecord
 			->color('gray')
 			->action(function () {
 				static::unlockRecord($this->record);
-				return redirect()->route('filament.admin.resources.'.static::getResource()::getSlug().'.index');
+				if($this->previousUrl) {
+					return redirect($this->previousUrl);
+				} else {
+					return redirect($this->getResource()::getUrl('index'));
+				}
 			});
 
 		$rows[] = Action::make('save')
@@ -128,6 +132,11 @@ class LaraEditRecord extends EditRecord
 			->action(function () {
 				$this->save(true, false);
 				$this->refreshFormData(['slug']);
+
+				Notification::make()
+					->title(_q('lara-admin::default.message.object_saved'))
+					->success()
+					->send();
 			})
 			->extraAttributes(['class' => 'mx-4 js-lara-save-button']);
 

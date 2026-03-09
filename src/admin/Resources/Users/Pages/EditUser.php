@@ -42,7 +42,11 @@ class EditUser extends EditRecord
 		        ->color('gray')
 		        ->action(function () {
 			        static::unlockRecord($this->record);
-			        return redirect()->route('filament.admin.resources.users.index');
+			        if($this->previousUrl) {
+				        return redirect($this->previousUrl);
+			        } else {
+				        return redirect($this->getResource()::getUrl('index'));
+			        }
 		        }),
 	        Action::make('save')
 		        ->label('save')

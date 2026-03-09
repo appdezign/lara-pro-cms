@@ -22,20 +22,6 @@ class ClearCache extends Component implements HasSchemas
 
 	public function mount(): void
 	{
-
-		/*
-		session()->forget('laratest');
-
-		$array = ['app_cache','config_cache', 'view_cache', 'http_cache', 'route_cache'];
-
-		$product = $array;
-		session()->push('laratest', $product);
-
-		$test = session('laratest');
-
-		dd($test);
-		*/
-
 		$this->form->fill();
 	}
 
@@ -74,6 +60,8 @@ class ClearCache extends Component implements HasSchemas
 				->title(_q('lara-admin::cache.message.cache_cleared'))
 				->success()
 				->send();
+			sleep(0.5);
+			redirect()->route('filament.admin.pages.cache');
 		} else {
 			Notification::make()
 				->title(_q('lara-admin::cache.message.select_cache_types_first'))

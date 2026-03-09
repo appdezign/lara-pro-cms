@@ -45,7 +45,11 @@ class EditTag extends EditRecord
 		        ->color('gray')
 		        ->action(function () {
 			        static::unlockRecord($this->record);
-			        return redirect()->route('filament.admin.resources.tags.index');
+			        if($this->previousUrl) {
+				        return redirect($this->previousUrl);
+			        } else {
+				        return redirect($this->getResource()::getUrl('index'));
+			        }
 		        }),
 	        Action::make('save')
 		        ->label('save')

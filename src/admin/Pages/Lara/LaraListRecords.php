@@ -38,7 +38,7 @@ class LaraListRecords extends ListRecords
 		return [
 
 			Action::make('reorder')
-				->action(fn() => redirect()->route('filament.admin.resources.'.$resourceSlug.'.reorder', []))
+				->action(fn() => redirect($this->getResource()::getUrl('reorder')))
 				->icon('bi-arrows-move')
 				->iconButton()
 				->visible(static::$resource::resourceIsSortable()),

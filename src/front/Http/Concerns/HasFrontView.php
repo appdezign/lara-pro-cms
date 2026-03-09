@@ -121,10 +121,124 @@ trait HasFrontView
 	 */
 	private function getGrid(object $layout)
 	{
+		$platform = config('lara-front.lara_front_platform');
+
+		if($platform == 'tailwind') {
+			return $this->getTailwindGrid($layout);
+		} elseif($platform == 'bootstrap') {
+			return $this->getBootstrapGrid($layout);
+		} else {
+			return null;
+		}
+	}
+
+	private function getTailwindGrid(object $layout) {
 
 		$grid = new stdClass;
 
-		$bs = config('lara-front.lara_front_bootstrap_version');
+		// default values
+		$grid->module = 'lara-section';
+		$grid->container = 'container';
+
+		$grid->hasSidebar = 'has-no-sidebar';
+		$grid->hasSidebarLeft = false;
+		$grid->leftCols = 'hidden';
+		$grid->hasSidebarRight = false;
+		$grid->rightCols = 'hidden';
+
+		$grid->contentCols = 'col-span-12';
+
+		$grid->gridColumns = 'col-span-12';
+
+		if (str_starts_with($layout->content, 'boxed')) {
+
+			// boxed
+			$grid->container = 'container';
+
+			list($boxed, $sidebar, $type, $cols) = explode('_', $layout->content);
+
+			$colcount = (int)$cols;
+
+			if ($sidebar == 'default') { // no sidebar
+
+				if ($type == 'col') {
+					if($colcount == 12) {
+						$grid->gridColumns = 'col-span-12';
+					} elseif($colcount == 10) {
+						$grid->gridColumns = 'col-span-12 lg:col-span-10 lg:col-start-2';
+					} elseif($colcount == 8) {
+						$grid->gridColumns = 'col-span-12 lg:col-span-10 lg:col-start-2 xl:col-span-8 xl:col-start-3';
+					} elseif($colcount == 6) {
+						$grid->gridColumns = 'col-span-12 lg:col-span-10 lg:col-start-2 lg:col-span-8 lg:col-start-3 xl:col-span-6 xl:col-start-4';
+					}
+				}
+
+			} elseif ($sidebar == 'sidebar') {
+
+				$grid->hasSidebar = 'has-sidebar';
+
+				if ($type == 'left') {
+
+					$grid->hasSidebarLeft = true;
+					$grid->leftCols = 'lg:col-span-' . $cols;
+
+					$contentcols = 12 - $colcount;
+					$grid->contentCols = 'col-span-12 lg:col-span-' . $contentcols;
+
+					$grid->gridColumns = 'col-span-12';
+
+				} elseif ($type == 'right') {
+
+					$grid->hasSidebarRight = true;
+					$grid->rightCols = 'col-span-12 lg:col-span-' . $cols;
+
+					$contentcols = 12 - $colcount;
+					$grid->contentCols = 'col-span-12 lg:col-span-' . (string)$contentcols;
+
+					$grid->gridColumns = 'col-span-12';
+
+				} elseif ($type == 'leftright') {
+					// two sidebars
+
+					$grid->hasSidebarLeft = true;
+					$grid->leftCols = 'col-span-12 lg:col-span-' . $cols;
+
+					$grid->hasSidebarRight = true;
+					$grid->rightCols = 'col-span-12 lg:col-span-' . $cols;
+
+					$contentcols = 12 - (2 * $colcount);
+					$grid->contentCols = 'col-span-12 lg:col-span-' . (string)$contentcols;
+
+					$grid->gridColumns = 'col-span-12';
+
+				} else {
+					//
+				}
+
+			} else {
+				// default
+				$grid->gridColumns = 'col-span-12';
+			}
+
+		} elseif (str_starts_with($layout->content, 'full')) {
+
+			// full width
+			$grid->container = 'container-fluid';
+			$grid->gridColumns = 'col-span-12';
+
+		} else {
+
+			// default
+			$grid->container = 'container';
+			$grid->gridColumns = 'col-span-12';
+		}
+
+		return $grid;
+	}
+
+	private function getBootstrapGrid(object $layout) {
+
+		$grid = new stdClass;
 
 		// default values
 		$grid->module = 'module-sm';
@@ -136,11 +250,11 @@ trait HasFrontView
 		$grid->hasSidebarRight = false;
 		$grid->rightCols = 'hidden';
 
-		$grid->contentCols = ($bs == 5) ? 'col-12' : 'col-sm-12';
+		$grid->contentCols = 'col-sm-12';
 
-		$grid->gridColumns = ($bs == 5) ? 'col-12' : 'col-sm-12';
+		$grid->gridColumns = 'col-12';
 
-		if (substr($layout->content, 0, 5) == 'boxed') {
+		if (str_starts_with($layout->content, 'boxed')) {
 
 			// boxed
 			$grid->container = 'container';
@@ -153,11 +267,11 @@ trait HasFrontView
 
 				if ($type == 'col') {
 
-					$gridcols = ($bs == 5) ? 'col-lg-' . $cols : 'col-sm-' . $cols;
+					$gridcols = 'col-lg-' . $cols;
 
 					if ($colcount < 12) {
 						$offset = (12 - $colcount) / 2;
-						$offsetcols = ($bs == 5) ? ' offset-lg-' . $offset : ' col-sm-offset-' . $offset;
+						$offsetcols = ' offset-lg-' . $offset;
 					} else {
 						$offsetcols = '';
 					}
@@ -177,36 +291,36 @@ trait HasFrontView
 				if ($type == 'left') {
 
 					$grid->hasSidebarLeft = true;
-					$grid->leftCols = ($bs == 5) ? 'col-lg-' . $cols : 'col-sm-' . $cols;
+					$grid->leftCols = 'col-lg-' . $cols;
 
 					$contentcols = 12 - $colcount;
-					$grid->contentCols = ($bs == 5) ? 'col-lg-' . $contentcols : 'col-sm-' . $contentcols;
+					$grid->contentCols = 'col-lg-' . $contentcols;
 
-					$grid->gridColumns = ($bs == 5) ? 'col-12' : 'col-sm-12';
+					$grid->gridColumns = 'col-12';
 
 				} elseif ($type == 'right') {
 
 					$grid->hasSidebarRight = true;
-					$grid->rightCols = ($bs == 5) ? 'col-lg-' . $cols : 'col-sm-' . $cols;
+					$grid->rightCols = 'col-lg-' . $cols;
 
 					$contentcols = 12 - $colcount;
-					$grid->contentCols = ($bs == 5) ? 'col-lg-' . (string)$contentcols : 'col-sm-' . (string)$contentcols;
+					$grid->contentCols = 'col-lg-' . (string)$contentcols;
 
-					$grid->gridColumns = ($bs == 5) ? 'col-12' : 'col-sm-12';
+					$grid->gridColumns = 'col-12';
 
 				} elseif ($type == 'leftright') {
 					// two sidebars
 
 					$grid->hasSidebarLeft = true;
-					$grid->leftCols = ($bs == 5) ? 'col-lg-' . $cols : 'col-sm-' . $cols;
+					$grid->leftCols = 'col-lg-' . $cols;
 
 					$grid->hasSidebarRight = true;
-					$grid->rightCols = ($bs == 5) ? 'col-lg-' . $cols : 'col-sm-' . $cols;
+					$grid->rightCols = 'col-lg-' . $cols;
 
 					$contentcols = 12 - (2 * $colcount);
-					$grid->contentCols = ($bs == 5) ? 'col-lg-' . (string)$contentcols : 'col-sm-' . (string)$contentcols;
+					$grid->contentCols = 'col-lg-' . (string)$contentcols;
 
-					$grid->gridColumns = ($bs == 5) ? 'col-12' : 'col-sm-12';
+					$grid->gridColumns = 'col-12';
 
 				} else {
 					//
@@ -214,25 +328,27 @@ trait HasFrontView
 
 			} else {
 				// default
-				$grid->gridColumns = ($bs == 5) ? 'col-12' : 'col-sm-12';
+				$grid->gridColumns = 'col-12';
 			}
 
 		} elseif (substr($layout->content, 0, 4) == 'full') {
 
 			// full width
 			$grid->container = 'container-fluid';
-			$grid->gridColumns = ($bs == 5) ? 'col-12' : 'col-sm-12';
+			$grid->gridColumns = 'col-12';
 
 		} else {
 
 			// default
 			$grid->container = 'container';
-			$grid->gridColumns = ($bs == 5) ? 'col-12' : 'col-sm-12';
+			$grid->gridColumns = 'col-12';
 		}
 
 		return $grid;
-
 	}
+
+
+
 
 	private function getGridVars($entity)
 	{
