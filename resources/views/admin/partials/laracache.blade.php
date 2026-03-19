@@ -28,7 +28,6 @@ if (sizeof($array) == 5) {
 	let objIds = <?= json_encode($objectIds); ?>;
 	objIds.forEach(objId => {
 		let item = '<?= $entity->resource_slug; ?>' + '-' + objId + '-tab';
-		console.log(item);
 		let retrievedObject = localStorage.getItem(item);
 		if (retrievedObject) {
 			localStorage.removeItem(item);

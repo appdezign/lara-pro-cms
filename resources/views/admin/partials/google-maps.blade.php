@@ -1,8 +1,3 @@
-<script type="module">
-	import { toggleMap } from "/assets/filament/js/app/google-maps.js";
-	window.toggleMaps = toggleMap;
-</script>
-
 <script>(g => {
 		var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__",
 			m = document, b = window;
