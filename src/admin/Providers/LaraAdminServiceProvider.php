@@ -32,7 +32,7 @@ class LaraAdminServiceProvider extends ServiceProvider
 	{
 
 		// Load Translations
-		$this->loadTranslationsFrom(__DIR__ . '/../../../resources/lang/admin', 'lara-admin');
+		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-admin', 'lara-admin');
 
 		// Publish Views
 		$this->publishes([

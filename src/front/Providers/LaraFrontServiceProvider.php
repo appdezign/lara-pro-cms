@@ -41,11 +41,8 @@ class LaraFrontServiceProvider extends ServiceProvider
 			__DIR__ . '/../../../config/lara-front.php' => config_path('lara-front.php'),
 		], 'lara');
 
-		// Publish Translations
-		$this->publishes([
-			__DIR__ . '/../Resources/Lang' => resource_path('lang/vendor/lara-front'),
-		], 'lara');
-		$this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'lara-front');
+		// Load Translations
+		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-front', 'lara-front');
 
 		// Publish Views
 		$this->publishes([

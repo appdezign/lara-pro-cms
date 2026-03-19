@@ -46,6 +46,9 @@ class LaraCommonServiceProvider extends ServiceProvider
 	public function boot(\Illuminate\Routing\Router $router)
 	{
 
+		// Load Translations
+		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-common', 'lara-common');
+
 		// register global middleware
 		$router->aliasMiddleware('userLocale', UserLocale::class);
 		$router->aliasMiddleware('dateLocale', DateLocale::class);

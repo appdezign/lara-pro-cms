@@ -145,6 +145,10 @@ trait HasFrontEntity
 
 				$route = $this->getSpecialRoute($parts);
 
+			} elseif ($parts[0] == 'error') {
+
+				$route = $this->getErrorRoute($parts);
+
 			} else {
 
 				if($parts[0] == 'content') {
@@ -203,7 +207,6 @@ trait HasFrontEntity
 			for ($i = 3; $i < (sizeof($parts) - 2); $i++) {
 				$route->activetags[] = $parts[$i];
 			}
-			// $route->parent_route = substr($routename, 0, -5);
 		} else {
 			for ($i = 3; $i < (sizeof($parts) - 1); $i++) {
 				$route->activetags[] = $parts[$i];
@@ -298,6 +301,17 @@ trait HasFrontEntity
 		if (sizeof($parts) == 4) {
 			list($route->prefix, $route->resource_slug, $route->menu_id, $route->method) = explode('.', $routename);
 		}
+
+		return $route;
+	}
+
+	private function getErrorRoute($parts) {
+
+		$route = new stdClass();
+
+		$route->prefix = 'error';
+		$route->resource_slug = '404';
+		$route->method = 'show';
 
 		return $route;
 	}
