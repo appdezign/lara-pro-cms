@@ -19,4 +19,25 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+	public function __construct()
+	{
+		$this->middleware('guest');
+	}
+
+	public function showLinkRequestForm()
+	{
+		if(config('lara.auth.can_reset_password')) {
+
+			if (config('lara.auth.has_front_auth')) {
+				return view('_user.auth.passwords.email');
+			} else {
+				return view('lara-common::auth.passwords.email');
+			}
+
+		} else {
+			return redirect()->route('special.home.show');
+		}
+
+	}
 }

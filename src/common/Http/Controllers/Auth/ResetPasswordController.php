@@ -4,6 +4,7 @@ namespace Lara\Common\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -20,10 +21,59 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('guest');
+
+		if (!config('lara.auth.has_front_auth')) {
+			$this->redirectTo = '/';
+		} else {
+			$this->redirectTo = route('filament.admin.pages.dashboard');
+		}
+	}
+
+	public function showResetForm(Request $request)
+	{
+
+		if(config('lara.auth.can_reset_password')) {
+
+			$token = $request->route()->parameter('token');
+			$email = $request->input('email');
+
+			$data = [
+				'token' => $token,
+				'email' => $email
+			];
+
+			if (config('lara.auth.has_front_auth')) {
+				return view('_user.auth.passwords.reset', $data);
+			} else {
+				return view('lara-common::auth.passwords.reset', $data);
+			}
+
+		} else {
+			return redirect()->route('special.home.show');
+		}
+	}
+
+	protected function setUserPassword($user, $password)
+	{
+		// the password is encrypted in the model !!!
+		$user->password = $password;
+	}
+
+	protected function redirectTo() {
+		if (config('lara.auth.has_front_auth')) {
+			return route('special.home.show');
+		} else {
+			return route('filament.admin.pages.dashboard');
+		}
+
+	}
+
 }
