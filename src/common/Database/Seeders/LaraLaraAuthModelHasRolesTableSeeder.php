@@ -37,6 +37,18 @@ class LaraLaraAuthModelHasRolesTableSeeder extends Seeder
                 'model_type' => 'Lara\\Common\\Models\\User',
                 'model_id' => 3,
             ),
+            3 => 
+            array (
+                'role_id' => 4,
+                'model_type' => 'Lara\\Common\\Models\\User',
+                'model_id' => 8,
+            ),
+            4 => 
+            array (
+                'role_id' => 4,
+                'model_type' => 'Lara\\Common\\Models\\User',
+                'model_id' => 9,
+            ),
         ));
         
         

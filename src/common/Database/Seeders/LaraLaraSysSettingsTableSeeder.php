@@ -29,8 +29,10 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 2,
                 'created_at' => '2017-10-17 15:44:37',
-                'updated_at' => '2024-10-25 15:33:18',
+                'updated_at' => '2026-01-27 16:56:07',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             1 => 
             array (
@@ -38,12 +40,14 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'title' => 'Company Street',
                 'cgroup' => 'company',
                 'key' => 'company_street',
-                'value' => 'Schipholweg',
+                'value' => 'Bellevuelaan',
                 'locked_by_admin' => 0,
                 'position' => 4,
                 'created_at' => '2017-10-17 17:37:10',
-                'updated_at' => '2023-04-16 20:18:56',
+                'updated_at' => '2026-01-25 19:13:53',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             2 => 
             array (
@@ -57,6 +61,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2017-10-17 17:53:53',
                 'updated_at' => '2023-10-14 16:28:36',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             3 => 
             array (
@@ -68,8 +74,10 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 1,
                 'created_at' => '2017-10-20 12:59:00',
-                'updated_at' => '2025-03-07 10:38:57',
+                'updated_at' => '2026-01-25 19:11:27',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             4 => 
             array (
@@ -77,12 +85,14 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'title' => 'Company Street Nr',
                 'cgroup' => 'company',
                 'key' => 'company_street_nr',
-                'value' => '66',
+                'value' => '241',
                 'locked_by_admin' => 0,
                 'position' => 5,
                 'created_at' => '2018-01-22 09:48:07',
-                'updated_at' => '2023-02-10 20:29:45',
+                'updated_at' => '2025-12-31 11:59:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             5 => 
             array (
@@ -90,12 +100,14 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'title' => 'Company Postal Code',
                 'cgroup' => 'company',
                 'key' => 'company_pcode',
-                'value' => '2035LB',
+                'value' => '2012 BX',
                 'locked_by_admin' => 0,
                 'position' => 6,
                 'created_at' => '2018-01-24 12:41:38',
-                'updated_at' => '2023-10-13 16:30:42',
+                'updated_at' => '2025-12-31 12:00:36',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             6 => 
             array (
@@ -107,8 +119,10 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 7,
                 'created_at' => '2018-01-24 12:42:00',
-                'updated_at' => '2023-02-10 20:30:06',
+                'updated_at' => '2026-01-25 17:17:21',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             7 => 
             array (
@@ -120,8 +134,10 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 10,
                 'created_at' => '2018-01-24 12:42:43',
-                'updated_at' => '2021-11-10 17:08:09',
+                'updated_at' => '2026-01-25 17:17:13',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             8 => 
             array (
@@ -135,6 +151,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-01-24 12:43:29',
                 'updated_at' => '2019-12-18 12:52:15',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             9 => 
             array (
@@ -148,6 +166,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-01-24 12:43:50',
                 'updated_at' => '2018-01-24 12:43:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             10 => 
             array (
@@ -161,6 +181,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-05-30 14:14:21',
                 'updated_at' => '2024-10-25 15:27:01',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             11 => 
             array (
@@ -174,6 +196,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-05-25 12:00:00',
                 'updated_at' => '2023-09-21 11:15:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             12 => 
             array (
@@ -187,6 +211,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-05-25 12:00:00',
                 'updated_at' => '2023-02-10 20:28:37',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             13 => 
             array (
@@ -200,6 +226,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-12 11:18:52',
                 'updated_at' => '2025-01-20 10:34:45',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             14 => 
             array (
@@ -213,6 +241,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:01:02',
                 'updated_at' => '2023-03-17 15:48:11',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             15 => 
             array (
@@ -226,6 +256,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:01:18',
                 'updated_at' => '2023-03-17 15:48:11',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             16 => 
             array (
@@ -239,6 +271,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:01:31',
                 'updated_at' => '2023-02-10 20:27:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             17 => 
             array (
@@ -252,6 +286,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:04:34',
                 'updated_at' => '2018-06-18 14:07:50',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             18 => 
             array (
@@ -265,6 +301,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-07-19 10:47:25',
                 'updated_at' => '2020-05-19 14:26:14',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             19 => 
             array (
@@ -278,6 +316,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-07-21 18:50:40',
                 'updated_at' => '2019-07-21 18:54:45',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             20 => 
             array (
@@ -291,6 +331,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-08-12 18:53:46',
                 'updated_at' => '2023-02-10 20:27:53',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             21 => 
             array (
@@ -304,6 +346,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 20:52:19',
                 'updated_at' => '2019-10-18 12:36:50',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             22 => 
             array (
@@ -317,6 +361,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 21:01:45',
                 'updated_at' => '2019-10-03 21:01:51',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             23 => 
             array (
@@ -330,6 +376,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 21:02:21',
                 'updated_at' => '2019-10-18 12:36:57',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             24 => 
             array (
@@ -343,6 +391,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 21:03:12',
                 'updated_at' => '2019-10-03 21:04:54',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             25 => 
             array (
@@ -356,6 +406,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-18 12:37:44',
                 'updated_at' => '2019-10-18 13:31:43',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             26 => 
             array (
@@ -369,6 +421,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2020-08-11 17:09:21',
                 'updated_at' => '2024-11-06 11:25:54',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             27 => 
             array (
@@ -382,6 +436,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2021-08-05 18:29:35',
                 'updated_at' => '2021-08-05 18:31:10',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             28 => 
             array (
@@ -395,6 +451,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:11:38',
                 'updated_at' => '2023-03-12 13:11:40',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             29 => 
             array (
@@ -408,6 +466,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:12:04',
                 'updated_at' => '2023-03-12 13:12:10',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             30 => 
             array (
@@ -421,6 +481,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:12:46',
                 'updated_at' => '2023-03-12 13:12:53',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             31 => 
             array (
@@ -434,6 +496,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:13:23',
                 'updated_at' => '2023-03-12 13:13:26',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             32 => 
             array (
@@ -447,6 +511,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:13:23',
                 'updated_at' => '2023-06-29 14:21:34',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             33 => 
             array (
@@ -460,6 +526,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-10-24 15:48:06',
                 'updated_at' => '2025-09-03 16:53:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             34 => 
             array (
@@ -473,6 +541,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-04-19 11:08:59',
                 'updated_at' => '2024-04-19 11:08:59',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             35 => 
             array (
@@ -486,6 +556,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-04-19 11:10:40',
                 'updated_at' => '2024-04-19 11:10:40',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             36 => 
             array (
@@ -499,6 +571,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-08-10 16:37:02',
                 'updated_at' => '2025-07-06 14:42:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             37 => 
             array (
@@ -512,6 +586,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-08-10 16:37:02',
                 'updated_at' => '2025-07-06 14:42:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             38 => 
             array (
@@ -525,6 +601,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-10-14 14:06:42',
                 'updated_at' => '2025-04-12 17:37:06',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             39 => 
             array (
@@ -538,6 +616,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-10-14 14:06:42',
                 'updated_at' => '2025-04-12 17:37:06',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             40 => 
             array (
@@ -551,6 +631,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-10-24 16:17:41',
                 'updated_at' => '2025-04-10 20:05:32',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             41 => 
             array (
@@ -564,6 +646,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2025-01-17 13:36:28',
                 'updated_at' => '2025-01-17 13:36:28',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             42 => 
             array (
@@ -577,6 +661,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2025-05-08 14:43:05',
                 'updated_at' => '2025-05-09 15:00:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             43 => 
             array (
@@ -590,6 +676,8 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2025-05-08 14:43:05',
                 'updated_at' => '2025-05-09 15:00:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
         
