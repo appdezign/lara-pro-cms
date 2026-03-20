@@ -46,6 +46,19 @@ class LaraCommonServiceProvider extends ServiceProvider
 	public function boot(\Illuminate\Routing\Router $router)
 	{
 
+		// Merge config
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara.php', 'lara');
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-common.php', 'lara-common');
+
+		// Publish Config
+		$this->publishes([
+			__DIR__ . '/../../../config/lara.php' => config_path('lara.php'),
+			__DIR__ . '/../../../config/lara-common.php' => config_path('lara-common.php'),
+		], 'lara');
+
+		// Load Views
+		$this->loadViewsFrom(__DIR__.'/../../../resources/views/common', 'lara-common');
+
 		// Load Translations
 		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-common', 'lara-common');
 
@@ -79,18 +92,6 @@ class LaraCommonServiceProvider extends ServiceProvider
 		// 3rd party libraries
 		Gate::policy(Role::class, Policies\RolePolicy::class);
 		Gate::policy(Media::class, Policies\MediaPolicy::class);
-
-		// Publish Config
-		$this->publishes([
-			__DIR__ . '/../../../config/lara.php' => config_path('lara.php'),
-			__DIR__ . '/../../../config/lara-common.php' => config_path('lara-common.php'),
-		], 'lara');
-
-		// Publish Views
-		$this->publishes([
-			__DIR__.'/../../../resources/views/common' => resource_path('views/vendor/lara-common'),
-		], 'laraviews');
-		$this->loadViewsFrom(__DIR__.'/../../../resources/views/common', 'lara-common');
 
 		/**
 		 * Override Image cache directories

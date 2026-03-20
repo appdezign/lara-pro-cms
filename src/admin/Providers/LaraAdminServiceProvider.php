@@ -31,19 +31,21 @@ class LaraAdminServiceProvider extends ServiceProvider
 	public function boot()
 	{
 
+		// Merge config
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-admin.php', 'lara-admin');
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-eve.php', 'lara-eve');
+
 		// Publish Config
 		$this->publishes([
 			__DIR__ . '/../../../config/lara-admin.php' => config_path('lara-admin.php'),
 		], 'lara');
 
+		// Load Views
+		$this->loadViewsFrom(__DIR__.'/../../../resources/views/admin', 'lara-admin');
+
 		// Load Translations
 		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-admin', 'lara-admin');
 
-		// Publish Views
-		$this->publishes([
-			__DIR__.'/../../../resources/views/admin' => resource_path('views/vendor/lara-admin'),
-		], 'laraviews');
-		$this->loadViewsFrom(__DIR__.'/../../../resources/views/admin', 'lara-admin');
 
 		// Implicitly grant "Super Admin" role all permissions
 		// This works in the app by using gate-related functions like auth()->user->can() and @can()

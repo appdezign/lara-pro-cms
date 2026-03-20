@@ -44,6 +44,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Auth;
@@ -378,9 +379,11 @@ class AdminPanelProvider extends PanelProvider
 			fn(): View => view('lara-admin::partials.laracache'),
 		);
 
-		FilamentAsset::register([
-			Css::make('lara', Vite::asset('laracms/core/resources/css/lara.scss', 'assets/admin/build'))
-		]);
+		if (File::isDirectory(public_path('assets/admin'))) {
+			FilamentAsset::register([
+				Css::make('lara', Vite::asset('laracms/core/resources/css/lara.scss', 'assets/admin/build'))
+			]);
+		}
 
 		// JS
 		FilamentAsset::register([
