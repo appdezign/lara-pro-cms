@@ -31,6 +31,11 @@ class LaraAdminServiceProvider extends ServiceProvider
 	public function boot()
 	{
 
+		// Publish Config
+		$this->publishes([
+			__DIR__ . '/../../../config/lara-admin.php' => config_path('lara-admin.php'),
+		], 'lara');
+
 		// Load Translations
 		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-admin', 'lara-admin');
 
