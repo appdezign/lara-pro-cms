@@ -1,5 +1,3 @@
-"use strict";
-
 let map;
 async function initMap(latitude, longitude) {
 
@@ -19,7 +17,7 @@ async function initMap(latitude, longitude) {
 	});
 }
 
-export function toggleMap(latitude, longitude) {
+function toggleMaps(latitude, longitude) {
 
 	const canvas = document.querySelector('.js-maps-container');
 	const toggleButton = document.querySelector('#map-preview');

@@ -12,6 +12,8 @@ use Lara\Common\Models\LaraWidget;
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 
+use LaravelLocalization;
+
 class LaraTextCacheWidget extends AbstractWidget
 {
 
@@ -41,6 +43,7 @@ class LaraTextCacheWidget extends AbstractWidget
 	 */
 	public function run()
 	{
+		$language = LaravelLocalization::getCurrentLocale();
 
 		$larawidget = LaraWidget::find($this->config['widget_id']);
 

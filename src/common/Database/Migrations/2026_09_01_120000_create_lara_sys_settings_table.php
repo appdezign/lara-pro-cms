@@ -21,6 +21,8 @@ return new class extends Migration
             $table->unsignedInteger('position')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('locked_by');
         });
     }
 

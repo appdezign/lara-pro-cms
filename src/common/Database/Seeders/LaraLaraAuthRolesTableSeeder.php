@@ -25,6 +25,7 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'name' => 'superadmin',
                 'guard_name' => 'web',
                 'has_panel_access' => 1,
+                'level' => 100,
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2025-06-17 19:21:45',
             ),
@@ -34,6 +35,7 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'name' => 'administrator',
                 'guard_name' => 'web',
                 'has_panel_access' => 1,
+                'level' => 95,
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2025-06-17 19:21:45',
             ),
@@ -43,8 +45,19 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'name' => 'webmaster',
                 'guard_name' => 'web',
                 'has_panel_access' => 1,
+                'level' => 90,
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2025-12-19 14:07:13',
+            ),
+            3 => 
+            array (
+                'id' => 4,
+                'name' => 'member',
+                'guard_name' => 'web',
+                'has_panel_access' => 0,
+                'level' => 10,
+                'created_at' => '2026-03-17 20:22:33',
+                'updated_at' => '2026-03-17 20:22:33',
             ),
         ));
         

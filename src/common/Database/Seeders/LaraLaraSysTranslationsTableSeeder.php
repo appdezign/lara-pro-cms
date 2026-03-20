@@ -2013,54 +2013,6 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
             ),
             166 => 
             array (
-                'id' => 1498,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'user',
-                'tag' => 'column',
-                'key' => 'name',
-                'value' => 'name',
-                'created_at' => '2025-07-03 06:16:57',
-                'updated_at' => '2025-07-10 08:17:23',
-            ),
-            167 => 
-            array (
-                'id' => 1499,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'user',
-                'tag' => 'column',
-                'key' => 'name',
-                'value' => 'name',
-                'created_at' => '2025-07-03 06:16:57',
-                'updated_at' => '2025-07-10 08:17:23',
-            ),
-            168 => 
-            array (
-                'id' => 1500,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'user',
-                'tag' => 'column',
-                'key' => 'guard',
-                'value' => 'guard',
-                'created_at' => '2025-07-03 06:16:57',
-                'updated_at' => '2025-07-10 08:17:23',
-            ),
-            169 => 
-            array (
-                'id' => 1501,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'user',
-                'tag' => 'column',
-                'key' => 'guard',
-                'value' => 'guard',
-                'created_at' => '2025-07-03 06:16:57',
-                'updated_at' => '2025-07-10 08:17:23',
-            ),
-            170 => 
-            array (
                 'id' => 1502,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2071,7 +2023,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
             ),
-            171 => 
+            167 => 
             array (
                 'id' => 1503,
                 'language' => 'nl',
@@ -2083,7 +2035,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
             ),
-            172 => 
+            168 => 
             array (
                 'id' => 1504,
                 'language' => 'en',
@@ -2095,7 +2047,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
             ),
-            173 => 
+            169 => 
             array (
                 'id' => 1505,
                 'language' => 'nl',
@@ -2107,7 +2059,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
             ),
-            174 => 
+            170 => 
             array (
                 'id' => 1506,
                 'language' => 'en',
@@ -2119,7 +2071,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
             ),
-            175 => 
+            171 => 
             array (
                 'id' => 1507,
                 'language' => 'nl',
@@ -2131,7 +2083,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
             ),
-            176 => 
+            172 => 
             array (
                 'id' => 1508,
                 'language' => 'en',
@@ -2143,7 +2095,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
             ),
-            177 => 
+            173 => 
             array (
                 'id' => 1509,
                 'language' => 'nl',
@@ -2155,7 +2107,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
             ),
-            178 => 
+            174 => 
             array (
                 'id' => 1510,
                 'language' => 'en',
@@ -2167,7 +2119,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
             ),
-            179 => 
+            175 => 
             array (
                 'id' => 1511,
                 'language' => 'nl',
@@ -2179,7 +2131,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:27',
             ),
-            180 => 
+            176 => 
             array (
                 'id' => 1512,
                 'language' => 'en',
@@ -2191,7 +2143,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:19:08',
                 'updated_at' => '2025-07-03 06:19:08',
             ),
-            181 => 
+            177 => 
             array (
                 'id' => 1513,
                 'language' => 'nl',
@@ -2203,7 +2155,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:19:08',
                 'updated_at' => '2025-07-03 06:19:20',
             ),
-            182 => 
+            178 => 
             array (
                 'id' => 1516,
                 'language' => 'en',
@@ -2215,7 +2167,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:21:23',
                 'updated_at' => '2025-07-10 07:51:53',
             ),
-            183 => 
+            179 => 
             array (
                 'id' => 1517,
                 'language' => 'nl',
@@ -2227,7 +2179,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 06:21:23',
                 'updated_at' => '2025-07-03 06:21:58',
             ),
-            184 => 
+            180 => 
             array (
                 'id' => 1518,
                 'language' => 'en',
@@ -2239,7 +2191,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
             ),
-            185 => 
+            181 => 
             array (
                 'id' => 1519,
                 'language' => 'nl',
@@ -2251,7 +2203,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
             ),
-            186 => 
+            182 => 
             array (
                 'id' => 1520,
                 'language' => 'en',
@@ -2263,7 +2215,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
             ),
-            187 => 
+            183 => 
             array (
                 'id' => 1521,
                 'language' => 'nl',
@@ -2275,7 +2227,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
             ),
-            188 => 
+            184 => 
             array (
                 'id' => 1522,
                 'language' => 'en',
@@ -2287,7 +2239,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
             ),
-            189 => 
+            185 => 
             array (
                 'id' => 1523,
                 'language' => 'nl',
@@ -2299,7 +2251,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
             ),
-            190 => 
+            186 => 
             array (
                 'id' => 1524,
                 'language' => 'en',
@@ -2311,7 +2263,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
             ),
-            191 => 
+            187 => 
             array (
                 'id' => 1525,
                 'language' => 'nl',
@@ -2323,7 +2275,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
             ),
-            192 => 
+            188 => 
             array (
                 'id' => 1526,
                 'language' => 'en',
@@ -2335,7 +2287,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
             ),
-            193 => 
+            189 => 
             array (
                 'id' => 1527,
                 'language' => 'nl',
@@ -2347,7 +2299,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
             ),
-            194 => 
+            190 => 
             array (
                 'id' => 1528,
                 'language' => 'en',
@@ -2359,7 +2311,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
             ),
-            195 => 
+            191 => 
             array (
                 'id' => 1529,
                 'language' => 'nl',
@@ -2371,7 +2323,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 08:03:10',
             ),
-            196 => 
+            192 => 
             array (
                 'id' => 1534,
                 'language' => 'en',
@@ -2383,7 +2335,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
             ),
-            197 => 
+            193 => 
             array (
                 'id' => 1535,
                 'language' => 'nl',
@@ -2395,7 +2347,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
             ),
-            198 => 
+            194 => 
             array (
                 'id' => 1536,
                 'language' => 'en',
@@ -2407,7 +2359,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-10 07:50:35',
             ),
-            199 => 
+            195 => 
             array (
                 'id' => 1537,
                 'language' => 'nl',
@@ -2419,7 +2371,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-10 07:50:40',
             ),
-            200 => 
+            196 => 
             array (
                 'id' => 1538,
                 'language' => 'en',
@@ -2431,7 +2383,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
             ),
-            201 => 
+            197 => 
             array (
                 'id' => 1539,
                 'language' => 'nl',
@@ -2443,7 +2395,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
             ),
-            202 => 
+            198 => 
             array (
                 'id' => 1540,
                 'language' => 'en',
@@ -2455,7 +2407,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
             ),
-            203 => 
+            199 => 
             array (
                 'id' => 1541,
                 'language' => 'nl',
@@ -2467,7 +2419,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
             ),
-            204 => 
+            200 => 
             array (
                 'id' => 1542,
                 'language' => 'en',
@@ -2479,7 +2431,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
             ),
-            205 => 
+            201 => 
             array (
                 'id' => 1543,
                 'language' => 'nl',
@@ -2491,7 +2443,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
             ),
-            206 => 
+            202 => 
             array (
                 'id' => 1544,
                 'language' => 'en',
@@ -2503,7 +2455,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:06:18',
                 'updated_at' => '2025-07-03 11:06:18',
             ),
-            207 => 
+            203 => 
             array (
                 'id' => 1545,
                 'language' => 'nl',
@@ -2515,7 +2467,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:06:18',
                 'updated_at' => '2025-07-03 11:16:18',
             ),
-            208 => 
+            204 => 
             array (
                 'id' => 1546,
                 'language' => 'en',
@@ -2527,7 +2479,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
             ),
-            209 => 
+            205 => 
             array (
                 'id' => 1547,
                 'language' => 'nl',
@@ -2539,7 +2491,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
             ),
-            210 => 
+            206 => 
             array (
                 'id' => 1548,
                 'language' => 'en',
@@ -2551,7 +2503,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
             ),
-            211 => 
+            207 => 
             array (
                 'id' => 1549,
                 'language' => 'nl',
@@ -2563,7 +2515,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
             ),
-            212 => 
+            208 => 
             array (
                 'id' => 1550,
                 'language' => 'en',
@@ -2575,7 +2527,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
             ),
-            213 => 
+            209 => 
             array (
                 'id' => 1551,
                 'language' => 'nl',
@@ -2587,7 +2539,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:16:03',
             ),
-            214 => 
+            210 => 
             array (
                 'id' => 1564,
                 'language' => 'en',
@@ -2599,7 +2551,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:18:43',
             ),
-            215 => 
+            211 => 
             array (
                 'id' => 1565,
                 'language' => 'nl',
@@ -2611,7 +2563,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:20:17',
             ),
-            216 => 
+            212 => 
             array (
                 'id' => 1566,
                 'language' => 'en',
@@ -2623,7 +2575,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:18:43',
             ),
-            217 => 
+            213 => 
             array (
                 'id' => 1567,
                 'language' => 'nl',
@@ -2635,7 +2587,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:20:27',
             ),
-            218 => 
+            214 => 
             array (
                 'id' => 1568,
                 'language' => 'en',
@@ -2647,7 +2599,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
             ),
-            219 => 
+            215 => 
             array (
                 'id' => 1569,
                 'language' => 'nl',
@@ -2659,7 +2611,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
             ),
-            220 => 
+            216 => 
             array (
                 'id' => 1570,
                 'language' => 'en',
@@ -2671,7 +2623,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
             ),
-            221 => 
+            217 => 
             array (
                 'id' => 1571,
                 'language' => 'nl',
@@ -2683,7 +2635,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
             ),
-            222 => 
+            218 => 
             array (
                 'id' => 1572,
                 'language' => 'en',
@@ -2695,7 +2647,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
             ),
-            223 => 
+            219 => 
             array (
                 'id' => 1573,
                 'language' => 'nl',
@@ -2707,7 +2659,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
             ),
-            224 => 
+            220 => 
             array (
                 'id' => 1574,
                 'language' => 'en',
@@ -2719,7 +2671,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
             ),
-            225 => 
+            221 => 
             array (
                 'id' => 1575,
                 'language' => 'nl',
@@ -2731,7 +2683,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
             ),
-            226 => 
+            222 => 
             array (
                 'id' => 1576,
                 'language' => 'en',
@@ -2743,7 +2695,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
             ),
-            227 => 
+            223 => 
             array (
                 'id' => 1577,
                 'language' => 'nl',
@@ -2755,7 +2707,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
             ),
-            228 => 
+            224 => 
             array (
                 'id' => 1578,
                 'language' => 'en',
@@ -2767,7 +2719,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
             ),
-            229 => 
+            225 => 
             array (
                 'id' => 1579,
                 'language' => 'nl',
@@ -2779,7 +2731,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
             ),
-            230 => 
+            226 => 
             array (
                 'id' => 1580,
                 'language' => 'en',
@@ -2791,7 +2743,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
             ),
-            231 => 
+            227 => 
             array (
                 'id' => 1581,
                 'language' => 'nl',
@@ -2803,7 +2755,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:57',
             ),
-            232 => 
+            228 => 
             array (
                 'id' => 1582,
                 'language' => 'en',
@@ -2815,7 +2767,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            233 => 
+            229 => 
             array (
                 'id' => 1583,
                 'language' => 'nl',
@@ -2827,7 +2779,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            234 => 
+            230 => 
             array (
                 'id' => 1584,
                 'language' => 'en',
@@ -2839,7 +2791,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            235 => 
+            231 => 
             array (
                 'id' => 1585,
                 'language' => 'nl',
@@ -2851,7 +2803,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            236 => 
+            232 => 
             array (
                 'id' => 1586,
                 'language' => 'en',
@@ -2863,7 +2815,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            237 => 
+            233 => 
             array (
                 'id' => 1587,
                 'language' => 'nl',
@@ -2875,7 +2827,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-08-29 12:43:56',
             ),
-            238 => 
+            234 => 
             array (
                 'id' => 1588,
                 'language' => 'en',
@@ -2887,7 +2839,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            239 => 
+            235 => 
             array (
                 'id' => 1589,
                 'language' => 'nl',
@@ -2899,7 +2851,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            240 => 
+            236 => 
             array (
                 'id' => 1590,
                 'language' => 'en',
@@ -2911,7 +2863,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            241 => 
+            237 => 
             array (
                 'id' => 1591,
                 'language' => 'nl',
@@ -2923,7 +2875,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:03',
             ),
-            242 => 
+            238 => 
             array (
                 'id' => 1592,
                 'language' => 'en',
@@ -2935,7 +2887,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            243 => 
+            239 => 
             array (
                 'id' => 1593,
                 'language' => 'nl',
@@ -2947,7 +2899,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            244 => 
+            240 => 
             array (
                 'id' => 1594,
                 'language' => 'en',
@@ -2959,7 +2911,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            245 => 
+            241 => 
             array (
                 'id' => 1595,
                 'language' => 'nl',
@@ -2971,7 +2923,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:15',
             ),
-            246 => 
+            242 => 
             array (
                 'id' => 1596,
                 'language' => 'en',
@@ -2983,7 +2935,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            247 => 
+            243 => 
             array (
                 'id' => 1597,
                 'language' => 'nl',
@@ -2995,7 +2947,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:21',
             ),
-            248 => 
+            244 => 
             array (
                 'id' => 1598,
                 'language' => 'en',
@@ -3007,7 +2959,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            249 => 
+            245 => 
             array (
                 'id' => 1599,
                 'language' => 'nl',
@@ -3019,7 +2971,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:26',
             ),
-            250 => 
+            246 => 
             array (
                 'id' => 1600,
                 'language' => 'en',
@@ -3031,7 +2983,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            251 => 
+            247 => 
             array (
                 'id' => 1601,
                 'language' => 'nl',
@@ -3043,7 +2995,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:31',
             ),
-            252 => 
+            248 => 
             array (
                 'id' => 1602,
                 'language' => 'en',
@@ -3055,7 +3007,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            253 => 
+            249 => 
             array (
                 'id' => 1603,
                 'language' => 'nl',
@@ -3067,7 +3019,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            254 => 
+            250 => 
             array (
                 'id' => 1604,
                 'language' => 'en',
@@ -3079,7 +3031,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            255 => 
+            251 => 
             array (
                 'id' => 1605,
                 'language' => 'nl',
@@ -3091,7 +3043,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            256 => 
+            252 => 
             array (
                 'id' => 1606,
                 'language' => 'en',
@@ -3103,7 +3055,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            257 => 
+            253 => 
             array (
                 'id' => 1607,
                 'language' => 'nl',
@@ -3115,7 +3067,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            258 => 
+            254 => 
             array (
                 'id' => 1608,
                 'language' => 'en',
@@ -3127,7 +3079,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            259 => 
+            255 => 
             array (
                 'id' => 1609,
                 'language' => 'nl',
@@ -3139,7 +3091,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
             ),
-            260 => 
+            256 => 
             array (
                 'id' => 1610,
                 'language' => 'en',
@@ -3151,7 +3103,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:42:26',
                 'updated_at' => '2025-07-03 11:42:26',
             ),
-            261 => 
+            257 => 
             array (
                 'id' => 1611,
                 'language' => 'nl',
@@ -3163,7 +3115,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:42:26',
                 'updated_at' => '2025-07-03 11:42:26',
             ),
-            262 => 
+            258 => 
             array (
                 'id' => 1612,
                 'language' => 'en',
@@ -3175,7 +3127,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:42:26',
                 'updated_at' => '2025-07-03 11:42:26',
             ),
-            263 => 
+            259 => 
             array (
                 'id' => 1613,
                 'language' => 'nl',
@@ -3187,7 +3139,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:42:27',
                 'updated_at' => '2025-07-03 11:42:27',
             ),
-            264 => 
+            260 => 
             array (
                 'id' => 1614,
                 'language' => 'en',
@@ -3199,7 +3151,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:42:27',
                 'updated_at' => '2025-07-03 11:42:27',
             ),
-            265 => 
+            261 => 
             array (
                 'id' => 1615,
                 'language' => 'nl',
@@ -3211,7 +3163,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:42:27',
                 'updated_at' => '2025-07-03 11:42:27',
             ),
-            266 => 
+            262 => 
             array (
                 'id' => 1616,
                 'language' => 'en',
@@ -3223,7 +3175,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            267 => 
+            263 => 
             array (
                 'id' => 1617,
                 'language' => 'nl',
@@ -3235,7 +3187,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            268 => 
+            264 => 
             array (
                 'id' => 1618,
                 'language' => 'en',
@@ -3247,7 +3199,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            269 => 
+            265 => 
             array (
                 'id' => 1619,
                 'language' => 'nl',
@@ -3259,7 +3211,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            270 => 
+            266 => 
             array (
                 'id' => 1620,
                 'language' => 'en',
@@ -3271,7 +3223,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            271 => 
+            267 => 
             array (
                 'id' => 1621,
                 'language' => 'nl',
@@ -3283,7 +3235,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            272 => 
+            268 => 
             array (
                 'id' => 1622,
                 'language' => 'en',
@@ -3295,7 +3247,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            273 => 
+            269 => 
             array (
                 'id' => 1623,
                 'language' => 'nl',
@@ -3307,7 +3259,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            274 => 
+            270 => 
             array (
                 'id' => 1624,
                 'language' => 'en',
@@ -3319,7 +3271,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            275 => 
+            271 => 
             array (
                 'id' => 1625,
                 'language' => 'nl',
@@ -3331,7 +3283,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
             ),
-            276 => 
+            272 => 
             array (
                 'id' => 1626,
                 'language' => 'en',
@@ -3343,7 +3295,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            277 => 
+            273 => 
             array (
                 'id' => 1627,
                 'language' => 'nl',
@@ -3355,7 +3307,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            278 => 
+            274 => 
             array (
                 'id' => 1628,
                 'language' => 'en',
@@ -3367,7 +3319,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            279 => 
+            275 => 
             array (
                 'id' => 1629,
                 'language' => 'nl',
@@ -3379,7 +3331,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            280 => 
+            276 => 
             array (
                 'id' => 1630,
                 'language' => 'en',
@@ -3391,7 +3343,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            281 => 
+            277 => 
             array (
                 'id' => 1631,
                 'language' => 'nl',
@@ -3403,7 +3355,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            282 => 
+            278 => 
             array (
                 'id' => 1632,
                 'language' => 'en',
@@ -3415,7 +3367,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            283 => 
+            279 => 
             array (
                 'id' => 1633,
                 'language' => 'nl',
@@ -3427,7 +3379,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            284 => 
+            280 => 
             array (
                 'id' => 1634,
                 'language' => 'en',
@@ -3439,7 +3391,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            285 => 
+            281 => 
             array (
                 'id' => 1635,
                 'language' => 'nl',
@@ -3451,7 +3403,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            286 => 
+            282 => 
             array (
                 'id' => 1636,
                 'language' => 'en',
@@ -3463,7 +3415,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            287 => 
+            283 => 
             array (
                 'id' => 1637,
                 'language' => 'nl',
@@ -3475,7 +3427,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
             ),
-            288 => 
+            284 => 
             array (
                 'id' => 1638,
                 'language' => 'en',
@@ -3487,7 +3439,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            289 => 
+            285 => 
             array (
                 'id' => 1639,
                 'language' => 'nl',
@@ -3499,7 +3451,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            290 => 
+            286 => 
             array (
                 'id' => 1640,
                 'language' => 'en',
@@ -3511,7 +3463,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            291 => 
+            287 => 
             array (
                 'id' => 1641,
                 'language' => 'nl',
@@ -3523,7 +3475,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            292 => 
+            288 => 
             array (
                 'id' => 1642,
                 'language' => 'en',
@@ -3535,7 +3487,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            293 => 
+            289 => 
             array (
                 'id' => 1643,
                 'language' => 'nl',
@@ -3547,7 +3499,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            294 => 
+            290 => 
             array (
                 'id' => 1644,
                 'language' => 'en',
@@ -3559,7 +3511,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            295 => 
+            291 => 
             array (
                 'id' => 1645,
                 'language' => 'nl',
@@ -3571,7 +3523,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
             ),
-            296 => 
+            292 => 
             array (
                 'id' => 1646,
                 'language' => 'en',
@@ -3583,7 +3535,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            297 => 
+            293 => 
             array (
                 'id' => 1647,
                 'language' => 'nl',
@@ -3595,7 +3547,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            298 => 
+            294 => 
             array (
                 'id' => 1648,
                 'language' => 'en',
@@ -3607,7 +3559,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            299 => 
+            295 => 
             array (
                 'id' => 1649,
                 'language' => 'nl',
@@ -3619,7 +3571,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            300 => 
+            296 => 
             array (
                 'id' => 1650,
                 'language' => 'en',
@@ -3631,7 +3583,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            301 => 
+            297 => 
             array (
                 'id' => 1651,
                 'language' => 'nl',
@@ -3643,7 +3595,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            302 => 
+            298 => 
             array (
                 'id' => 1652,
                 'language' => 'en',
@@ -3655,7 +3607,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            303 => 
+            299 => 
             array (
                 'id' => 1653,
                 'language' => 'nl',
@@ -3667,7 +3619,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
             ),
-            304 => 
+            300 => 
             array (
                 'id' => 1654,
                 'language' => 'en',
@@ -3679,7 +3631,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            305 => 
+            301 => 
             array (
                 'id' => 1655,
                 'language' => 'nl',
@@ -3691,7 +3643,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            306 => 
+            302 => 
             array (
                 'id' => 1656,
                 'language' => 'en',
@@ -3703,7 +3655,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            307 => 
+            303 => 
             array (
                 'id' => 1657,
                 'language' => 'nl',
@@ -3715,7 +3667,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            308 => 
+            304 => 
             array (
                 'id' => 1658,
                 'language' => 'en',
@@ -3727,7 +3679,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            309 => 
+            305 => 
             array (
                 'id' => 1659,
                 'language' => 'nl',
@@ -3739,7 +3691,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            310 => 
+            306 => 
             array (
                 'id' => 1660,
                 'language' => 'en',
@@ -3751,7 +3703,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            311 => 
+            307 => 
             array (
                 'id' => 1661,
                 'language' => 'nl',
@@ -3763,7 +3715,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            312 => 
+            308 => 
             array (
                 'id' => 1662,
                 'language' => 'en',
@@ -3775,7 +3727,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            313 => 
+            309 => 
             array (
                 'id' => 1663,
                 'language' => 'nl',
@@ -3787,7 +3739,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            314 => 
+            310 => 
             array (
                 'id' => 1664,
                 'language' => 'en',
@@ -3799,7 +3751,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            315 => 
+            311 => 
             array (
                 'id' => 1665,
                 'language' => 'nl',
@@ -3811,7 +3763,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
             ),
-            316 => 
+            312 => 
             array (
                 'id' => 1666,
                 'language' => 'en',
@@ -3823,7 +3775,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
             ),
-            317 => 
+            313 => 
             array (
                 'id' => 1667,
                 'language' => 'nl',
@@ -3835,7 +3787,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
             ),
-            318 => 
+            314 => 
             array (
                 'id' => 1668,
                 'language' => 'en',
@@ -3847,7 +3799,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
             ),
-            319 => 
+            315 => 
             array (
                 'id' => 1669,
                 'language' => 'nl',
@@ -3859,7 +3811,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
             ),
-            320 => 
+            316 => 
             array (
                 'id' => 1670,
                 'language' => 'en',
@@ -3871,7 +3823,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            321 => 
+            317 => 
             array (
                 'id' => 1671,
                 'language' => 'nl',
@@ -3883,7 +3835,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            322 => 
+            318 => 
             array (
                 'id' => 1672,
                 'language' => 'en',
@@ -3895,7 +3847,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            323 => 
+            319 => 
             array (
                 'id' => 1673,
                 'language' => 'nl',
@@ -3907,7 +3859,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            324 => 
+            320 => 
             array (
                 'id' => 1674,
                 'language' => 'en',
@@ -3919,7 +3871,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            325 => 
+            321 => 
             array (
                 'id' => 1675,
                 'language' => 'nl',
@@ -3931,7 +3883,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            326 => 
+            322 => 
             array (
                 'id' => 1676,
                 'language' => 'en',
@@ -3943,7 +3895,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            327 => 
+            323 => 
             array (
                 'id' => 1677,
                 'language' => 'nl',
@@ -3955,7 +3907,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            328 => 
+            324 => 
             array (
                 'id' => 1678,
                 'language' => 'en',
@@ -3967,7 +3919,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            329 => 
+            325 => 
             array (
                 'id' => 1679,
                 'language' => 'nl',
@@ -3979,7 +3931,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
             ),
-            330 => 
+            326 => 
             array (
                 'id' => 1680,
                 'language' => 'en',
@@ -3991,7 +3943,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:38',
                 'updated_at' => '2025-07-03 11:49:38',
             ),
-            331 => 
+            327 => 
             array (
                 'id' => 1681,
                 'language' => 'nl',
@@ -4003,7 +3955,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:38',
                 'updated_at' => '2025-07-03 11:49:38',
             ),
-            332 => 
+            328 => 
             array (
                 'id' => 1682,
                 'language' => 'en',
@@ -4015,7 +3967,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:39',
                 'updated_at' => '2025-07-03 11:49:39',
             ),
-            333 => 
+            329 => 
             array (
                 'id' => 1683,
                 'language' => 'nl',
@@ -4027,7 +3979,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:49:39',
                 'updated_at' => '2025-07-03 11:49:39',
             ),
-            334 => 
+            330 => 
             array (
                 'id' => 1684,
                 'language' => 'en',
@@ -4039,7 +3991,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
             ),
-            335 => 
+            331 => 
             array (
                 'id' => 1685,
                 'language' => 'nl',
@@ -4051,7 +4003,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
             ),
-            336 => 
+            332 => 
             array (
                 'id' => 1686,
                 'language' => 'en',
@@ -4063,7 +4015,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
             ),
-            337 => 
+            333 => 
             array (
                 'id' => 1687,
                 'language' => 'nl',
@@ -4075,7 +4027,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
             ),
-            338 => 
+            334 => 
             array (
                 'id' => 1688,
                 'language' => 'en',
@@ -4087,7 +4039,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:55:38',
                 'updated_at' => '2025-07-03 11:55:38',
             ),
-            339 => 
+            335 => 
             array (
                 'id' => 1689,
                 'language' => 'nl',
@@ -4099,7 +4051,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 11:55:38',
                 'updated_at' => '2025-07-03 11:55:38',
             ),
-            340 => 
+            336 => 
             array (
                 'id' => 1690,
                 'language' => 'en',
@@ -4111,7 +4063,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:33:48',
                 'updated_at' => '2025-07-03 14:33:48',
             ),
-            341 => 
+            337 => 
             array (
                 'id' => 1691,
                 'language' => 'nl',
@@ -4123,7 +4075,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:33:48',
                 'updated_at' => '2025-07-03 14:33:48',
             ),
-            342 => 
+            338 => 
             array (
                 'id' => 1692,
                 'language' => 'en',
@@ -4135,7 +4087,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            343 => 
+            339 => 
             array (
                 'id' => 1693,
                 'language' => 'nl',
@@ -4147,7 +4099,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            344 => 
+            340 => 
             array (
                 'id' => 1694,
                 'language' => 'en',
@@ -4159,7 +4111,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            345 => 
+            341 => 
             array (
                 'id' => 1695,
                 'language' => 'nl',
@@ -4171,7 +4123,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            346 => 
+            342 => 
             array (
                 'id' => 1696,
                 'language' => 'en',
@@ -4183,7 +4135,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            347 => 
+            343 => 
             array (
                 'id' => 1697,
                 'language' => 'nl',
@@ -4195,7 +4147,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            348 => 
+            344 => 
             array (
                 'id' => 1698,
                 'language' => 'en',
@@ -4207,7 +4159,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            349 => 
+            345 => 
             array (
                 'id' => 1699,
                 'language' => 'nl',
@@ -4219,7 +4171,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            350 => 
+            346 => 
             array (
                 'id' => 1700,
                 'language' => 'en',
@@ -4231,7 +4183,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            351 => 
+            347 => 
             array (
                 'id' => 1701,
                 'language' => 'nl',
@@ -4243,7 +4195,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            352 => 
+            348 => 
             array (
                 'id' => 1702,
                 'language' => 'en',
@@ -4255,7 +4207,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            353 => 
+            349 => 
             array (
                 'id' => 1703,
                 'language' => 'nl',
@@ -4267,7 +4219,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
             ),
-            354 => 
+            350 => 
             array (
                 'id' => 1704,
                 'language' => 'en',
@@ -4279,7 +4231,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            355 => 
+            351 => 
             array (
                 'id' => 1705,
                 'language' => 'nl',
@@ -4291,7 +4243,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            356 => 
+            352 => 
             array (
                 'id' => 1706,
                 'language' => 'en',
@@ -4303,7 +4255,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            357 => 
+            353 => 
             array (
                 'id' => 1707,
                 'language' => 'nl',
@@ -4315,7 +4267,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            358 => 
+            354 => 
             array (
                 'id' => 1708,
                 'language' => 'en',
@@ -4327,7 +4279,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            359 => 
+            355 => 
             array (
                 'id' => 1709,
                 'language' => 'nl',
@@ -4339,7 +4291,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            360 => 
+            356 => 
             array (
                 'id' => 1710,
                 'language' => 'en',
@@ -4351,7 +4303,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            361 => 
+            357 => 
             array (
                 'id' => 1711,
                 'language' => 'nl',
@@ -4363,7 +4315,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            362 => 
+            358 => 
             array (
                 'id' => 1712,
                 'language' => 'en',
@@ -4375,7 +4327,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            363 => 
+            359 => 
             array (
                 'id' => 1713,
                 'language' => 'nl',
@@ -4387,7 +4339,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            364 => 
+            360 => 
             array (
                 'id' => 1714,
                 'language' => 'en',
@@ -4399,7 +4351,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
             ),
-            365 => 
+            361 => 
             array (
                 'id' => 1715,
                 'language' => 'nl',
@@ -4411,7 +4363,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:42:16',
                 'updated_at' => '2025-07-03 14:42:16',
             ),
-            366 => 
+            362 => 
             array (
                 'id' => 1716,
                 'language' => 'en',
@@ -4423,7 +4375,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            367 => 
+            363 => 
             array (
                 'id' => 1717,
                 'language' => 'nl',
@@ -4435,7 +4387,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            368 => 
+            364 => 
             array (
                 'id' => 1718,
                 'language' => 'en',
@@ -4447,7 +4399,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            369 => 
+            365 => 
             array (
                 'id' => 1719,
                 'language' => 'nl',
@@ -4459,7 +4411,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            370 => 
+            366 => 
             array (
                 'id' => 1720,
                 'language' => 'en',
@@ -4471,7 +4423,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            371 => 
+            367 => 
             array (
                 'id' => 1721,
                 'language' => 'nl',
@@ -4483,7 +4435,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            372 => 
+            368 => 
             array (
                 'id' => 1722,
                 'language' => 'en',
@@ -4495,7 +4447,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            373 => 
+            369 => 
             array (
                 'id' => 1723,
                 'language' => 'nl',
@@ -4507,7 +4459,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            374 => 
+            370 => 
             array (
                 'id' => 1724,
                 'language' => 'en',
@@ -4519,7 +4471,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            375 => 
+            371 => 
             array (
                 'id' => 1725,
                 'language' => 'nl',
@@ -4531,7 +4483,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            376 => 
+            372 => 
             array (
                 'id' => 1726,
                 'language' => 'en',
@@ -4543,7 +4495,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            377 => 
+            373 => 
             array (
                 'id' => 1727,
                 'language' => 'nl',
@@ -4555,7 +4507,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            378 => 
+            374 => 
             array (
                 'id' => 1728,
                 'language' => 'en',
@@ -4567,7 +4519,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            379 => 
+            375 => 
             array (
                 'id' => 1729,
                 'language' => 'nl',
@@ -4579,7 +4531,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            380 => 
+            376 => 
             array (
                 'id' => 1730,
                 'language' => 'en',
@@ -4591,7 +4543,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            381 => 
+            377 => 
             array (
                 'id' => 1731,
                 'language' => 'nl',
@@ -4603,7 +4555,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            382 => 
+            378 => 
             array (
                 'id' => 1732,
                 'language' => 'en',
@@ -4615,7 +4567,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            383 => 
+            379 => 
             array (
                 'id' => 1733,
                 'language' => 'nl',
@@ -4627,7 +4579,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
             ),
-            384 => 
+            380 => 
             array (
                 'id' => 1734,
                 'language' => 'en',
@@ -4639,7 +4591,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            385 => 
+            381 => 
             array (
                 'id' => 1735,
                 'language' => 'nl',
@@ -4651,7 +4603,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            386 => 
+            382 => 
             array (
                 'id' => 1736,
                 'language' => 'en',
@@ -4663,7 +4615,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            387 => 
+            383 => 
             array (
                 'id' => 1737,
                 'language' => 'nl',
@@ -4675,7 +4627,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            388 => 
+            384 => 
             array (
                 'id' => 1738,
                 'language' => 'en',
@@ -4687,7 +4639,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            389 => 
+            385 => 
             array (
                 'id' => 1739,
                 'language' => 'nl',
@@ -4699,7 +4651,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            390 => 
+            386 => 
             array (
                 'id' => 1740,
                 'language' => 'en',
@@ -4711,7 +4663,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            391 => 
+            387 => 
             array (
                 'id' => 1741,
                 'language' => 'nl',
@@ -4723,7 +4675,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            392 => 
+            388 => 
             array (
                 'id' => 1742,
                 'language' => 'en',
@@ -4735,7 +4687,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            393 => 
+            389 => 
             array (
                 'id' => 1743,
                 'language' => 'nl',
@@ -4747,7 +4699,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
             ),
-            394 => 
+            390 => 
             array (
                 'id' => 1746,
                 'language' => 'en',
@@ -4759,7 +4711,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            395 => 
+            391 => 
             array (
                 'id' => 1747,
                 'language' => 'nl',
@@ -4771,7 +4723,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            396 => 
+            392 => 
             array (
                 'id' => 1748,
                 'language' => 'en',
@@ -4783,7 +4735,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            397 => 
+            393 => 
             array (
                 'id' => 1749,
                 'language' => 'nl',
@@ -4795,7 +4747,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            398 => 
+            394 => 
             array (
                 'id' => 1750,
                 'language' => 'en',
@@ -4807,7 +4759,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            399 => 
+            395 => 
             array (
                 'id' => 1751,
                 'language' => 'nl',
@@ -4819,7 +4771,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            400 => 
+            396 => 
             array (
                 'id' => 1752,
                 'language' => 'en',
@@ -4831,7 +4783,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            401 => 
+            397 => 
             array (
                 'id' => 1753,
                 'language' => 'nl',
@@ -4843,7 +4795,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            402 => 
+            398 => 
             array (
                 'id' => 1754,
                 'language' => 'en',
@@ -4855,7 +4807,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            403 => 
+            399 => 
             array (
                 'id' => 1755,
                 'language' => 'nl',
@@ -4867,7 +4819,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            404 => 
+            400 => 
             array (
                 'id' => 1756,
                 'language' => 'en',
@@ -4879,7 +4831,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            405 => 
+            401 => 
             array (
                 'id' => 1757,
                 'language' => 'nl',
@@ -4891,7 +4843,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            406 => 
+            402 => 
             array (
                 'id' => 1758,
                 'language' => 'en',
@@ -4903,7 +4855,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            407 => 
+            403 => 
             array (
                 'id' => 1759,
                 'language' => 'nl',
@@ -4915,7 +4867,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            408 => 
+            404 => 
             array (
                 'id' => 1760,
                 'language' => 'en',
@@ -4927,7 +4879,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            409 => 
+            405 => 
             array (
                 'id' => 1761,
                 'language' => 'nl',
@@ -4939,7 +4891,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            410 => 
+            406 => 
             array (
                 'id' => 1762,
                 'language' => 'en',
@@ -4951,7 +4903,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            411 => 
+            407 => 
             array (
                 'id' => 1763,
                 'language' => 'nl',
@@ -4963,7 +4915,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            412 => 
+            408 => 
             array (
                 'id' => 1764,
                 'language' => 'en',
@@ -4975,7 +4927,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            413 => 
+            409 => 
             array (
                 'id' => 1765,
                 'language' => 'nl',
@@ -4987,7 +4939,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            414 => 
+            410 => 
             array (
                 'id' => 1766,
                 'language' => 'en',
@@ -4999,7 +4951,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            415 => 
+            411 => 
             array (
                 'id' => 1767,
                 'language' => 'nl',
@@ -5011,7 +4963,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            416 => 
+            412 => 
             array (
                 'id' => 1768,
                 'language' => 'en',
@@ -5023,7 +4975,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            417 => 
+            413 => 
             array (
                 'id' => 1769,
                 'language' => 'nl',
@@ -5035,7 +4987,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            418 => 
+            414 => 
             array (
                 'id' => 1770,
                 'language' => 'en',
@@ -5047,7 +4999,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            419 => 
+            415 => 
             array (
                 'id' => 1771,
                 'language' => 'nl',
@@ -5059,7 +5011,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
             ),
-            420 => 
+            416 => 
             array (
                 'id' => 1772,
                 'language' => 'en',
@@ -5071,7 +5023,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:17:31',
                 'updated_at' => '2025-07-03 15:17:31',
             ),
-            421 => 
+            417 => 
             array (
                 'id' => 1773,
                 'language' => 'nl',
@@ -5083,7 +5035,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:17:31',
                 'updated_at' => '2025-07-03 15:17:31',
             ),
-            422 => 
+            418 => 
             array (
                 'id' => 1774,
                 'language' => 'en',
@@ -5095,7 +5047,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:20:45',
                 'updated_at' => '2025-07-03 15:20:45',
             ),
-            423 => 
+            419 => 
             array (
                 'id' => 1775,
                 'language' => 'nl',
@@ -5107,7 +5059,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 15:20:45',
                 'updated_at' => '2025-07-03 15:20:45',
             ),
-            424 => 
+            420 => 
             array (
                 'id' => 1782,
                 'language' => 'en',
@@ -5119,7 +5071,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            425 => 
+            421 => 
             array (
                 'id' => 1783,
                 'language' => 'nl',
@@ -5131,7 +5083,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
             ),
-            426 => 
+            422 => 
             array (
                 'id' => 1784,
                 'language' => 'en',
@@ -5143,7 +5095,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            427 => 
+            423 => 
             array (
                 'id' => 1785,
                 'language' => 'nl',
@@ -5155,7 +5107,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
             ),
-            428 => 
+            424 => 
             array (
                 'id' => 1786,
                 'language' => 'en',
@@ -5167,7 +5119,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            429 => 
+            425 => 
             array (
                 'id' => 1787,
                 'language' => 'nl',
@@ -5179,7 +5131,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
             ),
-            430 => 
+            426 => 
             array (
                 'id' => 1788,
                 'language' => 'en',
@@ -5191,7 +5143,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            431 => 
+            427 => 
             array (
                 'id' => 1789,
                 'language' => 'nl',
@@ -5203,7 +5155,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
             ),
-            432 => 
+            428 => 
             array (
                 'id' => 1790,
                 'language' => 'en',
@@ -5215,7 +5167,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            433 => 
+            429 => 
             array (
                 'id' => 1791,
                 'language' => 'nl',
@@ -5227,7 +5179,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
             ),
-            434 => 
+            430 => 
             array (
                 'id' => 1792,
                 'language' => 'en',
@@ -5239,7 +5191,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
             ),
-            435 => 
+            431 => 
             array (
                 'id' => 1793,
                 'language' => 'nl',
@@ -5251,7 +5203,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
             ),
-            436 => 
+            432 => 
             array (
                 'id' => 1794,
                 'language' => 'en',
@@ -5263,7 +5215,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
             ),
-            437 => 
+            433 => 
             array (
                 'id' => 1795,
                 'language' => 'nl',
@@ -5275,7 +5227,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
             ),
-            438 => 
+            434 => 
             array (
                 'id' => 1802,
                 'language' => 'en',
@@ -5287,7 +5239,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-04 14:08:53',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            439 => 
+            435 => 
             array (
                 'id' => 1803,
                 'language' => 'nl',
@@ -5299,7 +5251,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-04 14:08:53',
                 'updated_at' => '2025-07-04 15:40:46',
             ),
-            440 => 
+            436 => 
             array (
                 'id' => 1818,
                 'language' => 'en',
@@ -5311,7 +5263,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-04 14:38:43',
                 'updated_at' => '2025-07-10 07:51:37',
             ),
-            441 => 
+            437 => 
             array (
                 'id' => 1819,
                 'language' => 'nl',
@@ -5323,7 +5275,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-04 14:38:43',
                 'updated_at' => '2025-07-10 07:51:47',
             ),
-            442 => 
+            438 => 
             array (
                 'id' => 1836,
                 'language' => 'nl',
@@ -5335,7 +5287,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
             ),
-            443 => 
+            439 => 
             array (
                 'id' => 1838,
                 'language' => 'nl',
@@ -5347,7 +5299,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
             ),
-            444 => 
+            440 => 
             array (
                 'id' => 1839,
                 'language' => 'nl',
@@ -5359,7 +5311,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
             ),
-            445 => 
+            441 => 
             array (
                 'id' => 1840,
                 'language' => 'nl',
@@ -5371,7 +5323,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
             ),
-            446 => 
+            442 => 
             array (
                 'id' => 1841,
                 'language' => 'nl',
@@ -5383,7 +5335,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
             ),
-            447 => 
+            443 => 
             array (
                 'id' => 1842,
                 'language' => 'nl',
@@ -5395,7 +5347,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
             ),
-            448 => 
+            444 => 
             array (
                 'id' => 1843,
                 'language' => 'en',
@@ -5407,7 +5359,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:07:45',
                 'updated_at' => '2025-07-06 12:10:43',
             ),
-            449 => 
+            445 => 
             array (
                 'id' => 1844,
                 'language' => 'nl',
@@ -5419,7 +5371,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:07:45',
                 'updated_at' => '2025-07-06 12:08:23',
             ),
-            450 => 
+            446 => 
             array (
                 'id' => 1845,
                 'language' => 'en',
@@ -5431,7 +5383,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            451 => 
+            447 => 
             array (
                 'id' => 1846,
                 'language' => 'nl',
@@ -5443,7 +5395,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            452 => 
+            448 => 
             array (
                 'id' => 1847,
                 'language' => 'en',
@@ -5455,7 +5407,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            453 => 
+            449 => 
             array (
                 'id' => 1848,
                 'language' => 'nl',
@@ -5467,7 +5419,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            454 => 
+            450 => 
             array (
                 'id' => 1849,
                 'language' => 'en',
@@ -5479,7 +5431,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            455 => 
+            451 => 
             array (
                 'id' => 1850,
                 'language' => 'nl',
@@ -5491,7 +5443,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            456 => 
+            452 => 
             array (
                 'id' => 1851,
                 'language' => 'en',
@@ -5503,7 +5455,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            457 => 
+            453 => 
             array (
                 'id' => 1852,
                 'language' => 'nl',
@@ -5515,7 +5467,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            458 => 
+            454 => 
             array (
                 'id' => 1853,
                 'language' => 'en',
@@ -5527,7 +5479,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            459 => 
+            455 => 
             array (
                 'id' => 1854,
                 'language' => 'nl',
@@ -5539,7 +5491,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
             ),
-            460 => 
+            456 => 
             array (
                 'id' => 1855,
                 'language' => 'en',
@@ -5551,7 +5503,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
             ),
-            461 => 
+            457 => 
             array (
                 'id' => 1856,
                 'language' => 'nl',
@@ -5563,7 +5515,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
             ),
-            462 => 
+            458 => 
             array (
                 'id' => 1857,
                 'language' => 'en',
@@ -5575,7 +5527,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
             ),
-            463 => 
+            459 => 
             array (
                 'id' => 1858,
                 'language' => 'nl',
@@ -5587,7 +5539,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
             ),
-            464 => 
+            460 => 
             array (
                 'id' => 1859,
                 'language' => 'en',
@@ -5599,7 +5551,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
             ),
-            465 => 
+            461 => 
             array (
                 'id' => 1860,
                 'language' => 'nl',
@@ -5611,7 +5563,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
             ),
-            466 => 
+            462 => 
             array (
                 'id' => 1861,
                 'language' => 'en',
@@ -5623,7 +5575,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            467 => 
+            463 => 
             array (
                 'id' => 1862,
                 'language' => 'nl',
@@ -5635,7 +5587,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:22:06',
             ),
-            468 => 
+            464 => 
             array (
                 'id' => 1863,
                 'language' => 'en',
@@ -5647,7 +5599,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            469 => 
+            465 => 
             array (
                 'id' => 1864,
                 'language' => 'nl',
@@ -5659,7 +5611,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:22:11',
             ),
-            470 => 
+            466 => 
             array (
                 'id' => 1865,
                 'language' => 'en',
@@ -5671,7 +5623,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:45:39',
                 'updated_at' => '2025-07-06 12:45:39',
             ),
-            471 => 
+            467 => 
             array (
                 'id' => 1866,
                 'language' => 'nl',
@@ -5683,7 +5635,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 12:45:39',
                 'updated_at' => '2025-07-06 12:45:39',
             ),
-            472 => 
+            468 => 
             array (
                 'id' => 1869,
                 'language' => 'en',
@@ -5695,7 +5647,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-10 07:47:40',
             ),
-            473 => 
+            469 => 
             array (
                 'id' => 1870,
                 'language' => 'nl',
@@ -5707,7 +5659,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-06 15:24:49',
             ),
-            474 => 
+            470 => 
             array (
                 'id' => 1871,
                 'language' => 'en',
@@ -5719,7 +5671,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-10 07:47:47',
             ),
-            475 => 
+            471 => 
             array (
                 'id' => 1872,
                 'language' => 'nl',
@@ -5731,7 +5683,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-06 15:24:57',
             ),
-            476 => 
+            472 => 
             array (
                 'id' => 1873,
                 'language' => 'en',
@@ -5743,7 +5695,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 15:23:47',
                 'updated_at' => '2025-07-07 10:49:05',
             ),
-            477 => 
+            473 => 
             array (
                 'id' => 1874,
                 'language' => 'nl',
@@ -5755,7 +5707,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 15:23:47',
                 'updated_at' => '2025-07-07 10:48:57',
             ),
-            478 => 
+            474 => 
             array (
                 'id' => 1875,
                 'language' => 'en',
@@ -5767,7 +5719,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 15:24:07',
                 'updated_at' => '2025-07-10 07:47:44',
             ),
-            479 => 
+            475 => 
             array (
                 'id' => 1876,
                 'language' => 'nl',
@@ -5779,7 +5731,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 15:24:07',
                 'updated_at' => '2025-07-06 15:24:54',
             ),
-            480 => 
+            476 => 
             array (
                 'id' => 1877,
                 'language' => 'en',
@@ -5791,7 +5743,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:31',
             ),
-            481 => 
+            477 => 
             array (
                 'id' => 1878,
                 'language' => 'nl',
@@ -5803,7 +5755,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:06',
             ),
-            482 => 
+            478 => 
             array (
                 'id' => 1879,
                 'language' => 'en',
@@ -5815,7 +5767,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:36',
             ),
-            483 => 
+            479 => 
             array (
                 'id' => 1880,
                 'language' => 'nl',
@@ -5827,7 +5779,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:11',
             ),
-            484 => 
+            480 => 
             array (
                 'id' => 1881,
                 'language' => 'en',
@@ -5839,7 +5791,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:41',
             ),
-            485 => 
+            481 => 
             array (
                 'id' => 1882,
                 'language' => 'nl',
@@ -5851,7 +5803,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:18',
             ),
-            486 => 
+            482 => 
             array (
                 'id' => 1883,
                 'language' => 'en',
@@ -5863,7 +5815,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:44',
             ),
-            487 => 
+            483 => 
             array (
                 'id' => 1884,
                 'language' => 'nl',
@@ -5875,7 +5827,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:22',
             ),
-            488 => 
+            484 => 
             array (
                 'id' => 1885,
                 'language' => 'en',
@@ -5887,7 +5839,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:06',
                 'updated_at' => '2025-07-10 07:46:48',
             ),
-            489 => 
+            485 => 
             array (
                 'id' => 1886,
                 'language' => 'nl',
@@ -5899,7 +5851,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:06',
                 'updated_at' => '2025-07-10 07:48:25',
             ),
-            490 => 
+            486 => 
             array (
                 'id' => 1887,
                 'language' => 'en',
@@ -5911,7 +5863,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:46:52',
             ),
-            491 => 
+            487 => 
             array (
                 'id' => 1888,
                 'language' => 'nl',
@@ -5923,7 +5875,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:48:37',
             ),
-            492 => 
+            488 => 
             array (
                 'id' => 1889,
                 'language' => 'en',
@@ -5935,7 +5887,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:46:58',
             ),
-            493 => 
+            489 => 
             array (
                 'id' => 1890,
                 'language' => 'nl',
@@ -5947,7 +5899,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:48:51',
             ),
-            494 => 
+            490 => 
             array (
                 'id' => 1891,
                 'language' => 'en',
@@ -5959,7 +5911,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:47:03',
             ),
-            495 => 
+            491 => 
             array (
                 'id' => 1892,
                 'language' => 'nl',
@@ -5971,7 +5923,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:48:59',
             ),
-            496 => 
+            492 => 
             array (
                 'id' => 1893,
                 'language' => 'en',
@@ -5983,7 +5935,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:47:08',
             ),
-            497 => 
+            493 => 
             array (
                 'id' => 1894,
                 'language' => 'nl',
@@ -5995,7 +5947,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:49:07',
             ),
-            498 => 
+            494 => 
             array (
                 'id' => 1895,
                 'language' => 'en',
@@ -6007,7 +5959,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:47:14',
             ),
-            499 => 
+            495 => 
             array (
                 'id' => 1896,
                 'language' => 'nl',
@@ -6019,9 +5971,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:49:16',
             ),
-        ));
-        \DB::table('lara_sys_translations')->insert(array (
-            0 => 
+            496 => 
             array (
                 'id' => 1897,
                 'language' => 'en',
@@ -6033,7 +5983,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            1 => 
+            497 => 
             array (
                 'id' => 1898,
                 'language' => 'nl',
@@ -6045,7 +5995,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            2 => 
+            498 => 
             array (
                 'id' => 1899,
                 'language' => 'en',
@@ -6057,7 +6007,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            3 => 
+            499 => 
             array (
                 'id' => 1900,
                 'language' => 'nl',
@@ -6069,7 +6019,9 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            4 => 
+        ));
+        \DB::table('lara_sys_translations')->insert(array (
+            0 => 
             array (
                 'id' => 1901,
                 'language' => 'en',
@@ -6081,7 +6033,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:41:56',
                 'updated_at' => '2025-07-06 17:41:56',
             ),
-            5 => 
+            1 => 
             array (
                 'id' => 1902,
                 'language' => 'nl',
@@ -6093,7 +6045,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:41:56',
                 'updated_at' => '2025-07-06 17:41:56',
             ),
-            6 => 
+            2 => 
             array (
                 'id' => 1903,
                 'language' => 'en',
@@ -6105,7 +6057,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
             ),
-            7 => 
+            3 => 
             array (
                 'id' => 1904,
                 'language' => 'nl',
@@ -6117,7 +6069,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
             ),
-            8 => 
+            4 => 
             array (
                 'id' => 1905,
                 'language' => 'en',
@@ -6129,7 +6081,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
             ),
-            9 => 
+            5 => 
             array (
                 'id' => 1906,
                 'language' => 'nl',
@@ -6141,7 +6093,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
             ),
-            10 => 
+            6 => 
             array (
                 'id' => 1907,
                 'language' => 'en',
@@ -6153,7 +6105,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            11 => 
+            7 => 
             array (
                 'id' => 1908,
                 'language' => 'nl',
@@ -6165,7 +6117,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:20:40',
             ),
-            12 => 
+            8 => 
             array (
                 'id' => 1909,
                 'language' => 'en',
@@ -6177,7 +6129,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            13 => 
+            9 => 
             array (
                 'id' => 1910,
                 'language' => 'nl',
@@ -6189,7 +6141,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            14 => 
+            10 => 
             array (
                 'id' => 1911,
                 'language' => 'en',
@@ -6201,7 +6153,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:51:52',
                 'updated_at' => '2025-07-10 07:47:18',
             ),
-            15 => 
+            11 => 
             array (
                 'id' => 1912,
                 'language' => 'nl',
@@ -6213,7 +6165,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 17:51:52',
                 'updated_at' => '2025-07-10 07:49:24',
             ),
-            16 => 
+            12 => 
             array (
                 'id' => 1913,
                 'language' => 'en',
@@ -6225,7 +6177,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 18:00:55',
                 'updated_at' => '2025-07-06 18:07:30',
             ),
-            17 => 
+            13 => 
             array (
                 'id' => 1914,
                 'language' => 'nl',
@@ -6237,7 +6189,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-06 18:00:55',
                 'updated_at' => '2025-07-06 18:07:13',
             ),
-            18 => 
+            14 => 
             array (
                 'id' => 1915,
                 'language' => 'en',
@@ -6249,7 +6201,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:06:07',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            19 => 
+            15 => 
             array (
                 'id' => 1916,
                 'language' => 'nl',
@@ -6261,7 +6213,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:06:07',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            20 => 
+            16 => 
             array (
                 'id' => 1925,
                 'language' => 'en',
@@ -6273,7 +6225,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            21 => 
+            17 => 
             array (
                 'id' => 1926,
                 'language' => 'nl',
@@ -6285,7 +6237,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            22 => 
+            18 => 
             array (
                 'id' => 1927,
                 'language' => 'en',
@@ -6297,7 +6249,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            23 => 
+            19 => 
             array (
                 'id' => 1928,
                 'language' => 'nl',
@@ -6309,7 +6261,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            24 => 
+            20 => 
             array (
                 'id' => 1929,
                 'language' => 'en',
@@ -6321,7 +6273,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            25 => 
+            21 => 
             array (
                 'id' => 1930,
                 'language' => 'nl',
@@ -6333,7 +6285,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            26 => 
+            22 => 
             array (
                 'id' => 1931,
                 'language' => 'en',
@@ -6345,7 +6297,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            27 => 
+            23 => 
             array (
                 'id' => 1932,
                 'language' => 'nl',
@@ -6357,7 +6309,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            28 => 
+            24 => 
             array (
                 'id' => 1933,
                 'language' => 'en',
@@ -6369,7 +6321,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            29 => 
+            25 => 
             array (
                 'id' => 1934,
                 'language' => 'nl',
@@ -6381,7 +6333,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            30 => 
+            26 => 
             array (
                 'id' => 1935,
                 'language' => 'en',
@@ -6393,7 +6345,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            31 => 
+            27 => 
             array (
                 'id' => 1936,
                 'language' => 'nl',
@@ -6405,7 +6357,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            32 => 
+            28 => 
             array (
                 'id' => 1939,
                 'language' => 'en',
@@ -6417,7 +6369,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:18:08',
             ),
-            33 => 
+            29 => 
             array (
                 'id' => 1940,
                 'language' => 'nl',
@@ -6429,7 +6381,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:17:54',
             ),
-            34 => 
+            30 => 
             array (
                 'id' => 1941,
                 'language' => 'en',
@@ -6441,7 +6393,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:18:12',
             ),
-            35 => 
+            31 => 
             array (
                 'id' => 1942,
                 'language' => 'nl',
@@ -6453,7 +6405,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:17:58',
             ),
-            36 => 
+            32 => 
             array (
                 'id' => 1943,
                 'language' => 'en',
@@ -6465,7 +6417,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 10:01:18',
                 'updated_at' => '2025-07-10 07:45:31',
             ),
-            37 => 
+            33 => 
             array (
                 'id' => 1944,
                 'language' => 'nl',
@@ -6477,7 +6429,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 10:01:18',
                 'updated_at' => '2025-07-10 07:43:56',
             ),
-            38 => 
+            34 => 
             array (
                 'id' => 1945,
                 'language' => 'en',
@@ -6489,7 +6441,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 10:03:16',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            39 => 
+            35 => 
             array (
                 'id' => 1946,
                 'language' => 'nl',
@@ -6501,7 +6453,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 10:03:16',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            40 => 
+            36 => 
             array (
                 'id' => 1947,
                 'language' => 'en',
@@ -6513,7 +6465,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 11:15:54',
                 'updated_at' => '2025-07-10 07:47:28',
             ),
-            41 => 
+            37 => 
             array (
                 'id' => 1948,
                 'language' => 'nl',
@@ -6525,7 +6477,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 11:15:54',
                 'updated_at' => '2025-07-10 07:49:33',
             ),
-            42 => 
+            38 => 
             array (
                 'id' => 1949,
                 'language' => 'en',
@@ -6537,7 +6489,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 11:16:23',
                 'updated_at' => '2025-07-10 07:47:31',
             ),
-            43 => 
+            39 => 
             array (
                 'id' => 1950,
                 'language' => 'nl',
@@ -6549,7 +6501,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-08 11:16:23',
                 'updated_at' => '2025-07-10 07:49:41',
             ),
-            44 => 
+            40 => 
             array (
                 'id' => 1951,
                 'language' => 'en',
@@ -6561,7 +6513,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:29',
             ),
-            45 => 
+            41 => 
             array (
                 'id' => 1952,
                 'language' => 'nl',
@@ -6573,7 +6525,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:09',
             ),
-            46 => 
+            42 => 
             array (
                 'id' => 1953,
                 'language' => 'en',
@@ -6585,7 +6537,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:33',
             ),
-            47 => 
+            43 => 
             array (
                 'id' => 1954,
                 'language' => 'nl',
@@ -6597,7 +6549,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:16',
             ),
-            48 => 
+            44 => 
             array (
                 'id' => 1955,
                 'language' => 'en',
@@ -6609,7 +6561,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:28:49',
                 'updated_at' => '2025-07-09 07:28:49',
             ),
-            49 => 
+            45 => 
             array (
                 'id' => 1956,
                 'language' => 'nl',
@@ -6621,7 +6573,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:28:49',
                 'updated_at' => '2025-07-09 07:28:49',
             ),
-            50 => 
+            46 => 
             array (
                 'id' => 1957,
                 'language' => 'en',
@@ -6633,7 +6585,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:46:53',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            51 => 
+            47 => 
             array (
                 'id' => 1958,
                 'language' => 'nl',
@@ -6645,7 +6597,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:46:53',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            52 => 
+            48 => 
             array (
                 'id' => 1959,
                 'language' => 'en',
@@ -6657,7 +6609,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            53 => 
+            49 => 
             array (
                 'id' => 1960,
                 'language' => 'nl',
@@ -6669,7 +6621,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            54 => 
+            50 => 
             array (
                 'id' => 1961,
                 'language' => 'en',
@@ -6681,7 +6633,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            55 => 
+            51 => 
             array (
                 'id' => 1962,
                 'language' => 'nl',
@@ -6693,7 +6645,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            56 => 
+            52 => 
             array (
                 'id' => 1963,
                 'language' => 'en',
@@ -6705,7 +6657,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:13:41',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            57 => 
+            53 => 
             array (
                 'id' => 1964,
                 'language' => 'nl',
@@ -6717,7 +6669,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:13:41',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            58 => 
+            54 => 
             array (
                 'id' => 1965,
                 'language' => 'en',
@@ -6729,7 +6681,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:14:42',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            59 => 
+            55 => 
             array (
                 'id' => 1966,
                 'language' => 'nl',
@@ -6741,7 +6693,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:14:42',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            60 => 
+            56 => 
             array (
                 'id' => 1967,
                 'language' => 'en',
@@ -6753,7 +6705,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            61 => 
+            57 => 
             array (
                 'id' => 1968,
                 'language' => 'nl',
@@ -6765,7 +6717,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            62 => 
+            58 => 
             array (
                 'id' => 1969,
                 'language' => 'en',
@@ -6777,7 +6729,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            63 => 
+            59 => 
             array (
                 'id' => 1970,
                 'language' => 'nl',
@@ -6789,7 +6741,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            64 => 
+            60 => 
             array (
                 'id' => 1971,
                 'language' => 'en',
@@ -6801,7 +6753,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            65 => 
+            61 => 
             array (
                 'id' => 1972,
                 'language' => 'nl',
@@ -6813,7 +6765,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
             ),
-            66 => 
+            62 => 
             array (
                 'id' => 1973,
                 'language' => 'en',
@@ -6825,7 +6777,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:48:07',
                 'updated_at' => '2025-07-09 08:49:28',
             ),
-            67 => 
+            63 => 
             array (
                 'id' => 1974,
                 'language' => 'nl',
@@ -6837,7 +6789,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 08:48:07',
                 'updated_at' => '2025-07-09 08:49:12',
             ),
-            68 => 
+            64 => 
             array (
                 'id' => 1997,
                 'language' => 'en',
@@ -6849,7 +6801,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:00:57',
                 'updated_at' => '2025-07-10 07:45:17',
             ),
-            69 => 
+            65 => 
             array (
                 'id' => 1998,
                 'language' => 'nl',
@@ -6861,7 +6813,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:00:57',
                 'updated_at' => '2025-07-10 07:43:38',
             ),
-            70 => 
+            66 => 
             array (
                 'id' => 1999,
                 'language' => 'en',
@@ -6873,7 +6825,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:24:39',
                 'updated_at' => '2025-07-10 07:45:22',
             ),
-            71 => 
+            67 => 
             array (
                 'id' => 2000,
                 'language' => 'nl',
@@ -6885,7 +6837,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:24:39',
                 'updated_at' => '2025-07-10 07:43:43',
             ),
-            72 => 
+            68 => 
             array (
                 'id' => 2001,
                 'language' => 'en',
@@ -6897,7 +6849,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:26:05',
                 'updated_at' => '2025-07-10 07:45:27',
             ),
-            73 => 
+            69 => 
             array (
                 'id' => 2002,
                 'language' => 'nl',
@@ -6909,7 +6861,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:26:05',
                 'updated_at' => '2025-07-10 07:43:50',
             ),
-            74 => 
+            70 => 
             array (
                 'id' => 2003,
                 'language' => 'en',
@@ -6921,7 +6873,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:47:06',
                 'updated_at' => '2025-07-10 07:47:23',
             ),
-            75 => 
+            71 => 
             array (
                 'id' => 2004,
                 'language' => 'nl',
@@ -6933,7 +6885,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-09 17:47:06',
                 'updated_at' => '2025-07-10 07:49:29',
             ),
-            76 => 
+            72 => 
             array (
                 'id' => 2024,
                 'language' => 'nl',
@@ -6945,7 +6897,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 09:19:01',
                 'updated_at' => '2025-07-10 10:13:51',
             ),
-            77 => 
+            73 => 
             array (
                 'id' => 2026,
                 'language' => 'nl',
@@ -6957,7 +6909,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 10:13:05',
                 'updated_at' => '2025-07-10 10:13:33',
             ),
-            78 => 
+            74 => 
             array (
                 'id' => 2028,
                 'language' => 'nl',
@@ -6969,7 +6921,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 10:13:05',
                 'updated_at' => '2025-07-10 10:13:41',
             ),
-            79 => 
+            75 => 
             array (
                 'id' => 2030,
                 'language' => 'nl',
@@ -6981,7 +6933,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 10:13:05',
                 'updated_at' => '2025-07-10 10:13:45',
             ),
-            80 => 
+            76 => 
             array (
                 'id' => 2069,
                 'language' => 'en',
@@ -6993,7 +6945,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            81 => 
+            77 => 
             array (
                 'id' => 2070,
                 'language' => 'nl',
@@ -7005,7 +6957,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:16:34',
             ),
-            82 => 
+            78 => 
             array (
                 'id' => 2071,
                 'language' => 'en',
@@ -7017,7 +6969,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            83 => 
+            79 => 
             array (
                 'id' => 2072,
                 'language' => 'nl',
@@ -7029,7 +6981,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:16:34',
             ),
-            84 => 
+            80 => 
             array (
                 'id' => 2073,
                 'language' => 'en',
@@ -7041,7 +6993,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            85 => 
+            81 => 
             array (
                 'id' => 2074,
                 'language' => 'nl',
@@ -7053,7 +7005,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            86 => 
+            82 => 
             array (
                 'id' => 2075,
                 'language' => 'en',
@@ -7065,7 +7017,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            87 => 
+            83 => 
             array (
                 'id' => 2076,
                 'language' => 'nl',
@@ -7077,7 +7029,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            88 => 
+            84 => 
             array (
                 'id' => 2077,
                 'language' => 'en',
@@ -7089,7 +7041,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            89 => 
+            85 => 
             array (
                 'id' => 2078,
                 'language' => 'nl',
@@ -7101,7 +7053,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            90 => 
+            86 => 
             array (
                 'id' => 2079,
                 'language' => 'en',
@@ -7113,7 +7065,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            91 => 
+            87 => 
             array (
                 'id' => 2080,
                 'language' => 'nl',
@@ -7125,7 +7077,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            92 => 
+            88 => 
             array (
                 'id' => 2081,
                 'language' => 'en',
@@ -7137,7 +7089,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            93 => 
+            89 => 
             array (
                 'id' => 2082,
                 'language' => 'nl',
@@ -7149,7 +7101,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            94 => 
+            90 => 
             array (
                 'id' => 2083,
                 'language' => 'en',
@@ -7161,7 +7113,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            95 => 
+            91 => 
             array (
                 'id' => 2084,
                 'language' => 'nl',
@@ -7173,7 +7125,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            96 => 
+            92 => 
             array (
                 'id' => 2085,
                 'language' => 'en',
@@ -7185,7 +7137,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            97 => 
+            93 => 
             array (
                 'id' => 2086,
                 'language' => 'nl',
@@ -7197,7 +7149,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            98 => 
+            94 => 
             array (
                 'id' => 2087,
                 'language' => 'en',
@@ -7209,7 +7161,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            99 => 
+            95 => 
             array (
                 'id' => 2088,
                 'language' => 'nl',
@@ -7221,7 +7173,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            100 => 
+            96 => 
             array (
                 'id' => 2089,
                 'language' => 'en',
@@ -7233,7 +7185,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            101 => 
+            97 => 
             array (
                 'id' => 2090,
                 'language' => 'nl',
@@ -7245,7 +7197,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            102 => 
+            98 => 
             array (
                 'id' => 2091,
                 'language' => 'en',
@@ -7257,7 +7209,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            103 => 
+            99 => 
             array (
                 'id' => 2092,
                 'language' => 'nl',
@@ -7269,7 +7221,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            104 => 
+            100 => 
             array (
                 'id' => 2093,
                 'language' => 'en',
@@ -7281,7 +7233,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            105 => 
+            101 => 
             array (
                 'id' => 2094,
                 'language' => 'nl',
@@ -7293,7 +7245,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            106 => 
+            102 => 
             array (
                 'id' => 2095,
                 'language' => 'en',
@@ -7305,7 +7257,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
             ),
-            107 => 
+            103 => 
             array (
                 'id' => 2096,
                 'language' => 'nl',
@@ -7317,7 +7269,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
             ),
-            108 => 
+            104 => 
             array (
                 'id' => 2097,
                 'language' => 'en',
@@ -7329,7 +7281,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:22:19',
                 'updated_at' => '2025-07-10 19:10:16',
             ),
-            109 => 
+            105 => 
             array (
                 'id' => 2098,
                 'language' => 'nl',
@@ -7341,7 +7293,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 15:22:19',
                 'updated_at' => '2025-07-10 19:10:09',
             ),
-            110 => 
+            106 => 
             array (
                 'id' => 2099,
                 'language' => 'en',
@@ -7353,7 +7305,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 17:02:31',
                 'updated_at' => '2025-07-10 17:02:31',
             ),
-            111 => 
+            107 => 
             array (
                 'id' => 2100,
                 'language' => 'nl',
@@ -7365,7 +7317,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 17:02:31',
                 'updated_at' => '2025-07-10 17:02:31',
             ),
-            112 => 
+            108 => 
             array (
                 'id' => 2109,
                 'language' => 'en',
@@ -7377,7 +7329,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
             ),
-            113 => 
+            109 => 
             array (
                 'id' => 2110,
                 'language' => 'nl',
@@ -7389,7 +7341,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
             ),
-            114 => 
+            110 => 
             array (
                 'id' => 2111,
                 'language' => 'en',
@@ -7401,7 +7353,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
             ),
-            115 => 
+            111 => 
             array (
                 'id' => 2112,
                 'language' => 'nl',
@@ -7413,7 +7365,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
             ),
-            116 => 
+            112 => 
             array (
                 'id' => 2119,
                 'language' => 'en',
@@ -7425,7 +7377,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:03:09',
                 'updated_at' => '2025-07-10 19:10:24',
             ),
-            117 => 
+            113 => 
             array (
                 'id' => 2120,
                 'language' => 'en',
@@ -7437,7 +7389,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:08:32',
                 'updated_at' => '2025-07-10 19:09:18',
             ),
-            118 => 
+            114 => 
             array (
                 'id' => 2121,
                 'language' => 'nl',
@@ -7449,7 +7401,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:08:32',
                 'updated_at' => '2025-07-10 19:09:09',
             ),
-            119 => 
+            115 => 
             array (
                 'id' => 2122,
                 'language' => 'en',
@@ -7461,7 +7413,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:13',
             ),
-            120 => 
+            116 => 
             array (
                 'id' => 2123,
                 'language' => 'nl',
@@ -7473,7 +7425,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:29',
             ),
-            121 => 
+            117 => 
             array (
                 'id' => 2124,
                 'language' => 'en',
@@ -7485,7 +7437,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:16',
             ),
-            122 => 
+            118 => 
             array (
                 'id' => 2125,
                 'language' => 'nl',
@@ -7497,7 +7449,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:32',
             ),
-            123 => 
+            119 => 
             array (
                 'id' => 2126,
                 'language' => 'en',
@@ -7509,7 +7461,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:20',
             ),
-            124 => 
+            120 => 
             array (
                 'id' => 2127,
                 'language' => 'nl',
@@ -7521,7 +7473,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:35',
             ),
-            125 => 
+            121 => 
             array (
                 'id' => 2128,
                 'language' => 'en',
@@ -7533,7 +7485,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:28',
             ),
-            126 => 
+            122 => 
             array (
                 'id' => 2129,
                 'language' => 'nl',
@@ -7545,7 +7497,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:39',
             ),
-            127 => 
+            123 => 
             array (
                 'id' => 2130,
                 'language' => 'en',
@@ -7557,7 +7509,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:21:03',
             ),
-            128 => 
+            124 => 
             array (
                 'id' => 2131,
                 'language' => 'nl',
@@ -7569,7 +7521,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:22:18',
             ),
-            129 => 
+            125 => 
             array (
                 'id' => 2132,
                 'language' => 'en',
@@ -7581,7 +7533,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:21:06',
             ),
-            130 => 
+            126 => 
             array (
                 'id' => 2133,
                 'language' => 'nl',
@@ -7593,7 +7545,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:22:22',
             ),
-            131 => 
+            127 => 
             array (
                 'id' => 2134,
                 'language' => 'en',
@@ -7605,7 +7557,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:21:10',
             ),
-            132 => 
+            128 => 
             array (
                 'id' => 2135,
                 'language' => 'nl',
@@ -7617,7 +7569,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:22:25',
             ),
-            133 => 
+            129 => 
             array (
                 'id' => 2136,
                 'language' => 'en',
@@ -7629,7 +7581,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:18:33',
             ),
-            134 => 
+            130 => 
             array (
                 'id' => 2137,
                 'language' => 'nl',
@@ -7641,7 +7593,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:23:11',
             ),
-            135 => 
+            131 => 
             array (
                 'id' => 2138,
                 'language' => 'en',
@@ -7653,7 +7605,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:18:39',
             ),
-            136 => 
+            132 => 
             array (
                 'id' => 2139,
                 'language' => 'nl',
@@ -7665,7 +7617,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:23:15',
             ),
-            137 => 
+            133 => 
             array (
                 'id' => 2140,
                 'language' => 'en',
@@ -7677,7 +7629,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:18:44',
             ),
-            138 => 
+            134 => 
             array (
                 'id' => 2141,
                 'language' => 'nl',
@@ -7689,7 +7641,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:23:19',
             ),
-            139 => 
+            135 => 
             array (
                 'id' => 2142,
                 'language' => 'en',
@@ -7701,7 +7653,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:18:54',
             ),
-            140 => 
+            136 => 
             array (
                 'id' => 2143,
                 'language' => 'nl',
@@ -7713,7 +7665,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:24:54',
             ),
-            141 => 
+            137 => 
             array (
                 'id' => 2144,
                 'language' => 'en',
@@ -7725,7 +7677,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:19:05',
             ),
-            142 => 
+            138 => 
             array (
                 'id' => 2145,
                 'language' => 'nl',
@@ -7737,7 +7689,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:24:37',
             ),
-            143 => 
+            139 => 
             array (
                 'id' => 2146,
                 'language' => 'en',
@@ -7749,7 +7701,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:19:01',
             ),
-            144 => 
+            140 => 
             array (
                 'id' => 2147,
                 'language' => 'nl',
@@ -7761,7 +7713,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:24:34',
             ),
-            145 => 
+            141 => 
             array (
                 'id' => 2148,
                 'language' => 'en',
@@ -7773,7 +7725,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:22',
             ),
-            146 => 
+            142 => 
             array (
                 'id' => 2149,
                 'language' => 'nl',
@@ -7785,7 +7737,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:21',
             ),
-            147 => 
+            143 => 
             array (
                 'id' => 2150,
                 'language' => 'en',
@@ -7797,7 +7749,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:00',
             ),
-            148 => 
+            144 => 
             array (
                 'id' => 2151,
                 'language' => 'nl',
@@ -7809,7 +7761,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:29',
             ),
-            149 => 
+            145 => 
             array (
                 'id' => 2152,
                 'language' => 'en',
@@ -7821,7 +7773,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:27',
             ),
-            150 => 
+            146 => 
             array (
                 'id' => 2153,
                 'language' => 'nl',
@@ -7833,7 +7785,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:33',
             ),
-            151 => 
+            147 => 
             array (
                 'id' => 2154,
                 'language' => 'en',
@@ -7845,7 +7797,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:09',
             ),
-            152 => 
+            148 => 
             array (
                 'id' => 2155,
                 'language' => 'nl',
@@ -7857,7 +7809,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:45',
             ),
-            153 => 
+            149 => 
             array (
                 'id' => 2156,
                 'language' => 'en',
@@ -7869,7 +7821,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:14',
             ),
-            154 => 
+            150 => 
             array (
                 'id' => 2157,
                 'language' => 'nl',
@@ -7881,7 +7833,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:50',
             ),
-            155 => 
+            151 => 
             array (
                 'id' => 2158,
                 'language' => 'en',
@@ -7893,7 +7845,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:17:50',
             ),
-            156 => 
+            152 => 
             array (
                 'id' => 2159,
                 'language' => 'nl',
@@ -7905,7 +7857,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:22:56',
             ),
-            157 => 
+            153 => 
             array (
                 'id' => 2160,
                 'language' => 'en',
@@ -7917,7 +7869,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:17:56',
             ),
-            158 => 
+            154 => 
             array (
                 'id' => 2161,
                 'language' => 'nl',
@@ -7929,7 +7881,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:23:01',
             ),
-            159 => 
+            155 => 
             array (
                 'id' => 2162,
                 'language' => 'en',
@@ -7941,7 +7893,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:34',
             ),
-            160 => 
+            156 => 
             array (
                 'id' => 2163,
                 'language' => 'nl',
@@ -7953,7 +7905,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:29',
             ),
-            161 => 
+            157 => 
             array (
                 'id' => 2164,
                 'language' => 'en',
@@ -7965,7 +7917,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:42',
             ),
-            162 => 
+            158 => 
             array (
                 'id' => 2165,
                 'language' => 'nl',
@@ -7977,7 +7929,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:45',
             ),
-            163 => 
+            159 => 
             array (
                 'id' => 2166,
                 'language' => 'en',
@@ -7989,7 +7941,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:50',
             ),
-            164 => 
+            160 => 
             array (
                 'id' => 2167,
                 'language' => 'nl',
@@ -8001,7 +7953,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:53',
             ),
-            165 => 
+            161 => 
             array (
                 'id' => 2168,
                 'language' => 'en',
@@ -8013,7 +7965,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:55',
             ),
-            166 => 
+            162 => 
             array (
                 'id' => 2169,
                 'language' => 'nl',
@@ -8025,7 +7977,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:58',
             ),
-            167 => 
+            163 => 
             array (
                 'id' => 2170,
                 'language' => 'en',
@@ -8037,7 +7989,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:27',
             ),
-            168 => 
+            164 => 
             array (
                 'id' => 2171,
                 'language' => 'nl',
@@ -8049,7 +8001,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:23',
             ),
-            169 => 
+            165 => 
             array (
                 'id' => 2172,
                 'language' => 'en',
@@ -8061,7 +8013,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:02',
             ),
-            170 => 
+            166 => 
             array (
                 'id' => 2173,
                 'language' => 'nl',
@@ -8073,7 +8025,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:15:48',
             ),
-            171 => 
+            167 => 
             array (
                 'id' => 2174,
                 'language' => 'en',
@@ -8085,7 +8037,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:06',
             ),
-            172 => 
+            168 => 
             array (
                 'id' => 2175,
                 'language' => 'nl',
@@ -8097,7 +8049,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:15:53',
             ),
-            173 => 
+            169 => 
             array (
                 'id' => 2176,
                 'language' => 'en',
@@ -8109,7 +8061,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:11',
             ),
-            174 => 
+            170 => 
             array (
                 'id' => 2177,
                 'language' => 'nl',
@@ -8121,7 +8073,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:05',
             ),
-            175 => 
+            171 => 
             array (
                 'id' => 2178,
                 'language' => 'en',
@@ -8133,7 +8085,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:16',
             ),
-            176 => 
+            172 => 
             array (
                 'id' => 2179,
                 'language' => 'nl',
@@ -8145,7 +8097,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:09',
             ),
-            177 => 
+            173 => 
             array (
                 'id' => 2180,
                 'language' => 'en',
@@ -8157,7 +8109,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:19',
             ),
-            178 => 
+            174 => 
             array (
                 'id' => 2181,
                 'language' => 'nl',
@@ -8169,7 +8121,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:15',
             ),
-            179 => 
+            175 => 
             array (
                 'id' => 2182,
                 'language' => 'en',
@@ -8181,7 +8133,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:30',
             ),
-            180 => 
+            176 => 
             array (
                 'id' => 2183,
                 'language' => 'nl',
@@ -8193,7 +8145,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:27',
             ),
-            181 => 
+            177 => 
             array (
                 'id' => 2202,
                 'language' => 'en',
@@ -8205,7 +8157,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:44',
                 'updated_at' => '2025-07-11 15:20:57',
             ),
-            182 => 
+            178 => 
             array (
                 'id' => 2203,
                 'language' => 'nl',
@@ -8217,7 +8169,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:44',
                 'updated_at' => '2025-07-11 13:18:21',
             ),
-            183 => 
+            179 => 
             array (
                 'id' => 2204,
                 'language' => 'en',
@@ -8229,7 +8181,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 15:20:01',
             ),
-            184 => 
+            180 => 
             array (
                 'id' => 2205,
                 'language' => 'nl',
@@ -8241,7 +8193,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 13:19:15',
             ),
-            185 => 
+            181 => 
             array (
                 'id' => 2206,
                 'language' => 'en',
@@ -8253,7 +8205,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 15:20:49',
             ),
-            186 => 
+            182 => 
             array (
                 'id' => 2207,
                 'language' => 'nl',
@@ -8265,7 +8217,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 13:18:12',
             ),
-            187 => 
+            183 => 
             array (
                 'id' => 2208,
                 'language' => 'en',
@@ -8277,7 +8229,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 15:20:53',
             ),
-            188 => 
+            184 => 
             array (
                 'id' => 2209,
                 'language' => 'nl',
@@ -8289,7 +8241,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 13:18:17',
             ),
-            189 => 
+            185 => 
             array (
                 'id' => 2210,
                 'language' => 'en',
@@ -8301,7 +8253,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:06',
             ),
-            190 => 
+            186 => 
             array (
                 'id' => 2211,
                 'language' => 'nl',
@@ -8313,7 +8265,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:41',
             ),
-            191 => 
+            187 => 
             array (
                 'id' => 2212,
                 'language' => 'en',
@@ -8325,7 +8277,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:11',
             ),
-            192 => 
+            188 => 
             array (
                 'id' => 2213,
                 'language' => 'nl',
@@ -8337,7 +8289,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:46',
             ),
-            193 => 
+            189 => 
             array (
                 'id' => 2214,
                 'language' => 'en',
@@ -8349,7 +8301,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:17',
             ),
-            194 => 
+            190 => 
             array (
                 'id' => 2215,
                 'language' => 'nl',
@@ -8361,7 +8313,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:50',
             ),
-            195 => 
+            191 => 
             array (
                 'id' => 2216,
                 'language' => 'en',
@@ -8373,7 +8325,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:20',
             ),
-            196 => 
+            192 => 
             array (
                 'id' => 2217,
                 'language' => 'nl',
@@ -8385,7 +8337,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:54',
             ),
-            197 => 
+            193 => 
             array (
                 'id' => 2218,
                 'language' => 'en',
@@ -8397,7 +8349,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:25',
             ),
-            198 => 
+            194 => 
             array (
                 'id' => 2219,
                 'language' => 'nl',
@@ -8409,7 +8361,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:22:02',
             ),
-            199 => 
+            195 => 
             array (
                 'id' => 2220,
                 'language' => 'en',
@@ -8421,7 +8373,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:40',
             ),
-            200 => 
+            196 => 
             array (
                 'id' => 2221,
                 'language' => 'nl',
@@ -8433,7 +8385,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:22:11',
             ),
-            201 => 
+            197 => 
             array (
                 'id' => 2228,
                 'language' => 'en',
@@ -8445,7 +8397,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 14:11:42',
                 'updated_at' => '2025-07-11 15:17:45',
             ),
-            202 => 
+            198 => 
             array (
                 'id' => 2229,
                 'language' => 'nl',
@@ -8457,7 +8409,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 14:11:42',
                 'updated_at' => '2025-07-11 15:14:21',
             ),
-            203 => 
+            199 => 
             array (
                 'id' => 2240,
                 'language' => 'en',
@@ -8469,7 +8421,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            204 => 
+            200 => 
             array (
                 'id' => 2241,
                 'language' => 'nl',
@@ -8481,7 +8433,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-08 15:37:41',
             ),
-            205 => 
+            201 => 
             array (
                 'id' => 2242,
                 'language' => 'en',
@@ -8493,7 +8445,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            206 => 
+            202 => 
             array (
                 'id' => 2243,
                 'language' => 'nl',
@@ -8505,7 +8457,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-08 15:37:59',
             ),
-            207 => 
+            203 => 
             array (
                 'id' => 2244,
                 'language' => 'en',
@@ -8517,7 +8469,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-12 14:33:38',
                 'updated_at' => '2025-07-12 14:34:17',
             ),
-            208 => 
+            204 => 
             array (
                 'id' => 2245,
                 'language' => 'nl',
@@ -8529,7 +8481,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-12 14:33:38',
                 'updated_at' => '2025-07-12 14:34:08',
             ),
-            209 => 
+            205 => 
             array (
                 'id' => 2246,
                 'language' => 'en',
@@ -8541,7 +8493,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-12 15:18:58',
                 'updated_at' => '2025-07-13 11:33:53',
             ),
-            210 => 
+            206 => 
             array (
                 'id' => 2247,
                 'language' => 'nl',
@@ -8553,7 +8505,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-12 15:18:59',
                 'updated_at' => '2025-07-12 19:05:13',
             ),
-            211 => 
+            207 => 
             array (
                 'id' => 2252,
                 'language' => 'en',
@@ -8565,7 +8517,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 11:26:31',
                 'updated_at' => '2025-07-13 11:33:18',
             ),
-            212 => 
+            208 => 
             array (
                 'id' => 2253,
                 'language' => 'nl',
@@ -8577,7 +8529,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 11:26:31',
                 'updated_at' => '2025-07-13 11:32:40',
             ),
-            213 => 
+            209 => 
             array (
                 'id' => 2254,
                 'language' => 'en',
@@ -8589,7 +8541,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 11:29:21',
                 'updated_at' => '2025-07-13 11:33:11',
             ),
-            214 => 
+            210 => 
             array (
                 'id' => 2255,
                 'language' => 'nl',
@@ -8601,7 +8553,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 11:29:21',
                 'updated_at' => '2025-07-13 11:32:45',
             ),
-            215 => 
+            211 => 
             array (
                 'id' => 2256,
                 'language' => 'en',
@@ -8613,7 +8565,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            216 => 
+            212 => 
             array (
                 'id' => 2257,
                 'language' => 'nl',
@@ -8625,7 +8577,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-08 15:38:09',
             ),
-            217 => 
+            213 => 
             array (
                 'id' => 2258,
                 'language' => 'en',
@@ -8637,7 +8589,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            218 => 
+            214 => 
             array (
                 'id' => 2259,
                 'language' => 'nl',
@@ -8649,7 +8601,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-08 15:38:18',
             ),
-            219 => 
+            215 => 
             array (
                 'id' => 2260,
                 'language' => 'en',
@@ -8661,7 +8613,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 12:59:37',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            220 => 
+            216 => 
             array (
                 'id' => 2261,
                 'language' => 'nl',
@@ -8673,31 +8625,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-07-13 12:59:37',
                 'updated_at' => '2025-09-08 15:38:23',
             ),
-            221 => 
-            array (
-                'id' => 2262,
-                'language' => 'en',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'headers',
-                'key' => 'login',
-                'value' => 'login',
-                'created_at' => '2025-08-17 09:02:21',
-                'updated_at' => '2025-09-05 09:39:08',
-            ),
-            222 => 
-            array (
-                'id' => 2263,
-                'language' => 'nl',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'headers',
-                'key' => 'login',
-                'value' => 'login',
-                'created_at' => '2025-08-17 09:02:21',
-                'updated_at' => '2025-09-08 15:41:05',
-            ),
-            223 => 
+            217 => 
             array (
                 'id' => 2264,
                 'language' => 'en',
@@ -8709,7 +8637,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            224 => 
+            218 => 
             array (
                 'id' => 2265,
                 'language' => 'nl',
@@ -8721,7 +8649,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-08 15:40:17',
             ),
-            225 => 
+            219 => 
             array (
                 'id' => 2266,
                 'language' => 'en',
@@ -8733,7 +8661,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            226 => 
+            220 => 
             array (
                 'id' => 2267,
                 'language' => 'nl',
@@ -8745,7 +8673,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-08 15:40:24',
             ),
-            227 => 
+            221 => 
             array (
                 'id' => 2268,
                 'language' => 'en',
@@ -8757,7 +8685,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-21 18:09:55',
                 'updated_at' => '2025-08-21 18:13:14',
             ),
-            228 => 
+            222 => 
             array (
                 'id' => 2269,
                 'language' => 'nl',
@@ -8769,7 +8697,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-21 18:09:55',
                 'updated_at' => '2025-08-21 18:11:29',
             ),
-            229 => 
+            223 => 
             array (
                 'id' => 2278,
                 'language' => 'en',
@@ -8781,7 +8709,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-24 11:41:45',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            230 => 
+            224 => 
             array (
                 'id' => 2279,
                 'language' => 'nl',
@@ -8793,7 +8721,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-24 11:41:45',
                 'updated_at' => '2025-09-08 15:36:23',
             ),
-            231 => 
+            225 => 
             array (
                 'id' => 2304,
                 'language' => 'en',
@@ -8805,7 +8733,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-24 13:11:41',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            232 => 
+            226 => 
             array (
                 'id' => 2305,
                 'language' => 'nl',
@@ -8817,7 +8745,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-24 13:11:41',
                 'updated_at' => '2025-09-08 15:41:41',
             ),
-            233 => 
+            227 => 
             array (
                 'id' => 2306,
                 'language' => 'en',
@@ -8829,7 +8757,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-25 16:11:22',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            234 => 
+            228 => 
             array (
                 'id' => 2307,
                 'language' => 'nl',
@@ -8841,7 +8769,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-08-25 16:11:22',
                 'updated_at' => '2025-09-08 15:41:29',
             ),
-            235 => 
+            229 => 
             array (
                 'id' => 2347,
                 'language' => 'en',
@@ -8853,7 +8781,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 12:20:33',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            236 => 
+            230 => 
             array (
                 'id' => 2348,
                 'language' => 'nl',
@@ -8865,7 +8793,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 12:20:33',
                 'updated_at' => '2025-09-03 14:28:21',
             ),
-            237 => 
+            231 => 
             array (
                 'id' => 2349,
                 'language' => 'en',
@@ -8877,7 +8805,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 14:15:31',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            238 => 
+            232 => 
             array (
                 'id' => 2350,
                 'language' => 'nl',
@@ -8889,7 +8817,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 14:15:31',
                 'updated_at' => '2025-09-03 14:28:28',
             ),
-            239 => 
+            233 => 
             array (
                 'id' => 2351,
                 'language' => 'en',
@@ -8901,7 +8829,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 14:27:30',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            240 => 
+            234 => 
             array (
                 'id' => 2352,
                 'language' => 'nl',
@@ -8913,7 +8841,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 14:27:30',
                 'updated_at' => '2025-09-03 14:30:57',
             ),
-            241 => 
+            235 => 
             array (
                 'id' => 2353,
                 'language' => 'en',
@@ -8925,7 +8853,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            242 => 
+            236 => 
             array (
                 'id' => 2354,
                 'language' => 'nl',
@@ -8937,7 +8865,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-03 15:23:07',
             ),
-            243 => 
+            237 => 
             array (
                 'id' => 2355,
                 'language' => 'en',
@@ -8949,7 +8877,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            244 => 
+            238 => 
             array (
                 'id' => 2356,
                 'language' => 'nl',
@@ -8961,7 +8889,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-03 15:23:12',
             ),
-            245 => 
+            239 => 
             array (
                 'id' => 2357,
                 'language' => 'en',
@@ -8973,7 +8901,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 15:18:51',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            246 => 
+            240 => 
             array (
                 'id' => 2358,
                 'language' => 'nl',
@@ -8985,7 +8913,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-03 15:18:51',
                 'updated_at' => '2025-09-03 15:25:04',
             ),
-            247 => 
+            241 => 
             array (
                 'id' => 2362,
                 'language' => 'en',
@@ -8997,7 +8925,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-04 12:02:56',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            248 => 
+            242 => 
             array (
                 'id' => 2363,
                 'language' => 'nl',
@@ -9009,7 +8937,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-04 12:02:56',
                 'updated_at' => '2025-09-08 15:36:52',
             ),
-            249 => 
+            243 => 
             array (
                 'id' => 2364,
                 'language' => 'en',
@@ -9021,7 +8949,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 08:39:35',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            250 => 
+            244 => 
             array (
                 'id' => 2365,
                 'language' => 'nl',
@@ -9033,7 +8961,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 08:39:35',
                 'updated_at' => '2025-09-08 15:41:00',
             ),
-            251 => 
+            245 => 
             array (
                 'id' => 2368,
                 'language' => 'en',
@@ -9045,7 +8973,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            252 => 
+            246 => 
             array (
                 'id' => 2369,
                 'language' => 'nl',
@@ -9057,7 +8985,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-08 15:40:38',
             ),
-            253 => 
+            247 => 
             array (
                 'id' => 2370,
                 'language' => 'en',
@@ -9069,7 +8997,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-05 09:39:08',
             ),
-            254 => 
+            248 => 
             array (
                 'id' => 2371,
                 'language' => 'nl',
@@ -9081,7 +9009,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-08 15:40:52',
             ),
-            255 => 
+            249 => 
             array (
                 'id' => 2374,
                 'language' => 'en',
@@ -9093,7 +9021,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 09:19:30',
                 'updated_at' => '2025-09-05 09:19:30',
             ),
-            256 => 
+            250 => 
             array (
                 'id' => 2375,
                 'language' => 'nl',
@@ -9105,7 +9033,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 09:19:30',
                 'updated_at' => '2025-09-05 09:19:30',
             ),
-            257 => 
+            251 => 
             array (
                 'id' => 2376,
                 'language' => 'en',
@@ -9117,7 +9045,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 09:33:29',
                 'updated_at' => '2025-09-05 09:33:29',
             ),
-            258 => 
+            252 => 
             array (
                 'id' => 2377,
                 'language' => 'nl',
@@ -9129,7 +9057,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 09:33:29',
                 'updated_at' => '2025-09-05 09:33:29',
             ),
-            259 => 
+            253 => 
             array (
                 'id' => 2378,
                 'language' => 'en',
@@ -9141,7 +9069,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 09:37:05',
                 'updated_at' => '2025-09-05 09:37:05',
             ),
-            260 => 
+            254 => 
             array (
                 'id' => 2379,
                 'language' => 'nl',
@@ -9153,7 +9081,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-05 09:37:05',
                 'updated_at' => '2025-09-05 09:37:05',
             ),
-            261 => 
+            255 => 
             array (
                 'id' => 2380,
                 'language' => 'en',
@@ -9161,11 +9089,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'widgets',
                 'tag' => 'filter',
                 'key' => 'hook',
-                'value' => '_hook',
+                'value' => 'hook',
                 'created_at' => '2025-09-07 17:10:36',
-                'updated_at' => '2025-09-07 17:10:36',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            262 => 
+            256 => 
             array (
                 'id' => 2381,
                 'language' => 'nl',
@@ -9177,7 +9105,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-07 17:10:36',
                 'updated_at' => '2025-09-08 15:38:49',
             ),
-            263 => 
+            257 => 
             array (
                 'id' => 2386,
                 'language' => 'en',
@@ -9185,11 +9113,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'col_max_body_fields',
-                'value' => '_col_max_body_fields',
+                'value' => 'col max body fields',
                 'created_at' => '2025-09-08 09:48:45',
-                'updated_at' => '2025-09-08 09:48:45',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            264 => 
+            258 => 
             array (
                 'id' => 2387,
                 'language' => 'nl',
@@ -9201,7 +9129,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-08 09:48:45',
                 'updated_at' => '2025-09-08 15:38:40',
             ),
-            265 => 
+            259 => 
             array (
                 'id' => 2388,
                 'language' => 'en',
@@ -9213,7 +9141,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-08 10:23:27',
                 'updated_at' => '2025-09-08 10:23:27',
             ),
-            266 => 
+            260 => 
             array (
                 'id' => 2389,
                 'language' => 'nl',
@@ -9225,7 +9153,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-08 10:23:27',
                 'updated_at' => '2025-09-08 10:23:27',
             ),
-            267 => 
+            261 => 
             array (
                 'id' => 2390,
                 'language' => 'en',
@@ -9233,11 +9161,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'pages',
                 'tag' => 'entity',
                 'key' => 'entity_title',
-                'value' => '_entity_title',
+                'value' => 'entity title',
                 'created_at' => '2025-09-08 16:33:23',
-                'updated_at' => '2025-09-08 16:33:23',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            268 => 
+            262 => 
             array (
                 'id' => 2391,
                 'language' => 'nl',
@@ -9245,59 +9173,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'pages',
                 'tag' => 'entity',
                 'key' => 'entity_title',
-                'value' => '_entity_title',
+                'value' => 'pagina\'s',
                 'created_at' => '2025-09-08 16:33:23',
-                'updated_at' => '2025-09-08 16:33:23',
+                'updated_at' => '2025-12-31 12:27:10',
             ),
-            269 => 
-            array (
-                'id' => 2400,
-                'language' => 'en',
-                'module' => 'admin',
-                'resource' => 'pages',
-                'tag' => 'entity',
-                'key' => 'label_plural',
-                'value' => '_label_plural',
-                'created_at' => '2025-09-08 16:44:20',
-                'updated_at' => '2025-09-08 16:44:20',
-            ),
-            270 => 
-            array (
-                'id' => 2401,
-                'language' => 'nl',
-                'module' => 'admin',
-                'resource' => 'pages',
-                'tag' => 'entity',
-                'key' => 'label_plural',
-                'value' => '_label_plural',
-                'created_at' => '2025-09-08 16:44:20',
-                'updated_at' => '2025-09-08 16:44:20',
-            ),
-            271 => 
-            array (
-                'id' => 2410,
-                'language' => 'en',
-                'module' => 'admin',
-                'resource' => 'pages',
-                'tag' => 'model',
-                'key' => 'label_plural',
-                'value' => '_label_plural',
-                'created_at' => '2025-09-08 16:45:42',
-                'updated_at' => '2025-09-08 16:45:42',
-            ),
-            272 => 
-            array (
-                'id' => 2411,
-                'language' => 'nl',
-                'module' => 'admin',
-                'resource' => 'pages',
-                'tag' => 'model',
-                'key' => 'label_plural',
-                'value' => '_label_plural',
-                'created_at' => '2025-09-08 16:45:42',
-                'updated_at' => '2025-09-08 16:45:42',
-            ),
-            273 => 
+            263 => 
             array (
                 'id' => 2436,
                 'language' => 'en',
@@ -9309,7 +9189,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-08 17:50:32',
                 'updated_at' => '2025-09-08 17:50:32',
             ),
-            274 => 
+            264 => 
             array (
                 'id' => 2437,
                 'language' => 'nl',
@@ -9321,55 +9201,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-08 17:50:32',
                 'updated_at' => '2025-09-08 17:50:32',
             ),
-            275 => 
-            array (
-                'id' => 2438,
-                'language' => 'en',
-                'module' => 'admin',
-                'resource' => 'pages',
-                'tag' => 'entity',
-                'key' => 'title',
-                'value' => '_title',
-                'created_at' => '2025-09-09 18:53:12',
-                'updated_at' => '2025-09-09 18:53:12',
-            ),
-            276 => 
-            array (
-                'id' => 2439,
-                'language' => 'nl',
-                'module' => 'admin',
-                'resource' => 'pages',
-                'tag' => 'entity',
-                'key' => 'title',
-                'value' => '_title',
-                'created_at' => '2025-09-09 18:53:12',
-                'updated_at' => '2025-09-09 18:53:12',
-            ),
-            277 => 
-            array (
-                'id' => 2440,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'entityviews',
-                'tag' => 'column',
-                'key' => 'iimage_required',
-                'value' => '_iimage_required',
-                'created_at' => '2025-09-10 15:55:32',
-                'updated_at' => '2025-09-10 15:55:32',
-            ),
-            278 => 
-            array (
-                'id' => 2441,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'entityviews',
-                'tag' => 'column',
-                'key' => 'iimage_required',
-                'value' => '_iimage_required',
-                'created_at' => '2025-09-10 15:55:32',
-                'updated_at' => '2025-09-10 15:55:32',
-            ),
-            279 => 
+            265 => 
             array (
                 'id' => 2442,
                 'language' => 'en',
@@ -9377,11 +9209,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entityviews',
                 'tag' => 'column',
                 'key' => 'image_required',
-                'value' => '_image_required',
+                'value' => 'image required',
                 'created_at' => '2025-09-10 15:56:19',
-                'updated_at' => '2025-09-10 15:56:19',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            280 => 
+            266 => 
             array (
                 'id' => 2443,
                 'language' => 'nl',
@@ -9389,11 +9221,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entityviews',
                 'tag' => 'column',
                 'key' => 'image_required',
-                'value' => '_image_required',
+                'value' => 'afbeelding verplicht',
                 'created_at' => '2025-09-10 15:56:19',
-                'updated_at' => '2025-09-10 15:56:19',
+                'updated_at' => '2025-12-31 12:25:52',
             ),
-            281 => 
+            267 => 
             array (
                 'id' => 2453,
                 'language' => 'en',
@@ -9405,7 +9237,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
             ),
-            282 => 
+            268 => 
             array (
                 'id' => 2454,
                 'language' => 'nl',
@@ -9417,7 +9249,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
             ),
-            283 => 
+            269 => 
             array (
                 'id' => 2455,
                 'language' => 'en',
@@ -9429,7 +9261,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
             ),
-            284 => 
+            270 => 
             array (
                 'id' => 2456,
                 'language' => 'nl',
@@ -9441,7 +9273,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
             ),
-            285 => 
+            271 => 
             array (
                 'id' => 2459,
                 'language' => 'en',
@@ -9449,11 +9281,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'error',
                 'tag' => 'message',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'title',
                 'created_at' => '2025-09-19 09:02:33',
-                'updated_at' => '2025-09-19 09:02:33',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            286 => 
+            272 => 
             array (
                 'id' => 2460,
                 'language' => 'nl',
@@ -9461,11 +9293,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'error',
                 'tag' => 'message',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'titel',
                 'created_at' => '2025-09-19 09:02:33',
-                'updated_at' => '2025-09-19 09:02:33',
+                'updated_at' => '2025-12-31 12:08:27',
             ),
-            287 => 
+            273 => 
             array (
                 'id' => 2461,
                 'language' => 'en',
@@ -9473,11 +9305,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'error',
                 'tag' => 'message',
                 'key' => 'body',
-                'value' => '_body',
+                'value' => 'body',
                 'created_at' => '2025-09-19 09:02:33',
-                'updated_at' => '2025-09-19 09:02:33',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            288 => 
+            274 => 
             array (
                 'id' => 2462,
                 'language' => 'nl',
@@ -9485,251 +9317,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'error',
                 'tag' => 'message',
                 'key' => 'body',
-                'value' => '_body',
+                'value' => 'body',
                 'created_at' => '2025-09-19 09:02:33',
-                'updated_at' => '2025-09-19 09:02:33',
+                'updated_at' => '2025-12-31 12:08:22',
             ),
-            289 => 
-            array (
-                'id' => 2463,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body_html',
-                'value' => '_body_html',
-                'created_at' => '2025-09-22 09:32:18',
-                'updated_at' => '2025-09-22 09:32:18',
-            ),
-            290 => 
-            array (
-                'id' => 2464,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body_html',
-                'value' => '_body_html',
-                'created_at' => '2025-09-22 09:32:18',
-                'updated_at' => '2025-09-22 09:32:18',
-            ),
-            291 => 
-            array (
-                'id' => 2465,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body_html',
-                'value' => '_body_html',
-                'created_at' => '2025-09-22 09:32:18',
-                'updated_at' => '2025-09-22 09:32:18',
-            ),
-            292 => 
-            array (
-                'id' => 2466,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body_html',
-                'value' => '_body_html',
-                'created_at' => '2025-09-22 09:32:18',
-                'updated_at' => '2025-09-22 09:32:18',
-            ),
-            293 => 
-            array (
-                'id' => 2467,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'show_html',
-                'value' => '_show_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            294 => 
-            array (
-                'id' => 2468,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'show_html',
-                'value' => '_show_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            295 => 
-            array (
-                'id' => 2469,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'show_html',
-                'value' => '_show_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            296 => 
-            array (
-                'id' => 2470,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'show_html',
-                'value' => '_show_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            297 => 
-            array (
-                'id' => 2471,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'html',
-                'value' => '_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            298 => 
-            array (
-                'id' => 2472,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'html',
-                'value' => '_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            299 => 
-            array (
-                'id' => 2473,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'html',
-                'value' => '_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            300 => 
-            array (
-                'id' => 2474,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'html',
-                'value' => '_html',
-                'created_at' => '2025-09-22 09:43:23',
-                'updated_at' => '2025-09-22 09:43:23',
-            ),
-            301 => 
-            array (
-                'id' => 2475,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body2',
-                'value' => '_body2',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            302 => 
-            array (
-                'id' => 2476,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body2',
-                'value' => '_body2',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            303 => 
-            array (
-                'id' => 2477,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body2',
-                'value' => '_body2',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            304 => 
-            array (
-                'id' => 2478,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body2',
-                'value' => '_body2',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            305 => 
-            array (
-                'id' => 2479,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body3',
-                'value' => '_body3',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            306 => 
-            array (
-                'id' => 2480,
-                'language' => 'en',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body3',
-                'value' => '_body3',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            307 => 
-            array (
-                'id' => 2481,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body3',
-                'value' => '_body3',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            308 => 
-            array (
-                'id' => 2482,
-                'language' => 'nl',
-                'module' => 'lara-admin',
-                'resource' => 'default',
-                'tag' => 'column',
-                'key' => 'body3',
-                'value' => '_body3',
-                'created_at' => '2025-09-22 12:04:18',
-                'updated_at' => '2025-09-22 12:04:18',
-            ),
-            309 => 
+            275 => 
             array (
                 'id' => 2483,
                 'language' => 'en',
@@ -9737,11 +9329,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'button',
                 'key' => 'export_db',
-                'value' => '_export_db',
+                'value' => 'export db',
                 'created_at' => '2025-09-28 12:01:56',
-                'updated_at' => '2025-09-28 12:01:56',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            310 => 
+            276 => 
             array (
                 'id' => 2484,
                 'language' => 'nl',
@@ -9749,11 +9341,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'button',
                 'key' => 'export_db',
-                'value' => '_export_db',
+                'value' => 'database exporteren',
                 'created_at' => '2025-09-28 12:01:56',
-                'updated_at' => '2025-09-28 12:01:56',
+                'updated_at' => '2025-12-31 12:23:39',
             ),
-            311 => 
+            277 => 
             array (
                 'id' => 2485,
                 'language' => 'en',
@@ -9765,7 +9357,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
             ),
-            312 => 
+            278 => 
             array (
                 'id' => 2486,
                 'language' => 'nl',
@@ -9777,7 +9369,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
             ),
-            313 => 
+            279 => 
             array (
                 'id' => 2487,
                 'language' => 'en',
@@ -9789,7 +9381,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
             ),
-            314 => 
+            280 => 
             array (
                 'id' => 2488,
                 'language' => 'nl',
@@ -9801,7 +9393,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
             ),
-            315 => 
+            281 => 
             array (
                 'id' => 2489,
                 'language' => 'en',
@@ -9813,7 +9405,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
             ),
-            316 => 
+            282 => 
             array (
                 'id' => 2490,
                 'language' => 'nl',
@@ -9825,7 +9417,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
             ),
-            317 => 
+            283 => 
             array (
                 'id' => 2491,
                 'language' => 'en',
@@ -9833,11 +9425,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'sliders',
                 'tag' => 'entity',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'title',
                 'created_at' => '2025-09-28 12:16:14',
-                'updated_at' => '2025-09-28 12:16:14',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            318 => 
+            284 => 
             array (
                 'id' => 2492,
                 'language' => 'nl',
@@ -9845,11 +9437,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'sliders',
                 'tag' => 'entity',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'sliders',
                 'created_at' => '2025-09-28 12:16:14',
-                'updated_at' => '2025-09-28 12:16:14',
+                'updated_at' => '2025-12-31 12:12:38',
             ),
-            319 => 
+            285 => 
             array (
                 'id' => 2505,
                 'language' => 'en',
@@ -9861,7 +9453,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-29 07:40:32',
                 'updated_at' => '2025-09-29 07:40:32',
             ),
-            320 => 
+            286 => 
             array (
                 'id' => 2506,
                 'language' => 'nl',
@@ -9873,7 +9465,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-09-29 07:40:32',
                 'updated_at' => '2025-09-29 07:40:32',
             ),
-            321 => 
+            287 => 
             array (
                 'id' => 2507,
                 'language' => 'en',
@@ -9881,11 +9473,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'widgets',
                 'tag' => 'entity',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'title',
                 'created_at' => '2025-09-29 18:14:04',
-                'updated_at' => '2025-09-29 18:14:04',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            322 => 
+            288 => 
             array (
                 'id' => 2508,
                 'language' => 'nl',
@@ -9893,11 +9485,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'widgets',
                 'tag' => 'entity',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'blokken',
                 'created_at' => '2025-09-29 18:14:04',
-                'updated_at' => '2025-09-29 18:14:04',
+                'updated_at' => '2025-12-31 12:13:19',
             ),
-            323 => 
+            289 => 
             array (
                 'id' => 2509,
                 'language' => 'en',
@@ -9909,7 +9501,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
             ),
-            324 => 
+            290 => 
             array (
                 'id' => 2510,
                 'language' => 'nl',
@@ -9921,7 +9513,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
             ),
-            325 => 
+            291 => 
             array (
                 'id' => 2511,
                 'language' => 'en',
@@ -9933,7 +9525,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
             ),
-            326 => 
+            292 => 
             array (
                 'id' => 2512,
                 'language' => 'nl',
@@ -9945,7 +9537,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
             ),
-            327 => 
+            293 => 
             array (
                 'id' => 2513,
                 'language' => 'en',
@@ -9957,7 +9549,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
             ),
-            328 => 
+            294 => 
             array (
                 'id' => 2514,
                 'language' => 'nl',
@@ -9969,7 +9561,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
             ),
-            329 => 
+            295 => 
             array (
                 'id' => 2515,
                 'language' => 'en',
@@ -9981,7 +9573,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            330 => 
+            296 => 
             array (
                 'id' => 2516,
                 'language' => 'nl',
@@ -9993,7 +9585,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            331 => 
+            297 => 
             array (
                 'id' => 2517,
                 'language' => 'en',
@@ -10005,7 +9597,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            332 => 
+            298 => 
             array (
                 'id' => 2518,
                 'language' => 'nl',
@@ -10017,7 +9609,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            333 => 
+            299 => 
             array (
                 'id' => 2519,
                 'language' => 'en',
@@ -10029,7 +9621,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            334 => 
+            300 => 
             array (
                 'id' => 2520,
                 'language' => 'nl',
@@ -10041,7 +9633,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            335 => 
+            301 => 
             array (
                 'id' => 2521,
                 'language' => 'en',
@@ -10053,7 +9645,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            336 => 
+            302 => 
             array (
                 'id' => 2522,
                 'language' => 'nl',
@@ -10065,7 +9657,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
             ),
-            337 => 
+            303 => 
             array (
                 'id' => 2587,
                 'language' => 'en',
@@ -10073,11 +9665,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'ctas',
                 'tag' => 'entity',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'title',
                 'created_at' => '2025-10-16 15:33:48',
-                'updated_at' => '2025-10-16 15:33:48',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            338 => 
+            304 => 
             array (
                 'id' => 2588,
                 'language' => 'nl',
@@ -10085,11 +9677,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'ctas',
                 'tag' => 'entity',
                 'key' => 'title',
-                'value' => '_title',
+                'value' => 'call-to-action',
                 'created_at' => '2025-10-16 15:33:48',
-                'updated_at' => '2025-10-16 15:33:48',
+                'updated_at' => '2025-12-31 12:13:50',
             ),
-            339 => 
+            305 => 
             array (
                 'id' => 2609,
                 'language' => 'en',
@@ -10097,11 +9689,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'default',
                 'tag' => 'column',
                 'key' => 'has_panel_access',
-                'value' => '_has_panel_access',
+                'value' => 'has panel access',
                 'created_at' => '2025-10-23 07:20:17',
-                'updated_at' => '2025-10-23 07:20:17',
+                'updated_at' => '2025-12-31 12:27:47',
             ),
-            340 => 
+            306 => 
             array (
                 'id' => 2610,
                 'language' => 'nl',
@@ -10109,83 +9701,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'default',
                 'tag' => 'column',
                 'key' => 'has_panel_access',
-                'value' => '_has_panel_access',
+                'value' => 'heeft toegang tot panel',
                 'created_at' => '2025-10-23 07:20:17',
-                'updated_at' => '2025-10-23 07:20:17',
+                'updated_at' => '2025-12-31 12:22:55',
             ),
-            341 => 
-            array (
-                'id' => 2611,
-                'language' => 'en',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'menu',
-                'key' => 'profile',
-                'value' => '_profile',
-                'created_at' => '2025-10-24 08:54:22',
-                'updated_at' => '2025-10-24 08:54:22',
-            ),
-            342 => 
-            array (
-                'id' => 2612,
-                'language' => 'nl',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'menu',
-                'key' => 'profile',
-                'value' => '_profile',
-                'created_at' => '2025-10-24 08:54:22',
-                'updated_at' => '2025-10-24 08:54:22',
-            ),
-            343 => 
-            array (
-                'id' => 2613,
-                'language' => 'en',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'menu',
-                'key' => 'dashboard',
-                'value' => '_dashboard',
-                'created_at' => '2025-10-24 08:54:22',
-                'updated_at' => '2025-10-24 08:54:22',
-            ),
-            344 => 
-            array (
-                'id' => 2614,
-                'language' => 'nl',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'menu',
-                'key' => 'dashboard',
-                'value' => '_dashboard',
-                'created_at' => '2025-10-24 08:54:22',
-                'updated_at' => '2025-10-24 08:54:22',
-            ),
-            345 => 
-            array (
-                'id' => 2615,
-                'language' => 'en',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'menu',
-                'key' => 'logouttext',
-                'value' => '_logouttext',
-                'created_at' => '2025-10-24 08:54:22',
-                'updated_at' => '2025-10-24 08:54:22',
-            ),
-            346 => 
-            array (
-                'id' => 2616,
-                'language' => 'nl',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'menu',
-                'key' => 'logouttext',
-                'value' => '_logouttext',
-                'created_at' => '2025-10-24 08:54:22',
-                'updated_at' => '2025-10-24 08:54:22',
-            ),
-            347 => 
+            307 => 
             array (
                 'id' => 2617,
                 'language' => 'en',
@@ -10193,11 +9713,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'default',
                 'tag' => 'form',
                 'key' => 'email_is_invalid',
-                'value' => '_email_is_invalid',
+                'value' => 'email is invalid',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            348 => 
+            308 => 
             array (
                 'id' => 2618,
                 'language' => 'nl',
@@ -10205,11 +9725,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'default',
                 'tag' => 'form',
                 'key' => 'email_is_invalid',
-                'value' => '_email_is_invalid',
+                'value' => 'het e-mailadres is ongeldig',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:07:32',
             ),
-            349 => 
+            309 => 
             array (
                 'id' => 2619,
                 'language' => 'en',
@@ -10217,11 +9737,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'firstname',
-                'value' => '_firstname',
+                'value' => 'firstname',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            350 => 
+            310 => 
             array (
                 'id' => 2620,
                 'language' => 'nl',
@@ -10229,11 +9749,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'firstname',
-                'value' => '_firstname',
+                'value' => 'voornaam',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:24:37',
             ),
-            351 => 
+            311 => 
             array (
                 'id' => 2621,
                 'language' => 'en',
@@ -10241,11 +9761,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'middlename',
-                'value' => '_middlename',
+                'value' => 'middlename',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            352 => 
+            312 => 
             array (
                 'id' => 2622,
                 'language' => 'nl',
@@ -10253,11 +9773,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'middlename',
-                'value' => '_middlename',
+                'value' => 'tussenvoegsel',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:24:54',
             ),
-            353 => 
+            313 => 
             array (
                 'id' => 2623,
                 'language' => 'en',
@@ -10265,11 +9785,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'lastname',
-                'value' => '_lastname',
+                'value' => 'lastname',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            354 => 
+            314 => 
             array (
                 'id' => 2624,
                 'language' => 'nl',
@@ -10277,11 +9797,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'lastname',
-                'value' => '_lastname',
+                'value' => 'achternaam',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:25:00',
             ),
-            355 => 
+            315 => 
             array (
                 'id' => 2625,
                 'language' => 'en',
@@ -10289,11 +9809,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'new_password',
-                'value' => '_new_password',
+                'value' => 'new password',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            356 => 
+            316 => 
             array (
                 'id' => 2626,
                 'language' => 'nl',
@@ -10301,11 +9821,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'column',
                 'key' => 'new_password',
-                'value' => '_new_password',
+                'value' => 'nieuw wachtwoord',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:25:09',
             ),
-            357 => 
+            317 => 
             array (
                 'id' => 2627,
                 'language' => 'en',
@@ -10313,11 +9833,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'button',
                 'key' => 'submit',
-                'value' => '_submit',
+                'value' => 'submit',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            358 => 
+            318 => 
             array (
                 'id' => 2628,
                 'language' => 'nl',
@@ -10325,35 +9845,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'users',
                 'tag' => 'button',
                 'key' => 'submit',
-                'value' => '_submit',
+                'value' => 'verzenden',
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-24 08:54:28',
+                'updated_at' => '2025-12-31 12:10:51',
             ),
-            359 => 
-            array (
-                'id' => 2629,
-                'language' => 'en',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'message',
-                'key' => 'profile_saved_successfully',
-                'value' => '_profile_saved_successfully',
-                'created_at' => '2025-10-24 08:58:11',
-                'updated_at' => '2025-10-24 08:58:11',
-            ),
-            360 => 
-            array (
-                'id' => 2630,
-                'language' => 'nl',
-                'module' => 'lara-front',
-                'resource' => 'user',
-                'tag' => 'message',
-                'key' => 'profile_saved_successfully',
-                'value' => '_profile_saved_successfully',
-                'created_at' => '2025-10-24 08:58:11',
-                'updated_at' => '2025-10-24 08:58:11',
-            ),
-            361 => 
+            319 => 
             array (
                 'id' => 2631,
                 'language' => 'en',
@@ -10361,11 +9857,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'cache',
                 'tag' => 'message',
                 'key' => 'select_cache_types_first',
-                'value' => '_select_cache_types_first',
+                'value' => 'select cache types first',
                 'created_at' => '2025-10-24 12:15:15',
-                'updated_at' => '2025-10-24 12:15:15',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            362 => 
+            320 => 
             array (
                 'id' => 2632,
                 'language' => 'nl',
@@ -10377,7 +9873,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-24 12:15:15',
                 'updated_at' => '2025-10-24 12:55:43',
             ),
-            363 => 
+            321 => 
             array (
                 'id' => 2633,
                 'language' => 'en',
@@ -10385,11 +9881,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'cache',
                 'tag' => 'button',
                 'key' => 'clear_cache',
-                'value' => '_clear_cache',
+                'value' => 'clear cache',
                 'created_at' => '2025-10-24 12:52:57',
-                'updated_at' => '2025-10-24 12:52:57',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            364 => 
+            322 => 
             array (
                 'id' => 2634,
                 'language' => 'nl',
@@ -10401,7 +9897,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-24 12:52:57',
                 'updated_at' => '2025-10-24 12:55:53',
             ),
-            365 => 
+            323 => 
             array (
                 'id' => 2635,
                 'language' => 'en',
@@ -10409,11 +9905,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'cache',
                 'tag' => 'column',
                 'key' => 'cache_types',
-                'value' => '_cache_types',
+                'value' => 'cache types',
                 'created_at' => '2025-10-24 12:54:42',
-                'updated_at' => '2025-10-24 12:54:42',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            366 => 
+            324 => 
             array (
                 'id' => 2636,
                 'language' => 'nl',
@@ -10425,7 +9921,7 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2025-10-24 12:54:42',
                 'updated_at' => '2025-10-24 12:56:00',
             ),
-            367 => 
+            325 => 
             array (
                 'id' => 2637,
                 'language' => 'en',
@@ -10433,11 +9929,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'media',
                 'tag' => 'message',
                 'key' => 'syncing_media',
-                'value' => '_syncing_media',
+                'value' => 'syncing media',
                 'created_at' => '2025-12-18 13:36:46',
-                'updated_at' => '2025-12-18 13:36:46',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            368 => 
+            326 => 
             array (
                 'id' => 2638,
                 'language' => 'nl',
@@ -10445,11 +9941,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'media',
                 'tag' => 'message',
                 'key' => 'syncing_media',
-                'value' => '_syncing_media',
+                'value' => 'media synchroniseren',
                 'created_at' => '2025-12-18 13:36:46',
-                'updated_at' => '2025-12-18 13:36:46',
+                'updated_at' => '2025-12-31 12:26:13',
             ),
-            369 => 
+            327 => 
             array (
                 'id' => 2639,
                 'language' => 'en',
@@ -10457,11 +9953,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'media',
                 'tag' => 'message',
                 'key' => 'sync_successful',
-                'value' => '_sync_successful',
+                'value' => 'sync successful',
                 'created_at' => '2025-12-18 13:38:02',
-                'updated_at' => '2025-12-18 13:38:02',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            370 => 
+            328 => 
             array (
                 'id' => 2640,
                 'language' => 'nl',
@@ -10469,11 +9965,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'media',
                 'tag' => 'message',
                 'key' => 'sync_successful',
-                'value' => '_sync_successful',
+                'value' => 'synchronisatie klaar',
                 'created_at' => '2025-12-18 13:38:02',
-                'updated_at' => '2025-12-18 13:38:02',
+                'updated_at' => '2025-12-31 12:26:24',
             ),
-            371 => 
+            329 => 
             array (
                 'id' => 2641,
                 'language' => 'en',
@@ -10481,11 +9977,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'media',
                 'tag' => 'message',
                 'key' => 'library_sync_successful',
-                'value' => '_library_sync_successful',
+                'value' => 'library sync successful',
                 'created_at' => '2025-12-18 14:04:45',
-                'updated_at' => '2025-12-18 14:04:45',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            372 => 
+            330 => 
             array (
                 'id' => 2642,
                 'language' => 'nl',
@@ -10493,11 +9989,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'media',
                 'tag' => 'message',
                 'key' => 'library_sync_successful',
-                'value' => '_library_sync_successful',
+                'value' => 'synchronisatie klaar',
                 'created_at' => '2025-12-18 14:04:45',
-                'updated_at' => '2025-12-18 14:04:45',
+                'updated_at' => '2025-12-31 12:26:39',
             ),
-            373 => 
+            331 => 
             array (
                 'id' => 2643,
                 'language' => 'en',
@@ -10505,11 +10001,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'media_disk_images',
-                'value' => '_media_disk_images',
+                'value' => 'media disk images',
                 'created_at' => '2025-12-23 10:23:38',
-                'updated_at' => '2025-12-23 10:23:38',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            374 => 
+            332 => 
             array (
                 'id' => 2644,
                 'language' => 'nl',
@@ -10517,11 +10013,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'media_disk_images',
-                'value' => '_media_disk_images',
+                'value' => 'disk voor afbeeldingen',
                 'created_at' => '2025-12-23 10:23:38',
-                'updated_at' => '2025-12-23 10:23:38',
+                'updated_at' => '2025-12-31 12:23:55',
             ),
-            375 => 
+            333 => 
             array (
                 'id' => 2645,
                 'language' => 'en',
@@ -10529,11 +10025,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'media_disk_videos',
-                'value' => '_media_disk_videos',
+                'value' => 'media disk videos',
                 'created_at' => '2025-12-23 10:28:28',
-                'updated_at' => '2025-12-23 10:28:28',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            376 => 
+            334 => 
             array (
                 'id' => 2646,
                 'language' => 'nl',
@@ -10541,11 +10037,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'media_disk_videos',
-                'value' => '_media_disk_videos',
+                'value' => 'disk voor videos',
                 'created_at' => '2025-12-23 10:28:28',
-                'updated_at' => '2025-12-23 10:28:28',
+                'updated_at' => '2025-12-31 12:24:01',
             ),
-            377 => 
+            335 => 
             array (
                 'id' => 2647,
                 'language' => 'en',
@@ -10553,11 +10049,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'media_disk_files',
-                'value' => '_media_disk_files',
+                'value' => 'media disk files',
                 'created_at' => '2025-12-23 10:29:00',
-                'updated_at' => '2025-12-23 10:29:00',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            378 => 
+            336 => 
             array (
                 'id' => 2648,
                 'language' => 'nl',
@@ -10565,35 +10061,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'media_disk_files',
-                'value' => '_media_disk_files',
+                'value' => 'disk voor bestanden',
                 'created_at' => '2025-12-23 10:29:00',
-                'updated_at' => '2025-12-23 10:29:00',
+                'updated_at' => '2025-12-31 12:24:08',
             ),
-            379 => 
-            array (
-                'id' => 2649,
-                'language' => 'en',
-                'module' => 'lara-app',
-                'resource' => 'tezts',
-                'tag' => 'navigation',
-                'key' => 'label',
-                'value' => '_label',
-                'created_at' => '2025-12-28 12:32:30',
-                'updated_at' => '2025-12-28 12:32:30',
-            ),
-            380 => 
-            array (
-                'id' => 2650,
-                'language' => 'nl',
-                'module' => 'lara-app',
-                'resource' => 'tezts',
-                'tag' => 'navigation',
-                'key' => 'label',
-                'value' => '_label',
-                'created_at' => '2025-12-28 12:32:30',
-                'updated_at' => '2025-12-28 12:32:30',
-            ),
-            381 => 
+            337 => 
             array (
                 'id' => 2651,
                 'language' => 'en',
@@ -10601,11 +10073,11 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'default',
                 'tag' => 'message',
                 'key' => 'reorder_saved',
-                'value' => '_reorder_saved',
+                'value' => 'reorder saved',
                 'created_at' => '2025-12-29 09:38:49',
-                'updated_at' => '2025-12-29 09:38:49',
+                'updated_at' => '2025-12-31 12:27:48',
             ),
-            382 => 
+            338 => 
             array (
                 'id' => 2652,
                 'language' => 'nl',
@@ -10613,9 +10085,729 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'resource' => 'default',
                 'tag' => 'message',
                 'key' => 'reorder_saved',
-                'value' => '_reorder_saved',
+                'value' => 'volgorde opgeslagen',
                 'created_at' => '2025-12-29 09:38:49',
-                'updated_at' => '2025-12-29 09:38:49',
+                'updated_at' => '2025-12-31 12:23:15',
+            ),
+            339 => 
+            array (
+                'id' => 2653,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'column',
+                'key' => 'html',
+                'value' => 'html',
+                'created_at' => '2025-12-31 12:21:52',
+                'updated_at' => '2025-12-31 12:27:48',
+            ),
+            340 => 
+            array (
+                'id' => 2654,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'column',
+                'key' => 'html',
+                'value' => 'html',
+                'created_at' => '2025-12-31 12:21:52',
+                'updated_at' => '2025-12-31 12:23:02',
+            ),
+            341 => 
+            array (
+                'id' => 2655,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'column',
+                'key' => 'body2',
+                'value' => 'body2',
+                'created_at' => '2025-12-31 12:21:52',
+                'updated_at' => '2025-12-31 12:27:48',
+            ),
+            342 => 
+            array (
+                'id' => 2656,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'column',
+                'key' => 'body2',
+                'value' => 'tekst 2',
+                'created_at' => '2025-12-31 12:21:53',
+                'updated_at' => '2025-12-31 12:22:12',
+            ),
+            343 => 
+            array (
+                'id' => 2657,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'column',
+                'key' => 'body3',
+                'value' => 'body3',
+                'created_at' => '2025-12-31 12:21:53',
+                'updated_at' => '2025-12-31 12:27:48',
+            ),
+            344 => 
+            array (
+                'id' => 2658,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'column',
+                'key' => 'body3',
+                'value' => 'tekst 3',
+                'created_at' => '2025-12-31 12:21:53',
+                'updated_at' => '2025-12-31 12:22:16',
+            ),
+            345 => 
+            array (
+                'id' => 2661,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'forms',
+                'tag' => 'tabs',
+                'key' => 'custom_fields',
+                'value' => '_custom_fields',
+                'created_at' => '2025-12-31 15:47:08',
+                'updated_at' => '2025-12-31 15:47:08',
+            ),
+            346 => 
+            array (
+                'id' => 2662,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'forms',
+                'tag' => 'tabs',
+                'key' => 'custom_fields',
+                'value' => 'custom velden',
+                'created_at' => '2025-12-31 15:47:08',
+                'updated_at' => '2025-12-31 15:48:25',
+            ),
+            347 => 
+            array (
+                'id' => 2663,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'forms',
+                'tag' => 'tabs',
+                'key' => 'entity_views',
+                'value' => '_entity_views',
+                'created_at' => '2025-12-31 15:47:08',
+                'updated_at' => '2025-12-31 15:47:08',
+            ),
+            348 => 
+            array (
+                'id' => 2664,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'forms',
+                'tag' => 'tabs',
+                'key' => 'entity_views',
+                'value' => 'views',
+                'created_at' => '2025-12-31 15:47:08',
+                'updated_at' => '2025-12-31 15:48:35',
+            ),
+            349 => 
+            array (
+                'id' => 2679,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'pages',
+                'tag' => 'column',
+                'key' => 'bricks',
+                'value' => '_bricks',
+                'created_at' => '2026-01-08 12:42:36',
+                'updated_at' => '2026-01-08 12:42:36',
+            ),
+            350 => 
+            array (
+                'id' => 2680,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'pages',
+                'tag' => 'column',
+                'key' => 'bricks',
+                'value' => '_bricks',
+                'created_at' => '2026-01-08 12:42:36',
+                'updated_at' => '2026-01-08 12:42:36',
+            ),
+            351 => 
+            array (
+                'id' => 2681,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'mason',
+                'key' => 'drag_and_drop_bricks',
+                'value' => '_drag_and_drop_bricks',
+                'created_at' => '2026-01-08 13:41:48',
+                'updated_at' => '2026-01-08 13:41:48',
+            ),
+            352 => 
+            array (
+                'id' => 2682,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'mason',
+                'key' => 'drag_and_drop_bricks',
+                'value' => '_drag_and_drop_bricks',
+                'created_at' => '2026-01-08 13:41:48',
+                'updated_at' => '2026-01-08 13:41:48',
+            ),
+            353 => 
+            array (
+                'id' => 2683,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'message',
+                'key' => 'record_locked',
+                'value' => 'This content item is being edited by another user',
+                'created_at' => '2026-01-25 13:28:32',
+                'updated_at' => '2026-01-25 19:27:26',
+            ),
+            354 => 
+            array (
+                'id' => 2684,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'message',
+                'key' => 'record_locked',
+                'value' => 'Dit content item wordt momenteel bewerkt door een andere gebruiker',
+                'created_at' => '2026-01-25 13:28:32',
+                'updated_at' => '2026-01-25 19:26:42',
+            ),
+            355 => 
+            array (
+                'id' => 2685,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'character-counter',
+                'key' => 'character_label',
+                'value' => '_character_label',
+                'created_at' => '2026-01-26 10:02:02',
+                'updated_at' => '2026-01-26 10:02:02',
+            ),
+            356 => 
+            array (
+                'id' => 2686,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'character-counter',
+                'key' => 'character_label',
+                'value' => '_character_label',
+                'created_at' => '2026-01-26 10:02:02',
+                'updated_at' => '2026-01-26 10:02:02',
+            ),
+            357 => 
+            array (
+                'id' => 2687,
+                'language' => 'en',
+                'module' => 'admin',
+                'resource' => 'pages',
+                'tag' => 'entity',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-01-27 10:59:30',
+                'updated_at' => '2026-01-27 10:59:30',
+            ),
+            358 => 
+            array (
+                'id' => 2688,
+                'language' => 'nl',
+                'module' => 'admin',
+                'resource' => 'pages',
+                'tag' => 'entity',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-01-27 10:59:30',
+                'updated_at' => '2026-01-27 10:59:30',
+            ),
+            359 => 
+            array (
+                'id' => 2689,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'message',
+                'key' => 'object_saved',
+                'value' => '_object_saved',
+                'created_at' => '2026-02-23 15:26:14',
+                'updated_at' => '2026-02-23 15:26:14',
+            ),
+            360 => 
+            array (
+                'id' => 2690,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'default',
+                'tag' => 'message',
+                'key' => 'object_saved',
+                'value' => 'De data is succesvol opgeslagen',
+                'created_at' => '2026-02-23 15:26:14',
+                'updated_at' => '2026-02-23 15:26:40',
+            ),
+            361 => 
+            array (
+                'id' => 2691,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'default',
+                'tag' => 'headers',
+                'key' => 'related_files',
+                'value' => '_related_files',
+                'created_at' => '2026-03-16 13:38:52',
+                'updated_at' => '2026-03-16 13:38:52',
+            ),
+            362 => 
+            array (
+                'id' => 2692,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'default',
+                'tag' => 'headers',
+                'key' => 'related_files',
+                'value' => 'gerelateerde documenten',
+                'created_at' => '2026-03-16 13:38:52',
+                'updated_at' => '2026-03-16 13:46:22',
+            ),
+            363 => 
+            array (
+                'id' => 2701,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'forgot_password',
+                'value' => '_forgot_password',
+                'created_at' => '2026-03-17 11:44:35',
+                'updated_at' => '2026-03-17 11:44:35',
+            ),
+            364 => 
+            array (
+                'id' => 2702,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'forgot_password',
+                'value' => 'wachtwoord vergeten',
+                'created_at' => '2026-03-17 11:44:35',
+                'updated_at' => '2026-03-17 11:45:12',
+            ),
+            365 => 
+            array (
+                'id' => 2703,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'register',
+                'value' => '_register',
+                'created_at' => '2026-03-17 11:44:35',
+                'updated_at' => '2026-03-17 11:44:35',
+            ),
+            366 => 
+            array (
+                'id' => 2704,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'register',
+                'value' => 'registreren',
+                'created_at' => '2026-03-17 11:44:35',
+                'updated_at' => '2026-03-17 11:45:25',
+            ),
+            367 => 
+            array (
+                'id' => 2705,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'passwordforgot',
+                'key' => 'password_forgot_title',
+                'value' => '_password_forgot_title',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:41:19',
+            ),
+            368 => 
+            array (
+                'id' => 2706,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'passwordforgot',
+                'key' => 'password_forgot_title',
+                'value' => 'wachtwoord vergeten',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:47:25',
+            ),
+            369 => 
+            array (
+                'id' => 2707,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'passwordforgot',
+                'key' => 'placeholder_email',
+                'value' => '_placeholder_email',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:41:19',
+            ),
+            370 => 
+            array (
+                'id' => 2708,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'passwordforgot',
+                'key' => 'placeholder_email',
+                'value' => 'e-mailadres',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:47:42',
+            ),
+            371 => 
+            array (
+                'id' => 2709,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'send_password_reset_link',
+                'value' => '_send_password_reset_link',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:41:19',
+            ),
+            372 => 
+            array (
+                'id' => 2710,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'send_password_reset_link',
+                'value' => 'verstuur link',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:46:40',
+            ),
+            373 => 
+            array (
+                'id' => 2711,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'back_to_login',
+                'value' => '_back_to_login',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:41:19',
+            ),
+            374 => 
+            array (
+                'id' => 2712,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'back_to_login',
+                'value' => 'terug naar login',
+                'created_at' => '2026-03-17 12:41:19',
+                'updated_at' => '2026-03-17 12:46:52',
+            ),
+            375 => 
+            array (
+                'id' => 2713,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'passwordforgot',
+                'key' => 'password_reset_title',
+                'value' => '_password_reset_title',
+                'created_at' => '2026-03-17 13:08:22',
+                'updated_at' => '2026-03-17 13:08:22',
+            ),
+            376 => 
+            array (
+                'id' => 2714,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'passwordforgot',
+                'key' => 'password_reset_title',
+                'value' => 'wachtwoord resetten',
+                'created_at' => '2026-03-17 13:08:22',
+                'updated_at' => '2026-03-17 14:51:16',
+            ),
+            377 => 
+            array (
+                'id' => 2721,
+                'language' => 'en',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'reset_password',
+                'value' => '_reset_password',
+                'created_at' => '2026-03-17 13:08:22',
+                'updated_at' => '2026-03-17 13:08:22',
+            ),
+            378 => 
+            array (
+                'id' => 2722,
+                'language' => 'nl',
+                'module' => 'lara-common',
+                'resource' => 'auth',
+                'tag' => 'button',
+                'key' => 'reset_password',
+                'value' => 'opslaan',
+                'created_at' => '2026-03-17 13:08:22',
+                'updated_at' => '2026-03-17 15:49:49',
+            ),
+            379 => 
+            array (
+                'id' => 2725,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'users',
+                'tag' => 'column',
+                'key' => 'new_password_confirmation',
+                'value' => '_new_password_confirmation',
+                'created_at' => '2026-03-17 14:52:38',
+                'updated_at' => '2026-03-17 14:52:38',
+            ),
+            380 => 
+            array (
+                'id' => 2726,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'users',
+                'tag' => 'column',
+                'key' => 'new_password_confirmation',
+                'value' => 'nieuw wachtwoord bevestigen',
+                'created_at' => '2026-03-17 14:52:38',
+                'updated_at' => '2026-03-17 16:59:48',
+            ),
+            381 => 
+            array (
+                'id' => 2729,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'users',
+                'tag' => 'column',
+                'key' => 'password_confirmation',
+                'value' => '_password_confirmation',
+                'created_at' => '2026-03-17 16:51:38',
+                'updated_at' => '2026-03-17 16:51:38',
+            ),
+            382 => 
+            array (
+                'id' => 2730,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'users',
+                'tag' => 'column',
+                'key' => 'password_confirmation',
+                'value' => 'wachtwoord bevestigen',
+                'created_at' => '2026-03-17 16:51:38',
+                'updated_at' => '2026-03-17 16:59:36',
+            ),
+            383 => 
+            array (
+                'id' => 2731,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'headers',
+                'key' => 'register',
+                'value' => '_register',
+                'created_at' => '2026-03-17 17:00:04',
+                'updated_at' => '2026-03-17 17:00:04',
+            ),
+            384 => 
+            array (
+                'id' => 2732,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'headers',
+                'key' => 'register',
+                'value' => '_register',
+                'created_at' => '2026-03-17 17:00:04',
+                'updated_at' => '2026-03-17 17:00:04',
+            ),
+            385 => 
+            array (
+                'id' => 2733,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'headers',
+                'key' => 'login',
+                'value' => '_login',
+                'created_at' => '2026-03-17 17:11:15',
+                'updated_at' => '2026-03-17 17:11:15',
+            ),
+            386 => 
+            array (
+                'id' => 2734,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'headers',
+                'key' => 'login',
+                'value' => '_login',
+                'created_at' => '2026-03-17 17:11:15',
+                'updated_at' => '2026-03-17 17:11:15',
+            ),
+            387 => 
+            array (
+                'id' => 2735,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'auth',
+                'tag' => 'headers',
+                'key' => 'register',
+                'value' => '_register',
+                'created_at' => '2026-03-17 17:14:13',
+                'updated_at' => '2026-03-17 17:14:13',
+            ),
+            388 => 
+            array (
+                'id' => 2736,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'auth',
+                'tag' => 'headers',
+                'key' => 'register',
+                'value' => 'registreren',
+                'created_at' => '2026-03-17 17:14:13',
+                'updated_at' => '2026-03-17 17:15:13',
+            ),
+            389 => 
+            array (
+                'id' => 2737,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'auth',
+                'tag' => 'headers',
+                'key' => 'password_forgot',
+                'value' => '_password_forgot',
+                'created_at' => '2026-03-17 17:14:17',
+                'updated_at' => '2026-03-17 17:14:17',
+            ),
+            390 => 
+            array (
+                'id' => 2738,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'auth',
+                'tag' => 'headers',
+                'key' => 'password_forgot',
+                'value' => 'Wachtwoord resetten',
+                'created_at' => '2026-03-17 17:14:17',
+                'updated_at' => '2026-03-17 17:15:32',
+            ),
+            391 => 
+            array (
+                'id' => 2739,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'auth',
+                'tag' => 'headers',
+                'key' => 'login',
+                'value' => '_login',
+                'created_at' => '2026-03-17 17:14:20',
+                'updated_at' => '2026-03-17 17:14:20',
+            ),
+            392 => 
+            array (
+                'id' => 2740,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'auth',
+                'tag' => 'headers',
+                'key' => 'login',
+                'value' => 'login',
+                'created_at' => '2026-03-17 17:14:20',
+                'updated_at' => '2026-03-17 17:15:19',
+            ),
+            393 => 
+            array (
+                'id' => 2741,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'menu',
+                'key' => 'profile',
+                'value' => '_profile',
+                'created_at' => '2026-03-17 19:27:16',
+                'updated_at' => '2026-03-17 19:27:16',
+            ),
+            394 => 
+            array (
+                'id' => 2742,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'menu',
+                'key' => 'profile',
+                'value' => '_profile',
+                'created_at' => '2026-03-17 19:27:16',
+                'updated_at' => '2026-03-17 19:27:16',
+            ),
+            395 => 
+            array (
+                'id' => 2743,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'menu',
+                'key' => 'logouttext',
+                'value' => '_logouttext',
+                'created_at' => '2026-03-17 19:27:16',
+                'updated_at' => '2026-03-17 19:27:16',
+            ),
+            396 => 
+            array (
+                'id' => 2744,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'menu',
+                'key' => 'logouttext',
+                'value' => '_logouttext',
+                'created_at' => '2026-03-17 19:27:16',
+                'updated_at' => '2026-03-17 19:27:16',
+            ),
+            397 => 
+            array (
+                'id' => 2745,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'menu',
+                'key' => 'dashboard',
+                'value' => '_dashboard',
+                'created_at' => '2026-03-18 15:56:54',
+                'updated_at' => '2026-03-18 15:56:54',
+            ),
+            398 => 
+            array (
+                'id' => 2746,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'user',
+                'tag' => 'menu',
+                'key' => 'dashboard',
+                'value' => '_dashboard',
+                'created_at' => '2026-03-18 15:56:54',
+                'updated_at' => '2026-03-18 15:56:54',
             ),
         ));
         

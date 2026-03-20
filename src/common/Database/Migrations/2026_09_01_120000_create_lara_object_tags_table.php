@@ -31,6 +31,8 @@ return new class extends Migration
             $table->unsignedInteger('rgt')->nullable()->index();
             $table->unsignedInteger('depth')->default(0)->index();
             $table->unsignedInteger('position')->default(0);
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('locked_by');
         });
     }
 

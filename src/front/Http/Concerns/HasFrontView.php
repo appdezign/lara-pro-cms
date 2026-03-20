@@ -165,11 +165,11 @@ trait HasFrontView
 					if($colcount == 12) {
 						$grid->gridColumns = 'col-span-12';
 					} elseif($colcount == 10) {
-						$grid->gridColumns = 'col-span-12 lg:col-span-10 lg:col-start-2';
+						$grid->gridColumns = 'responsive-col-span-10';
 					} elseif($colcount == 8) {
-						$grid->gridColumns = 'col-span-12 lg:col-span-10 lg:col-start-2 xl:col-span-8 xl:col-start-3';
+						$grid->gridColumns = 'responsive-col-span-8';
 					} elseif($colcount == 6) {
-						$grid->gridColumns = 'col-span-12 lg:col-span-10 lg:col-start-2 lg:col-span-8 lg:col-start-3 xl:col-span-6 xl:col-start-4';
+						$grid->gridColumns = 'responsive-col-span-6';
 					}
 				}
 

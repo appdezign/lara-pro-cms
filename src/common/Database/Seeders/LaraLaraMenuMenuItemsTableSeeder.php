@@ -47,6 +47,8 @@ class LaraLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 2,
                 'depth' => 0,
                 'position' => 1001,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
         

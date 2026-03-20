@@ -2,7 +2,7 @@
 
 namespace Lara\Admin\Providers;
 
-
+use Filament\FontProviders\SpatieGoogleFontProvider;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
@@ -37,7 +37,6 @@ use Filament\Support\Facades\FilamentIcon;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 
-
 use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -54,7 +53,6 @@ use Lara\Admin\Components\LanguageVersions;
 use Lara\Admin\Components\TextAreaWithCounter;
 use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Enums\NavGroup;
-use Lara\Admin\Fonts\LaraFontProvider;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Pages\LaraHealthCheckResults;
@@ -96,10 +94,7 @@ class AdminPanelProvider extends PanelProvider
 			->breadcrumbs(false)
 			->globalSearch(false)
 			->darkMode(false)
-			->font(
-				family: 'Inter',
-				provider: LaraFontProvider::class,
-			)
+			->font('Inter', provider: SpatieGoogleFontProvider::class)
 			->brandName('Lara 10')
 			->favicon(asset('assets/filament/img/favicon.png'))
 			->navigationGroups(static::getNavigationGroups())
@@ -390,14 +385,8 @@ class AdminPanelProvider extends PanelProvider
 		// JS
 		FilamentAsset::register([
 			Js::make('custom', base_path('laracms/core/resources/js/custom.js')),
+			Js::make('google-maps', base_path('laracms/core/resources/js/google-maps.js')),
 		]);
-
-		// Translations
-		/*
-		$this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'lara-admin');
-		$this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'lara-app');
-		$this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'lara-front');
-		*/
 
 	}
 

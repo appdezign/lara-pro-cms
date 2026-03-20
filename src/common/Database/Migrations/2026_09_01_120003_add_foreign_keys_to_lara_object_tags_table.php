@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('lara_object_tags', function (Blueprint $table) {
+            $table->foreign(['locked_by'], 'lara_object_tags_ibfk_1')->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['taxonomy_id'])->references(['id'])->on('lara_object_taxonomies')->onUpdate('restrict')->onDelete('cascade');
         });
     }
@@ -22,6 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('lara_object_tags', function (Blueprint $table) {
+            $table->dropForeign('lara_object_tags_ibfk_1');
             $table->dropForeign('lara_object_tags_taxonomy_id_foreign');
         });
     }
