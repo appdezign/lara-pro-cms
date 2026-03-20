@@ -80,6 +80,12 @@ class LaraCommonServiceProvider extends ServiceProvider
 		Gate::policy(Role::class, Policies\RolePolicy::class);
 		Gate::policy(Media::class, Policies\MediaPolicy::class);
 
+		// Publish Config
+		$this->publishes([
+			__DIR__ . '/../../../config/lara.php' => config_path('lara.php'),
+			__DIR__ . '/../../../config/lara-common.php' => config_path('lara-common.php'),
+		], 'lara');
+
 		// Publish Views
 		$this->publishes([
 			__DIR__.'/../../../resources/views/common' => resource_path('views/vendor/lara-common'),
