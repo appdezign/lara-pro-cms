@@ -38,6 +38,8 @@ return new class extends Migration
             $table->unsignedInteger('rgt')->nullable();
             $table->unsignedInteger('depth')->default(0);
             $table->unsignedInteger('position')->default(0);
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('locked_by');
 
             $table->index(['lft', 'rgt', 'parent_id'], 'lara_menu_menu_items__lft__rgt_parent_id_index');
         });

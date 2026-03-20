@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreign(['menu_id'], 'lara_menu_menu_items_ibfk_1')->references(['id'])->on('lara_menu_menus')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['entity_id'], 'lara_menu_menu_items_ibfk_2')->references(['id'])->on('lara_resource_entities')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['entity_view_id'], 'lara_menu_menu_items_ibfk_3')->references(['id'])->on('lara_resource_entity_views')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign(['locked_by'], 'lara_menu_menu_items_ibfk_4')->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->dropForeign('lara_menu_menu_items_ibfk_1');
             $table->dropForeign('lara_menu_menu_items_ibfk_2');
             $table->dropForeign('lara_menu_menu_items_ibfk_3');
+            $table->dropForeign('lara_menu_menu_items_ibfk_4');
         });
     }
 };

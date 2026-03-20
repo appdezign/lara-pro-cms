@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('guard_name');
             $table->boolean('has_panel_access')->default(false);
+            $table->integer('level')->nullable();
             $table->timestamps();
 
             $table->unique(['name', 'guard_name'], 'roles_name_guard_name_unique');

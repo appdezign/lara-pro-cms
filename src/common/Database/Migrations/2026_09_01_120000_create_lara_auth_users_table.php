@@ -16,18 +16,22 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique('users_email_unique');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
+            $table->string('firstname')->nullable();
+            $table->string('middlename')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('displayname')->nullable();
+            $table->text('biography')->nullable();
             $table->string('locale');
             $table->string('password');
             $table->rememberToken();
-            $table->string('api_token');
+            $table->string('api_token')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->softDeletes();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('last_renew_password_at')->nullable();
             $table->boolean('force_renew_password')->default(false);
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('locked_by');
         });
     }
 

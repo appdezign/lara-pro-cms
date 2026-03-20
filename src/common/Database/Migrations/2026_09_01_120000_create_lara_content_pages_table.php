@@ -20,10 +20,11 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->boolean('slug_lock')->default(false);
             $table->text('body')->nullable();
+            $table->boolean('ishome')->default(false);
+            $table->json('bricks')->nullable();
             $table->text('body3')->nullable();
             $table->text('body2')->nullable();
             $table->string('menuroute')->nullable();
-            $table->boolean('ishome')->default(false);
             $table->string('template')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +35,8 @@ return new class extends Migration
             $table->boolean('publish_hide')->default(false);
             $table->integer('position')->default(0);
             $table->string('cgroup')->nullable();
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('lara_content_pages_locked_by_foreign');
         });
     }
 

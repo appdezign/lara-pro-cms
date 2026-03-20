@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('resource_locks', function (Blueprint $table) {
-            $table->foreign(['user_id'])->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
+        Schema::table('lara_sys_settings', function (Blueprint $table) {
+            $table->foreign(['locked_by'], 'lara_sys_settings_ibfk_1')->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('resource_locks', function (Blueprint $table) {
-            $table->dropForeign('resource_locks_user_id_foreign');
+        Schema::table('lara_sys_settings', function (Blueprint $table) {
+            $table->dropForeign('lara_sys_settings_ibfk_1');
         });
     }
 };
