@@ -3,13 +3,22 @@
 return [
 
 	'rich_editor' => [
-		'toolbar_buttons' => [
-			['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'highlight', 'textColor', 'link'],
-			['h1', 'h2', 'h3', 'small', 'alignStart', 'alignCenter', 'alignEnd', 'alignJustify'],
-			['blockquote', 'codeBlock', 'horizontalRule', 'bulletList', 'orderedList'],
-			['table', 'grid', 'gridDelete', 'attachFiles', 'attachCuratorMedia', 'details', 'customBlocks'],
-			['clearFormatting', 'undo', 'redo'],
-			['sourceCode', 'fullscreen'],
+		'full' => [
+			'toolbar_buttons' => [
+				['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'highlight', 'textColor', 'link'],
+				['h1', 'h2', 'h3', 'small', 'alignStart', 'alignCenter', 'alignEnd', 'alignJustify'],
+				['blockquote', 'codeBlock', 'horizontalRule', 'bulletList', 'orderedList'],
+				['table', 'grid', 'gridDelete', 'attachFiles', 'attachCuratorMedia', 'details', 'customBlocks'],
+				['clearFormatting', 'undo', 'redo'],
+				['sourceCode', 'fullscreen'],
+			],
+		],
+		'minimal' => [
+			'toolbar_buttons' => [
+				['bold', 'italic', 'underline', 'strike', 'link'],
+				['clearFormatting', 'undo', 'redo'],
+				['sourceCode', 'fullscreen'],
+			],
 		],
 
 		'custom_blocks' => [

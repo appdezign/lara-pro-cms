@@ -2,7 +2,7 @@
 
 return [
 
-	'lara_front_bootstrap_version' => env('LARA_FRONT_BS_VERSION', 5),
+	'lara_front_platform' => env('LARA_FRONT_PLATFORM', 'tailwind'), // tainwind, bootstrap
 
 	'asset_theme_path' => 'assets/themes/',
 
