@@ -126,13 +126,11 @@ trait HasMigrations
 			'breezy_sessions',
 			'cache',
 			'cache_locks',
-			'curator',
 			'failed_jobs',
 			'health_check_result_history_items',
 			'job_batches',
 			'jobs',
 			'migrations',
-			'resource_locks',
 			'sessions',
 		];
 		foreach ($tables as $tablename) {
