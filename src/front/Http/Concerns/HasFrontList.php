@@ -279,7 +279,7 @@ trait HasFrontList
 
 					$activeTags = $activeroute->getActiveTags();
 					$term = end($activeTags);
-					$excludeEntityTags = config('lara-eve.use_tags_for_sorting.' . $entity->getResourceSlug());
+					$excludeEntityTags = config('lara-app.use_tags_for_sorting.' . $entity->getResourceSlug());
 					$excludeTags = (!empty($excludeEntityTags)) ? $excludeEntityTags : [];
 					if (!in_array($term, $excludeTags)) {
 						$collection = $collection->whereHas('terms', function ($query) use ($term) {
@@ -382,7 +382,7 @@ trait HasFrontList
 	private function getFrontOverride($entity)
 	{
 
-		$frontOverride = config('lara-eve.override_front_entity_objects');
+		$frontOverride = config('lara-app.override_front_entity_objects');
 		if (empty($frontOverride)) {
 			return null;
 		}

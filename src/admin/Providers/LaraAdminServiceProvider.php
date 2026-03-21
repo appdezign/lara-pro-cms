@@ -33,7 +33,6 @@ class LaraAdminServiceProvider extends ServiceProvider
 
 		// Merge config
 		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-admin.php', 'lara-admin');
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-eve.php', 'lara-eve');
 
 		// Publish Config
 		$this->publishes([
