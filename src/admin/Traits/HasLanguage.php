@@ -15,6 +15,11 @@ trait HasLanguage
 	public static function getContentLanguage(): string
 	{
 		$default = config('lara.content_language.default_language');
+
+		if(empty($default)) {
+			$default = config('app.locale');
+		}
+
 		return static::getRequestParam('clanguage', $default);
 	}
 }

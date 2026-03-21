@@ -36,19 +36,19 @@ class LaraFrontServiceProvider extends ServiceProvider
 	public function boot()
 	{
 
+		// Merge config
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-front.php', 'lara-front');
+
 		// Publish Config
 		$this->publishes([
 			__DIR__ . '/../../../config/lara-front.php' => config_path('lara-front.php'),
 		], 'lara');
 
+		// Publish Views
+		$this->loadViewsFrom(__DIR__.'/../../../resources/views/front', 'lara-front');
+
 		// Load Translations
 		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-front', 'lara-front');
-
-		// Publish Views
-		$this->publishes([
-			__DIR__.'/../../../resources/views/front' => resource_path('views/vendor/lara-front'),
-		], 'laraviews');
-		$this->loadViewsFrom(__DIR__.'/../../../resources/views/front', 'lara-front');
 
 		// register components
 		Blade::component('frontformrow', FrontFormRowComponent::class);
