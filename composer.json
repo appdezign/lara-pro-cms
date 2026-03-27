@@ -24,7 +24,7 @@
 		"barryvdh/laravel-httpcache": "^1.0",
 		"bezhansalleh/filament-google-analytics": "^3.0",
 		"binafy/laravel-stub": "^1.1",
-		"composer/installers": "~1.0",
+		"composer/installers": "^1.0|^2.0",
 		"cviebrock/eloquent-sluggable": "^12.0",
 		"davidhsianturi/blade-bootstrap-icons": "^2.1",
 		"filament/filament": "^5.0",
