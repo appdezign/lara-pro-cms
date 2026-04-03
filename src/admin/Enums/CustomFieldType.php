@@ -40,8 +40,6 @@ enum CustomFieldType: string implements HasLabel
 	case TIME = 'time';
 	case DATE_TIME = 'datetime';
 
-	case MASON = 'mason';
-
 	public function getLabel(): ?string
 	{
 		return match ($this) {
@@ -79,8 +77,6 @@ enum CustomFieldType: string implements HasLabel
 			self::DATE => 'Date',
 			self::TIME => 'Time',
 			self::DATE_TIME => 'Date Time',
-
-			self::MASON => 'Mason',
 		};
 	}
 
@@ -104,8 +100,7 @@ enum CustomFieldType: string implements HasLabel
 			CustomFieldType::CHECKBOX_LIST,
 			CustomFieldType::MULTI_TOGGLE_BUTTONS,
 			CustomFieldType::TAGS_INPUT,
-			CustomFieldType::MULTI_SELECT,
-			CustomFieldType::MASON => 'json',
+			CustomFieldType::MULTI_SELECT => 'json',
 			CustomFieldType::LATITUDE,
 			CustomFieldType::LONGITUDE,
 			CustomFieldType::DECIMAL101,
@@ -146,8 +141,7 @@ enum CustomFieldType: string implements HasLabel
 			CustomFieldType::GEOLOCATION,
 			CustomFieldType::DATE,
 			CustomFieldType::TIME,
-			CustomFieldType::DATE_TIME,
-			CustomFieldType::MASON => false,
+			CustomFieldType::DATE_TIME => false,
 		};
 	}
 
