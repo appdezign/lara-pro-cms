@@ -276,7 +276,7 @@ class FormController extends Controller
 		$maildata->from->name = $company->company_name;
 
 		// subject
-		$maildata->subject = _q('lara-eve::' . $this->entity->getResourceSlug() . '.email.subject');
+		$maildata->subject = _q('lara-app::' . $this->entity->getResourceSlug() . '.email.subject');
 
 		// style
 		$maildata->style = json_decode(json_encode(config('lara-front.mail')), false);
@@ -302,7 +302,7 @@ class FormController extends Controller
 				$fieldvalue = $request->input($fieldname);
 			}
 			$maildata->content->data->$fieldname = [
-				'colname' => _q('lara-eve::' . $this->entity->getResourceSlug() . '.column.' . $fieldname),
+				'colname' => _q('lara-app::' . $this->entity->getResourceSlug() . '.column.' . $fieldname),
 				'colval'  => $fieldvalue,
 			];
 		}
