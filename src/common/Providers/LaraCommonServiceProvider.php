@@ -2,8 +2,6 @@
 
 namespace Lara\Common\Providers;
 
-use Barryvdh\HttpCache\Middleware\CacheRequests;
-use Barryvdh\HttpCache\Middleware\SetTtl;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
@@ -75,9 +73,6 @@ class LaraCommonServiceProvider extends ServiceProvider
 		$router->aliasMiddleware('localeViewPath', LaravelLocalizationViewPath::class);
 
 		// $router->aliasMiddleware('setTheme', setTheme::class);
-
-		$router->aliasMiddleware('httpcache', CacheRequests::class);
-		$router->aliasMiddleware('ttl', SetTtl::class);
 
 		Gate::policy(Models\Cta::class, Policies\CtaPolicy::class);
 		Gate::policy(Models\Entity::class, Policies\EntityPolicy::class);

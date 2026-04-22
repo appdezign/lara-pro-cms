@@ -20,7 +20,6 @@
 		"awcodes/filament-curator": "^5.0",
 		"awcodes/filament-versions": "^4.0",
 		"awcodes/richer-editor": "^2.0",
-		"barryvdh/laravel-httpcache": "^1.0",
 		"bezhansalleh/filament-google-analytics": "^3.0",
 		"binafy/laravel-stub": "^1.1",
 		"composer/installers": "^2.0",
