@@ -1,7 +1,7 @@
 {
     "name": "appdezign/lara-pro-cms",
     "description": "Lara Pro CMS",
-	"version": "10.5.5",
+	"version": "10.5.6",
     "keywords": ["Lara", "CMS"],
     "license": "proprietary",
     "homepage": "https://firmaq.nl",
@@ -24,7 +24,7 @@
 		"bezhansalleh/filament-google-analytics": "^3.0",
 		"binafy/laravel-stub": "^1.1",
 		"composer/installers": "^2.0",
-		"cviebrock/eloquent-sluggable": "^12.0",
+		"cviebrock/eloquent-sluggable": "^12.0|^13.0",
 		"davidhsianturi/blade-bootstrap-icons": "^2.1",
 		"filament/filament": "^5.0",
 		"filament/spatie-laravel-google-fonts-plugin": "^5.0",
