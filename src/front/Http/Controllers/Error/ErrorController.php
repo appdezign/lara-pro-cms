@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\View\View;
-use Jenssegers\Agent\Agent;
+
 use Lara\Common\Models\Page;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\User;
@@ -45,7 +45,6 @@ class ErrorController extends Controller
 	protected ?string $language;
 	protected ?object $data;
 	protected ?object $globalwidgets;
-	protected bool $ismobile;
 	protected bool $ispreview;
 
 	public function __construct()
@@ -81,16 +80,11 @@ class ErrorController extends Controller
 			// get global widgets
 			$this->globalwidgets = $this->getGlobalWidgets($this->language);
 
-			// get agent
-			$agent = new Agent();
-			$this->ismobile = $agent->isMobile();
-
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
 				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
-				view()->share('ismobile', $this->ismobile);
 				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
 				view()->share('activemenu', $this->getActiveMenuArray());

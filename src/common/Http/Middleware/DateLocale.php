@@ -6,8 +6,6 @@ use Closure;
 
 use LaravelLocalization;
 
-// use Jenssegers\Date\Date;
-
 use Carbon\Carbon;
 
 class DateLocale {
