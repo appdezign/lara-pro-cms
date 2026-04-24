@@ -251,7 +251,7 @@ class FormController extends Controller
 
 		// visitor
 		if($request->has('email')) {
-			$user = $app->make('stdClass');
+			$user = new stdClass;
 			$user->email = $request->input('email');
 			if ($request->has('name')) {
 				$user->name = $request->input('name');
@@ -261,7 +261,7 @@ class FormController extends Controller
 		}
 
 		// webmaster
-		$webmaster = $app->make('stdClass');
+		$webmaster = new stdClass;
 		if (config('app.env') == 'production') {
 			$webmaster->email = $company->company_email;
 			$webmaster->name = $company->company_name;
@@ -271,7 +271,7 @@ class FormController extends Controller
 		}
 
 		// from
-		$maildata->from = $app->make('stdClass');
+		$maildata->from = new stdClass;
 		$maildata->from->email = $company->company_email;
 		$maildata->from->name = $company->company_name;
 
@@ -283,15 +283,15 @@ class FormController extends Controller
 
 		// Content
 		$intro = $this->getEmailPageContent($this->language, $this->entity->getResourceSlug());
-		$maildata->content = $app->make('stdClass');
+		$maildata->content = new stdClass;
 		$maildata->content->title = $intro->title;
 		$maildata->content->lead = $intro->lead;
 		$maildata->content->body = strip_tags($intro->body);
 
 		// dynamic content
-		$maildata->content->data = $app->make('stdClass');
+		$maildata->content->data = new stdClass;
 		foreach ($this->entity->getCustomColumns() as $field) {
-			$fieldname = $field->fieldname;
+			$fieldname = $field->field_name;
 			if($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
 				if($request->input($fieldname) == 1) {
 					$fieldvalue = _q('lara-admin::default.value.yes');
@@ -300,6 +300,9 @@ class FormController extends Controller
 				}
 			} else {
 				$fieldvalue = $request->input($fieldname);
+				if (is_array($fieldvalue)) {
+					$fieldvalue = implode(', ', $fieldvalue);
+				}
 			}
 			$maildata->content->data->$fieldname = [
 				'colname' => _q('lara-app::' . $this->entity->getResourceSlug() . '.column.' . $fieldname),
@@ -317,7 +320,6 @@ class FormController extends Controller
 		$maildata->view = 'email.' . $this->entity->getResourceSlug() . '.webmaster';
 		$mlr = (config('app.env') == 'production') ? 'smtp' : 'dev';
 		Mail::mailer($mlr)->to($webmaster)->queue(new MailConfirmation($maildata));
-
 
 	}
 

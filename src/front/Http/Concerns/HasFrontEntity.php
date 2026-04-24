@@ -2,7 +2,6 @@
 
 namespace Lara\Front\Http\Concerns;
 
-
 use Lara\Common\Lara\LaraEntity;
 use Lara\Common\Models\MenuItem;
 use Lara\Front\Http\Lara\FrontActiveRoute;
@@ -23,7 +22,7 @@ trait HasFrontEntity
 		$route = $this->prepareFrontRoute($routename);
 		$lara = $this->getLaraClass($route->resource_slug);
 
-		if(class_exists($lara)) {
+		if (class_exists($lara)) {
 			return new $lara;
 		} else {
 			return null;
@@ -55,10 +54,10 @@ trait HasFrontEntity
 
 		$entityRoute->setActiveRoute($routename);
 
-		if(isset($route->tagless_menu_id)) {
+		if (isset($route->tagless_menu_id)) {
 
 			$singleRoute = $route->prefix . '.' . $route->resource_slug . '.' . $route->tagless_menu_id;
-			foreach($route->activetags as $activeTag) {
+			foreach ($route->activetags as $activeTag) {
 				$singleRoute .= '.' . $activeTag;
 			}
 			$singleRoute .= '.index.show';
@@ -151,16 +150,18 @@ trait HasFrontEntity
 
 			} else {
 
-				if($parts[0] == 'content') {
+				if ($parts[0] == 'content') {
 					$route = $this->getContentRoute($routename, $parts);
-				} elseif($parts[0] == 'contenttag') {
+				} elseif ($parts[0] == 'contenttag') {
 					$route = $this->getContentTagRoute($routename, $parts);
-				} elseif($parts[0] == 'entity') {
+				} elseif ($parts[0] == 'entity') {
 					$route = $this->getEntityRoute($routename, $parts);
 				} elseif ($parts[0] == 'entitytag') {
 					$route = $this->getEntityTagRoute($routename, $parts);
-				}elseif ($parts[0] == 'form') {
+				} elseif ($parts[0] == 'form') {
 					$route = $this->getFormRoute($routename, $parts);
+				} elseif ($parts[0] == 'ajax') {
+					$route = $this->getAjaxFormRoute($routename, $parts);
 				}
 
 			}
@@ -171,7 +172,8 @@ trait HasFrontEntity
 
 	}
 
-	private function getContentTagRoute($routename, $parts) {
+	private function getContentTagRoute($routename, $parts)
+	{
 
 		$route = new stdClass();
 
@@ -190,10 +192,12 @@ trait HasFrontEntity
 				$route->activetags[] = $parts[$i];
 			}
 		}
+
 		return $route;
 	}
 
-	private function getEntityTagRoute($routename, $parts) {
+	private function getEntityTagRoute($routename, $parts)
+	{
 
 		$route = new stdClass();
 
@@ -214,13 +218,13 @@ trait HasFrontEntity
 		}
 
 		$menuItem = MenuItem::find($route->menu_id);
-		if($menuItem && $menuItem->tag_id) {
+		if ($menuItem && $menuItem->tag_id) {
 			// find parent menu id
 			$parentMenuItem = MenuItem::where('entity_id', $menuItem->entity_id)
 				->where('entity_view_id', $menuItem->entity_view_id)
 				->whereNull('tag_id')
 				->first();
-			if($parentMenuItem) {
+			if ($parentMenuItem) {
 				$route->tagless_menu_id = $parentMenuItem->id;
 			} else {
 				dd('create parent menu item');
@@ -230,7 +234,8 @@ trait HasFrontEntity
 		return $route;
 	}
 
-	private function getContentRoute($routename, $parts) {
+	private function getContentRoute($routename, $parts)
+	{
 
 		$route = new stdClass();
 
@@ -261,7 +266,8 @@ trait HasFrontEntity
 		return $route;
 	}
 
-	private function getEntityRoute($routename, $parts) {
+	private function getEntityRoute($routename, $parts)
+	{
 
 		$route = new stdClass();
 
@@ -292,9 +298,8 @@ trait HasFrontEntity
 		return $route;
 	}
 
-
-
-	private function getFormRoute($routename, $parts) {
+	private function getFormRoute($routename, $parts)
+	{
 
 		$route = new stdClass();
 
@@ -305,7 +310,20 @@ trait HasFrontEntity
 		return $route;
 	}
 
-	private function getErrorRoute($parts) {
+	private function getAjaxFormRoute($routename, $parts)
+	{
+
+		$route = new stdClass();
+
+		if (sizeof($parts) == 3) {
+			list($route->prefix, $route->resource_slug, $route->method) = explode('.', $routename);
+		}
+
+		return $route;
+	}
+
+	private function getErrorRoute($parts)
+	{
 
 		$route = new stdClass();
 
@@ -316,7 +334,8 @@ trait HasFrontEntity
 		return $route;
 	}
 
-	private function getSpecialRoute($parts) {
+	private function getSpecialRoute($parts)
+	{
 
 		$route = new stdClass();
 
@@ -342,7 +361,8 @@ trait HasFrontEntity
 
 	}
 
-	private function getDefaultRoute() {
+	private function getDefaultRoute()
+	{
 
 		$route = new stdClass();
 
