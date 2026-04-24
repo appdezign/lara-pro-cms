@@ -3,7 +3,7 @@
 namespace Lara\Admin\Traits;
 
 use Lara\Admin\Enums\LayoutSections;
-use Qirolab\Theme\Theme;
+use Lara\Front\LaraTheme\Theme;
 
 trait HasLayout
 {

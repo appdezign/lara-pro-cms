@@ -5,7 +5,7 @@ namespace Lara\Front\Http\Concerns;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\File;
 use Lara\Front\Http\Lara\FrontActiveRoute;
-use Qirolab\Theme\Theme;
+use Lara\Front\LaraTheme\Theme;
 
 use stdClass;
 

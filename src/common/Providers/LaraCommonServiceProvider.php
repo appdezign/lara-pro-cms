@@ -47,13 +47,8 @@ class LaraCommonServiceProvider extends ServiceProvider
 	public function boot(\Illuminate\Routing\Router $router)
 	{
 
-		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara.php', 'lara');
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-common.php', 'lara-common');
-
 		// Publish Config
 		$this->publishes([
-			__DIR__ . '/../../../config/lara.php' => config_path('lara.php'),
 			__DIR__ . '/../../../config/lara-common.php' => config_path('lara-common.php'),
 		], 'lara');
 
@@ -74,8 +69,6 @@ class LaraCommonServiceProvider extends ServiceProvider
 		$router->aliasMiddleware('localizationRedirect', LaravelLocalizationRedirectFilter::class);
 		$router->aliasMiddleware('localeSessionRedirect', LocaleSessionRedirect::class);
 		$router->aliasMiddleware('localeViewPath', LaravelLocalizationViewPath::class);
-
-		// $router->aliasMiddleware('setTheme', setTheme::class);
 
 		$router->aliasMiddleware('cacheResponse', CacheResponse::class);
 		$router->aliasMiddleware('doNotCacheResponse', DoNotCacheResponse::class);
@@ -129,6 +122,11 @@ class LaraCommonServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
+
+		// Merge config
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara.php', 'lara');
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-common.php', 'lara-common');
+
 		// set media path for Glide (awcodes/curator)
 		Glide::basePath('glide');
 
