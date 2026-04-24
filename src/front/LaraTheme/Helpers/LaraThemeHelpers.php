@@ -1,10 +1,10 @@
 <?php
 
-namespace Lara\Front\Helpers;
+namespace Lara\Front\LaraTheme\Helpers;
 
-use Qirolab\Theme\Theme;
+use Lara\Front\LaraTheme\Theme;
 
-class LaraTheme
+class LaraThemeHelpers
 {
     public function url($str = null)
     {
