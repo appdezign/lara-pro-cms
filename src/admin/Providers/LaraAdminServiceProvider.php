@@ -31,9 +31,6 @@ class LaraAdminServiceProvider extends ServiceProvider
 	public function boot()
 	{
 
-		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-admin.php', 'lara-admin');
-
 		// Publish Config
 		$this->publishes([
 			__DIR__ . '/../../../config/lara-admin.php' => config_path('lara-admin.php'),
@@ -92,6 +89,8 @@ class LaraAdminServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		//
+		// Merge config
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-admin.php', 'lara-admin');
+
 	}
 }

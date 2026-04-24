@@ -8,6 +8,9 @@ return [
 
 	'needs_setup' => env('LARA_NEEDS_SETUP', false),
 
+	'admin_company_name'  => 'Firmaq Beheer',
+	'admin_company_email' => 'beheer@firmaq.nl',
+
 	'google_maps_api_key'      => env('GOOGLE_MAPS_API_KEY'),
 	'google_translate_api_key' => env('GOOGLE_TRANSLATE_API_KEY'),
 	'google_recaptcha_site_key'   => env('GOOGLE_RECAPTCHA_SITE_KEY'),

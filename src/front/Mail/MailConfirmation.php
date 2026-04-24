@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Lara\Front\Http\Concerns\HasTheme;
 
 // use Theme;
-use Qirolab\Theme\Theme;
+use Lara\Front\LaraTheme\Theme;
 
 class MailConfirmation extends Mailable {
 
@@ -31,11 +31,6 @@ class MailConfirmation extends Mailable {
 	 */
 	public function __construct(object $maildata) {
 
-		// BS5
-		$theme = $this->getFrontTheme();
-		$parent = $this->getParentTheme();
-		Theme::set($theme, $parent);
-
 		$this->maildata = $maildata;
 
 	}
@@ -46,6 +41,10 @@ class MailConfirmation extends Mailable {
 	 * @return $this
 	 */
 	public function build() {
+
+		$theme = $this->getFrontTheme();
+		$parent = $this->getParentTheme();
+		Theme::set($theme, $parent);
 
 		if(property_exists($this->maildata, 'attachment') & !empty($this->maildata->attachment)) {
 
