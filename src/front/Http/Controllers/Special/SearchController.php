@@ -22,8 +22,6 @@ use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
-use Jenssegers\Agent\Agent;
-
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
@@ -64,10 +62,6 @@ class SearchController extends Controller
 	 */
 	protected $data;
 
-	/**
-	 * @var bool
-	 */
-	protected $ismobile;
 
 	/**
 	 * @var object
@@ -104,16 +98,11 @@ class SearchController extends Controller
 			// get global widgets
 			$this->globalwidgets = $this->getGlobalWidgets($this->language);
 
-			// get agent
-			$agent = new Agent();
-			$this->ismobile = $agent->isMobile();
-
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
 				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
-				view()->share('ismobile', $this->ismobile);
 				view()->share('globalwidgets', $this->globalwidgets);
 				view()->share('firstpageload', $this->getFirstPageLoad());
 

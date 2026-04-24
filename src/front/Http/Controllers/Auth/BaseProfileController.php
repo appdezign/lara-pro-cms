@@ -19,8 +19,6 @@ use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
-use Jenssegers\Agent\Agent;
-
 use LaravelLocalization;
 
 use stdClass;
@@ -43,7 +41,6 @@ class BaseProfileController extends Controller
 	protected ?string $language;
 	protected ?object $data;
 	protected ?object $globalwidgets;
-	protected bool $ismobile;
 
 	public function __construct()
 	{
@@ -80,16 +77,11 @@ class BaseProfileController extends Controller
 			// get global widgets
 			$this->globalwidgets = $this->getGlobalWidgets($this->language);
 
-			// get agent
-			$agent = new Agent();
-			$this->ismobile = $agent->isMobile();
-
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
 				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
-				view()->share('ismobile', $this->ismobile);
 				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
 
