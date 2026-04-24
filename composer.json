@@ -39,7 +39,7 @@
 		"njxqlus/filament-relation-manager-component": "^2.0",
 		"orangehill/iseed": "^3.1",
 		"shuvroroy/filament-spatie-laravel-health": "^3.1",
-		"spatie/geocoder": "^3.16",
+		"spatie/geocoder": "^3.16|^4.0",
 		"spatie/laravel-health": "^1.34",
 		"spatie/laravel-honeypot": "^4.6",
 		"spatie/laravel-html": "^3.12",
