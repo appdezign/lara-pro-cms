@@ -50,7 +50,7 @@ class EditForm extends EditRecord
 		$this->checkExtraDatabaseColumns($this->record);
 
 		// refresh route cache
-		session(['laracacheclear' => ['http_cache', 'route_cache']]);
+		session(['laracacheclear' => ['response_cache', 'route_cache']]);
 
 	}
 

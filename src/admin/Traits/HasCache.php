@@ -13,7 +13,7 @@ trait HasCache
 				'app_cache',
 				'config_cache',
 				'view_cache',
-				'http_cache',
+				'response_cache',
 				'route_cache',
 			];
 

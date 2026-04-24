@@ -32,16 +32,16 @@ class ClearCache extends Component implements HasSchemas
 				CheckboxList::make('cache_types')
 					->label(_q('lara-admin::cache.column.cache_types', true))
 					->options([
-						'app_cache'    => 'Application cache',
-						'config_cache' => 'Config cache',
-						'view_cache'   => 'View cache',
-						'http_cache'   => 'Http cache',
-						'route_cache'  => 'Route cache',
+						'app_cache'      => 'Application cache',
+						'config_cache'   => 'Config cache',
+						'view_cache'     => 'View cache',
+						'response_cache' => 'Response cache',
+						'route_cache'    => 'Route cache',
 					])
 					->bulkToggleable()
 					->afterStateHydrated(function ($component, $state) {
 						if (!filled($state)) {
-							$component->state(['app_cache','config_cache', 'view_cache', 'http_cache', 'route_cache']);
+							$component->state(['app_cache', 'config_cache', 'view_cache', 'response_cache', 'route_cache']);
 						}
 					}),
 			])
@@ -55,7 +55,7 @@ class ClearCache extends Component implements HasSchemas
 		$types = $state['cache_types'];
 		$result = static::clearCacheTypes($types, false);
 
-		if($result) {
+		if ($result) {
 			Notification::make()
 				->title(_q('lara-admin::cache.message.cache_cleared'))
 				->success()
@@ -68,7 +68,6 @@ class ClearCache extends Component implements HasSchemas
 				->warning()
 				->send();
 		}
-
 
 	}
 

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 
+// use Spatie\ResponseCache\Facades\ResponseCache;
+
 class LaraCacheController extends Controller
 {
 
@@ -31,8 +33,8 @@ class LaraCacheController extends Controller
 				File::cleanDirectory(storage_path('framework/views'));
 			}
 
-			if (in_array('http_cache', $types)) {
-				File::cleanDirectory(storage_path('httpcache'));
+			if (in_array('response_cache', $types)) {
+				// ResponseCache::clear();
 			}
 
 			if (in_array('route_cache', $types)) {
