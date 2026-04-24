@@ -37,7 +37,7 @@ if (!$laraNeedsSetup) {
 				$specialMiddleware[] = 'auth';
 			}
 
-			if (config('app.env') == 'local' && config('responsecache.enabled')) {
+			if (config('app.env') == 'production' && config('responsecache.enabled')) {
 				$specialMiddleware[] = 'cacheResponse';
 			}
 
