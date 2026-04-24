@@ -37,12 +37,9 @@ if (!$laraNeedsSetup) {
 				$specialMiddleware[] = 'auth';
 			}
 
-			/*
-			 * httpcache is deprecated
-			if (config('app.env') == 'production' && config('httpcache.enabled')) {
-				$specialMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
+			if (config('app.env') == 'local' && config('responsecache.enabled')) {
+				$specialMiddleware[] = 'cacheResponse';
 			}
-			*/
 
 			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 

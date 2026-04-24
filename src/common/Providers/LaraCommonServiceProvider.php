@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 use Lara\Common\Http\Middleware\DateLocale;
 use Lara\Common\Http\Middleware\Force2fa;
 use Lara\Common\Http\Middleware\HasBackendAccess;
@@ -24,7 +25,9 @@ use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 use PragmaRX\Google2FALaravel\Middleware;
 use Spatie\Permission\Models\Role;
 
-use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
+use Spatie\ResponseCache\Middlewares\CacheResponse;
+use Spatie\ResponseCache\Middlewares\DoNotCacheResponse;
+
 
 use Awcodes\Curator\CuratorPlugin;
 use Awcodes\Curator\Facades\Curator;
@@ -73,6 +76,9 @@ class LaraCommonServiceProvider extends ServiceProvider
 		$router->aliasMiddleware('localeViewPath', LaravelLocalizationViewPath::class);
 
 		// $router->aliasMiddleware('setTheme', setTheme::class);
+
+		$router->aliasMiddleware('cacheResponse', CacheResponse::class);
+		$router->aliasMiddleware('doNotCacheResponse', DoNotCacheResponse::class);
 
 		Gate::policy(Models\Cta::class, Policies\CtaPolicy::class);
 		Gate::policy(Models\Entity::class, Policies\EntityPolicy::class);

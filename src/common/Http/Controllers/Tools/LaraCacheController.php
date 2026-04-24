@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 
-// use Spatie\ResponseCache\Facades\ResponseCache;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 class LaraCacheController extends Controller
 {
@@ -34,7 +34,7 @@ class LaraCacheController extends Controller
 			}
 
 			if (in_array('response_cache', $types)) {
-				// ResponseCache::clear();
+				ResponseCache::clear();
 			}
 
 			if (in_array('route_cache', $types)) {
