@@ -50,7 +50,7 @@ class CreateMenuItem extends CreateRecord
 		static::processMenuNodes($this->record->language, $this->record->menu_id);
 
 		// refresh route cache
-		session(['laracacheclear' => ['http_cache', 'route_cache']]);
+		session(['laracacheclear' => ['response_cache', 'route_cache']]);
 
 	}
 

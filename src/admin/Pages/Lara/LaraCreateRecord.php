@@ -31,7 +31,7 @@ class LaraCreateRecord extends CreateRecord
 	protected function afterCreate(): void
 	{
 		// refresh route cache
-		session(['laracacheclear' => ['http_cache', 'route_cache']]);
+		session(['laracacheclear' => ['response_cache', 'route_cache']]);
 	}
 
     protected function getRedirectUrl(): string

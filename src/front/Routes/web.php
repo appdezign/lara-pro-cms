@@ -18,7 +18,7 @@ $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count(
 
 if (!$laraNeedsSetup) {
 
-	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'httpcache', 'throttle:60,1', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
+	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'throttle:60,1', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
 
 		$locale = LaravelLocalization::getCurrentLocale();
 
@@ -36,9 +36,14 @@ if (!$laraNeedsSetup) {
 			if ((isset($rootMenuItem->entity) && $rootMenuItem->entity->has_front_auth) == 1 || $rootMenuItem->route_has_auth) {
 				$specialMiddleware[] = 'auth';
 			}
+
+			/*
+			 * httpcache is deprecated
 			if (config('app.env') == 'production' && config('httpcache.enabled')) {
 				$specialMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
 			}
+			*/
+
 			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
 			// Search

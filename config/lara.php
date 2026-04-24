@@ -13,9 +13,6 @@ return [
 	'google_recaptcha_site_key'   => env('GOOGLE_RECAPTCHA_SITE_KEY'),
 	'google_recaptcha_secret_key' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
 
-	'httpcache_on_forms' => env('LARA_HTTPCACHE_ON_FORMS', false),
-	'httpcache_ttl'      => env('LARA_HTTPCACHE_TTL', 3600),
-
 	'auth' => [
 		'has_front_auth'     => env('LARA_AUTH_HAS_FRONT_AUTH', false),
 		'can_register'       => env('LARA_AUTH_CAN_REGISTER', false),

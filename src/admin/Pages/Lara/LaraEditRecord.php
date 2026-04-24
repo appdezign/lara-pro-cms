@@ -98,7 +98,7 @@ class LaraEditRecord extends EditRecord
 		static::replaceDefaultLayoutValues($this->record);
 
 		// refresh route cache
-		session(['laracacheclear' => ['http_cache', 'route_cache']]);
+		session(['laracacheclear' => ['response_cache', 'route_cache']]);
 
 	}
 
