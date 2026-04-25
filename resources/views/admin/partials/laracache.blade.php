@@ -52,12 +52,14 @@ if (sizeof($array) == 5) {
 					console.log(data.payload);
 				}
 			}).then(function () {
-				return $.ajax({
-					url: "/laracache/cache",
-					success: function (data) {
-						console.log(data.payload);
-					}
-				})
+				setTimeout(() => {
+					$.ajax({
+						url: "/laracache/cache",
+						success: function (data) {
+							console.log(data.payload);
+						}
+					})
+				}, 2000);
 			});
 		});
 	</script>
