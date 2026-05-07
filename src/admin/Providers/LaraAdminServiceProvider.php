@@ -20,8 +20,13 @@ use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
+use Lara\Front\Http\Concerns\HasTheme;
+use Lara\Front\LaraTheme\Theme;
+
 class LaraAdminServiceProvider extends ServiceProvider
 {
+
+	use HasTheme;
 
 	/**
 	 * Bootstrap the module services.
@@ -42,6 +47,10 @@ class LaraAdminServiceProvider extends ServiceProvider
 		// Load Translations
 		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-admin', 'lara-admin');
 
+		// Set theme, so we can load layout.xml
+		$theme = $this->getFrontTheme();
+		$parent = $this->getParentTheme();
+		Theme::set($theme, $parent);
 
 		// Implicitly grant "Super Admin" role all permissions
 		// This works in the app by using gate-related functions like auth()->user->can() and @can()
