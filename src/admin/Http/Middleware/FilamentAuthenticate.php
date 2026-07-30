@@ -34,7 +34,7 @@ class FilamentAuthenticate extends Middleware
 	        app()->setLocale($locale);
         }
 
-        $panel = Filament::getCurrentPanel();
+        $panel = Filament::getCurrentPanel() ?? Filament::getPanel('admin');
 
         abort_if(
             $user instanceof FilamentUser ?
