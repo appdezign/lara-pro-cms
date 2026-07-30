@@ -62,6 +62,8 @@ use Lara\Admin\Traits\HasParams;
 use Lara\Admin\Widgets\Analytics;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 
+use Lara\App\Filament\Navigation\HasCustomNavigation;
+use Lara\App\Filament\Enums\CustomNavGroup;
 
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Forms\RichEditor\AttachCuratorMediaPlugin;
@@ -76,11 +78,12 @@ use Jeffgreco13\FilamentBreezy\BreezyCore;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
 
-
 class AdminPanelProvider extends PanelProvider
 {
 	use HasLanguage;
 	use HasParams;
+
+	use HasCustomNavigation;
 
 	protected static ?string $clanguage = null;
 
@@ -158,6 +161,7 @@ class AdminPanelProvider extends PanelProvider
 			->authMiddleware([
 				FilamentAuthenticate::class,
 			])
+			->navigationItems(static::getCustomNavigation())
 			->viteTheme('laracms/core/resources/css/theme.css', 'assets/admin/build');
 
 	}
@@ -412,6 +416,22 @@ class AdminPanelProvider extends PanelProvider
 				->icon($navGroup->getIcon())
 				->collapsed();
 
+		}
+
+		if(config('lara-admin.has_custom_routes')) {
+			foreach (CustomNavGroup::cases() as $navGroup) {
+
+				$rows[] = NavigationGroup::make()
+					->label($navGroup->getLabelNl())
+					->icon($navGroup->getIcon())
+					->collapsed();
+
+				$rows[] = NavigationGroup::make()
+					->label($navGroup->getLabelEn())
+					->icon($navGroup->getIcon())
+					->collapsed();
+
+			}
 		}
 
 		return $rows;
