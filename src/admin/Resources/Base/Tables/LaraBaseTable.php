@@ -11,6 +11,8 @@ use Lara\Admin\Resources\Base\Concerns\HasTableCustomColumns;
 use Lara\Admin\Resources\Base\Concerns\HasTableFilters;
 use Lara\Admin\Resources\Base\Concerns\HasTableQuery;
 
+use Usamamuneerchaudhary\FilaRank\Tables\SeoScoreColumn;
+
 trait LaraBaseTable
 {
 
@@ -26,7 +28,7 @@ trait LaraBaseTable
 
 		if (static::getEntity()->show_batch == 0) {
 			$columns[] = TextColumn::make('id')
-				->label(_q('lara-admin::default.column.id'))
+				->label(_q('lara-admin::default.tablecolumn.id'))
 				->width('5%')
 				->numeric()
 				->toggleable()
@@ -35,7 +37,7 @@ trait LaraBaseTable
 		}
 
 		$columns[] = IconColumn::make('publish')
-			->label(_q('lara-admin::default.column.publish'))
+			->label(_q('lara-admin::default.tablecolumn.publish'))
 			->width('5%')
 			->toggleable()
 			->boolean()
@@ -47,7 +49,7 @@ trait LaraBaseTable
 		$customDateColumn = static::getCustomDateColumn();
 		if ($customDateColumn) {
 			$columns[] = TextColumn::make($customDateColumn->field_name)
-				->label(_q(static::getModule() . '::' . static::getSlug() . '.column.' . $customDateColumn->field_name))
+				->label(_q(static::getModule() . '::' . static::getSlug() . '.tablecolumn.' . $customDateColumn->field_name))
 				->width('15%')
 				->toggleable()
 				->dateTime('j M Y')
@@ -55,7 +57,7 @@ trait LaraBaseTable
 				->visibleFrom('2xl');
 		} else {
 			$columns[] = TextColumn::make('publish_from')
-				->label(_q('lara-admin::default.column.publish_from'))
+				->label(_q('lara-admin::default.tablecolumn.publish_from'))
 				->width('15%')
 				->toggleable()
 				->dateTime('j M Y')
@@ -70,10 +72,16 @@ trait LaraBaseTable
 		}
 
 		$columns[] = TextColumn::make('title')
-			->label(_q(static::getModule() . '::' . static::getSlug() . '.column.title'))
-			->width('40%')
+			->label(_q(static::getModule() . '::' . static::getSlug() . '.tablecolumn.title'))
+			->width('30%')
+			->limit(40)
 			->sortable()
 			->searchable();
+
+		$columns[] = SeoScoreColumn::make()
+			->label(_q('lara-admin::default.tablecolumn.seo'))
+			->width('10%')
+			->visibleFrom('2xl');
 
 		foreach (static::getCustomColumnsByHook(EntityHook::AFTER_TITLE->value) as $customField) {
 			if (!empty(static::getFilamentColumn($customField))) {
@@ -134,13 +142,13 @@ trait LaraBaseTable
 
 		if (static::resourceHasGroups()) {
 			$columns[] = TextColumn::make('cgroup')
-				->label(_q('lara-admin::default.column.cgroup'))
+				->label(_q('lara-admin::default.tablecolumn.cgroup'))
 				->width('10%')
 				->toggleable()
 				->visibleFrom('2xl');
 		} elseif (static::resourceHasTerms()) {
 			$columns[] = TextColumn::make('terms')
-				->label(_q('lara-admin::default.column.terms'))
+				->label(_q('lara-admin::default.tablecolumn.terms'))
 				->width('10%')
 				->toggleable()
 				->getStateUsing(function ($record) {
@@ -151,7 +159,7 @@ trait LaraBaseTable
 				->visibleFrom('2xl');
 		} else {
 			$columns[] = TextColumn::make('user.name')
-				->label(_q('lara-admin::default.column.user_id'))
+				->label(_q('lara-admin::default.tablecolumn.user_id'))
 				->width('10%')
 				->toggleable()
 				->visibleFrom('2xl');

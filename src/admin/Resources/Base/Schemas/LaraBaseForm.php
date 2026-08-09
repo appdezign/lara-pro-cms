@@ -20,6 +20,7 @@ use Lara\Admin\Resources\Base\Concerns\HasSeoSection;
 use Lara\Admin\Resources\Base\Concerns\HasStatusSection;
 use Lara\Admin\Resources\Base\Concerns\HasSyncSection;
 use Lara\Admin\Resources\Base\Concerns\HasTagSection;
+use Lara\Admin\Resources\Base\Concerns\HasFilaRankFields;
 
 trait LaraBaseForm
 {
@@ -164,27 +165,9 @@ trait LaraBaseForm
 			->collapsible()
 			->schema(static::getContentSection());
 
-		if (static::resourceShowOpengraph()) {
-			$sections[] = Section::make(_q('lara-admin::default.section.opengraph', true))
-				->schema(static::getOpenGraphSection())
-				->visible(fn(string $operation) => $operation === 'edit');
-		}
-
-		if (static::resourceShowOpengraph()) {
-			$sections[] = Section::make(_q('lara-admin::default.section.opengraph_advanced', true))
-				->relationship('opengraph')
-				->collapsible()
-				->collapsed()
-				->schema(static::getOpenGraphAdvancedSection())
-				->visible(fn(string $operation) => $operation === 'edit');
-		}
 
 		if (static::resourceShowSeo()) {
-			$sections[] = Section::make(_q('lara-admin::default.section.seo', true))
-				->relationship('seo')
-				->collapsible()
-				->schema(static::getSeoSection())
-				->visible(fn(string $operation) => $operation === 'edit');
+			$sections[] = HasFilaRankFields::make(contentField: 'body', slugField: 'slug', collapsed: false);
 		}
 
 		if (static::resourceHasGroups()) {
@@ -224,8 +207,6 @@ trait LaraBaseForm
 				->schema(static::getSyncSection())
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
-
-		// $sections[] = CuratorPicker::make('featured_id')->label('thumbnail image');
 
 		return $sections;
 	}
