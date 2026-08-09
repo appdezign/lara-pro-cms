@@ -19,6 +19,9 @@ use Lara\Common\Models\Page;
 use Lara\Common\Models\Setting;
 use Lara\Common\Models\User;
 use Lara\Front\Http\Lara\FrontActiveRoute;
+
+use Usamamuneerchaudhary\FilaRank\Schema\JsonLd;
+
 use stdClass;
 
 trait HasFrontObject
@@ -390,36 +393,34 @@ trait HasFrontObject
 	private function getSeo(object $object, ?object $fallback = null)
 	{
 
-		$seo = new stdClass;
+		$data = new stdClass;
 
-		// SEO Title
-		if ($object->seo && !empty($object->seo->seo_title)) {
-			$seo->seo_title = $object->seo->seo_title;
-		} elseif ($fallback && $fallback->seo && !empty($fallback->seo->seo_title)) {
-			$seo->seo_title = $fallback->seo->seo_title;
-		} else {
-			$seo->seo_title = $object->title;
-		}
+		$config = config('filarank');
+		$data->config = $config;
 
-		// SEO Description
-		if ($object->seo && !empty($object->seo->seo_description)) {
-			$seo->seo_description = $object->seo->seo_description;
-		} elseif ($fallback && $fallback->seo && !empty($fallback->seo->seo_description)) {
-			$seo->seo_description = $fallback->seo->seo_description;
-		} else {
-			$seo->seo_description = $this->getDefaultSeoByKey($object->language, 'seo_description');
-		}
+		$fallbackTitle = $object && method_exists($object, 'getSeoTitleFallback')
+			? $object->getSeoTitleFallback()
+			: null;
 
-		// SEO Keywords
-		if ($object->seo && !empty($object->seo->seo_keywords)) {
-			$seo->seo_keywords = $object->seo->seo_keywords;
-		} elseif ($fallback && $fallback->seo && !empty($fallback->seo->seo_keywords)) {
-			$seo->seo_keywords = $fallback->seo->seo_keywords;
-		} else {
-			$seo->seo_keywords = $this->getDefaultSeoByKey($object->language, 'seo_keywords');
-		}
+		$data->title = $object->seo->title ?? $fallbackTitle ?? $config['site']['name'];
+		$data->fullTitle = $data->title === $config['site']['name']
+			? $data->title
+			: $data->title.$config['site']['title_separator'].$config['site']['name'];
 
-		return $seo;
+		$data->description = $object->seo->description ?? $config['site']['description'];
+		$data->url = $object->seo->canonical_url ?? url()->current();
+		$data->image = $object->seo->og_image ?? $config['site']['og_image'];
+
+		$data->robots = array_filter([
+			($object->seo->noindex ?? false) ? 'noindex' : null,
+			($object->seo->nofollow ?? false) ? 'nofollow' : null,
+		]);
+
+		$data->jsonLd = $config['render']['json_ld']
+			? JsonLd::for($object, $object->seo, $data->title, $data->description, $data->url, $data->image)
+			: null;
+
+		return $data;
 
 	}
 
@@ -525,29 +526,29 @@ trait HasFrontObject
 
 		$object = $this->getHomePageObject($language);
 
-		$seo = new stdClass;
+		$data = new stdClass;
 
 		if (!empty($object)) {
 
 			if ($object->seo) {
-				$seo->seo_title = $object->seo->seo_title;
-				$seo->seo_description = $object->seo->seo_description;
-				$seo->seo_keywords = $object->seo->seo_keywords;
+				$data->seo_title = $object->seo->seo_title;
+				$data->seo_description = $object->seo->seo_description;
+				$data->seo_keywords = $object->seo->seo_keywords;
 			} else {
-				$seo->seo_title = null;
-				$seo->seo_description = null;
-				$seo->seo_keywords = null;
+				$data->seo_title = null;
+				$data->seo_description = null;
+				$data->seo_keywords = null;
 			}
 
 		} else {
 
-			$seo->seo_title = null;
-			$seo->seo_description = null;
-			$seo->seo_keywords = null;
+			$data->seo_title = null;
+			$data->seo_description = null;
+			$data->seo_keywords = null;
 
 		}
 
-		return $seo;
+		return $data;
 
 	}
 
