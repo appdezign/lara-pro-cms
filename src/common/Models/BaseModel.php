@@ -18,6 +18,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Lara\Common\Models\Concerns\HasLaraMedia;
 use Lara\Common\Models\Concerns\HasLaraLocks;
 
+use Usamamuneerchaudhary\FilaRank\Concerns\HasSeo;
+
 class BaseModel extends Model implements HasRichContent
 {
 	use Sluggable;
@@ -26,6 +28,8 @@ class BaseModel extends Model implements HasRichContent
 
 	use HasLaraMedia;
 	use HasLaraLocks;
+
+	use HasSeo;
 
 	protected $guarded = [
 		'id',
@@ -44,6 +48,16 @@ class BaseModel extends Model implements HasRichContent
 			'publish_to'   => 'datetime',
 			'bricks'       => 'array',
 		];
+	}
+
+	public function getSeoContent(): ?string
+	{
+		return $this->body;
+	}
+
+	public function getSeoSlug(): ?string
+	{
+		return $this->slug;
 	}
 
 	public function setUpRichContent(): void
@@ -123,27 +137,6 @@ class BaseModel extends Model implements HasRichContent
 	public function sync(): MorphOne
 	{
 		return $this->morphOne(Sync::class, 'entity');
-	}
-
-	public function seo(): MorphOne
-	{
-		return $this->morphOne(ObjectSeo::class, 'entity');
-	}
-
-	public function opengraph(): MorphOne
-	{
-		return $this->morphOne(ObjectOpenGraph::class, 'entity');
-	}
-
-	public function ogimage(): BelongsTo
-	{
-		return $this->opengraph()->firstOrCreate()->ogImg();
-	}
-
-	public function hasOpenGraphImage(): bool
-	{
-		return !empty($this->ogimage);
-
 	}
 
 	public function files(): MorphOne

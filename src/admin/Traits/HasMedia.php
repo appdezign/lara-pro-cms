@@ -229,6 +229,16 @@ trait HasMedia
 
 	}
 
+	private static function checkSocialImage($record)
+	{
+		if ($record->hasFeatured()) {
+			$image = glideUrl($record->featured()->path, 1200, 630);
+			$seo = $record->seo;
+			$seo->og_image = $image;
+			$seo->save();
+		}
+	}
+
 	private static function syncFullMediaLibrary()
 	{
 

@@ -142,9 +142,6 @@ class BaseFrontController extends Controller
 		// seo
 		$this->data->seo = $this->getSeo($this->data->modulepage);
 
-		// opengraph
-		$this->data->opengraph = $this->getOpengraph($this->data->modulepage);
-
 		// get language versions
 		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
 
@@ -203,9 +200,6 @@ class BaseFrontController extends Controller
 
 		// seo
 		$this->data->seo = $this->getSeo($this->data->object, $this->data->modulepage);
-
-		// opengraph
-		$this->data->opengraph = $this->getOpengraph($this->data->object);
 
 		// get language versions
 		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity, $this->data->object);
