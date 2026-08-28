@@ -3,6 +3,7 @@
 namespace Lara\Admin\Resources\Base\Concerns;
 
 use Closure;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
@@ -14,10 +15,13 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Illuminate\Support\HtmlString;
 use Usamamuneerchaudhary\FilaRank\Analysis\ContentContext;
 use Usamamuneerchaudhary\FilaRank\Keyphrase\KeyphraseAnalyzer;
 use Usamamuneerchaudhary\FilaRank\SeoAnalyzer;
+
+use Lara\Admin\Resources\Base\Concerns\HasLanguageSection;
 
 /**
  * Drop-in SEO section for any Filament form.
@@ -33,6 +37,7 @@ final class HasFilaRankFields
 	public static function make(
 		string $contentField = 'content',
 		string $slugField = 'slug',
+		string $clanguage = 'abc',
 		bool $collapsed = true,
 		?Closure $getContentUsing = null,
 		?Closure $getSlugUsing = null,
@@ -129,15 +134,6 @@ final class HasFilaRankFields
 									->live()
 									->inline(false),
 
-								Select::make('locale')
-									->label(__('filarank::filarank.language'))
-									->options(fn(): array => collect(SeoAnalyzer::languages()->locales())
-										->mapWithKeys(fn(string $l): array => [$l => SeoAnalyzer::languages()->get($l)->name()])
-										->all())
-									->native(false)
-									->live()
-									->placeholder(__('filarank::filarank.language_default')),
-
 								Toggle::make('noindex')
 									->label(__('filarank::filarank.noindex'))
 									->inline(false),
@@ -150,9 +146,7 @@ final class HasFilaRankFields
 									->label(__('filarank::filarank.nofollow'))
 									->inline(false),
 
-								TextInput::make('og_image')
-									->label(__('filarank::filarank.og_image'))
-									->maxLength(255),
+
 							]),
 					]),
 			]);

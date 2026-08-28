@@ -409,7 +409,12 @@ trait HasFrontObject
 
 		$data->description = $object->seo->description ?? $config['site']['description'];
 		$data->url = $object->seo->canonical_url ?? url()->current();
-		$data->image = $object->seo->og_image ?? $config['site']['og_image'];
+
+		if($object->hasFeatured()) {
+			$data->image = glideUrl($object->featured()->path, 1200, 630);
+		} else {
+			$data->image = $object->seo->og_image ?? $config['site']['og_image'];
+		}
 
 		$data->robots = array_filter([
 			($object->seo->noindex ?? false) ? 'noindex' : null,

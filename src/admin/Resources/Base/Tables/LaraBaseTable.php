@@ -78,10 +78,12 @@ trait LaraBaseTable
 			->sortable()
 			->searchable();
 
-		$columns[] = SeoScoreColumn::make()
-			->label(_q('lara-admin::default.tablecolumn.seo'))
-			->width('10%')
-			->visibleFrom('2xl');
+		if (static::resourceShowSeo()) {
+			$columns[] = SeoScoreColumn::make()
+				->label(_q('lara-admin::default.tablecolumn.seo'))
+				->width('10%')
+				->visibleFrom('2xl');
+		}
 
 		foreach (static::getCustomColumnsByHook(EntityHook::AFTER_TITLE->value) as $customField) {
 			if (!empty(static::getFilamentColumn($customField))) {

@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 
 
 use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Traits\HasLanguage;
 use Lara\Admin\Traits\HasLayout;
 use Lara\Admin\Traits\HasMedia;
 
@@ -20,6 +21,7 @@ class LaraEditRecord extends EditRecord
 {
 
 	use HasContainerGridLayout;
+	use HasLanguage;
 	use HasLayout;
 	use HasLocks;
 	use HasMedia;
@@ -93,6 +95,12 @@ class LaraEditRecord extends EditRecord
 
 		// lock media items.
 		static::lockMediaItems($this->record);
+
+		// save featured image as social image
+		static::checkSocialImage($this->record);
+
+		// set language for SEO checks
+		static::setSeoLanguage($this->record);
 
 		// replace default layout values with null
 		static::replaceDefaultLayoutValues($this->record);

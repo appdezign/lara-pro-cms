@@ -22,4 +22,11 @@ trait HasLanguage
 
 		return static::getRequestParam('clanguage', $default);
 	}
+
+	public static function setSeoLanguage($record): void
+	{
+		$seo = $record->seo;
+		$seo->locale = $record->language;
+		$seo->save();
+	}
 }
