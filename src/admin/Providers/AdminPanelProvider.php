@@ -110,17 +110,7 @@ class AdminPanelProvider extends PanelProvider
 				Dashboard::class,
 			])
 			->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
-			->widgets([
-				Analytics\LaraSessionsDurationWidget::class,
-				Analytics\LaraSessionsByDeviceWidget::class,
-				Analytics\LaraPageViewsWidget::class,
-				Analytics\LaraVisitorsWidget::class,
-				Analytics\LaraSessionsWidget::class,
-				Analytics\LaraSessionsByCountryWidget::class,
-				Analytics\LaraMostVisitedPagesWidget::class,
-				Analytics\LaraTopReferrersListWidget::class,
-				VersionsWidget::class,
-			])
+			->widgets(static::getDashboardWidgets())
 			->middleware([
 				EncryptCookies::class,
 				AddQueuedCookiesToResponse::class,
@@ -238,7 +228,8 @@ class AdminPanelProvider extends PanelProvider
 		});
 
 		CuratorPicker::configureUsing(function (CuratorPicker $curatorPicker) {
-			$curatorPicker->imageResizeMode(config('lara.uploads.images.resize_mode'))
+			$curatorPicker->maxSize(config('lara.uploads.max_size'))
+				->imageResizeMode(config('lara.uploads.images.resize_mode'))
 				->imageResizeTargetWidth(config('lara.uploads.images.max_width'))
 				->imageResizeTargetHeight(config('lara.uploads.images.max_height'));
 		});
@@ -395,6 +386,27 @@ class AdminPanelProvider extends PanelProvider
 			Js::make('google-maps', base_path('laracms/core/resources/js/google-maps.js')),
 		]);
 
+	}
+
+	private static function getDashboardWidgets(): array
+	{
+		if(!empty(config('analytics.property_id'))) {
+			return [
+				Analytics\LaraSessionsDurationWidget::class,
+				Analytics\LaraSessionsByDeviceWidget::class,
+				Analytics\LaraPageViewsWidget::class,
+				Analytics\LaraVisitorsWidget::class,
+				Analytics\LaraSessionsWidget::class,
+				Analytics\LaraSessionsByCountryWidget::class,
+				Analytics\LaraMostVisitedPagesWidget::class,
+				Analytics\LaraTopReferrersListWidget::class,
+				VersionsWidget::class,
+			];
+		} else {
+			return [
+				VersionsWidget::class,
+			];
+		}
 	}
 
 	private static function getNavigationGroups(): array
