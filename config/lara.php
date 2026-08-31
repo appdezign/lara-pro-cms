@@ -51,6 +51,7 @@ return [
 			'larapublic',
 			// 's3'
 		],
+		'max_size' => 12 * 1024,
 		'images' => [
 			'resize_mode' => 'contain',
 			'max_width' => 1920,

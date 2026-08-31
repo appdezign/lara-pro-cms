@@ -131,6 +131,7 @@ class LaraCommonServiceProvider extends ServiceProvider
 		Glide::basePath('glide');
 
 		// Curator settings for Media Resource
+		Curator::maxSize(config('lara.uploads.max_size'));
 		Curator::imageResizeMode(config('lara.uploads.images.resize_mode', 'contain'));
 		Curator::imageResizeTargetWidth(config('lara.uploads.images.max_width', 1920));
 		Curator::imageResizeTargetHeight(config('lara.uploads.images.max_height', 1920));

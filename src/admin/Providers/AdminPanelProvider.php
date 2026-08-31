@@ -228,7 +228,8 @@ class AdminPanelProvider extends PanelProvider
 		});
 
 		CuratorPicker::configureUsing(function (CuratorPicker $curatorPicker) {
-			$curatorPicker->imageResizeMode(config('lara.uploads.images.resize_mode'))
+			$curatorPicker->maxSize(config('lara.uploads.max_size'))
+				->imageResizeMode(config('lara.uploads.images.resize_mode'))
 				->imageResizeTargetWidth(config('lara.uploads.images.max_width'))
 				->imageResizeTargetHeight(config('lara.uploads.images.max_height'));
 		});
