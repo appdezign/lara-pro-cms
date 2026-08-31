@@ -430,6 +430,51 @@ trait HasFrontObject
 	}
 
 	/**
+	 * Get all the default SEO values
+	 *
+	 * The default SEO values are set on the home page
+	 *
+	 * @param string $language
+	 * @return stdClass
+	 */
+	private function getDefaultSeo(string $language)
+	{
+
+		$object = $this->getHomePageObject($language);
+
+		$data = new stdClass;
+
+		$config = config('filarank');
+		$data->config = $config;
+
+		$data->title = $object->seo->title ?? $config['site']['name'];
+		$data->fullTitle = $data->title === $config['site']['name']
+			? $data->title
+			: $data->title.$config['site']['title_separator'].$config['site']['name'];
+
+		$data->description = $object->seo->description ?? $config['site']['description'];
+		$data->url = $object->seo->canonical_url ?? url()->current();
+
+		if($object->hasFeatured()) {
+			$data->image = glideUrl($object->featured()->path, 1200, 630);
+		} else {
+			$data->image = $object->seo->og_image ?? $config['site']['og_image'];
+		}
+
+		$data->robots = array_filter([
+			($object->seo->noindex ?? false) ? 'noindex' : null,
+			($object->seo->nofollow ?? false) ? 'nofollow' : null,
+		]);
+
+		$data->jsonLd = $config['render']['json_ld']
+			? JsonLd::for($object, $object->seo, $data->title, $data->description, $data->url, $data->image)
+			: null;
+
+		return $data;
+
+	}
+
+	/**
 	 * Get the default SEO value for a specific key
 	 *
 	 * The default SEO values are set  on the home page
@@ -515,45 +560,6 @@ trait HasFrontObject
 
 			return $mainMenu->id;
 		}
-
-	}
-
-	/**
-	 * Get all the default SEO values
-	 *
-	 * The default SEO values are set on the home page
-	 *
-	 * @param string $language
-	 * @return stdClass
-	 */
-	private function getDefaultSeo(string $language)
-	{
-
-		$object = $this->getHomePageObject($language);
-
-		$data = new stdClass;
-
-		if (!empty($object)) {
-
-			if ($object->seo) {
-				$data->seo_title = $object->seo->seo_title;
-				$data->seo_description = $object->seo->seo_description;
-				$data->seo_keywords = $object->seo->seo_keywords;
-			} else {
-				$data->seo_title = null;
-				$data->seo_description = null;
-				$data->seo_keywords = null;
-			}
-
-		} else {
-
-			$data->seo_title = null;
-			$data->seo_description = null;
-			$data->seo_keywords = null;
-
-		}
-
-		return $data;
 
 	}
 
