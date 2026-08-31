@@ -2,6 +2,13 @@
 
 return [
 
+	'has_custom_routes' => false,
+
+	'filarank' => [
+		'section_collapsed' => true,
+		'show_in_table' => false,
+	],
+
 	'rich_editor' => [
 		'full' => [
 			'toolbar_buttons' => [

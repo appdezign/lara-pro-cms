@@ -167,7 +167,7 @@ trait LaraBaseForm
 
 
 		if (static::resourceShowSeo()) {
-			$sections[] = HasFilaRankFields::make(contentField: 'body', slugField: 'slug',  clanguage: static::$clanguage, collapsed: false);
+			$sections[] = HasFilaRankFields::make(contentField: 'body', slugField: 'slug',  clanguage: static::$clanguage, collapsed: config('lara-admin.filarank.section_collapsed'));
 		}
 
 		if (static::resourceHasGroups()) {
