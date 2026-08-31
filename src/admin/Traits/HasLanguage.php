@@ -26,7 +26,9 @@ trait HasLanguage
 	public static function setSeoLanguage($record): void
 	{
 		$seo = $record->seo;
-		$seo->locale = $record->language;
-		$seo->save();
+		if($seo) {
+			$seo->locale = $record->language;
+			$seo->save();
+		}
 	}
 }
