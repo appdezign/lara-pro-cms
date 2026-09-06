@@ -89,6 +89,13 @@ class LaraEditRecord extends EditRecord
 	protected function afterSave(): void
 	{
 
+		// create seo
+		if(empty($this->record->seo)) {
+			$this->record->seo()->create([
+				'locale' => $this->record->language
+			]);
+		}
+
 		if ($this->record->geo_location && $this->record->geo_location == 'auto') {
 			$this->fillForm();
 		}
@@ -126,11 +133,7 @@ class LaraEditRecord extends EditRecord
 			->color('gray')
 			->action(function () {
 				static::unlockRecord($this->record);
-				if($this->previousUrl) {
-					return redirect($this->previousUrl);
-				} else {
-					return redirect($this->getResource()::getUrl('index'));
-				}
+				return redirect($this->getResource()::getUrl('index'));
 			});
 
 		$rows[] = Action::make('save')

@@ -234,8 +234,10 @@ trait HasMedia
 		if ($record->hasFeatured()) {
 			$image = glideUrl($record->featured()->path, 1200, 630);
 			$seo = $record->seo;
-			$seo->og_image = $image;
-			$seo->save();
+			if($seo) {
+				$seo->og_image = $image;
+				$seo->save();
+			}
 		}
 	}
 
