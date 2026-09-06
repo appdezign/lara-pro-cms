@@ -973,10 +973,10 @@ trait HasFrontList
 	/**
 	 * @param string $language
 	 * @param object $entity
-	 * @param bool|null $activetag
+	 * @param Tag|null $activetag
 	 * @return stdClass|null
 	 */
-	private function getEntityTerms(string $language, object $entity, bool|null $activetag = false)
+	private function getEntityTerms(string $language, object $entity, Tag|null $activetag)
 	{
 		if ($entity->hasTags()) {
 			$tags = new stdClass();
