@@ -126,6 +126,7 @@ final class HasFilaRankFields
 									}),
 							]),
 
+						/*
 						Tab::make(__('filarank::filarank.tab_advanced'))
 							->icon('heroicon-o-cog-6-tooth')
 							->schema([
@@ -148,6 +149,7 @@ final class HasFilaRankFields
 
 
 							]),
+						*/
 					]),
 			]);
 	}
