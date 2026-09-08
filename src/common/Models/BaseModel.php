@@ -50,11 +50,13 @@ class BaseModel extends Model implements HasRichContent
 		];
 	}
 
+	// get Seo content for FilaRank
 	public function getSeoContent(): ?string
 	{
 		return $this->body;
 	}
 
+	// get Seo slug for FilaRank
 	public function getSeoSlug(): ?string
 	{
 		return $this->slug;

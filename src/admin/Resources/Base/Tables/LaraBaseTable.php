@@ -78,7 +78,7 @@ trait LaraBaseTable
 			->sortable()
 			->searchable();
 
-		if (static::resourceShowSeo()) {
+		if (static::resourceShowSeo() && config('lara-admin.filarank.show_in_table')) {
 			$columns[] = SeoScoreColumn::make()
 				->label(_q('lara-admin::default.tablecolumn.seo'))
 				->width('10%')
