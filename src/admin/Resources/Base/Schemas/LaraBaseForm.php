@@ -8,6 +8,7 @@ use Filament\Forms\Components\Hidden;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Schema;
 use Lara\Admin\Resources\Base\Concerns\HasAuthorSection;
 use Lara\Admin\Resources\Base\Concerns\HasContentSection;
 use Lara\Admin\Resources\Base\Concerns\HasGroupSection;
@@ -48,96 +49,134 @@ trait LaraBaseForm
 
 		if (static::resourceHasTerms()) {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.tags', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.tags', true))
-						->columns(2)
-						->schema(static::getTagSection()),
-				])
+				->key('lara-tag-tab')
+				->schema(
+					Schema::make()
+						->components([
+							Section::make(_q('lara-admin::default.section.tags', true))
+								->columns(2)
+								->schema(static::getTagSection()),
+						])
+						->deferLoading(),
+				)
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
 
 		if (static::resourceHasMedia()) {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.media', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.main_images', true))
-						->columnSpanFull()
-						->collapsible()
-						->schema(static::getMainImageSection())
-						->extraAttributes(['class' => 'lara-media-tab'])
-				])
+				->key('lara-media-tab')
+				->schema(
+					Schema::make()
+						->components([
+							Section::make(_q('lara-admin::default.section.main_images', true))
+								->columnSpanFull()
+								->collapsible()
+								->schema(static::getMainImageSection())
+								->extraAttributes(['class' => 'lara-media-tab'])
+						])
+						->deferLoading(),
+				)
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
 
 		if (static::resourceHasVideos()) {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.video', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.videos', true))
-						->description(fn(Get $get) => (static::getMaxVideos() > 1) ? '(' . count($get('videos.entity_videos')) . '/' . static::getMaxVideos() . ')' : null)
-						->relationship('videos')
-						->collapsible()
-						->extraAttributes(['class' => 'lara-videos-section'])
-						->schema(static::getVideoSection()),
-				])
+				->key('lara-video-tab')
+				->schema(Schema::make()
+					->components([
+						Section::make(_q('lara-admin::default.section.videos', true))
+							->description(fn(Get $get) => (static::getMaxVideos() > 1) ? '(' . count($get('videos.entity_videos')) . '/' . static::getMaxVideos() . ')' : null)
+							->relationship('videos')
+							->collapsible()
+							->extraAttributes(['class' => 'lara-videos-section'])
+							->schema(static::getVideoSection()),
+					])
+					->deferLoading(),
+				)
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
 
 		if (static::resourceHasVideoFiles()) {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.videofiles', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.videofiles', true))
-						->description(fn(Get $get) => (static::getMaxVideoFiles() > 1) ? '(' . count($get('videofiles.entity_videofiles')) . '/' . static::getMaxVideoFiles() . ')' : null)
-						->relationship('videofiles')
-						->collapsible()
-						->extraAttributes(['class' => 'lara-videofiles-section'])
-						->schema(static::getVideoFilesSection()),
-				])
+				->key('lara-videofile-tab')
+				->schema(
+					Schema::make()
+						->components([
+							Section::make(_q('lara-admin::default.section.videofiles', true))
+								->description(fn(Get $get) => (static::getMaxVideoFiles() > 1) ? '(' . count($get('videofiles.entity_videofiles')) . '/' . static::getMaxVideoFiles() . ')' : null)
+								->relationship('videofiles')
+								->collapsible()
+								->extraAttributes(['class' => 'lara-videofiles-section'])
+								->schema(static::getVideoFilesSection()),
+						])
+						->deferLoading(),
+				)
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
 
 		if (static::resourceHasFiles()) {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.files', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.files', true))
-						->description(fn(Get $get) => (static::getMaxFiles() > 1) ? '(' . count($get('files.entity_files')) . '/' . static::getMaxFiles() . ')' : null)
-						->relationship('files')
-						->collapsible()
-						->extraAttributes(['class' => 'lara-section-files'])
-						->schema(static::getFilesSection()),
-				])
+				->key('lara-file-tab')
+				->schema(
+					Schema::make()
+						->components([
+							Section::make(_q('lara-admin::default.section.files', true))
+								->description(fn(Get $get) => (static::getMaxFiles() > 1) ? '(' . count($get('files.entity_files')) . '/' . static::getMaxFiles() . ')' : null)
+								->relationship('files')
+								->collapsible()
+								->extraAttributes(['class' => 'lara-section-files'])
+								->schema(static::getFilesSection()),
+						])
+						->deferLoading(),
+				)
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
 
 		if (static::resourceHasRelated()) {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.related', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.related', true))
-						->relationship('related')
-						->collapsible()
-						->extraAttributes(['class' => 'lara-section-related'])
-						->schema(static::getRelatedSection()),
-				])
+				->key('lara-related-tab')
+				->schema(Schema::make()
+					->components([
+						Section::make(_q('lara-admin::default.section.related', true))
+							->relationship('related')
+							->collapsible()
+							->extraAttributes(['class' => 'lara-section-related'])
+							->schema(static::getRelatedSection()),
+					])
+					->deferLoading(),
+				)
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
 
 		if (static::getSlug() == 'pages') {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.layout', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.layout', true))
-						->relationship('layout')
-						->collapsible()
-						->extraAttributes(['class' => 'lara-section-layout'])
-						->schema(static::getLayoutSection()),
-				])
+				->key('lara-layout-tab')
+				->schema(
+					Schema::make()
+						->components([
+							Section::make(_q('lara-admin::default.section.layout', true))
+								->relationship('layout')
+								->collapsible()
+								->extraAttributes(['class' => 'lara-section-layout'])
+								->schema(static::getLayoutSection()),
+						])
+						->deferLoading(),
+				)
 				->visible(fn(string $operation) => $operation === 'edit');
 		}
 
 		if (static::getSlug() == 'widgets') {
 			$tabs[] = Tab::make(_q('lara-admin::default.tabs.onpages', true))
-				->schema([
-					Section::make(_q('lara-admin::default.section.content', true))
-						->collapsible()
-						->schema(static::getOnPagesSection()),
-				]);
+				->key('lara-widget-tab')
+				->schema(
+					Schema::make()
+						->components([
+							Section::make(_q('lara-admin::default.section.content', true))
+								->collapsible()
+								->schema(static::getOnPagesSection()),
+						])
+						->deferLoading(),
+				);
 		}
 
 		return $tabs;
@@ -165,9 +204,8 @@ trait LaraBaseForm
 			->collapsible()
 			->schema(static::getContentSection());
 
-
 		if (static::resourceShowSeo()) {
-			$sections[] = HasFilaRankFields::make(contentField: 'body', slugField: 'slug',  clanguage: static::$clanguage, collapsed: config('lara-admin.filarank.section_collapsed'));
+			$sections[] = HasFilaRankFields::make(contentField: 'body', slugField: 'slug', clanguage: static::$clanguage, collapsed: config('lara-admin.filarank.section_collapsed'));
 		}
 
 		if (static::resourceHasGroups()) {
