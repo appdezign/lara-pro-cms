@@ -80,6 +80,7 @@ class BaseResource extends Resource
 		return $schema
 			->components([
 				Tabs::make('Tabs')
+					->key('lara-tabs')
 					->tabs(static::getLaraFormTabs())
 					->columnSpanFull()
 					->persistTab()
@@ -101,6 +102,7 @@ class BaseResource extends Resource
 			: FiltersLayout::AboveContentCollapsible;
 
 		return $table
+			->deferLoading()
 			->columns(static::getBaseTableColumns())
 			->filters(static::getBaseTableFilters(), layout: $filterLayout)
 			->deferFilters(false)
