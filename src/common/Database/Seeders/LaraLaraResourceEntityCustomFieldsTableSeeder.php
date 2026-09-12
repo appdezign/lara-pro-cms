@@ -679,26 +679,6 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            33 => 
-            array (
-                'id' => 166,
-                'entity_id' => 1,
-                'title' => 'Bricks',
-                'field_hook' => 'after-last',
-                'field_type' => 'mason',
-                'field_name' => 'bricks',
-                'field_name_temp' => NULL,
-                'field_options' => NULL,
-                'is_required' => 0,
-                'is_filter' => 0,
-                'show_in_list' => 0,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => NULL,
-            ),
         ));
         
         
