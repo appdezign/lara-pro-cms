@@ -21,7 +21,6 @@ return new class extends Migration
             $table->boolean('slug_lock')->default(false);
             $table->text('body')->nullable();
             $table->boolean('ishome')->default(false);
-            $table->json('bricks')->nullable();
             $table->text('body3')->nullable();
             $table->text('body2')->nullable();
             $table->string('menuroute')->nullable();
