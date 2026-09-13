@@ -168,11 +168,6 @@ class LaraEntity
 		return boolval($this->entity->show_seo);
 	}
 
-	public function showOpengraph(): bool
-	{
-		return boolval($this->entity->show_opengraph);
-	}
-
 	public function showAuthor(): bool
 	{
 		return boolval($this->entity->show_author);
