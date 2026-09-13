@@ -313,8 +313,6 @@ class EntityForm
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.show_seo'));
 		$rows[] = Toggle::make('show_sync')
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.show_sync'));
-		$rows[] = Toggle::make('show_opengraph')
-			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.show_opengraph'));
 		$rows[] = Toggle::make('show_rich_lead')
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.show_rich_lead'));
 		$rows[] = Toggle::make('show_rich_body')

@@ -70,10 +70,6 @@ return [
 			'partial'  => 'seo',
 			'action'   => null,
 		],
-		'opengraph'         => [
-			'partial'  => 'opengraph',
-			'action'   => null,
-		],
 		'groups'      => [
 			'partial'  => 'groups',
 			'action'   => null,

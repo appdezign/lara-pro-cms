@@ -131,6 +131,8 @@ trait HasMigrations
 			'job_batches',
 			'jobs',
 			'migrations',
+			'seo_not_founds',
+			'seo_redirects',
 			'sessions',
 		];
 		foreach ($tables as $tablename) {

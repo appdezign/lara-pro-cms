@@ -15,7 +15,6 @@ use Lara\Admin\Resources\Base\Concerns\HasGroupSection;
 use Lara\Admin\Resources\Base\Concerns\HasLanguageSection;
 use Lara\Admin\Resources\Base\Concerns\HasLayoutSection;
 use Lara\Admin\Resources\Base\Concerns\HasOnPagesSection;
-use Lara\Admin\Resources\Base\Concerns\HasOpenGraphSection;
 use Lara\Admin\Resources\Base\Concerns\HasRelatedSection;
 use Lara\Admin\Resources\Base\Concerns\HasSeoSection;
 use Lara\Admin\Resources\Base\Concerns\HasStatusSection;
@@ -29,7 +28,6 @@ trait LaraBaseForm
 	use HasAuthorSection;
 	use HasContentSection;
 	use HasGroupSection;
-	use HasOpenGraphSection;
 	use HasLanguageSection;
 	use HasLayoutSection;
 	use HasOnPagesSection;

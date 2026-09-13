@@ -129,11 +129,6 @@ trait HasLaraEntity
 		return static::getEntity()->show_sync;
 	}
 
-	public static function resourceShowOpengraph(): bool
-    {
-        return static::getEntity()->show_opengraph;
-    }
-
     public static function resourceShowAuthor(): bool
     {
         return static::getEntity()->show_author;

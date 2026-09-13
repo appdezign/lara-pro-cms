@@ -34,7 +34,6 @@ return [
 			'files'      => 'lara_object_files',
 			'images'     => 'lara_object_images',
 			'layout'     => 'lara_object_layout',
-			'opengraph'  => 'lara_object_opengraph',
 			'pageables'  => 'lara_object_pageables',
 			'related'    => 'lara_object_related',
 			'seo'        => 'lara_object_seo',

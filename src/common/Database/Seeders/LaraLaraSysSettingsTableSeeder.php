@@ -336,81 +336,6 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
             ),
             21 => 
             array (
-                'id' => 127,
-                'title' => 'OpenGraph Type',
-                'cgroup' => 'opengraph',
-                'key' => 'og_type',
-                'value' => 'website',
-                'locked_by_admin' => 0,
-                'position' => 114,
-                'created_at' => '2019-10-03 20:52:19',
-                'updated_at' => '2019-10-18 12:36:50',
-                'deleted_at' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            22 => 
-            array (
-                'id' => 128,
-                'title' => 'OpenGraph Image Width',
-                'cgroup' => 'opengraph',
-                'key' => 'og_image_width',
-                'value' => '1200',
-                'locked_by_admin' => 0,
-                'position' => 115,
-                'created_at' => '2019-10-03 21:01:45',
-                'updated_at' => '2019-10-03 21:01:51',
-                'deleted_at' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            23 => 
-            array (
-                'id' => 129,
-                'title' => 'OpenGraph Image Height',
-                'cgroup' => 'opengraph',
-                'key' => 'og_image_height',
-                'value' => '630',
-                'locked_by_admin' => 0,
-                'position' => 116,
-                'created_at' => '2019-10-03 21:02:21',
-                'updated_at' => '2019-10-18 12:36:57',
-                'deleted_at' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            24 => 
-            array (
-                'id' => 130,
-                'title' => 'OpenGraph Description Max Length',
-                'cgroup' => 'opengraph',
-                'key' => 'og_descr_max',
-                'value' => '300',
-                'locked_by_admin' => 0,
-                'position' => 117,
-                'created_at' => '2019-10-03 21:03:12',
-                'updated_at' => '2019-10-03 21:04:54',
-                'deleted_at' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            25 => 
-            array (
-                'id' => 131,
-                'title' => 'OpenGraph Site Name',
-                'cgroup' => 'opengraph',
-                'key' => 'og_site_name',
-                'value' => 'Firmaq Media',
-                'locked_by_admin' => 0,
-                'position' => 118,
-                'created_at' => '2019-10-18 12:37:44',
-                'updated_at' => '2019-10-18 13:31:43',
-                'deleted_at' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            26 => 
-            array (
                 'id' => 132,
                 'title' => 'Eve Version',
                 'cgroup' => 'system',
@@ -424,7 +349,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            27 => 
+            22 => 
             array (
                 'id' => 134,
                 'title' => 'Top post range days',
@@ -439,7 +364,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            28 => 
+            23 => 
             array (
                 'id' => 135,
                 'title' => 'Company Facebook Account',
@@ -454,7 +379,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            29 => 
+            24 => 
             array (
                 'id' => 136,
                 'title' => 'Company Instagram Account',
@@ -469,7 +394,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            30 => 
+            25 => 
             array (
                 'id' => 137,
                 'title' => 'Company Twitter Account',
@@ -484,7 +409,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            31 => 
+            26 => 
             array (
                 'id' => 138,
                 'title' => 'Company Linkedin Account',
@@ -499,7 +424,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            32 => 
+            27 => 
             array (
                 'id' => 139,
                 'title' => 'Team Photo Ratio',
@@ -514,7 +439,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            33 => 
+            28 => 
             array (
                 'id' => 143,
                 'title' => 'Lara Translation Version',
@@ -529,7 +454,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            34 => 
+            29 => 
             array (
                 'id' => 144,
                 'title' => 'Seo Description Max Length',
@@ -544,7 +469,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            35 => 
+            30 => 
             array (
                 'id' => 145,
                 'title' => 'Seo Keywords Max Length',
@@ -559,7 +484,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            36 => 
+            31 => 
             array (
                 'id' => 146,
                 'title' => 'last_media_file_sync_page',
@@ -574,7 +499,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            37 => 
+            32 => 
             array (
                 'id' => 147,
                 'title' => 'last_media_videofile_sync_page',
@@ -589,7 +514,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            38 => 
+            33 => 
             array (
                 'id' => 148,
                 'title' => 'last_media_file_sync_blog',
@@ -604,7 +529,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            39 => 
+            34 => 
             array (
                 'id' => 149,
                 'title' => 'last_media_videofile_sync_blog',
@@ -619,7 +544,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            40 => 
+            35 => 
             array (
                 'id' => 150,
                 'title' => 'last_media_file_sync_team',
@@ -634,7 +559,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            41 => 
+            36 => 
             array (
                 'id' => 152,
                 'title' => 'Company 2FA App Name',
@@ -649,7 +574,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            42 => 
+            37 => 
             array (
                 'id' => 153,
                 'title' => 'last_media_file_sync_product',
@@ -664,7 +589,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            43 => 
+            38 => 
             array (
                 'id' => 154,
                 'title' => 'last_media_videofile_sync_product',
