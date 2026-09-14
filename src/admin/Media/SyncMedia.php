@@ -8,6 +8,8 @@ use Lara\Common\Models\ObjectImage;
 
 use Awcodes\Curator\Models\Media;
 
+use Carbon\Carbon;
+
 class SyncMedia
 {
 
@@ -32,20 +34,17 @@ class SyncMedia
 		$entities = Entity::whereIn('cgroup', ['page', 'block', 'entity'])->get();
 		foreach ($entities as $entity) {
 			$model = $entity->model_class;
-
-			$objects = $model::all();
+			$objects = $model::where('updated_at', '>', Carbon::now()->subDay()->toDateTimeString())->get();
 			foreach ($objects as $object) {
 				foreach ($media as $item) {
 					// check lead
 					if (str_contains($object->lead, $item->path)) {
 						static::lockMedia($item);
 					}
-
 					// check body
 					if (str_contains($object->body, $item->path)) {
 						static::lockMedia($item);
 					}
-
 					// check extra body fields, if any
 					$extraBodyFields = $entity->col_extra_body_fields;
 					if($extraBodyFields > 0) {
@@ -55,7 +54,6 @@ class SyncMedia
 							}
 						}
 					}
-
 				}
 			}
 		}
