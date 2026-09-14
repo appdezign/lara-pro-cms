@@ -35,8 +35,4 @@ return [
 		]
 	],
 
-	'lara-media' => [
-		'sync-interval' => 60, // seconds
-	],
-
 ];

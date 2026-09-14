@@ -241,36 +241,6 @@ trait HasMedia
 		}
 	}
 
-	private static function syncFullMediaLibrary()
-	{
-
-		$dateFormat = 'Y-m-d H:i:s';
-		$syncInterval = config('lara-admin.lara-media.sync-interval', 60); // seconds
-		if (session()->has('laracms.media.sync')) {
-			$lastSyncStr = session()->get('laracms.media.sync');
-			$lastSync = Carbon::createFromFormat($dateFormat, $lastSyncStr);
-			if ($lastSync->diffInSeconds(Carbon::now()) < $syncInterval) {
-				return false;
-			}
-		}
-
-		// reset
-		$media = Media::all();
-		foreach ($media as $item) {
-			static::unlockMedia($item);
-		}
-
-		// sync
-		$images = ObjectImage::all();
-		foreach ($images as $image) {
-			static::lockMedia($image->media);
-		}
-
-		session()->put('laracms.media.sync', date($dateFormat));
-
-		return true;
-	}
-
 	private static function lockMedia($media)
 	{
 		if (!empty($media) && $media instanceof Media) {
