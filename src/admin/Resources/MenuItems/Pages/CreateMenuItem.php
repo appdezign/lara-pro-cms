@@ -35,11 +35,6 @@ class CreateMenuItem extends CreateRecord
 		];
 	}
 
-	protected function mutateFormDataBeforeFill(array $data): array
-	{
-		return static::mutateMenuFormDataBeforeFill($data);
-	}
-
 	protected function mutateFormDataBeforeCreate(array $data): array
 	{
 		return static::mutateMenuFormDataBeforeSave($data);
