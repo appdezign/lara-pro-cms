@@ -8,6 +8,8 @@ return [
 
 	'needs_setup' => env('LARA_NEEDS_SETUP', false),
 
+	'scheduler_id' => env('LARA_SCHEDULER_ID', 0),
+
 	'admin_company_name'  => 'Firmaq Beheer',
 	'admin_company_email' => 'beheer@firmaq.nl',
 
@@ -48,7 +50,7 @@ return [
 		'disks' => [
 			// 'local',
 			'public',
-			'larapublic',
+			// 'larapublic',
 			// 's3'
 		],
 		'max_size' => 12 * 1024,
