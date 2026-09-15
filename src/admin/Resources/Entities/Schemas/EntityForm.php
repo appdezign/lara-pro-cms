@@ -142,6 +142,8 @@ class EntityForm
 
 		$rows[] = TextInput::make('title')
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'))
+			->maxLength(255)
+			->required()
 			->visible(fn(string $operation): bool => $operation === 'edit');
 		$rows[] = TextInput::make('resource_slug')
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.resource_slug'))

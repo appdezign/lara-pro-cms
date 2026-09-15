@@ -35,6 +35,7 @@ class CustomFieldForm
 					->schema([
 						TextInput::make('title')
 							->label(_q(static::module() . '::' . static::slug() . '.column.title'))
+							->maxLength(255)
 							->required(),
 						TextInput::make('field_name')
 							->label(_q(static::module() . '::' . static::slug() . '.column.field_name'))
