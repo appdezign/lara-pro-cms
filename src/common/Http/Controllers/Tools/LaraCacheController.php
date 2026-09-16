@@ -37,9 +37,10 @@ class LaraCacheController extends Controller
 				ResponseCache::clear();
 			}
 
-			if (in_array('route_cache', $types)) {
-				$this->clearRouteCache();
-			}
+			// the route cache is deliberately not cleared here: deleting the cached
+			// route files while other requests are booting makes them fatal on the
+			// deferred require in RouteServiceProvider::loadCachedRoutes().
+			// lara:route:cache (see cache() below) replaces the files atomically instead.
 		}
 
 		session()->forget('laracacheclear');
@@ -56,7 +57,7 @@ class LaraCacheController extends Controller
 	public function cache(Request $request): JsonResponse
 	{
 
-		$this->callArtisanCommand('route:trans:cache');
+		$this->callArtisanCommand('lara:route:cache');
 		$this->callArtisanCommand('config:cache');
 		$this->callArtisanCommand('event:cache');
 		$this->callArtisanCommand('view:cache');
@@ -75,18 +76,6 @@ class LaraCacheController extends Controller
 			],
 		]);
 
-	}
-
-	private function clearRouteCache()
-	{
-		$files = [
-			base_path('bootstrap/cache/routes-v7.php')
-		];
-		$supportedLocales = array_keys(config('laravellocalization.supportedLocales'));
-		foreach ($supportedLocales as $locale) {
-			$files[] = base_path('bootstrap/cache/routes-v7_' . $locale . '.php');
-		}
-		File::delete($files);
 	}
 
 	private function callArtisanCommand($command): void
