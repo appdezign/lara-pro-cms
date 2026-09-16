@@ -25,8 +25,8 @@ class MenuForm
 					->schema([
 						TextInput::make('title')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'))
-							->required()
-							->maxLength(255),
+							->maxLength(255)
+							->required(),
 						TextInput::make('slug')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.slug'))
 							->disabled(fn(string $operation) : bool => $operation === 'edit')

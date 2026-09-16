@@ -27,6 +27,8 @@ class SettingForm
 					->schema([
 						TextInput::make('title')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'))
+							->maxLength(255)
+							->required(fn(string $operation): bool => $operation == 'edit')
 							->disabled(fn(string $operation): bool => $operation == 'edit'),
 						TextInput::make('cgroup')
 							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.cgroup'))

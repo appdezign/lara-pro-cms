@@ -46,8 +46,8 @@ trait HasContentSection
 		// Title
 		$rows[] = TextInput::make('title')
 			->label(_q(static::getModule() . '::' . static::getSlug() . '.column.title'))
-			->maxLength(255)
 			->extraAttributes(['class' => 'js-title-input'])
+			->maxLength(255)
 			->required();
 
 		// Custom Fields

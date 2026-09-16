@@ -99,7 +99,9 @@ trait TagForm
 			->visible(fn(string $operation): bool => $showParents && $operation === 'create');
 
 		$rows[] = TextInput::make('title')
-			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'));
+			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'))
+			->maxLength(255)
+			->required();
 
 		// Slug
 		$rows[] = TextInput::make('slug')

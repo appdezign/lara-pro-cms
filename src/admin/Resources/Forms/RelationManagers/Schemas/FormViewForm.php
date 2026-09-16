@@ -23,7 +23,9 @@ class FormViewForm
 					->schema([
 						Hidden::make('is_single')->default(1),
 						TextInput::make('title')
-							->label(_q(static::module() . '::' . static::slug() . '.column.title')),
+							->label(_q(static::module() . '::' . static::slug() . '.column.title'))
+							->maxLength(255)
+							->required(),
 						TextInput::make('method')
 							->label(_q(static::module() . '::' . static::slug() . '.column.method')),
 						TextInput::make('filename')
