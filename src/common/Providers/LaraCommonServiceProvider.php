@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
+use Lara\Common\Console\LaraRouteCacheCommand;
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 use Lara\Common\Http\Middleware\DateLocale;
 use Lara\Common\Http\Middleware\Force2fa;
@@ -126,6 +127,11 @@ class LaraCommonServiceProvider extends ServiceProvider
 		// Merge config
 		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara.php', 'lara');
 		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-common.php', 'lara-common');
+
+		// Register commands
+		$this->commands([
+			LaraRouteCacheCommand::class,
+		]);
 
 		// set media path for Glide (awcodes/curator)
 		Glide::basePath('glide');
