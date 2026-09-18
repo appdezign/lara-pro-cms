@@ -16,6 +16,7 @@ use Lara\Admin\Enums\EntityGroup;
 use Lara\Admin\Enums\EntityOrder;
 use Lara\Admin\Enums\NavGroup;
 
+use Lara\Admin\Resources\Entities\Concerns\HasEntityLabelValidation;
 use Lara\Admin\Resources\Entities\EntityResource;
 use Lara\Admin\Resources\Entities\RelationManagers\CustomFieldsRelationManager;
 use Lara\Admin\Resources\Entities\RelationManagers\EntityViewsRelationManager;
@@ -25,6 +26,8 @@ use Njxqlus\Filament\Components\Forms\RelationManager;
 
 class EntityForm
 {
+
+	use HasEntityLabelValidation;
 
 	private static function rs(): EntityResource
 	{
@@ -152,6 +155,12 @@ class EntityForm
 		$rows[] = TextInput::make('label_single')
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.label_single'))
 			->required()
+			->maxLength(64)
+			->rules(static::getEntityLabelRules())
+			->validationMessages([
+				'regex' => 'Use one word of letters and digits, starting with a letter. This value becomes a PHP class name.',
+			])
+			->helperText(static::getEntityLabelHelperText())
 			->disabled(fn(string $operation): bool => $operation === 'edit');
 		$rows[] = TextInput::make('resource')
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.resource'))

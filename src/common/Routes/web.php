@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+
+use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +38,15 @@ Route::group(['middleware' => ['web']], function () use ($laraNeedsSetup) {
 		// Auth
 		Auth::routes(['verify' => true]);
 
-		Route::get('laracache/clear', 'Tools\LaraCacheController@clear')->name('laracache.clear');
-		Route::get('laracache/cache', 'Tools\LaraCacheController@cache')->name('laracache.cache');
+		// Cache maintenance. These rebuild the config, event, view and route caches,
+		// so they are restricted to authenticated panel users and must be POSTed.
+		Route::post('laracache/clear', 'Tools\LaraCacheController@clear')
+			->name('laracache.clear')
+			->middleware(FilamentAuthenticate::class);
+
+		Route::post('laracache/cache', 'Tools\LaraCacheController@cache')
+			->name('laracache.cache')
+			->middleware(FilamentAuthenticate::class);
 
 		// Route::post('2fa/verify', '\Lara\Common\Http\Controllers\Auth\TwoFactorController@verify')->name('2fa.verify');
 

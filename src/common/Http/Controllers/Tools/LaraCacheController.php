@@ -8,8 +8,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
+
+use Throwable;
 
 class LaraCacheController extends Controller
 {
@@ -57,33 +60,55 @@ class LaraCacheController extends Controller
 	public function cache(Request $request): JsonResponse
 	{
 
-		$this->callArtisanCommand('lara:route:cache');
-		$this->callArtisanCommand('config:cache');
-		$this->callArtisanCommand('event:cache');
-		$this->callArtisanCommand('view:cache');
+		$commands = [
+			'route_cache'  => 'lara:route:cache',
+			'config_cache' => 'config:cache',
+			'event_cache'  => 'event:cache',
+			'view_cache'   => 'view:cache',
+		];
+
+		$cached = [];
+		$failed = [];
+
+		foreach ($commands as $type => $command) {
+			if ($this->callArtisanCommand($command)) {
+				$cached[] = $type;
+			} else {
+				$failed[] = $type;
+			}
+		}
 
 		session()->forget('laracacheclear');
 
 		return response()->json([
-			'success' => true,
+			'success' => $failed === [],
 			'payload' => [
-				'laracache' => [
-					'config_cache',
-					'event_cache',
-					'view_cache',
-					'route_cache',
-				],
+				'laracache' => $cached,
+				'failed'    => $failed,
 			],
 		]);
 
 	}
 
-	private function callArtisanCommand($command): void
+	/**
+	 * Run an Artisan command, logging rather than surfacing any failure.
+	 *
+	 * Catching \Throwable matters here: the previous `catch (Exception $e)` resolved
+	 * against this namespace, so it never matched and the failure escaped uncaught.
+	 */
+	private function callArtisanCommand(string $command): bool
 	{
 		try {
 			Artisan::call($command);
-		} catch (Exception $e) {
-			dd($e);
+
+			return true;
+		} catch (Throwable $e) {
+			Log::error('lara cache: artisan command failed', [
+				'command'   => $command,
+				'exception' => $e,
+			]);
+
+			return false;
 		}
 	}
 
