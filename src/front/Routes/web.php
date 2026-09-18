@@ -6,12 +6,11 @@
 |--------------------------------------------------------------------------
 */
 
-use Illuminate\Support\Facades\App;
-
 use Illuminate\Support\Facades\Schema;
-use Lara\Common\Models\MenuItem;
-use Lara\Common\Models\Redirect;
+
 use Lara\Common\Models\Entity;
+use Lara\Common\Models\MenuItem;
+use Lara\Common\Routes\FrontRouteMiddleware;
 
 $tablename = config('lara-common.database.ent.entities');
 $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
@@ -31,17 +30,7 @@ if (!$laraNeedsSetup) {
 
 		if ($rootMenuItem) {
 
-			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-			$specialMiddleware = [];
-			if (($rootMenuItem->entity && $rootMenuItem->entity->has_front_auth == 1) || $rootMenuItem->route_has_auth) {
-				$specialMiddleware[] = 'auth';
-			}
-
-			if (config('app.env') == 'production' && config('responsecache.enabled')) {
-				$specialMiddleware[] = 'cacheResponse';
-			}
-
-			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
+			$specialMiddleware = FrontRouteMiddleware::build($rootMenuItem->entity, $rootMenuItem);
 
 			// Search
 			Route::get('search', 'Special\SearchController@form')->name('special.search.form')->middleware($specialMiddleware);

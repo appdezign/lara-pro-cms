@@ -23,11 +23,10 @@ use Lara\Front\Http\Concerns\HasFrontSecurity;
 use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
+use Lara\Front\Http\Concerns\HasModelClass;
 
 use LaravelLocalization;
 
-use ReflectionClass;
-use ReflectionException;
 
 use stdClass;
 
@@ -45,6 +44,7 @@ class BaseFrontController extends Controller
 	use HasFrontTerms;
 	use HasTheme;
 	use HasFrontView;
+	use HasModelClass;
 
 	protected ?string $modelClass;
 	protected ?string $routename;
@@ -228,18 +228,6 @@ class BaseFrontController extends Controller
 			'data' => $this->data,
 		]);
 
-	}
-
-	/**
-	 * @return string
-	 * @throws ReflectionException
-	 */
-	protected function determineModelClass(): string
-	{
-		return (new ReflectionClass($this))
-			->getMethod('make')
-			->getReturnType()
-			->getName();
 	}
 
 }

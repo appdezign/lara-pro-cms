@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
 use Lara\Front\Http\Concerns\HasFrontEntity;
+use Lara\Front\Http\Concerns\HasModelClass;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -14,13 +15,13 @@ use Illuminate\Http\Request;
 
 use LaravelLocalization;
 
-use ReflectionClass;
 use ReflectionException;
 
 class BaseApiController extends Controller
 {
 
 	use HasFrontEntity;
+	use HasModelClass;
 
 	/**
 	 * @var string
@@ -271,12 +272,4 @@ class BaseApiController extends Controller
 	 * @return string
 	 * @throws ReflectionException
 	 */
-	protected function determineModelClass(): string
-	{
-		return (new ReflectionClass($this))
-			->getMethod('make')
-			->getReturnType()
-			->getName();
-	}
-
 }
