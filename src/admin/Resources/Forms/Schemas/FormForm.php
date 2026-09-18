@@ -82,9 +82,6 @@ class FormForm
 			->required()
 			->maxLength(64)
 			->rules(static::getEntityLabelRules())
-			->validationMessages([
-				'regex' => 'Use one word of letters and digits, starting with a letter. This value becomes a PHP class name.',
-			])
 			->helperText(static::getEntityLabelHelperText())
 			->disabled(fn(string $operation): bool => $operation === 'edit');
 		$rows[] = TextInput::make('resource')

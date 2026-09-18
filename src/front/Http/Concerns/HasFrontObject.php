@@ -514,24 +514,22 @@ trait HasFrontObject
 
 		$mainMenuID = $this->getFrontMainMnuId();
 
-		if ($mainMenuID) {
-
-			$home = MenuItem::langIs($language)
-				->menuIs($mainMenuID)
-				->whereNull('parent_id')
-				->first();
-
-			if ($home->object_id) {
-
-				return Page::find($home->object_id);
-
-			} else {
-				return null;
-			}
-
-		} else {
+		if (!$mainMenuID) {
 			return null;
 		}
+
+		// a language without any menu items has no root item, so there is
+		// no home page to resolve
+		$home = MenuItem::langIs($language)
+			->menuIs($mainMenuID)
+			->whereNull('parent_id')
+			->first();
+
+		if (!$home || !$home->object_id) {
+			return null;
+		}
+
+		return Page::find($home->object_id);
 
 	}
 

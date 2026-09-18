@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Lara\Admin\Enums\CustomFieldType;
 use InvalidArgumentException;
+use Lara\Common\Entities\EntityLabel;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityCustomField;
 
@@ -29,10 +30,11 @@ trait HasLaraBuilder
 	{
 		$label = (string) $entity->label_single;
 
-		if (preg_match('/^[A-Za-z][A-Za-z0-9]*$/', $label) !== 1) {
+		$rejection = EntityLabel::reject($label);
+
+		if ($rejection !== null) {
 			throw new InvalidArgumentException(
-				'Entity label "' . $label . '" cannot be used as a PHP class name. '
-				. 'Use one word of letters and digits, starting with a letter.'
+				'Entity label "' . $label . '" cannot be used to derive a class name. ' . $rejection
 			);
 		}
 	}
