@@ -20,41 +20,52 @@ trait HasEntityLabelValidation
 	/**
 	 * Validation rules for the `label_single` field.
 	 *
-	 * @return array<int, string|Closure>
+	 * The rule is wrapped in an outer closure on purpose. Filament evaluates
+	 * any closure passed to ->rules() as one of its own closures, injecting the
+	 * parameters by name - it would try to resolve $attribute and fail with
+	 * "[$attribute] was unresolvable". Returning the validation closure from a
+	 * parameterless closure gives Filament something it can evaluate, and the
+	 * Laravel rule comes back out intact.
+	 *
+	 * @return array<int, Closure>
 	 */
 	private static function getEntityLabelRules(): array
 	{
 		return [
-			static function (string $attribute, mixed $value, Closure $fail): void {
-
-				$label = is_string($value) ? $value : '';
-
-				if ($label === '') {
-					return;
-				}
-
-				$rejection = EntityLabel::reject($label);
-
-				if ($rejection !== null) {
-					$fail($rejection);
-
-					return;
-				}
-
-				$resourceSlug = Str::plural($label);
-
-				if (Entity::where('resource_slug', $resourceSlug)->exists()) {
-					$fail('An entity with the resource slug "' . $resourceSlug . '" already exists.');
-
-					return;
-				}
-
-				if (class_exists('Lara\\App\\Models\\' . ucfirst($label))) {
-					$fail('A model class for "' . ucfirst($label) . '" already exists. Generating it again would overwrite it.');
-				}
-
-			},
+			static fn(): Closure => static::validateEntityLabel(...),
 		];
+	}
+
+	/**
+	 * Laravel closure validation rule for the entity label.
+	 */
+	private static function validateEntityLabel(string $attribute, mixed $value, Closure $fail): void
+	{
+		$label = is_string($value) ? $value : '';
+
+		if ($label === '') {
+			return;
+		}
+
+		$rejection = EntityLabel::reject($label);
+
+		if ($rejection !== null) {
+			$fail($rejection);
+
+			return;
+		}
+
+		$resourceSlug = Str::plural($label);
+
+		if (Entity::where('resource_slug', $resourceSlug)->exists()) {
+			$fail('An entity with the resource slug "' . $resourceSlug . '" already exists.');
+
+			return;
+		}
+
+		if (class_exists('Lara\\App\\Models\\' . ucfirst($label))) {
+			$fail('A model class for "' . ucfirst($label) . '" already exists. Generating it again would overwrite it.');
+		}
 	}
 
 	/**
