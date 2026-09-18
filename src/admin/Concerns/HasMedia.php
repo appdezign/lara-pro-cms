@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Traits;
+namespace Lara\Admin\Concerns;
 
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Models\Media;

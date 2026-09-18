@@ -10,10 +10,10 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 
 
-use Lara\Admin\Traits\HasLocks;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasLayout;
-use Lara\Admin\Traits\HasMedia;
+use Lara\Admin\Concerns\HasLocks;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasLayout;
+use Lara\Admin\Concerns\HasMedia;
 
 use Spatie\Geocoder\Facades\Geocoder;
 

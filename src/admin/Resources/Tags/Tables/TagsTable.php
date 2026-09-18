@@ -12,11 +12,11 @@ use Filament\Tables\Table;
 
 use Lara\Admin\Resources\Tags\Pages\ListTags;
 use Lara\Admin\Resources\Tags\TagResource;
-use Lara\Admin\Traits\HasFilters;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasNestedSet;
-use Lara\Admin\Traits\HasParams;
-use Lara\Admin\Traits\HasReorder;
+use Lara\Admin\Concerns\HasFilters;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasNestedSet;
+use Lara\Admin\Concerns\HasParams;
+use Lara\Admin\Concerns\HasReorder;
 use Lara\Common\Models\Entity;
 
 class TagsTable

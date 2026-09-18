@@ -5,7 +5,7 @@ namespace Lara\Admin\Resources\Settings\Pages;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Lara\Admin\Resources\Settings\SettingResource;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasLocks;
 
 class ListSettings extends ListRecords
 {

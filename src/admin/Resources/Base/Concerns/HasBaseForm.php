@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Schemas;
+namespace Lara\Admin\Resources\Base\Concerns;
 
 use Cache;
 use Carbon\Carbon;
@@ -22,7 +22,7 @@ use Lara\Admin\Resources\Base\Concerns\HasSyncSection;
 use Lara\Admin\Resources\Base\Concerns\HasTagSection;
 use Lara\Admin\Resources\Base\Concerns\HasFilaRankFields;
 
-trait LaraBaseForm
+trait HasBaseForm
 {
 
 	use HasAuthorSection;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Traits;
+namespace Lara\Admin\Concerns;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;

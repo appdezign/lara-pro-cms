@@ -7,7 +7,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\View\View;
 use Lara\Admin\Resources\Entities\EntityResource;
 
-use Lara\Admin\Traits\HasLaraBuilder;
+use Lara\Admin\Concerns\HasLaraBuilder;
 
 class CreateEntity extends CreateRecord
 {

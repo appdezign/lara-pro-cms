@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Traits;
+namespace Lara\Admin\Concerns;
 
 use Lara\Admin\Enums\LayoutSections;
 use Lara\Front\LaraTheme\Theme;

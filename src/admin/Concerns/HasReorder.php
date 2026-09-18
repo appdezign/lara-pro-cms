@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Traits;
+namespace Lara\Admin\Concerns;
 
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Language;

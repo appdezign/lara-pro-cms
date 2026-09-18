@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Tags\Schemas;
+namespace Lara\Admin\Resources\Tags\Concerns;
 
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
@@ -17,7 +17,7 @@ use Lara\Admin\Resources\Tags\TagResource;
 use Lara\Common\Models\Tag;
 use Lara\Common\Models\Taxonomy;
 
-trait TagForm
+trait HasTagForm
 {
 
 	private static function getTagFormTabs(): array

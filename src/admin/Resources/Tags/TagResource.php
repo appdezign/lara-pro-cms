@@ -8,17 +8,17 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Lara\Admin\Resources\Base\Schemas\LaraBaseForm;
-// use Lara\Admin\Resources\Tags\Schemas\TagForm;
-use Lara\Admin\Resources\Tags\Schemas\TagForm;
+use Lara\Admin\Resources\Base\Concerns\HasBaseForm;
+// use Lara\Admin\Resources\Tags\Concerns\HasTagForm;
+use Lara\Admin\Resources\Tags\Concerns\HasTagForm;
 use Lara\Admin\Resources\Tags\Tables\TagsTable;
-use Lara\Admin\Traits\HasFilters;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasLaraEntity;
-use Lara\Admin\Traits\HasMedia;
-use Lara\Admin\Traits\HasNavGroup;
-use Lara\Admin\Traits\HasParams;
-use Lara\Admin\Traits\HasReorder;
+use Lara\Admin\Concerns\HasFilters;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasLaraEntity;
+use Lara\Admin\Concerns\HasMedia;
+use Lara\Admin\Concerns\HasNavGroup;
+use Lara\Admin\Concerns\HasParams;
+use Lara\Admin\Concerns\HasReorder;
 use Lara\Common\Models\Tag;
 use UnitEnum;
 
@@ -26,8 +26,8 @@ class TagResource extends Resource
 {
 
 	use HasNavGroup;
-	use LaraBaseForm;
-	use TagForm;
+	use HasBaseForm;
+	use HasTagForm;
 	use HasLanguage;
 	use HasMedia;
 	use HasParams;

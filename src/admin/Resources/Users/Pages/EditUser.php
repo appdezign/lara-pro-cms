@@ -7,7 +7,7 @@ use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Lara\Admin\Resources\Users\UserResource;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasLocks;
 
 class EditUser extends EditRecord
 {

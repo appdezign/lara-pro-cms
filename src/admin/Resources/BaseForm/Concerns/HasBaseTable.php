@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\BaseForm\Tables;
+namespace Lara\Admin\Resources\BaseForm\Concerns;
 
 use Cache;
 use Filament\Actions\BulkActionGroup;
@@ -20,7 +20,7 @@ use Lara\Admin\Enums\FormHook;
 use Lara\Common\Models\User;
 use Lara\Common\Entities\EntityRegistry;
 
-trait LaraFormBaseTable
+trait HasBaseTable
 {
 
 	private static function getBaseTableColumns(): array

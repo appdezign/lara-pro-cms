@@ -5,7 +5,7 @@ namespace Lara\Admin\Resources\Settings\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Lara\Admin\Resources\Settings\SettingResource;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasLocks;
 
 class EditSetting extends EditRecord
 {

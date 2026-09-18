@@ -11,7 +11,7 @@ use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-use Lara\Admin\Traits\HasCache;
+use Lara\Admin\Concerns\HasCache;
 
 class ClearCache extends Component implements HasSchemas
 {

@@ -7,7 +7,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\View\View;
 use Lara\Admin\Resources\Forms\FormResource;
 
-use Lara\Admin\Traits\HasLaraBuilder;
+use Lara\Admin\Concerns\HasLaraBuilder;
 
 class CreateForm extends CreateRecord
 {

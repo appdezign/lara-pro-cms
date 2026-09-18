@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Menus\Tables;
+namespace Lara\Admin\Resources\Menus\Concerns;
 
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
@@ -9,7 +9,7 @@ use Filament\Tables\Columns\TextColumn;
 use Lara\Admin\Resources\Menus\MenuResource;
 use Lara\Common\Models\Menu;
 
-trait MenusTable
+trait HasMenusTable
 {
 	private static function rs(): MenuResource
 	{

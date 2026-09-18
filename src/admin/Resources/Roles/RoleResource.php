@@ -9,7 +9,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Lara\Admin\Resources\Roles\Schemas\RoleForm;
 use Lara\Admin\Resources\Roles\Tables\RolesTable;
-use Lara\Admin\Traits\HasNavGroup;
+use Lara\Admin\Concerns\HasNavGroup;
 use Spatie\Permission\Models\Role;
 use UnitEnum;
 

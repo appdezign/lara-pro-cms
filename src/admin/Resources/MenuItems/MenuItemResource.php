@@ -9,7 +9,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Lara\Admin\Resources\MenuItems\Schemas\MenuItemForm;
 use Lara\Admin\Resources\MenuItems\Tables\MenuItemsTable;
-use Lara\Admin\Traits\HasNavGroup;
+use Lara\Admin\Concerns\HasNavGroup;
 use Lara\Common\Models\MenuItem;
 use UnitEnum;
 

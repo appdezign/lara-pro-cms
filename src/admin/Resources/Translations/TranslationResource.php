@@ -10,7 +10,7 @@ use Filament\Tables\Table;
 use Lara\Admin\Resources\Lara\LaraResource;
 use Lara\Admin\Resources\Translations\Schemas\TranslationForm;
 use Lara\Admin\Resources\Translations\Tables\TranslationsTable;
-use Lara\Admin\Traits\HasNavGroup;
+use Lara\Admin\Concerns\HasNavGroup;
 use Lara\Common\Models\Translation;
 use UnitEnum;
 

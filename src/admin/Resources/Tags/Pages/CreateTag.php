@@ -5,7 +5,7 @@ namespace Lara\Admin\Resources\Tags\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 use Lara\Admin\Resources\Tags\TagResource;
-use Lara\Admin\Traits\HasTerms;
+use Lara\Admin\Concerns\HasTerms;
 
 class CreateTag extends CreateRecord
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\Base\Tables;
+namespace Lara\Admin\Resources\Base\Concerns;
 
 use Cache;
 use Filament\Tables\Columns\IconColumn;
@@ -13,7 +13,7 @@ use Lara\Admin\Resources\Base\Concerns\HasTableQuery;
 
 use Usamamuneerchaudhary\FilaRank\Tables\SeoScoreColumn;
 
-trait LaraBaseTable
+trait HasBaseTable
 {
 
 	use HasTableActions;

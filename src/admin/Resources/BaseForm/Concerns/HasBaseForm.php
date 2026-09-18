@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Resources\BaseForm\Schemas;
+namespace Lara\Admin\Resources\BaseForm\Concerns;
 
 use Cache;
 use Filament\Schemas\Components\Section;
@@ -8,7 +8,7 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Lara\Admin\Enums\EntityHook;
 use Lara\Admin\Resources\Base\Concerns\HasContentSection;
 
-trait LaraFormBaseForm
+trait HasBaseForm
 {
 
 	use HasContentSection;

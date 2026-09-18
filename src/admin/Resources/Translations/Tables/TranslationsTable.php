@@ -15,8 +15,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Lara\Admin\Resources\Translations\TranslationResource;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasParams;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasParams;
 use Lara\Common\Models\Translation;
 
 class TranslationsTable

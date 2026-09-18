@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Traits;
+namespace Lara\Admin\Concerns;
 
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;

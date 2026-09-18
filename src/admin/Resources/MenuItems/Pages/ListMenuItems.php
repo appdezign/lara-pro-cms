@@ -7,11 +7,11 @@ use Illuminate\Contracts\View\View;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Lara\Admin\Resources\MenuItems\MenuItemResource;
-use Lara\Admin\Traits\HasFilters;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasFilters;
+use Lara\Admin\Concerns\HasLocks;
 use Lara\Common\Models\Menu;
 
-use Lara\Admin\Traits\HasReorder;
+use Lara\Admin\Concerns\HasReorder;
 
 class ListMenuItems extends ListRecords
 {

@@ -6,8 +6,8 @@ use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
 use Lara\Admin\Resources\Tags\TagResource;
-use Lara\Admin\Traits\HasLocks;
-use Lara\Admin\Traits\HasTerms;
+use Lara\Admin\Concerns\HasLocks;
+use Lara\Admin\Concerns\HasTerms;
 
 class EditTag extends EditRecord
 {

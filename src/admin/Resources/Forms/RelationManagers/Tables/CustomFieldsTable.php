@@ -10,8 +10,8 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Lara\Admin\Traits\HasCache;
-use Lara\Admin\Traits\HasLaraBuilder;
+use Lara\Admin\Concerns\HasCache;
+use Lara\Admin\Concerns\HasLaraBuilder;
 use Lara\Common\Models\EntityCustomField;
 
 class CustomFieldsTable

@@ -8,8 +8,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Lara\Admin\Resources\Menus\Schemas\MenuForm;
-use Lara\Admin\Resources\Menus\Tables\MenusTable;
-use Lara\Admin\Traits\HasNavGroup;
+use Lara\Admin\Resources\Menus\Concerns\HasMenusTable;
+use Lara\Admin\Concerns\HasNavGroup;
 use Lara\Common\Models\Menu;
 use UnitEnum;
 
@@ -17,7 +17,7 @@ class MenuResource extends Resource
 {
 
 	use HasNavGroup;
-	use MenusTable;
+	use HasMenusTable;
 
 	protected static ?string $model = Menu::class;
 

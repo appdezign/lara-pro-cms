@@ -15,14 +15,14 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 use Lara\Admin\Resources\Base\Concerns\HasBasePolicy;
-use Lara\Admin\Resources\Base\Schemas\LaraBaseForm;
-use Lara\Admin\Resources\Base\Tables\LaraBaseTable;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasLaraEntity;
-use Lara\Admin\Traits\HasLayout;
-use Lara\Admin\Traits\HasMedia;
-use Lara\Admin\Traits\HasNestedSet;
-use Lara\Admin\Traits\HasParams;
+use Lara\Admin\Resources\Base\Concerns\HasBaseForm;
+use Lara\Admin\Resources\Base\Concerns\HasBaseTable;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasLaraEntity;
+use Lara\Admin\Concerns\HasLayout;
+use Lara\Admin\Concerns\HasMedia;
+use Lara\Admin\Concerns\HasNestedSet;
+use Lara\Admin\Concerns\HasParams;
 
 class BaseResource extends Resource
 {
@@ -34,8 +34,8 @@ class BaseResource extends Resource
 	use HasNestedSet;
 	use HasParams;
 	use HasBasePolicy;
-	use LaraBaseTable;
-	use LaraBaseForm;
+	use HasBaseTable;
+	use HasBaseForm;
 
 	protected static ?string $model = null;
 

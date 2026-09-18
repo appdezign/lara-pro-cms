@@ -9,7 +9,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Lara\Admin\Resources\Users\Schemas\UserForm;
 use Lara\Admin\Resources\Users\Tables\UsersTable;
-use Lara\Admin\Traits\HasNavGroup;
+use Lara\Admin\Concerns\HasNavGroup;
 use Lara\Common\Models\User;
 use UnitEnum;
 

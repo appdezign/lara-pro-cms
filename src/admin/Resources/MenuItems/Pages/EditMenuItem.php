@@ -7,7 +7,7 @@ use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
 use Lara\Admin\Resources\MenuItems\Concerns\HasMenu;
 use Lara\Admin\Resources\MenuItems\MenuItemResource;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasLocks;
 
 class EditMenuItem extends EditRecord
 {

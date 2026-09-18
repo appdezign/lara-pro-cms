@@ -8,8 +8,8 @@ use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use Lara\Admin\Resources\Tags\TagResource;
-use Lara\Admin\Traits\HasFilters;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasFilters;
+use Lara\Admin\Concerns\HasLocks;
 
 class ListTags extends ListRecords
 {

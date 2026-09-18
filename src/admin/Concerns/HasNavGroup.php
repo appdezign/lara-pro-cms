@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Traits;
+namespace Lara\Admin\Concerns;
 
 use Illuminate\Support\Facades\App;
 use Lara\Admin\Enums\NavGroup;

@@ -9,7 +9,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Lara\Admin\Resources\Forms\Schemas\FormForm;
 use Lara\Admin\Resources\Forms\Tables\FormsTable;
-use Lara\Admin\Traits\HasNavGroup;
+use Lara\Admin\Concerns\HasNavGroup;
 use Lara\Common\Models\Entity;
 use UnitEnum;
 

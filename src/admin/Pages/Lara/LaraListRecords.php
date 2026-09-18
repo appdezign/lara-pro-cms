@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Lara\Admin\Resources\Tags\TagResource;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasLocks;
 use Lara\Common\Models\Taxonomy;
 
 class LaraListRecords extends ListRecords

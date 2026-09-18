@@ -2,7 +2,7 @@
 
 namespace Lara\Admin\Media;
 
-use Lara\Admin\Traits\HasMedia;
+use Lara\Admin\Concerns\HasMedia;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\ObjectImage;
 

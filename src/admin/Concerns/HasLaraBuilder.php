@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Admin\Traits;
+namespace Lara\Admin\Concerns;
 
 use Binafy\LaravelStub\Facades\LaravelStub;
 use Filament\Notifications\Notification;

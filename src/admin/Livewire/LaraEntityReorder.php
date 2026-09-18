@@ -4,9 +4,9 @@ namespace Lara\Admin\Livewire;
 
 use Filament\Notifications\Notification;
 use Illuminate\Support\Collection;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasParams;
-use Lara\Admin\Traits\HasReorder;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasParams;
+use Lara\Admin\Concerns\HasReorder;
 use Lara\Common\Models\Entity;
 use Livewire\Component;
 

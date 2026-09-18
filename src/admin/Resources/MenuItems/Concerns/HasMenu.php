@@ -11,7 +11,7 @@ use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Page;
 use Lara\Common\Models\Tag;
-use function Lara\Admin\Traits\createNewPage;
+use function Lara\Admin\Concerns\createNewPage;
 
 trait HasMenu
 {

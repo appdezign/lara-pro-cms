@@ -7,7 +7,7 @@ use Filament\Actions\CreateAction;
 
 use Filament\Resources\Pages\ListRecords;
 use Lara\Admin\Resources\Menus\MenuResource;
-use Lara\Admin\Traits\HasLocks;
+use Lara\Admin\Concerns\HasLocks;
 
 class ListMenus extends ListRecords
 {

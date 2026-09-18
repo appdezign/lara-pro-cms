@@ -57,8 +57,8 @@ use Lara\Admin\Enums\NavGroup;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Pages\LaraHealthCheckResults;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasParams;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasParams;
 use Lara\Admin\Widgets\Analytics;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 
