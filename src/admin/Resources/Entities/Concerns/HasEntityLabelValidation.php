@@ -37,6 +37,24 @@ trait HasEntityLabelValidation
 	}
 
 	/**
+	 * These rules only apply when creating an entity.
+	 *
+	 * The label is what the generator derives every class name from, so it is
+	 * fixed once the code has been written: the field is disabled on edit and
+	 * the value cannot change. Validating it there anyway does no good and
+	 * actively breaks editing, because the entity's own resource slug and model
+	 * class now exist - the uniqueness checks match the record being edited and
+	 * reject its unchanged value.
+	 *
+	 * It also protects entities created before these rules existed, whose label
+	 * may not satisfy the current naming pattern, from becoming uneditable.
+	 */
+	private static function getEntityLabelRuleCondition(): Closure
+	{
+		return static fn(string $operation): bool => $operation === 'create';
+	}
+
+	/**
 	 * Laravel closure validation rule for the entity label.
 	 */
 	private static function validateEntityLabel(string $attribute, mixed $value, Closure $fail): void

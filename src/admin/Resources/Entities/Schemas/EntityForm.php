@@ -156,7 +156,7 @@ class EntityForm
 			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.label_single'))
 			->required()
 			->maxLength(64)
-			->rules(static::getEntityLabelRules())
+			->rules(static::getEntityLabelRules(), static::getEntityLabelRuleCondition())
 			->helperText(static::getEntityLabelHelperText())
 			->disabled(fn(string $operation): bool => $operation === 'edit');
 		$rows[] = TextInput::make('resource')
