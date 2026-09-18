@@ -88,12 +88,18 @@ trait HasEntityLabelValidation
 
 	/**
 	 * Helper text explaining what the label is used for.
+	 *
+	 * Only shown while creating. The text is guidance for choosing a label, and
+	 * on edit the field is disabled and the value can no longer change, so it
+	 * would just be noise. Returning null renders no helper text at all.
 	 */
-	private static function getEntityLabelHelperText(): string
+	private static function getEntityLabelHelperText(): Closure
 	{
-		return 'Becomes the model, resource and controller class name, and (pluralised) the '
-			. 'resource slug and table name. One lowercase word, letters and digits only '
-			. '- for example "product", not "Product" or "product page".';
+		return static fn(string $operation): ?string => $operation === 'create'
+			? 'Becomes the model, resource and controller class name, and (pluralised) the '
+				. 'resource slug and table name. One lowercase word, letters and digits only '
+				. '- for example "product", not "Product" or "product page".'
+			: null;
 	}
 
 }
