@@ -11,6 +11,7 @@ use Illuminate\Support\ServiceProvider;
 
 use Lara\Common\Console\LaraRouteCacheCommand;
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
+use Lara\Common\Entities\EntityRegistry;
 use Lara\Common\Http\Middleware\DateLocale;
 use Lara\Common\Http\Middleware\Force2fa;
 use Lara\Common\Http\Middleware\HasBackendAccess;
@@ -127,6 +128,9 @@ class LaraCommonServiceProvider extends ServiceProvider
 		// Merge config
 		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara.php', 'lara');
 		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-common.php', 'lara-common');
+
+		// Entity configuration: one cached copy per request, one cache key overall
+		$this->app->singleton(EntityRegistry::class);
 
 		// Register commands
 		$this->commands([

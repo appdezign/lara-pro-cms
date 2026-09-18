@@ -2,21 +2,45 @@
 
 namespace Lara\Admin\Traits;
 
-use Cache;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;
 use Lara\Admin\Enums\NavGroup;
+use Lara\Common\Entities\EntityConfig;
+use Lara\Common\Entities\EntityRegistry;
 use Lara\Common\Models\Entity;
 
 trait HasLaraEntity
 {
 
-	public static function getEntity()
+	/**
+	 * The configuration row for this resource.
+	 *
+	 * Served by EntityRegistry, which holds every entity behind a single cache
+	 * key. This used to keep its own `lara_entity_{slug}` rememberForever entry,
+	 * separate from the one in LaraEntity, and neither was ever invalidated.
+	 *
+	 * @throws ModelNotFoundException when the resource has no entity row
+	 */
+	public static function getEntity(): Entity
 	{
-		$cacheKey = 'lara_entity_' . static::getSlug();
-		return Cache::rememberForever($cacheKey, function () {
-			return Entity::where('resource_slug', static::getSlug())->firstOrFail();
-		});
+		$resourceSlug = static::getSlug();
+
+		$entity = app(EntityRegistry::class)->model($resourceSlug);
+
+		if (!$entity) {
+			throw (new ModelNotFoundException())
+				->setModel(Entity::class, [$resourceSlug]);
+		}
+
+		return $entity;
+	}
+
+	/**
+	 * Typed configuration for this resource. Prefer this in new code.
+	 */
+	public static function getEntityConfig(): EntityConfig
+	{
+		return app(EntityRegistry::class)->get(static::getSlug());
 	}
 
 	public static function getEntityNavGroup(): ?string
@@ -34,12 +58,6 @@ trait HasLaraEntity
 				return $navigationGroup->getLabelEn();
 			}
 		}
-	}
-
-	// Legacy
-	public static function getEntityKey(): ?string
-	{
-		return static::getSlug();
 	}
 
     // columns
@@ -175,25 +193,9 @@ trait HasLaraEntity
 		return static::getEntity()->objrel_has_groups;
 	}
 
-	public static function getGroupValues(): bool
-	{
-		return static::getEntity()->objrel_group_values;
-	}
-
 	public static function resourceHasRelated(): bool
 	{
 		return static::getEntity()->objrel_has_related;
-	}
-
-	public static function resourceIsRelatable(): bool
-	{
-		return static::getEntity()->objrel_has_relatable;
-	}
-
-	// Filters
-	public static function showTrashed(): bool
-	{
-		return static::getEntity()->filters->show_trashed;
 	}
 
 	// Media

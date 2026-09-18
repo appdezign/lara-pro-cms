@@ -1,8 +1,8 @@
 <?php
 
-namespace Lara\Common\Lara;
+namespace Lara\Common\Entities;
 
-use Lara\Common\Lara\LaraTool;
+use Lara\Common\Entities\LaraTool;
 
 class UsersEntity extends LaraTool
 {

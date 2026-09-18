@@ -10,6 +10,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Support\Enums\Alignment;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
+use Lara\Common\Entities\EntityRegistry;
 
 trait HasRelatedSection
 {
@@ -85,7 +86,7 @@ trait HasRelatedSection
 
 	private static function getRelatableEntities(): array
 	{
-		$cacheKey = 'lara_relatable_entities';
+		$cacheKey = 'lara_relatable_entities_' . app(EntityRegistry::class)->version();
 
 		return Cache::rememberForever($cacheKey, function () {
 			return MenuItem::with('entity')

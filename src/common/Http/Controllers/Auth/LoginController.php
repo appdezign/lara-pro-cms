@@ -11,7 +11,7 @@ use Illuminate\Routing\Controllers\Middleware;
 
 use Lara\Front\Http\Concerns\HasFrontend;
 
-use Lara\Common\Lara\UsersEntity;
+use Lara\Common\Entities\UsersEntity;
 
 use stdClass;
 

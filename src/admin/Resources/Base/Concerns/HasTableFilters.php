@@ -6,6 +6,7 @@ use Cache;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Lara\Common\Models\User;
+use Lara\Common\Entities\EntityRegistry;
 
 trait HasTableFilters
 {
@@ -111,7 +112,8 @@ trait HasTableFilters
 
 	private static function getEntityRelationFilters()
 	{
-		$cacheKey = 'lara_entity_relation_filters_' . static::getSlug();
+		$cacheKey = 'lara_entity_relation_filters_' . static::getSlug()
+			. '_' . app(EntityRegistry::class)->version();
 
 		return Cache::rememberForever($cacheKey, function () {
 			return static::getEntity()->relations()->isFilter()->get();

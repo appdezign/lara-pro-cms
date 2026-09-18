@@ -6,12 +6,14 @@ use Cache;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Lara\Admin\Enums\CustomFieldType;
+use Lara\Common\Entities\EntityRegistry;
 
 trait HasTableCustomColumns
 {
 	private static function getCustomColumnsByHook($hook)
 	{
-		$cacheKey = 'lara_entity_table_custom_fields_' . static::getSlug() . '_' . $hook;
+		$cacheKey = 'lara_entity_table_custom_fields_' . static::getSlug() . '_' . $hook
+			. '_' . app(EntityRegistry::class)->version();
 
 		return Cache::rememberForever($cacheKey, function () use ($hook) {
 			return static::getEntity()->customfields()->where('field_hook', $hook)->where('show_in_list', 1)->get();
@@ -20,7 +22,8 @@ trait HasTableCustomColumns
 
 	private static function getCustomDateColumn()
 	{
-		$cacheKey = 'lara_entity_custom_date_field_' . static::getSlug();
+		$cacheKey = 'lara_entity_custom_date_field_' . static::getSlug()
+			. '_' . app(EntityRegistry::class)->version();
 
 		return Cache::rememberForever($cacheKey, function () {
 			return static::getEntity()->customfields()

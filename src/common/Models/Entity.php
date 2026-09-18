@@ -2,13 +2,16 @@
 
 namespace Lara\Common\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Lara\Common\Entities\EntityConfigObserver;
 use Lara\Common\Models\EntityCustomField;
 use Lara\Common\Models\EntityRelation;
 use Lara\Common\Models\EntityView;
 
+#[ObservedBy(EntityConfigObserver::class)]
 class Entity extends Model
 {
 

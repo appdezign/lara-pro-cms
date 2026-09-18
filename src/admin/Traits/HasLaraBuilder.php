@@ -86,6 +86,15 @@ trait HasLaraBuilder
 			File::makeDirectory($resourcePagesPath);
 		}
 
+		// LaravelStub::generate() throws when the destination folder is missing
+		// rather than creating it, so make sure each stub target exists
+		foreach (['Models', 'Entities', 'Policies', 'Http/Controllers/Front/Entity'] as $stubTarget) {
+			$stubTargetPath = $toPath . $stubTarget;
+			if (!File::isDirectory($stubTargetPath)) {
+				File::makeDirectory($stubTargetPath, recursive: true);
+			}
+		}
+
 		// stub - model
 		LaravelStub::from($fromPath . 'model.stub')
 			->to($toPath . 'Models')
@@ -101,11 +110,11 @@ trait HasLaraBuilder
 
 		// stub - lara entity
 		LaravelStub::from($fromPath . 'laraentity.stub')
-			->to($toPath . 'Lara')
+			->to($toPath . 'Entities')
 			->name($modelNamePlural . 'Entity')
 			->ext('php')
 			->replaces([
-				'NAMESPACE'    => 'Lara\App\Lara',
+				'NAMESPACE'    => 'Lara\App\Entities',
 				'CLASS'        => $modelNamePlural . 'Entity',
 				'RESOURCESLUG' => $modelVarPlural,
 			])
