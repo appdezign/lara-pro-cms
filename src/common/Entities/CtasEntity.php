@@ -1,6 +1,6 @@
 <?php
 
-namespace Lara\Common\Lara;
+namespace Lara\Common\Entities;
 
 class CtasEntity extends LaraEntity
 {

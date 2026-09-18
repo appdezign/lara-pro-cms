@@ -25,6 +25,7 @@ use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Enums\EntityHook;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Tag;
+use Lara\Common\Entities\EntityRegistry;
 
 trait HasContentSection
 {
@@ -178,7 +179,8 @@ trait HasContentSection
 
 	private static function getCustomFieldsByHook($hook)
 	{
-		$cacheKey = 'lara_entity_custom_fields_' . static::getSlug() . '_' . $hook;
+		$cacheKey = 'lara_entity_custom_fields_' . static::getSlug() . '_' . $hook
+			. '_' . app(EntityRegistry::class)->version();
 
 		return Cache::rememberForever($cacheKey, function () use ($hook) {
 			return static::getEntity()->customfields()->where('field_hook', $hook)->orderBy('sort_order')->get();

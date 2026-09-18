@@ -9,7 +9,6 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Lara\Admin\Resources\Users\Schemas\UserForm;
 use Lara\Admin\Resources\Users\Tables\UsersTable;
-use Lara\Admin\Traits\HasBasicLaraEntity;
 use Lara\Admin\Traits\HasNavGroup;
 use Lara\Common\Models\User;
 use UnitEnum;
@@ -17,7 +16,6 @@ use UnitEnum;
 class UserResource extends Resource
 {
 
-	use HasBasicLaraEntity;
 	use HasNavGroup;
 
 	protected static ?string $model = User::class;

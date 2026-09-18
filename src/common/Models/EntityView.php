@@ -2,10 +2,14 @@
 
 namespace Lara\Common\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Lara\Common\Entities\EntityConfigObserver;
+
+#[ObservedBy(EntityConfigObserver::class)]
 class EntityView extends Model
 {
 

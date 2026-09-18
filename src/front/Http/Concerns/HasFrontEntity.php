@@ -3,7 +3,7 @@
 namespace Lara\Front\Http\Concerns;
 
 use Illuminate\Support\Facades\Log;
-use Lara\Common\Lara\LaraEntity;
+use Lara\Common\Entities\LaraEntity;
 use Lara\Common\Models\MenuItem;
 use Lara\Front\Http\Lara\FrontActiveRoute;
 use stdClass;
@@ -106,11 +106,11 @@ trait HasFrontEntity
 	private function getLaraClass(string $resourceSlug)
 	{
 
-		$laraClass = '\Lara\Common\Lara\\' . ucfirst($resourceSlug) . 'Entity';
+		$laraClass = '\Lara\Common\Entities\\' . ucfirst($resourceSlug) . 'Entity';
 
 		if (!class_exists($laraClass)) {
 
-			$laraClass = '\Lara\App\Lara\\' . ucfirst($resourceSlug) . 'Entity';
+			$laraClass = '\Lara\App\Entities\\' . ucfirst($resourceSlug) . 'Entity';
 
 			if (!class_exists($laraClass)) {
 

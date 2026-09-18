@@ -247,7 +247,7 @@ trait HasFrontObject
 	private function getFrontLaraClass(string $resourceSlug)
 	{
 
-		$laraClass = '\Lara\Common\Lara\\' . ucfirst($resourceSlug) . 'Entity';
+		$laraClass = '\Lara\Common\Entities\\' . ucfirst($resourceSlug) . 'Entity';
 
 		if (!class_exists($laraClass)) {
 

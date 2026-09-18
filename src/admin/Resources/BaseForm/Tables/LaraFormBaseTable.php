@@ -18,6 +18,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Lara\Admin\Enums\CustomFieldType;
 use Lara\Admin\Enums\FormHook;
 use Lara\Common\Models\User;
+use Lara\Common\Entities\EntityRegistry;
 
 trait LaraFormBaseTable
 {
@@ -101,7 +102,8 @@ trait LaraFormBaseTable
 
 	private static function getCustomColumnsByHook($hook)
 	{
-		$cacheKey = 'lara_entity_table_custom_fields_' . static::getSlug() . '_' . $hook;
+		$cacheKey = 'lara_entity_table_custom_fields_' . static::getSlug() . '_' . $hook
+			. '_' . app(EntityRegistry::class)->version();
 
 		return Cache::rememberForever($cacheKey, function () use ($hook) {
 			return static::getEntity()->customfields()->where('field_hook', $hook)->where('show_in_list', 1)->get();

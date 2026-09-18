@@ -2,7 +2,7 @@
 
 namespace {{ NAMESPACE }};
 
-use Lara\Common\Lara\LaraEntity;
+use Lara\Common\Entities\LaraEntity;
 
 class {{ CLASS }} extends LaraEntity
 {
