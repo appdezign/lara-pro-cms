@@ -6,109 +6,109 @@ use Filament\Support\Contracts\HasLabel;
 
 enum CustomFieldType: string implements HasLabel
 {
-	case STRING = 'string';
-	case EMAIL = 'email';
-	case TEXT = 'text';
-	case NUMBER = 'number';
+	case String = 'string';
+	case Email = 'email';
+	case Text = 'text';
+	case Number = 'number';
 
-	case TEXTAREA = 'textarea';
-	case RICHEDITOR = 'richeditor';
-	case RICHEDITORMIN = 'richeditormin';
+	case Textarea = 'textarea';
+	case RichEditor = 'richeditor';
+	case RichEditorMin = 'richeditormin';
 
-	case SELECT = 'select';
-	case MULTI_SELECT = 'multiselect';
+	case Select = 'select';
+	case MultiSelect = 'multiselect';
 
-	case TAGS_INPUT = 'tagsinput';
-	case TOGGLE = 'toggle';
-	case TOGGLE_BUTTONS = 'togglebuttons';
-	case MULTI_TOGGLE_BUTTONS = 'multitogglebuttons';
-	case CHECKBOX = 'checkbox';
-	case CHECKBOX_LIST = 'checkboxlist';
-	case RADIO = 'radio';
+	case TagsInput = 'tagsinput';
+	case Toggle = 'toggle';
+	case ToggleButtons = 'togglebuttons';
+	case MultiToggleButtons = 'multitogglebuttons';
+	case Checkbox = 'checkbox';
+	case CheckboxList = 'checkboxlist';
+	case Radio = 'radio';
 
-	case COLOR_PICKER = 'colorpicker';
+	case ColorPicker = 'colorpicker';
 
-	case DECIMAL101 = 'decimal_10_1';
-	case DECIMAL142 = 'decimal_14_2';
-	case DECIMAL164 = 'decimal_16_4';
-	case LATITUDE = 'latitude_10_8';
-	case LONGITUDE = 'longitude_11_8';
+	case Decimal101 = 'decimal_10_1';
+	case Decimal142 = 'decimal_14_2';
+	case Decimal164 = 'decimal_16_4';
+	case Latitude = 'latitude_10_8';
+	case Longitude = 'longitude_11_8';
 
-	case GEOLOCATION = 'geolocation';
+	case Geolocation = 'geolocation';
 
-	case DATE = 'date';
-	case TIME = 'time';
-	case DATE_TIME = 'datetime';
+	case Date = 'date';
+	case Time = 'time';
+	case DateTime = 'datetime';
 
 	public function getLabel(): ?string
 	{
 		return match ($this) {
 
-			self::STRING => 'String',
-			self::EMAIL => 'Email',
-			self::TEXT => 'Text',
-			self::NUMBER => 'Number',
+			self::String => 'String',
+			self::Email => 'Email',
+			self::Text => 'Text',
+			self::Number => 'Number',
 
-			self::TEXTAREA => 'Textarea',
-			self::RICHEDITOR => 'Rich Editor',
-			self::RICHEDITORMIN => 'Rich Editor (minimal)',
+			self::Textarea => 'Textarea',
+			self::RichEditor => 'Rich Editor',
+			self::RichEditorMin => 'Rich Editor (minimal)',
 
-			self::SELECT => 'Select',
-			self::MULTI_SELECT => 'Multi Select',
+			self::Select => 'Select',
+			self::MultiSelect => 'Multi Select',
 
-			self::TAGS_INPUT => 'Tags Input',
-			self::TOGGLE => 'Toggle',
-			self::TOGGLE_BUTTONS => 'Toggle Buttons',
-			self::MULTI_TOGGLE_BUTTONS => 'Multi Toggle Buttons',
-			self::CHECKBOX => 'Checkbox',
-			self::CHECKBOX_LIST => 'Checkbox List',
-			self::RADIO => 'Radio',
+			self::TagsInput => 'Tags Input',
+			self::Toggle => 'Toggle',
+			self::ToggleButtons => 'Toggle Buttons',
+			self::MultiToggleButtons => 'Multi Toggle Buttons',
+			self::Checkbox => 'Checkbox',
+			self::CheckboxList => 'Checkbox List',
+			self::Radio => 'Radio',
 
-			self::COLOR_PICKER => 'Color Picker',
+			self::ColorPicker => 'Color Picker',
 
-			self::DECIMAL101 => 'Decimal (10,1)',
-			self::DECIMAL142 => 'Decimal (14,2)',
-			self::DECIMAL164 => 'Decimal (16,4)',
-			self::LATITUDE => 'Latitude (10,8)',
-			self::LONGITUDE => 'Longitude (11,8)',
+			self::Decimal101 => 'Decimal (10,1)',
+			self::Decimal142 => 'Decimal (14,2)',
+			self::Decimal164 => 'Decimal (16,4)',
+			self::Latitude => 'Latitude (10,8)',
+			self::Longitude => 'Longitude (11,8)',
 
-			self::GEOLOCATION => 'Geolocation',
+			self::Geolocation => 'Geolocation',
 
-			self::DATE => 'Date',
-			self::TIME => 'Time',
-			self::DATE_TIME => 'Date Time',
+			self::Date => 'Date',
+			self::Time => 'Time',
+			self::DateTime => 'Date Time',
 		};
 	}
 
 	public function getDatabaseColumnType(): string
 	{
 		return match ($this) {
-			CustomFieldType::STRING,
-			CustomFieldType::EMAIL,
-			CustomFieldType::GEOLOCATION,
-			CustomFieldType::COLOR_PICKER => 'varchar',
-			CustomFieldType::TEXT,
-			CustomFieldType::TEXTAREA,
-			CustomFieldType::RICHEDITOR,
-			CustomFieldType::RICHEDITORMIN,
-			CustomFieldType::TOGGLE_BUTTONS,
-			CustomFieldType::RADIO,
-			CustomFieldType::SELECT => 'text',
-			CustomFieldType::NUMBER => 'int',
-			CustomFieldType::CHECKBOX,
-			CustomFieldType::TOGGLE => 'tinyint',
-			CustomFieldType::CHECKBOX_LIST,
-			CustomFieldType::MULTI_TOGGLE_BUTTONS,
-			CustomFieldType::TAGS_INPUT,
-			CustomFieldType::MULTI_SELECT => 'json',
-			CustomFieldType::LATITUDE,
-			CustomFieldType::LONGITUDE,
-			CustomFieldType::DECIMAL101,
-			CustomFieldType::DECIMAL142,
-			CustomFieldType::DECIMAL164 => 'decimal',
-			CustomFieldType::DATE => 'date',
-			CustomFieldType::TIME => 'time',
-			CustomFieldType::DATE_TIME => 'timestamp',
+			CustomFieldType::String,
+			CustomFieldType::Email,
+			CustomFieldType::Geolocation,
+			CustomFieldType::ColorPicker => 'varchar',
+			CustomFieldType::Text,
+			CustomFieldType::Textarea,
+			CustomFieldType::RichEditor,
+			CustomFieldType::RichEditorMin,
+			CustomFieldType::ToggleButtons,
+			CustomFieldType::Radio,
+			CustomFieldType::Select => 'text',
+			CustomFieldType::Number => 'int',
+			CustomFieldType::Checkbox,
+			CustomFieldType::Toggle => 'tinyint',
+			CustomFieldType::CheckboxList,
+			CustomFieldType::MultiToggleButtons,
+			CustomFieldType::TagsInput,
+			CustomFieldType::MultiSelect => 'json',
+			CustomFieldType::Latitude,
+			CustomFieldType::Longitude,
+			CustomFieldType::Decimal101,
+			CustomFieldType::Decimal142,
+			CustomFieldType::Decimal164 => 'decimal',
+			CustomFieldType::Date => 'date',
+			CustomFieldType::Time => 'time',
+			CustomFieldType::DateTime => 'timestamp',
 		};
 	}
 
@@ -116,32 +116,32 @@ enum CustomFieldType: string implements HasLabel
 	{
 		return match ($this) {
 
-			CustomFieldType::SELECT,
-			CustomFieldType::MULTI_SELECT,
-			CustomFieldType::TOGGLE_BUTTONS,
-			CustomFieldType::MULTI_TOGGLE_BUTTONS,
-			CustomFieldType::CHECKBOX_LIST,
-			CustomFieldType::RADIO => true,
-			CustomFieldType::STRING,
-			CustomFieldType::EMAIL,
-			CustomFieldType::TEXT,
-			CustomFieldType::NUMBER,
-			CustomFieldType::TEXTAREA,
-			CustomFieldType::RICHEDITOR,
-			CustomFieldType::RICHEDITORMIN,
-			CustomFieldType::TAGS_INPUT,
-			CustomFieldType::TOGGLE,
-			CustomFieldType::CHECKBOX,
-			CustomFieldType::COLOR_PICKER,
-			CustomFieldType::DECIMAL101,
-			CustomFieldType::DECIMAL142,
-			CustomFieldType::DECIMAL164,
-			CustomFieldType::LATITUDE,
-			CustomFieldType::LONGITUDE,
-			CustomFieldType::GEOLOCATION,
-			CustomFieldType::DATE,
-			CustomFieldType::TIME,
-			CustomFieldType::DATE_TIME => false,
+			CustomFieldType::Select,
+			CustomFieldType::MultiSelect,
+			CustomFieldType::ToggleButtons,
+			CustomFieldType::MultiToggleButtons,
+			CustomFieldType::CheckboxList,
+			CustomFieldType::Radio => true,
+			CustomFieldType::String,
+			CustomFieldType::Email,
+			CustomFieldType::Text,
+			CustomFieldType::Number,
+			CustomFieldType::Textarea,
+			CustomFieldType::RichEditor,
+			CustomFieldType::RichEditorMin,
+			CustomFieldType::TagsInput,
+			CustomFieldType::Toggle,
+			CustomFieldType::Checkbox,
+			CustomFieldType::ColorPicker,
+			CustomFieldType::Decimal101,
+			CustomFieldType::Decimal142,
+			CustomFieldType::Decimal164,
+			CustomFieldType::Latitude,
+			CustomFieldType::Longitude,
+			CustomFieldType::Geolocation,
+			CustomFieldType::Date,
+			CustomFieldType::Time,
+			CustomFieldType::DateTime => false,
 		};
 	}
 

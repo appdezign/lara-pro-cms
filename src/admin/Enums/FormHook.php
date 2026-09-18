@@ -6,12 +6,12 @@ use Filament\Support\Contracts\HasLabel;
 
 enum FormHook: string implements HasLabel
 {
-	case DEFAULT = 'default';
+	case Default = 'default';
 
 	public function getLabel(): ?string
 	{
 		return match ($this) {
-			self::DEFAULT => 'default',
+			self::Default => 'default',
 		};
 	}
 

@@ -6,14 +6,14 @@ use Filament\Support\Contracts\HasLabel;
 
 enum EntityOrder: string implements HasLabel
 {
-	case ASC = 'asc';
-	case DESC = 'desc';
+	case Asc = 'asc';
+	case Desc = 'desc';
 
 	public function getLabel(): ?string
 	{
 		return match ($this) {
-			self::ASC => 'asc',
-			self::DESC => 'desc',
+			self::Asc => 'asc',
+			self::Desc => 'desc',
 		};
 	}
 

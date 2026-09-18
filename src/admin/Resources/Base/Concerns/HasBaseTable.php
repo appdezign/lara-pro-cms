@@ -65,7 +65,7 @@ trait HasBaseTable
 				->visibleFrom('2xl');
 		}
 
-		foreach (static::getCustomColumnsByHook(EntityHook::BEFORE_TITLE->value) as $customField) {
+		foreach (static::getCustomColumnsByHook(EntityHook::BeforeTitle->value) as $customField) {
 			if (!empty(static::getFilamentColumn($customField))) {
 				$columns[] = static::getFilamentColumn($customField);
 			}
@@ -85,19 +85,19 @@ trait HasBaseTable
 				->visibleFrom('2xl');
 		}
 
-		foreach (static::getCustomColumnsByHook(EntityHook::AFTER_TITLE->value) as $customField) {
+		foreach (static::getCustomColumnsByHook(EntityHook::AfterTitle->value) as $customField) {
 			if (!empty(static::getFilamentColumn($customField))) {
 				$columns[] = static::getFilamentColumn($customField);
 			}
 		}
 
-		foreach (static::getCustomColumnsByHook(EntityHook::AFTER_SLUG->value) as $customField) {
+		foreach (static::getCustomColumnsByHook(EntityHook::AfterSlug->value) as $customField) {
 			if (!empty(static::getFilamentColumn($customField))) {
 				$columns[] = static::getFilamentColumn($customField);
 			}
 		}
 
-		foreach (static::getCustomColumnsByHook(EntityHook::AFTER_LAST->value) as $customField) {
+		foreach (static::getCustomColumnsByHook(EntityHook::AfterLast->value) as $customField) {
 			if (!empty(static::getFilamentColumn($customField))) {
 				$columns[] = static::getFilamentColumn($customField);
 			}

@@ -38,7 +38,7 @@ trait HasContentSection
 		$rows = array();
 
 		// Custom Fields
-		foreach (static::getCustomFieldsByHook(EntityHook::BEFORE_TITLE->value) as $customField) {
+		foreach (static::getCustomFieldsByHook(EntityHook::BeforeTitle->value) as $customField) {
 			if (!empty(static::getFilamentComponent($customField))) {
 				$rows = array_merge($rows, static::getFilamentComponent($customField));
 			}
@@ -52,7 +52,7 @@ trait HasContentSection
 			->required();
 
 		// Custom Fields
-		foreach (static::getCustomFieldsByHook(EntityHook::AFTER_TITLE->value) as $customField) {
+		foreach (static::getCustomFieldsByHook(EntityHook::AfterTitle->value) as $customField) {
 			if (!empty(static::getFilamentComponent($customField))) {
 				$rows = array_merge($rows, static::getFilamentComponent($customField));
 			}
@@ -93,7 +93,7 @@ trait HasContentSection
 		}
 
 		// Custom Fields
-		foreach (static::getCustomFieldsByHook(EntityHook::AFTER_SLUG->value) as $customField) {
+		foreach (static::getCustomFieldsByHook(EntityHook::AfterSlug->value) as $customField) {
 			if (!empty(static::getFilamentComponent($customField))) {
 				$rows = array_merge($rows, static::getFilamentComponent($customField));
 			}
@@ -128,7 +128,7 @@ trait HasContentSection
 		}
 
 		// Custom Fields
-		foreach (static::getCustomFieldsByHook(EntityHook::AFTER_LAST->value) as $customField) {
+		foreach (static::getCustomFieldsByHook(EntityHook::AfterLast->value) as $customField) {
 			if (!empty(static::getFilamentComponent($customField))) {
 				$rows = array_merge($rows, static::getFilamentComponent($customField));
 			}

@@ -6,14 +6,14 @@ use Filament\Support\Contracts\HasLabel;
 
 enum EntityViewTags: string implements HasLabel
 {
-	case Filterbytaxonomy = 'filterbytaxonomy';
-	case Sortbytaxonomy = '_sortbytaxonomy';
+	case FilterByTaxonomy = 'filterbytaxonomy';
+	case SortByTaxonomy = '_sortbytaxonomy';
 
 	public function getLabel(): ?string
 	{
 		return match ($this) {
-			self::Filterbytaxonomy => 'filter by tag',
-			self::Sortbytaxonomy => 'sort by tag',
+			self::FilterByTaxonomy => 'filter by tag',
+			self::SortByTaxonomy => 'sort by tag',
 		};
 	}
 

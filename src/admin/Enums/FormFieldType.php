@@ -6,64 +6,64 @@ use Filament\Support\Contracts\HasLabel;
 
 enum FormFieldType: string implements HasLabel
 {
-	case STRING = 'string';
-	case EMAIL = 'email';
-	case TEXT = 'text';
-	case NUMBER = 'number';
+	case String = 'string';
+	case Email = 'email';
+	case Text = 'text';
+	case Number = 'number';
 
-	case TEXTAREA = 'textarea';
+	case Textarea = 'textarea';
 
-	case SELECT = 'select';
-	case MULTI_SELECT = 'multiselect';
+	case Select = 'select';
+	case MultiSelect = 'multiselect';
 
-	case TOGGLE = 'toggle';
-	case CHECKBOX = 'checkbox';
-	case RADIO = 'radio';
+	case Toggle = 'toggle';
+	case Checkbox = 'checkbox';
+	case Radio = 'radio';
 
-	case DATE = 'date';
-	case TIME = 'time';
-	case DATE_TIME = 'datetime';
+	case Date = 'date';
+	case Time = 'time';
+	case DateTime = 'datetime';
 
 	public function getLabel(): ?string
 	{
 		return match ($this) {
 
-			self::STRING => 'String',
-			self::EMAIL => 'Email',
-			self::TEXT => 'Text',
-			self::NUMBER => 'Number',
+			self::String => 'String',
+			self::Email => 'Email',
+			self::Text => 'Text',
+			self::Number => 'Number',
 
-			self::TEXTAREA => 'Textarea',
+			self::Textarea => 'Textarea',
 
-			self::SELECT => 'Select',
-			self::MULTI_SELECT => 'Multi Select',
+			self::Select => 'Select',
+			self::MultiSelect => 'Multi Select',
 
-			self::TOGGLE => 'Toggle',
-			self::CHECKBOX => 'Checkbox',
-			self::RADIO => 'Radio',
+			self::Toggle => 'Toggle',
+			self::Checkbox => 'Checkbox',
+			self::Radio => 'Radio',
 
-			self::DATE => 'Date',
-			self::TIME => 'Time',
-			self::DATE_TIME => 'Date Time',
+			self::Date => 'Date',
+			self::Time => 'Time',
+			self::DateTime => 'Date Time',
 		};
 	}
 
 	public function getDatabaseColumnType(): string
 	{
 		return match ($this) {
-			FormFieldType::STRING,
-			FormFieldType::EMAIL => 'varchar',
-			FormFieldType::TEXT,
-			FormFieldType::TEXTAREA,
-			FormFieldType::SELECT => 'text',
-			FormFieldType::NUMBER,
-			FormFieldType::RADIO => 'int',
-			FormFieldType::CHECKBOX,
-			FormFieldType::TOGGLE => 'tinyint',
-			FormFieldType::MULTI_SELECT => 'json',
-			FormFieldType::DATE => 'date',
-			FormFieldType::TIME => 'time',
-			FormFieldType::DATE_TIME => 'timestamp',
+			FormFieldType::String,
+			FormFieldType::Email => 'varchar',
+			FormFieldType::Text,
+			FormFieldType::Textarea,
+			FormFieldType::Select => 'text',
+			FormFieldType::Number,
+			FormFieldType::Radio => 'int',
+			FormFieldType::Checkbox,
+			FormFieldType::Toggle => 'tinyint',
+			FormFieldType::MultiSelect => 'json',
+			FormFieldType::Date => 'date',
+			FormFieldType::Time => 'time',
+			FormFieldType::DateTime => 'timestamp',
 		};
 	}
 
@@ -71,19 +71,19 @@ enum FormFieldType: string implements HasLabel
 	{
 		return match ($this) {
 
-			FormFieldType::SELECT,
-			FormFieldType::MULTI_SELECT,
-			FormFieldType::RADIO => true,
-			FormFieldType::STRING,
-			FormFieldType::EMAIL,
-			FormFieldType::TEXT,
-			FormFieldType::NUMBER,
-			FormFieldType::TEXTAREA,
-			FormFieldType::TOGGLE,
-			FormFieldType::CHECKBOX,
-			FormFieldType::DATE,
-			FormFieldType::TIME,
-			FormFieldType::DATE_TIME => false,
+			FormFieldType::Select,
+			FormFieldType::MultiSelect,
+			FormFieldType::Radio => true,
+			FormFieldType::String,
+			FormFieldType::Email,
+			FormFieldType::Text,
+			FormFieldType::Number,
+			FormFieldType::Textarea,
+			FormFieldType::Toggle,
+			FormFieldType::Checkbox,
+			FormFieldType::Date,
+			FormFieldType::Time,
+			FormFieldType::DateTime => false,
 		};
 	}
 

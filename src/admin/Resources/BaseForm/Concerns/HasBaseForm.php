@@ -45,7 +45,7 @@ trait HasBaseForm
 		$rows = array();
 
 		// Custom Fields
-		foreach (static::getCustomFieldsByHook(EntityHook::DEFAULT->value) as $customField) {
+		foreach (static::getCustomFieldsByHook(EntityHook::Default->value) as $customField) {
 			if (!empty(static::getFilamentComponent($customField))) {
 				$rows = array_merge($rows, static::getFilamentComponent($customField));
 			}

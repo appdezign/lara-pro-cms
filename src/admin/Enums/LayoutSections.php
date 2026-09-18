@@ -6,24 +6,24 @@ use Filament\Support\Contracts\HasLabel;
 
 enum LayoutSections: string implements HasLabel
 {
-	case HEADER = 'header';
-	case HERO = 'hero';
-	case PAGETITLE = 'pagetitle';
-	case CONTENT = 'content';
-	case SHARE = 'share';
-	case CTA = 'cta';
-	case FOOTER = 'footer';
+	case Header = 'header';
+	case Hero = 'hero';
+	case PageTitle = 'pagetitle';
+	case Content = 'content';
+	case Share = 'share';
+	case Cta = 'cta';
+	case Footer = 'footer';
 
 	public function getLabel(): ?string
 	{
 		return match ($this) {
-			self::HEADER => 'header',
-			self::HERO => 'hero',
-			self::PAGETITLE => 'pagetitle',
-			self::CONTENT => 'content',
-			self::SHARE => 'share',
-			self::CTA => 'cta',
-			self::FOOTER => 'footer',
+			self::Header => 'header',
+			self::Hero => 'hero',
+			self::PageTitle => 'pagetitle',
+			self::Content => 'content',
+			self::Share => 'share',
+			self::Cta => 'cta',
+			self::Footer => 'footer',
 		};
 	}
 

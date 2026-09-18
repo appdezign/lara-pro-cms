@@ -6,20 +6,20 @@ use Filament\Support\Contracts\HasLabel;
 
 enum EntityHook: string implements HasLabel
 {
-	case BEFORE_TITLE = 'before-title';
-	case AFTER_TITLE = 'after-title';
-	case AFTER_SLUG = 'after-slug';
-	case AFTER_LAST = 'after-last';
-	case DEFAULT = 'default';
+	case BeforeTitle = 'before-title';
+	case AfterTitle = 'after-title';
+	case AfterSlug = 'after-slug';
+	case AfterLast = 'after-last';
+	case Default = 'default';
 
 	public function getLabel(): ?string
 	{
 		return match ($this) {
-			self::BEFORE_TITLE => 'Before Title',
-			self::AFTER_TITLE => 'After Title',
-			self::AFTER_SLUG => 'After Slug',
-			self::AFTER_LAST => 'After Last',
-			self::DEFAULT => 'Default',
+			self::BeforeTitle => 'Before Title',
+			self::AfterTitle => 'After Title',
+			self::AfterSlug => 'After Slug',
+			self::AfterLast => 'After Last',
+			self::Default => 'Default',
 		};
 	}
 

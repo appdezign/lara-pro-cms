@@ -43,7 +43,7 @@ trait HasBaseTable
 			->sortable()
 			->visibleFrom('2xl');
 
-		foreach (static::getCustomColumnsByHook(FormHook::DEFAULT->value) as $customField) {
+		foreach (static::getCustomColumnsByHook(FormHook::Default->value) as $customField) {
 			if (!empty(static::getFilamentColumn($customField))) {
 				$columns[] = static::getFilamentColumn($customField);
 			}
@@ -115,15 +115,15 @@ trait HasBaseTable
 	{
 
 		$booleanTypes = [
-			CustomFieldType::CHECKBOX->value,
-			CustomFieldType::TOGGLE->value,
+			CustomFieldType::Checkbox->value,
+			CustomFieldType::Toggle->value,
 		];
 
 		$arrayTypes = [
-			CustomFieldType::CHECKBOX_LIST->value,
-			CustomFieldType::TOGGLE_BUTTONS->value,
-			CustomFieldType::TAGS_INPUT->value,
-			CustomFieldType::MULTI_SELECT->value,
+			CustomFieldType::CheckboxList->value,
+			CustomFieldType::ToggleButtons->value,
+			CustomFieldType::TagsInput->value,
+			CustomFieldType::MultiSelect->value,
 		];
 
 		if (in_array($field->field_type, $booleanTypes)) {
