@@ -25,11 +25,11 @@ class WidgetResource extends BaseResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
+			'index'   => Pages\ListWidgets::route('/'),
+			'create'  => Pages\CreateWidget::route('/create'),
+			'reorder' => Pages\ReorderWidgets::route('/reorder'),
+			'view'    => Pages\ViewWidget::route('/{record}'),
+			'edit'    => Pages\EditWidget::route('/{record}/edit'),
 		];
 	}
 

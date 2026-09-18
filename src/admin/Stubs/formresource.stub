@@ -14,8 +14,8 @@ class {{ RESOURCE }} extends BaseFormResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
+			'index' => Pages\{{ LISTPAGE }}::route('/'),
+			'view'  => Pages\{{ VIEWPAGE }}::route('/{record}'),
 		];
 	}
 

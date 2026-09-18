@@ -2,10 +2,10 @@
 
 namespace Lara\Admin\Resources\Ctas\Pages;
 
-use Lara\Admin\Pages\Lara\LaraCreateRecord;
+use Lara\Admin\Pages\Lara\LaraViewRecord;
 use Lara\Admin\Resources\Ctas\CtaResource;
 
-class CreateRecord extends LaraCreateRecord
+class ViewCta extends LaraViewRecord
 {
     protected static string $resource = CtaResource::class;
 }

@@ -10,7 +10,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Lara\Admin\Resources\MenuItems\MenuItemResource;
 use Lara\Admin\Resources\Menus\MenuResource;
 
-class MenuReorder extends Page
+class ReorderMenu extends Page
 {
     use InteractsWithRecord;
 

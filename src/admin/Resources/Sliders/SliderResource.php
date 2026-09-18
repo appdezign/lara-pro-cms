@@ -14,11 +14,11 @@ class SliderResource extends BaseResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
+			'index'   => Pages\ListSliders::route('/'),
+			'create'  => Pages\CreateSlider::route('/create'),
+			'reorder' => Pages\ReorderSliders::route('/reorder'),
+			'view'    => Pages\ViewSlider::route('/{record}'),
+			'edit'    => Pages\EditSlider::route('/{record}/edit'),
 		];
 	}
 

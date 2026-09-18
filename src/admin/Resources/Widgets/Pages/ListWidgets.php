@@ -2,10 +2,10 @@
 
 namespace Lara\Admin\Resources\Widgets\Pages;
 
-use Lara\Admin\Pages\Lara\LaraReorderRecords;
+use Lara\Admin\Pages\Lara\LaraListRecords;
 use Lara\Admin\Resources\Widgets\WidgetResource;
 
-class ReorderRecords extends LaraReorderRecords
+class ListWidgets extends LaraListRecords
 {
     protected static string $resource = WidgetResource::class;
 }

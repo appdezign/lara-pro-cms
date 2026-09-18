@@ -2,10 +2,10 @@
 
 namespace Lara\Admin\Resources\Sliders\Pages;
 
-use Lara\Admin\Pages\Lara\LaraEditRecord;
+use Lara\Admin\Pages\Lara\LaraCreateRecord;
 use Lara\Admin\Resources\Sliders\SliderResource;
 
-class EditRecord extends LaraEditRecord
+class CreateSlider extends LaraCreateRecord
 {
     protected static string $resource = SliderResource::class;
 }

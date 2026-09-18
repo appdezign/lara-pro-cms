@@ -14,11 +14,11 @@ class CtaResource extends BaseResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
+			'index'   => Pages\ListCtas::route('/'),
+			'create'  => Pages\CreateCta::route('/create'),
+			'reorder' => Pages\ReorderCtas::route('/reorder'),
+			'view'    => Pages\ViewCta::route('/{record}'),
+			'edit'    => Pages\EditCta::route('/{record}/edit'),
 		];
 	}
 

@@ -58,6 +58,16 @@ trait HasLaraBuilder
 		// policy
 		$policyName = $modelNameSingle . 'Policy';
 
+		// resource pages, named the way Filament's own generator names them:
+		// plural for the list-scoped pages, singular for the record-scoped ones
+		$pageNames = [
+			'list'    => 'List' . $modelNamePlural,
+			'create'  => 'Create' . $modelNameSingle,
+			'edit'    => 'Edit' . $modelNameSingle,
+			'view'    => 'View' . $modelNameSingle,
+			'reorder' => 'Reorder' . $modelNamePlural,
+		];
+
 		// update entity
 		$entity->title = $modelNamePlural;
 		$entity->resource_slug = $modelVarPlural;
@@ -141,9 +151,14 @@ trait HasLaraBuilder
 			->name($resourceName)
 			->ext('php')
 			->replaces([
-				'NAMESPACE' => 'Lara\App\Filament\Resources\\' . $resourceDir,
-				'RESOURCE'  => $resourceName,
-				'MODEL'     => $modelNameSingle,
+				'NAMESPACE'    => 'Lara\App\Filament\Resources\\' . $resourceDir,
+				'RESOURCE'     => $resourceName,
+				'MODEL'        => $modelNameSingle,
+				'LISTPAGE'     => $pageNames['list'],
+				'CREATEPAGE'   => $pageNames['create'],
+				'EDITPAGE'     => $pageNames['edit'],
+				'VIEWPAGE'     => $pageNames['view'],
+				'REORDERPAGE'  => $pageNames['reorder'],
 			])
 			->generate();
 
@@ -160,76 +175,27 @@ trait HasLaraBuilder
 			])
 			->generate();
 
-		// pages namespace
+		// stub - resource pages
 		$pagesNamespace = 'Lara\App\Filament\Resources\\' . $resourceDir . '\Pages';
 
-		if (!$isForm) {
-			// stub - create record page
-			LaravelStub::from($fromPath . 'createrecord.stub')
+		// a form resource only lists and views its submissions
+		$stubsToGenerate = $isForm
+			? ['list', 'view']
+			: ['list', 'create', 'edit', 'view', 'reorder'];
+
+		foreach ($stubsToGenerate as $page) {
+			LaravelStub::from($fromPath . 'page-' . $page . '.stub')
 				->to($resourcePagesPath)
-				->name('CreateRecord')
+				->name($pageNames[$page])
 				->ext('php')
 				->replaces([
 					'NAMESPACE'   => $pagesNamespace,
-					'CLASS'       => 'CreateRecord',
+					'CLASS'       => $pageNames[$page],
 					'RESOURCE'    => $resourceName,
 					'RESOURCEDIR' => $resourceDir,
 				])
 				->generate();
-
-			// stub - edit record page
-			LaravelStub::from($fromPath . 'editrecord.stub')
-				->to($resourcePagesPath)
-				->name('EditRecord')
-				->ext('php')
-				->replaces([
-					'NAMESPACE'   => $pagesNamespace,
-					'CLASS'       => 'EditRecord',
-					'RESOURCE'    => $resourceName,
-					'RESOURCEDIR' => $resourceDir,
-				])
-				->generate();
-
-			// stub - reorder records page
-			LaravelStub::from($fromPath . 'reorderrecords.stub')
-				->to($resourcePagesPath)
-				->name('ReorderRecords')
-				->ext('php')
-				->replaces([
-					'NAMESPACE'   => $pagesNamespace,
-					'CLASS'       => 'ReorderRecords',
-					'RESOURCE'    => $resourceName,
-					'RESOURCEDIR' => $resourceDir,
-				])
-				->generate();
-
 		}
-
-		// stub - list records page
-		LaravelStub::from($fromPath . 'listrecords.stub')
-			->to($resourcePagesPath)
-			->name('ListRecords')
-			->ext('php')
-			->replaces([
-				'NAMESPACE'   => $pagesNamespace,
-				'CLASS'       => 'ListRecords',
-				'RESOURCE'    => $resourceName,
-				'RESOURCEDIR' => $resourceDir,
-			])
-			->generate();
-
-		// stub - view record page
-		LaravelStub::from($fromPath . 'viewrecord.stub')
-			->to($resourcePagesPath)
-			->name('ViewRecord')
-			->ext('php')
-			->replaces([
-				'NAMESPACE'   => $pagesNamespace,
-				'CLASS'       => 'ViewRecord',
-				'RESOURCE'    => $resourceName,
-				'RESOURCEDIR' => $resourceDir,
-			])
-			->generate();
 
 	}
 
@@ -499,7 +465,7 @@ trait HasLaraBuilder
 		}
 	}
 
-	private static function addCustomColumn(EntityCustomField $customField, string $after = null): string
+	private static function addCustomColumn(EntityCustomField $customField, ?string $after = null): string
 	{
 
 		$entity = $customField->entity;

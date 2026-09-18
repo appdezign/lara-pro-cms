@@ -79,7 +79,7 @@ class MenuResource extends Resource
 			'index'  => Pages\ListMenus::route('/'),
 			'create' => Pages\CreateMenu::route('/create'),
 			'edit'   => Pages\EditMenu::route('/{record}/edit'),
-			'reorder'  => Pages\MenuReorder::route('/{record}/reorder'),
+			'reorder'  => Pages\ReorderMenu::route('/{record}/reorder'),
 		];
 	}
 

@@ -14,11 +14,11 @@ class {{ RESOURCE }} extends BaseResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
+			'index'   => Pages\{{ LISTPAGE }}::route('/'),
+			'create'  => Pages\{{ CREATEPAGE }}::route('/create'),
+			'reorder' => Pages\{{ REORDERPAGE }}::route('/reorder'),
+			'view'    => Pages\{{ VIEWPAGE }}::route('/{record}'),
+			'edit'    => Pages\{{ EDITPAGE }}::route('/{record}/edit'),
 		];
 	}
 

@@ -2,10 +2,10 @@
 
 namespace Lara\Admin\Resources\Ctas\Pages;
 
-use Lara\Admin\Pages\Lara\LaraListRecords;
+use Lara\Admin\Pages\Lara\LaraEditRecord;
 use Lara\Admin\Resources\Ctas\CtaResource;
 
-class ListRecords extends LaraListRecords
+class EditCta extends LaraEditRecord
 {
     protected static string $resource = CtaResource::class;
 }
