@@ -117,16 +117,29 @@ class BaseModel extends Model implements HasRichContent
 		return $this->morphToMany(Tag::class, 'entity', config('lara-common.database.object.taggables'))->whereHas('taxonomy', fn($query) => $query->where('slug', 'category'))->orderBy('position');
 	}
 
+	/**
+	 * Published, and the publication moment has passed.
+	 *
+	 * Compares full timestamps rather than dates: whereDate() truncated
+	 * publish_from to a date, so anything published today was excluded until
+	 * the following day. A null publish_from means "published immediately".
+	 */
 	public function scopeIsPublished(Builder $query): Builder
 	{
 		return $query->where('publish', 1)
-			->whereDate('publish_from', '<', Carbon::now()->toDateTimeString());
+			->where(function ($query) {
+				$query->where('publish_from', '<=', Carbon::now())
+					->orWhereNull('publish_from');
+			});
 	}
 
+	/**
+	 * Not past its expiry moment. A null publish_to means "never expires".
+	 */
 	public function scopeIsNotExpired(Builder $query): Builder
 	{
 		return $query->where(function ($query) {
-			$query->whereDate('publish_to', '>', Carbon::now()->toDateTimeString())
+			$query->where('publish_to', '>', Carbon::now())
 				->orWhereNull('publish_to');
 		});
 	}

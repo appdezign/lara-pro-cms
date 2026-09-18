@@ -32,8 +32,8 @@ if (!$laraNeedsSetup) {
 		if ($rootMenuItem) {
 
 			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-			$specialMiddleware = array();
-			if ((isset($rootMenuItem->entity) && $rootMenuItem->entity->has_front_auth) == 1 || $rootMenuItem->route_has_auth) {
+			$specialMiddleware = [];
+			if (($rootMenuItem->entity && $rootMenuItem->entity->has_front_auth == 1) || $rootMenuItem->route_has_auth) {
 				$specialMiddleware[] = 'auth';
 			}
 

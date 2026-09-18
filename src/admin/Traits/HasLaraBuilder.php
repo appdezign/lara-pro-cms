@@ -9,14 +9,38 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Lara\Admin\Enums\CustomFieldType;
+use InvalidArgumentException;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityCustomField;
 
 trait HasLaraBuilder
 {
 
+	/**
+	 * Guard the label before it is turned into class names and written to disk.
+	 *
+	 * The admin form validates this too, but the generator is the last point at
+	 * which a bad value can still be rejected cheaply - past here it becomes a
+	 * PHP file that cannot be loaded, and a resource that cannot be opened.
+	 *
+	 * @throws InvalidArgumentException
+	 */
+	private static function assertLabelIsUsableAsClassName(Entity $entity): void
+	{
+		$label = (string) $entity->label_single;
+
+		if (preg_match('/^[A-Za-z][A-Za-z0-9]*$/', $label) !== 1) {
+			throw new InvalidArgumentException(
+				'Entity label "' . $label . '" cannot be used as a PHP class name. '
+				. 'Use one word of letters and digits, starting with a letter.'
+			);
+		}
+	}
+
 	private static function createEntity(Entity $entity): void
 	{
+
+		static::assertLabelIsUsableAsClassName($entity);
 
 		$isForm = $entity->cgroup == 'form';
 

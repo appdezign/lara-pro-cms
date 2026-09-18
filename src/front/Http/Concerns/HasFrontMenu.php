@@ -352,7 +352,8 @@ trait HasFrontMenu
 	private function getMenuEntityRoutes(string $language): mixed
 	{
 
-		$cache_key = 'front_menu_entity_routes';
+		// the cached routes are language specific, so the key must be too
+		$cache_key = 'front_menu_entity_routes_' . $language;
 
 		return Cache::rememberForever($cache_key, function () use ($language) {
 

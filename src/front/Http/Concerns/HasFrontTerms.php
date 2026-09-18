@@ -3,6 +3,7 @@
 namespace Lara\Front\Http\Concerns;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\Model;
 use Lara\Common\Models\Tag;
 use Lara\Common\Models\Taxonomy;
 
@@ -282,7 +283,14 @@ trait HasFrontTerms
 	private function getTagsFromCollection(string $language, object $entity, object $objects)
 	{
 
-		$cache_key = $entity->getResourceSlug() . '_tags';
+		// The result is derived from this exact collection (a paginated list yields a
+		// different tag set per page) and from the language, so both have to be part
+		// of the key. Keying on the resource slug alone pinned every language and
+		// every page to whichever one was cached first.
+		$cache_key = 'front_collection_tags_'
+			. $entity->getResourceSlug() . '_'
+			. $language . '_'
+			. $this->getCollectionFingerprint($objects);
 
 		$tags = Cache::remember($cache_key, 86400, function () use ($language, $entity, $objects) {
 
@@ -327,6 +335,27 @@ trait HasFrontTerms
 		$tags = json_decode(json_encode($tags), false);
 
 		return $tags;
+
+	}
+
+	/**
+	 * Build a short, stable fingerprint of the objects in a collection,
+	 * so a derived value can be cached per collection rather than per entity.
+	 */
+	private function getCollectionFingerprint(object $objects): string
+	{
+
+		$ids = [];
+
+		foreach ($objects as $object) {
+			$ids[] = $object instanceof Model
+				? (string) $object->getKey()
+				: (string) ($object->id ?? spl_object_id($object));
+		}
+
+		sort($ids);
+
+		return md5(implode(',', $ids));
 
 	}
 

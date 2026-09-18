@@ -2,6 +2,7 @@
 
 namespace Lara\Front\Http\Concerns;
 
+use Illuminate\Support\Facades\Log;
 use Lara\Common\Lara\LaraEntity;
 use Lara\Common\Models\MenuItem;
 use Lara\Front\Http\Lara\FrontActiveRoute;
@@ -227,7 +228,14 @@ trait HasFrontEntity
 			if ($parentMenuItem) {
 				$route->tagless_menu_id = $parentMenuItem->id;
 			} else {
-				dd('create parent menu item');
+				// without a tagless parent we cannot build the single-object route;
+				// getLaraActiveRoute() falls back to "<routename>.show"
+				Log::warning('lara route: tagged menu item has no tagless parent', [
+					'routename'      => $routename,
+					'menu_item_id'   => $menuItem->id,
+					'entity_id'      => $menuItem->entity_id,
+					'entity_view_id' => $menuItem->entity_view_id,
+				]);
 			}
 		}
 

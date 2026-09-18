@@ -1,61 +1,65 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
+
 use Lara\Common\Models\Translation;
 use Lara\Common\Models\Entity;
 
 if (!function_exists('_q')) {
 
 	/**
-	 * @param string $fullkey
-	 * @param $uppercase
-	 * @param $replace
-	 * @param $locale
-	 * @return string|null
+	 * Resolve a Lara translation key.
+	 *
+	 * A key is expected to look like `module::group.tag.key`. When no translation
+	 * exists the key is registered for every supported locale and a placeholder is
+	 * returned. A malformed key is logged and degrades to a placeholder as well -
+	 * a missing label must never take down the page that renders it.
+	 *
+	 * @param string $fullkey Translation key, e.g. `lara-app::blogs.model.label_single`
+	 * @param bool $uppercase Ucfirst the resolved value
+	 * @param array<string, mixed> $replace Replacement tokens passed to __()
+	 * @param string|null $locale Force a locale instead of the active one
 	 */
 	function _q(string $fullkey, bool $uppercase = false, array $replace = [], ?string $locale = null): ?string
 	{
 
-		$translation = null;
-
-		if (__($fullkey, $replace, $locale) == $fullkey) {
-
-			if (str_contains($fullkey, '::')) {
-
-				list($module, $langkey) = explode('::', $fullkey);
-
-				$key_array = explode('.', $langkey);
-
-				if (sizeof($key_array) == 3) {
-
-					// no translation found, use last part of key
-					list($group, $tag, $key) = explode('.', $langkey);
-
-					$tempkey = '_' . $key;
-
-					if (!empty($key)) {
-						addMissingLanguageKey($module, $group, $tag, $key, $tempkey);
-					}
-
-					$translation = $tempkey;
-
-				} else {
-					dd($fullkey);
-				}
-
-			} else {
-				dd($fullkey);
-			}
-
-		} else {
+		if (__($fullkey, $replace, $locale) != $fullkey) {
 			// use translation
 			$translation = __($fullkey, $replace, $locale);
+
+			return $uppercase ? ucfirst($translation) : $translation;
 		}
 
-		if ($uppercase) {
-			return ucfirst($translation);
-		} else {
-			return $translation;
+		$langkey = str_contains($fullkey, '::')
+			? explode('::', $fullkey, 2)[1]
+			: null;
+
+		$key_array = $langkey === null ? [] : explode('.', $langkey);
+
+		if (sizeof($key_array) != 3) {
+
+			Log::warning('lara translation: malformed key, expected "module::group.tag.key"', [
+				'key' => $fullkey,
+			]);
+
+			// degrade to the last segment of whatever we were given
+			$segments = explode('.', $fullkey);
+			$translation = '_' . end($segments);
+
+			return $uppercase ? ucfirst($translation) : $translation;
 		}
+
+		// no translation found, use last part of key
+		[$module] = explode('::', $fullkey, 2);
+		[$group, $tag, $key] = $key_array;
+
+		$translation = '_' . $key;
+
+		if (!empty($key)) {
+			addMissingLanguageKey($module, $group, $tag, $key, $translation);
+		}
+
+		return $uppercase ? ucfirst($translation) : $translation;
 
 	}
 }

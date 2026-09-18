@@ -46,15 +46,21 @@ if (sizeof($array) == 5) {
 	<script>
 
 		document.addEventListener("DOMContentLoaded", function () {
+			const laraCacheToken = "{{ csrf_token() }}";
+
 			$.ajax({
-				url: "/laracache/clear",
+				url: "{{ route('laracache.clear') }}",
+				method: "POST",
+				headers: {"X-CSRF-TOKEN": laraCacheToken},
 				success: function (data) {
 					console.log(data.payload);
 				}
 			}).then(function () {
 				setTimeout(() => {
 					$.ajax({
-						url: "/laracache/cache",
+						url: "{{ route('laracache.cache') }}",
+						method: "POST",
+						headers: {"X-CSRF-TOKEN": laraCacheToken},
 						success: function (data) {
 							console.log(data.payload);
 						}
