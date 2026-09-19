@@ -2,43 +2,35 @@
 
 namespace Lara\Common\Providers;
 
+use Awcodes\Curator\Facades\Curator;
+use Awcodes\Curator\Facades\Glide;
+use Awcodes\Curator\Models\Media;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-
 use Lara\Common\Console\LaraRouteCacheCommand;
-use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 use Lara\Common\Entities\EntityRegistry;
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 use Lara\Common\Http\Middleware\DateLocale;
 use Lara\Common\Http\Middleware\Force2fa;
-use Lara\Common\Http\Middleware\HasBackendAccess;
 use Lara\Common\Http\Middleware\UserLocale;
 use Lara\Common\Models;
 use Lara\Common\Models\Entity;
 use Lara\Common\Policies;
-
+use Lara\Common\Routes\RouteTagIndex;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 use PragmaRX\Google2FALaravel\Middleware;
 use Spatie\Permission\Models\Role;
-
 use Spatie\ResponseCache\Middlewares\CacheResponse;
 use Spatie\ResponseCache\Middlewares\DoNotCacheResponse;
 
-
-use Awcodes\Curator\CuratorPlugin;
-use Awcodes\Curator\Facades\Curator;
-use Awcodes\Curator\Facades\Glide;
-use Awcodes\Curator\Models\Media;
-
 class LaraCommonServiceProvider extends ServiceProvider
 {
-
 	use HasSetup;
 
 	/**
@@ -46,19 +38,19 @@ class LaraCommonServiceProvider extends ServiceProvider
 	 *
 	 * @return void
 	 */
-	public function boot(\Illuminate\Routing\Router $router)
+	public function boot(Router $router)
 	{
 
 		// Publish Config
 		$this->publishes([
-			__DIR__ . '/../../../config/lara-common.php' => config_path('lara-common.php'),
+			__DIR__.'/../../../config/lara-common.php' => config_path('lara-common.php'),
 		], 'lara');
 
 		// Load Views
 		$this->loadViewsFrom(__DIR__.'/../../../resources/views/common', 'lara-common');
 
 		// Load Translations
-		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-common', 'lara-common');
+		$this->loadTranslationsFrom(app()->langPath().'/vendor/lara-common', 'lara-common');
 
 		// register global middleware
 		$router->aliasMiddleware('userLocale', UserLocale::class);
@@ -76,7 +68,7 @@ class LaraCommonServiceProvider extends ServiceProvider
 		$router->aliasMiddleware('doNotCacheResponse', DoNotCacheResponse::class);
 
 		Gate::policy(Models\Cta::class, Policies\CtaPolicy::class);
-		Gate::policy(Models\Entity::class, Policies\EntityPolicy::class);
+		Gate::policy(Entity::class, Policies\EntityPolicy::class);
 		Gate::policy(Models\Menu::class, Policies\MenuPolicy::class);
 		Gate::policy(Models\MenuItem::class, Policies\MenuItemPolicy::class);
 		Gate::policy(Models\Page::class, Policies\PagePolicy::class);
@@ -92,9 +84,9 @@ class LaraCommonServiceProvider extends ServiceProvider
 		/**
 		 * Override Image cache directories
 		 */
-		if (!$this->laraNeedsSetup() && !App::runningInConsole()) {
+		if (! $this->laraNeedsSetup() && ! App::runningInConsole()) {
 
-			$paths = array();
+			$paths = [];
 			$entities = Entity::get();
 
 			foreach ($entities as $entity) {
@@ -102,7 +94,7 @@ class LaraCommonServiceProvider extends ServiceProvider
 				$path = Storage::disk('public')->path($entity->resource_slug);
 
 				// check if directory exists
-				if (!is_dir($path)) {
+				if (! is_dir($path)) {
 					// create media directory for this entity
 					mkdir($path);
 				}
@@ -113,7 +105,6 @@ class LaraCommonServiceProvider extends ServiceProvider
 			config(['lara-image-cache.paths' => $paths]);
 
 		}
-
 
 	}
 
@@ -126,11 +117,15 @@ class LaraCommonServiceProvider extends ServiceProvider
 	{
 
 		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara.php', 'lara');
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-common.php', 'lara-common');
+		$this->mergeConfigFrom(__DIR__.'/../../../config/lara.php', 'lara');
+		$this->mergeConfigFrom(__DIR__.'/../../../config/lara-common.php', 'lara-common');
 
 		// Entity configuration: one cached copy per request, one cache key overall
 		$this->app->singleton(EntityRegistry::class);
+
+		// Routable tags, read once and grouped, instead of one query per
+		// entity while the front route files are evaluated
+		$this->app->singleton(RouteTagIndex::class);
 
 		// Register commands
 		$this->commands([

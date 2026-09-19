@@ -12,7 +12,7 @@ class Theme
         return app('theme.finder');
     }
 
-    public static function set(string $theme, string $parentTheme = null): void
+    public static function set(string $theme, ?string $parentTheme = null): void
     {
         self::finder()->setActiveTheme($theme, $parentTheme);
     }
@@ -32,7 +32,7 @@ class Theme
         return self::finder()->getParentTheme();
     }
 
-    public static function viewPath(string $theme = null): ?string
+    public static function viewPath(?string $theme = null): ?string
     {
         $theme = $theme ?? self::active();
 
@@ -43,7 +43,7 @@ class Theme
         return null;
     }
 
-    public static function path(string $path = null, string $theme = null): ?string
+    public static function path(?string $path = null, ?string $theme = null): ?string
     {
         $theme = $theme ?? self::active();
 

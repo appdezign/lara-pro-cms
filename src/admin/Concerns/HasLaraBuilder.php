@@ -8,15 +8,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Lara\Admin\Enums\CustomFieldType;
 use InvalidArgumentException;
+use Lara\Admin\Enums\CustomFieldType;
 use Lara\Common\Entities\EntityLabel;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityCustomField;
 
 trait HasLaraBuilder
 {
-
 	/**
 	 * Guard the label before it is turned into class names and written to disk.
 	 *
@@ -34,7 +33,7 @@ trait HasLaraBuilder
 
 		if ($rejection !== null) {
 			throw new InvalidArgumentException(
-				'Entity label "' . $label . '" cannot be used to derive a class name. ' . $rejection
+				'Entity label "'.$label.'" cannot be used to derive a class name. '.$rejection
 			);
 		}
 	}
@@ -52,36 +51,36 @@ trait HasLaraBuilder
 		$modelNamePlural = ucfirst($modelVarPlural);
 
 		// resource
-		$resourceName = $modelNameSingle . 'Resource';
+		$resourceName = $modelNameSingle.'Resource';
 		$resourceDir = ucfirst($modelVarPlural);
 
 		// policy
-		$policyName = $modelNameSingle . 'Policy';
+		$policyName = $modelNameSingle.'Policy';
 
 		// resource pages, named the way Filament's own generator names them:
 		// plural for the list-scoped pages, singular for the record-scoped ones
 		$pageNames = [
-			'list'    => 'List' . $modelNamePlural,
-			'create'  => 'Create' . $modelNameSingle,
-			'edit'    => 'Edit' . $modelNameSingle,
-			'view'    => 'View' . $modelNameSingle,
-			'reorder' => 'Reorder' . $modelNamePlural,
+			'list' => 'List'.$modelNamePlural,
+			'create' => 'Create'.$modelNameSingle,
+			'edit' => 'Edit'.$modelNameSingle,
+			'view' => 'View'.$modelNameSingle,
+			'reorder' => 'Reorder'.$modelNamePlural,
 		];
 
 		// update entity
 		$entity->title = $modelNamePlural;
 		$entity->resource_slug = $modelVarPlural;
-		$entity->resource = 'Lara\\App\\Filament\\Resources\\' . $resourceDir . '\\' . $resourceName;
-		$entity->model_class = 'Lara\\App\\Models\\' . $modelNameSingle;
-		$entity->controller = $modelNamePlural . 'Controller';
-		$entity->policy = 'Lara\\App\\Policies\\' . $modelNameSingle . 'Policy';
+		$entity->resource = 'Lara\\App\\Filament\\Resources\\'.$resourceDir.'\\'.$resourceName;
+		$entity->model_class = 'Lara\\App\\Models\\'.$modelNameSingle;
+		$entity->controller = $modelNamePlural.'Controller';
+		$entity->policy = 'Lara\\App\\Policies\\'.$modelNameSingle.'Policy';
 		$entity->save();
 
 		// table
 		$entityPrefixes = config('lara-common.database.entity');
 
-		$entityPrefix = $entityPrefixes[$entity->cgroup . '_prefix'];
-		$tablename = $entityPrefix . $modelVarPlural;
+		$entityPrefix = $entityPrefixes[$entity->cgroup.'_prefix'];
+		$tablename = $entityPrefix.$modelVarPlural;
 
 		// stubs - paths
 		$fromPath = base_path('laracms/core/src/admin/Stubs/');
@@ -89,94 +88,94 @@ trait HasLaraBuilder
 		$resourcesPath = base_path('laracms/app/Filament/Resources/');
 
 		// make directories for resource pages
-		$resourceDirPath = $resourcesPath . DIRECTORY_SEPARATOR . $resourceDir;
-		if (!File::isDirectory($resourceDirPath)) {
+		$resourceDirPath = $resourcesPath.DIRECTORY_SEPARATOR.$resourceDir;
+		if (! File::isDirectory($resourceDirPath)) {
 			File::makeDirectory($resourceDirPath);
 		}
-		$resourcePagesPath = $resourceDirPath . DIRECTORY_SEPARATOR . 'Pages';
-		if (!File::isDirectory($resourcePagesPath)) {
+		$resourcePagesPath = $resourceDirPath.DIRECTORY_SEPARATOR.'Pages';
+		if (! File::isDirectory($resourcePagesPath)) {
 			File::makeDirectory($resourcePagesPath);
 		}
 
 		// LaravelStub::generate() throws when the destination folder is missing
 		// rather than creating it, so make sure each stub target exists
 		foreach (['Models', 'Entities', 'Policies', 'Http/Controllers/Front/Entity'] as $stubTarget) {
-			$stubTargetPath = $toPath . $stubTarget;
-			if (!File::isDirectory($stubTargetPath)) {
+			$stubTargetPath = $toPath.$stubTarget;
+			if (! File::isDirectory($stubTargetPath)) {
 				File::makeDirectory($stubTargetPath, recursive: true);
 			}
 		}
 
 		// stub - model
-		LaravelStub::from($fromPath . 'model.stub')
-			->to($toPath . 'Models')
+		LaravelStub::from($fromPath.'model.stub')
+			->to($toPath.'Models')
 			->name($modelNameSingle)
 			->ext('php')
 			->replaces([
 				'NAMESPACE' => 'Lara\App\Models',
-				'CLASS'     => $modelNameSingle,
-				'MODEL'     => $modelNameSingle,
-				'TABLE'     => $tablename,
+				'CLASS' => $modelNameSingle,
+				'MODEL' => $modelNameSingle,
+				'TABLE' => $tablename,
 			])
 			->generate();
 
 		// stub - lara entity
-		LaravelStub::from($fromPath . 'laraentity.stub')
-			->to($toPath . 'Entities')
-			->name($modelNamePlural . 'Entity')
+		LaravelStub::from($fromPath.'laraentity.stub')
+			->to($toPath.'Entities')
+			->name($modelNamePlural.'Entity')
 			->ext('php')
 			->replaces([
-				'NAMESPACE'    => 'Lara\App\Entities',
-				'CLASS'        => $modelNamePlural . 'Entity',
+				'NAMESPACE' => 'Lara\App\Entities',
+				'CLASS' => $modelNamePlural.'Entity',
 				'RESOURCESLUG' => $modelVarPlural,
 			])
 			->generate();
 
 		// stub - frontend controller
-		LaravelStub::from($fromPath . 'frontcontroller.stub')
-			->to($toPath . 'Http/Controllers/Front/Entity')
-			->name($modelNamePlural . 'Controller')
+		LaravelStub::from($fromPath.'frontcontroller.stub')
+			->to($toPath.'Http/Controllers/Front/Entity')
+			->name($modelNamePlural.'Controller')
 			->ext('php')
 			->replaces([
 				'NAMESPACE' => 'Lara\App\Http\Controllers\Front\Entity',
-				'CLASS'     => $modelNamePlural . 'Controller',
-				'MODEL'     => $modelNameSingle,
+				'CLASS' => $modelNamePlural.'Controller',
+				'MODEL' => $modelNameSingle,
 			])
 			->generate();
 
 		// stub - resource
 		$resourceStub = ($isForm) ? 'formresource.stub' : 'resource.stub';
-		LaravelStub::from($fromPath . $resourceStub)
+		LaravelStub::from($fromPath.$resourceStub)
 			->to($resourceDirPath)
 			->name($resourceName)
 			->ext('php')
 			->replaces([
-				'NAMESPACE'    => 'Lara\App\Filament\Resources\\' . $resourceDir,
-				'RESOURCE'     => $resourceName,
-				'MODEL'        => $modelNameSingle,
-				'LISTPAGE'     => $pageNames['list'],
-				'CREATEPAGE'   => $pageNames['create'],
-				'EDITPAGE'     => $pageNames['edit'],
-				'VIEWPAGE'     => $pageNames['view'],
-				'REORDERPAGE'  => $pageNames['reorder'],
+				'NAMESPACE' => 'Lara\App\Filament\Resources\\'.$resourceDir,
+				'RESOURCE' => $resourceName,
+				'MODEL' => $modelNameSingle,
+				'LISTPAGE' => $pageNames['list'],
+				'CREATEPAGE' => $pageNames['create'],
+				'EDITPAGE' => $pageNames['edit'],
+				'VIEWPAGE' => $pageNames['view'],
+				'REORDERPAGE' => $pageNames['reorder'],
 			])
 			->generate();
 
 		// stub - policy
-		LaravelStub::from($fromPath . 'policy.stub')
-			->to($toPath . 'Policies')
+		LaravelStub::from($fromPath.'policy.stub')
+			->to($toPath.'Policies')
 			->name($policyName)
 			->ext('php')
 			->replaces([
-				'NAMESPACE'     => 'Lara\App\Policies',
-				'MODEL'         => $modelNameSingle,
+				'NAMESPACE' => 'Lara\App\Policies',
+				'MODEL' => $modelNameSingle,
 				'MODELVARIABLE' => $modelVarSingle,
-				'RESOURCE'      => $resourceName,
+				'RESOURCE' => $resourceName,
 			])
 			->generate();
 
 		// stub - resource pages
-		$pagesNamespace = 'Lara\App\Filament\Resources\\' . $resourceDir . '\Pages';
+		$pagesNamespace = 'Lara\App\Filament\Resources\\'.$resourceDir.'\Pages';
 
 		// a form resource only lists and views its submissions
 		$stubsToGenerate = $isForm
@@ -184,14 +183,14 @@ trait HasLaraBuilder
 			: ['list', 'create', 'edit', 'view', 'reorder'];
 
 		foreach ($stubsToGenerate as $page) {
-			LaravelStub::from($fromPath . 'page-' . $page . '.stub')
+			LaravelStub::from($fromPath.'page-'.$page.'.stub')
 				->to($resourcePagesPath)
 				->name($pageNames[$page])
 				->ext('php')
 				->replaces([
-					'NAMESPACE'   => $pagesNamespace,
-					'CLASS'       => $pageNames[$page],
-					'RESOURCE'    => $resourceName,
+					'NAMESPACE' => $pagesNamespace,
+					'CLASS' => $pageNames[$page],
+					'RESOURCE' => $resourceName,
 					'RESOURCEDIR' => $resourceDir,
 				])
 				->generate();
@@ -211,7 +210,7 @@ trait HasLaraBuilder
 
 		if ($isForm) {
 
-			if (!Schema::hasTable($tablename)) {
+			if (! Schema::hasTable($tablename)) {
 				Schema::create($tablename, function (Blueprint $table) {
 
 					// ID
@@ -226,7 +225,7 @@ trait HasLaraBuilder
 
 		} else {
 
-			if (!Schema::hasTable($tablename)) {
+			if (! Schema::hasTable($tablename)) {
 				Schema::create($tablename, function (Blueprint $table) use ($tablenames) {
 
 					// ID
@@ -303,8 +302,8 @@ trait HasLaraBuilder
 			}
 
 			for ($i = 1; $i <= $extraFieldCount; $i++) {
-				$fieldName = 'body' . $i + 1;
-				if (!Schema::hasColumn($tablename, $fieldName)) {
+				$fieldName = 'body'.($i + 1);
+				if (! Schema::hasColumn($tablename, $fieldName)) {
 					Schema::table($tablename, function ($table) use ($fieldName, $after) {
 						$table->text($fieldName)
 							->nullable()
@@ -312,7 +311,7 @@ trait HasLaraBuilder
 
 					});
 					Notification::make()
-						->title('New column created: ' . $fieldName)
+						->title('New column created: '.$fieldName)
 						->success()
 						->send();
 				}
@@ -364,7 +363,7 @@ trait HasLaraBuilder
 
 			} else {
 
-				if (!Schema::hasColumn($tablename, $fieldName)) {
+				if (! Schema::hasColumn($tablename, $fieldName)) {
 
 					// create new column
 					static::addCustomColumn($customField);
@@ -389,10 +388,10 @@ trait HasLaraBuilder
 
 			if ($columnType == 'json') {
 				$object = new $modelClass;
-				if (!key_exists($fieldName, $object->getCasts())) {
+				if (! array_key_exists($fieldName, $object->getCasts())) {
 					Notification::make()
 						->title('Cast missing !')
-						->body('Cast array for ' . $fieldName . ' not found in model: ' . $modelClass . '<br><br>Make sure you add the appropriate cast to your model.')
+						->body('Cast array for '.$fieldName.' not found in model: '.$modelClass.'<br><br>Make sure you add the appropriate cast to your model.')
 						->seconds(30)
 						->danger()
 						->send();
@@ -438,7 +437,7 @@ trait HasLaraBuilder
 		} else {
 
 			$fieldName = $customField->field_name;
-			$backupColumn = '_' . $fieldName;
+			$backupColumn = '_'.$fieldName;
 
 			// delete old backup column
 			static::dropColumn($tablename, $backupColumn);
@@ -449,7 +448,7 @@ trait HasLaraBuilder
 			});
 
 			Notification::make()
-				->title('Please remove column ' . $backupColumn . ' manually!')
+				->title('Please remove column '.$backupColumn.' manually!')
 				->warning()
 				->send();
 		}
@@ -541,7 +540,7 @@ trait HasLaraBuilder
 		});
 
 		Notification::make()
-			->title('New column created: ' . $fieldName)
+			->title('New column created: '.$fieldName)
 			->success()
 			->send();
 
@@ -552,10 +551,10 @@ trait HasLaraBuilder
 	private static function getColumnSize(string $fieldType): \stdClass
 	{
 
-		$size = new \stdClass();
+		$size = new \stdClass;
 
 		$parts = explode('_', $fieldType);
-		if (sizeof($parts) == 3) {
+		if (count($parts) == 3) {
 			$size->precision = $parts[1];
 			$size->scale = $parts[2];
 		}
@@ -568,7 +567,7 @@ trait HasLaraBuilder
 
 		$after = 'body';
 
-		if (!Schema::hasColumn($tablename, 'geo_address')) {
+		if (! Schema::hasColumn($tablename, 'geo_address')) {
 			Schema::table($tablename, function ($table) use ($after) {
 				$table->string('geo_address')
 					->nullable()
@@ -576,7 +575,7 @@ trait HasLaraBuilder
 			});
 		}
 
-		if (!Schema::hasColumn($tablename, 'geo_pcode')) {
+		if (! Schema::hasColumn($tablename, 'geo_pcode')) {
 			Schema::table($tablename, function ($table) use ($after) {
 				$table->string('geo_pcode')
 					->nullable()
@@ -584,7 +583,7 @@ trait HasLaraBuilder
 			});
 		}
 
-		if (!Schema::hasColumn($tablename, 'geo_city')) {
+		if (! Schema::hasColumn($tablename, 'geo_city')) {
 			Schema::table($tablename, function ($table) use ($after) {
 				$table->string('geo_city')
 					->nullable()
@@ -592,7 +591,7 @@ trait HasLaraBuilder
 			});
 		}
 
-		if (!Schema::hasColumn($tablename, 'geo_country')) {
+		if (! Schema::hasColumn($tablename, 'geo_country')) {
 			Schema::table($tablename, function ($table) use ($after) {
 				$table->string('geo_country')
 					->nullable()
@@ -600,7 +599,7 @@ trait HasLaraBuilder
 			});
 		}
 
-		if (!Schema::hasColumn($tablename, 'geo_location')) {
+		if (! Schema::hasColumn($tablename, 'geo_location')) {
 			Schema::table($tablename, function ($table) use ($after) {
 				$table->string('geo_location')
 					->nullable()
@@ -608,7 +607,7 @@ trait HasLaraBuilder
 			});
 		}
 
-		if (!Schema::hasColumn($tablename, 'geo_latitude')) {
+		if (! Schema::hasColumn($tablename, 'geo_latitude')) {
 			Schema::table($tablename, function ($table) use ($after) {
 				$table->decimal('geo_latitude', 10, 8)
 					->nullable()
@@ -616,7 +615,7 @@ trait HasLaraBuilder
 			});
 		}
 
-		if (!Schema::hasColumn($tablename, 'geo_longitude')) {
+		if (! Schema::hasColumn($tablename, 'geo_longitude')) {
 			Schema::table($tablename, function ($table) use ($after) {
 				$table->decimal('geo_longitude', 11, 8)
 					->nullable()
@@ -625,5 +624,4 @@ trait HasLaraBuilder
 		}
 
 	}
-
 }

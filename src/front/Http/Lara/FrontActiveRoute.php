@@ -5,17 +5,23 @@ namespace Lara\Front\Http\Lara;
 class FrontActiveRoute
 {
 	protected ?string $prefix = null;
+
 	protected ?string $method = null;
+
 	protected ?string $active_route = null;
+
 	protected ?string $single_route = null;
+
 	protected ?int $object_id = null;
+
 	protected ?int $menu_id = null;
+
 	protected array $activetags = [];
 
 	/**
 	 * Constructor for LaraActiveRoute
 	 *
-	 * @param mixed $route The route parameter
+	 * @param  mixed  $route  The route parameter
 	 */
 	public function __construct($route)
 	{
@@ -35,10 +41,10 @@ class FrontActiveRoute
 	/**
 	 * Set the method
 	 *
-	 * @param string|null $method The method to set
+	 * @param  string|null  $method  The method to set
 	 * @return void
 	 */
-	public function setMethod(string $method = null)
+	public function setMethod(?string $method = null)
 	{
 		$this->method = $method;
 	}
@@ -56,10 +62,10 @@ class FrontActiveRoute
 	/**
 	 * Set the object ID
 	 *
-	 * @param int|null $object_id The object ID to set
+	 * @param  int|null  $object_id  The object ID to set
 	 * @return void
 	 */
-	public function setObjectId(int $object_id = null)
+	public function setObjectId(?int $object_id = null)
 	{
 		$this->object_id = $object_id;
 	}
@@ -77,10 +83,9 @@ class FrontActiveRoute
 	/**
 	 * Set the menu ID
 	 *
-	 * @param int|null $menu_id
 	 * @return void
 	 */
-	public function setMenuId(int $menu_id = null)
+	public function setMenuId(?int $menu_id = null)
 	{
 		$this->menu_id = $menu_id;
 	}
@@ -98,10 +103,10 @@ class FrontActiveRoute
 	/**
 	 * Set the prefix
 	 *
-	 * @param string|null $prefix The prefix to set
+	 * @param  string|null  $prefix  The prefix to set
 	 * @return void
 	 */
-	public function setPrefix(string $prefix = null)
+	public function setPrefix(?string $prefix = null)
 	{
 		$this->prefix = $prefix;
 	}
@@ -119,7 +124,7 @@ class FrontActiveRoute
 	/**
 	 * Set the active tags
 	 *
-	 * @param array $activetags The active tags to set
+	 * @param  array  $activetags  The active tags to set
 	 * @return void
 	 */
 	public function setActiveTags(array $activetags)
@@ -140,10 +145,10 @@ class FrontActiveRoute
 	/**
 	 * Set the active route
 	 *
-	 * @param string|null $active_route The active route to set
+	 * @param  string|null  $active_route  The active route to set
 	 * @return void
 	 */
-	public function setActiveRoute(string $active_route = null)
+	public function setActiveRoute(?string $active_route = null)
 	{
 		$this->active_route = $active_route;
 	}
@@ -161,12 +166,10 @@ class FrontActiveRoute
 	/**
 	 * Set the single route
 	 *
-	 * @param string|null $single_route
 	 * @return void
 	 */
-	public function setSingleRoute(string $single_route = null)
+	public function setSingleRoute(?string $single_route = null)
 	{
 		$this->single_route = $single_route;
 	}
-
 }

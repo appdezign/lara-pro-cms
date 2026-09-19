@@ -3,19 +3,15 @@
 namespace Lara\Admin\Resources\MenuItems\Concerns;
 
 use Carbon\Carbon;
-use Filament\Forms\Components\Fieldset;
-use Lara\Admin\Resources\LaraMenuItemResource\Pages\LaraListMenuItems;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityView;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Page;
 use Lara\Common\Models\Tag;
-use function Lara\Admin\Concerns\createNewPage;
 
 trait HasMenu
 {
-
 	private static function mutateMenuFormDataBeforeFill($data)
 	{
 		$type = $data['type'];
@@ -129,7 +125,7 @@ trait HasMenu
 	{
 
 		// depth
-		$node->depth = sizeof($node->ancestors);
+		$node->depth = count($node->ancestors);
 
 		// route
 		if ($node->is_home) {
@@ -140,7 +136,7 @@ trait HasMenu
 			} elseif ($node->depth == 0) {
 				$node->route = $node->slug;
 			} else {
-				$node->route = $parentRoute . '/' . $node->slug;
+				$node->route = $parentRoute.'/'.$node->slug;
 			}
 		}
 
@@ -155,18 +151,18 @@ trait HasMenu
 		$entity = Entity::find($node->entity_id);
 		if ($node->type->value == 'page') {
 			$prefix = 'entity';
-			$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $entityView->method . '.' . $node->object_id;
+			$node->routename = $prefix.'.'.$entity->resource_slug.'.'.$node->id.'.'.$entityView->method.'.'.$node->object_id;
 		} elseif ($node->type->value == 'entity') {
 			$prefix = ($entity->objrel_has_terms) ? 'entitytag' : 'entity';
-			if($node->tag_id) {
+			if ($node->tag_id) {
 				$tag = Tag::find($node->tag_id);
-				$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $tag->route . '.' . $entityView->method;
+				$node->routename = $prefix.'.'.$entity->resource_slug.'.'.$node->id.'.'.$tag->route.'.'.$entityView->method;
 			} else {
-				$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $entityView->method;
+				$node->routename = $prefix.'.'.$entity->resource_slug.'.'.$node->id.'.'.$entityView->method;
 			}
 		} elseif ($node->type->value == 'form') {
 			$prefix = 'form';
-			$node->routename = $prefix . '.' . $entity->resource_slug . '.' . $node->id . '.' . $entityView->method;
+			$node->routename = $prefix.'.'.$entity->resource_slug.'.'.$node->id.'.'.$entityView->method;
 		}
 
 		$node->save();
@@ -224,7 +220,7 @@ trait HasMenu
 	{
 		$menuItem = MenuItem::find($menuItemId);
 		if ($menuItem) {
-			return (bool)$menuItem->is_home;
+			return (bool) $menuItem->is_home;
 		}
 	}
 
@@ -240,13 +236,13 @@ trait HasMenu
 
 			if ($entity && $entityView) {
 
-				$slug = $entity->resource_slug . '-' . $entityView->method . '-' . $cgroup . '-' . $menuItem->language;
+				$slug = $entity->resource_slug.'-'.$entityView->method.'-'.$cgroup.'-'.$menuItem->language;
 				$modulePage = Page::langIs($menuItem->language)->where('cgroup', $cgroup)->where('slug', $slug)->first();
 
 				if (empty($modulePage)) {
 
 					// create Module Page
-					$title = ucfirst($entity->resource_slug) . ' ' . ucfirst($entityView->method) . ' ' . ucfirst($cgroup) . ' Page';
+					$title = ucfirst($entity->resource_slug).' '.ucfirst($entityView->method).' '.ucfirst($cgroup).' Page';
 
 					$newModulePage = static::createNewPage(auth()->id(), $menuItem->language, $title, $cgroup, $slug);
 
@@ -257,17 +253,17 @@ trait HasMenu
 
 	}
 
-	private static function createNewPage(int $userId, string $language, string $title, string $cgroup, string $slug = null, string $template = 'standard', int $publish = 1)
+	private static function createNewPage(int $userId, string $language, string $title, string $cgroup, ?string $slug = null, string $template = 'standard', int $publish = 1)
 	{
 		$newPage = Page::create([
-			'user_id'      => $userId,
-			'language'     => $language,
-			'slug'         => $slug,
-			'title'        => $title,
-			'template'     => $template,
-			'publish'      => $publish,
+			'user_id' => $userId,
+			'language' => $language,
+			'slug' => $slug,
+			'title' => $title,
+			'template' => $template,
+			'publish' => $publish,
 			'publish_from' => Carbon::now(),
-			'cgroup'       => $cgroup,
+			'cgroup' => $cgroup,
 		]);
 
 		return $newPage->id;

@@ -22,7 +22,7 @@ class ThemeViewFinder extends FileViewFinder
         return app('view')->getFinder();
     }
 
-    public function setActiveTheme(string $theme, string $parentTheme = null): void
+    public function setActiveTheme(string $theme, ?string $parentTheme = null): void
     {
         if ($theme) {
             $this->clearThemes();
@@ -44,18 +44,18 @@ class ThemeViewFinder extends FileViewFinder
         $this->hints = $hints;
     }
 
-    public function getThemePath(string $theme, string $path = null): string
+    public function getThemePath(string $theme, ?string $path = null): string
     {
         if (! config('theme.base_path')) {
-            throw new ThemeBasePathNotDefined();
+            throw new ThemeBasePathNotDefined;
         }
 
         return $this->resolvePath(
-            config('theme.base_path') . DIRECTORY_SEPARATOR . $theme . ($path ? DIRECTORY_SEPARATOR . $path : '')
+            config('theme.base_path').DIRECTORY_SEPARATOR.$theme.($path ? DIRECTORY_SEPARATOR.$path : '')
         );
     }
 
-    public function getThemeViewPath(string $theme = null): string
+    public function getThemeViewPath(?string $theme = null): string
     {
         $theme = $theme ?? $this->getActiveTheme();
 
@@ -112,14 +112,14 @@ class ThemeViewFinder extends FileViewFinder
 
     public function registerNameSpacesForTheme(string $theme): void
     {
-        $vendorViewsPath = $this->getThemeViewPath($theme) . DIRECTORY_SEPARATOR . 'vendor';
+        $vendorViewsPath = $this->getThemeViewPath($theme).DIRECTORY_SEPARATOR.'vendor';
 
         if (is_dir($vendorViewsPath)) {
             $directories = scandir($vendorViewsPath);
 
             foreach ($directories as $namespace) {
                 if ($namespace != '.' && $namespace != '..') {
-                    $path = $vendorViewsPath . DIRECTORY_SEPARATOR . $namespace;
+                    $path = $vendorViewsPath.DIRECTORY_SEPARATOR.$namespace;
                     $this->getViewFinder()->prependNamespace($namespace, $path);
                 }
             }
