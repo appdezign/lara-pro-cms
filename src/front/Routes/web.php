@@ -36,7 +36,7 @@ if (!$laraNeedsSetup) {
 			Route::get('search', 'Special\SearchController@form')->name('special.search.form')->middleware($specialMiddleware);
 			Route::get('searchresult', 'Special\SearchController@result')->name('special.search.result')->middleware($specialMiddleware);
 
-			Route::get('searchresult/{module}', 'Special\SearchController@modresult')->name('special.search.modresult')->middleware($specialMiddleware);
+			Route::get('searchresult/{resource}', 'Special\SearchController@resourceresult')->name('special.search.resourceresult')->middleware($specialMiddleware);
 
 		}
 

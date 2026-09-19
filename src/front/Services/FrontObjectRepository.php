@@ -31,6 +31,12 @@ final class FrontObjectRepository
 		private readonly FrontRouteResolver $routeResolver,
 	) {}
 
+	/**
+	 * @param string $language
+	 * @param object $entity
+	 * @param string $slug
+	 * @return RedirectResponse|Redirector|mixed
+	 */
 	public function getSingleFrontObject(string $language, object $entity, string $slug)
 	{
 
@@ -63,7 +69,7 @@ final class FrontObjectRepository
 		if ($object) {
 			return $object;
 		} else {
-			return redirect(route('error.show.404', '404'))->send();
+			return redirect()->route('error.show.404', '404');
 		}
 
 	}
@@ -281,7 +287,7 @@ final class FrontObjectRepository
 			// get default backend user
 			$user = User::where('name', 'admin')->first();
 
-			$object = $this->createNewModulePage($user->id, $language, $title, 'email', $slug);
+			$object = $this->createNewModulePage($language, $title, 'email', $slug);
 
 		}
 
@@ -294,8 +300,10 @@ final class FrontObjectRepository
 	 *
 	 * @return mixed
 	 */
-	private function createNewModulePage(int $user_id, string $language, string $title, string $cgroup, string $slug)
+	private function createNewModulePage(string $language, string $title, string $cgroup, string $slug)
 	{
+
+		$superAdminId = User::role('superadmin')->value('id');
 
 		$entity = Entity::where('resource_slug', 'pages')->first();
 		$lara = $this->getFrontResourceBySlug($entity->resource_slug);
@@ -306,7 +314,7 @@ final class FrontObjectRepository
 			'menuroute' => '',
 		];
 
-		$data = array_merge($data, ['user_id' => $user_id]);
+		$data = array_merge($data, ['user_id' => $superAdminId]);
 		$data = array_merge($data, ['language' => $language]);
 		$data = array_merge($data, ['slug' => $slug, 'slug_lock' => 1]);
 
@@ -360,7 +368,7 @@ final class FrontObjectRepository
 		if (empty($modulePage)) {
 			$modulePageTitle = ucfirst($entity->getResourceSlug()).' '.ucfirst($method).' Module Page';
 
-			return $this->createNewModulePage(Auth::user()->id, $language, $modulePageTitle, 'module', $modulePageSlug);
+			return $this->createNewModulePage($language, $modulePageTitle, 'module', $modulePageSlug);
 		} else {
 			return $modulePage;
 		}

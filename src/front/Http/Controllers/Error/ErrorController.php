@@ -5,6 +5,7 @@ namespace Lara\Front\Http\Controllers\Error;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -106,6 +107,9 @@ class ErrorController extends Controller
 
 		// get params
 		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+		if ($this->data->params instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		// get Error Page
 		$this->data->object = $this->findOrCreateErrorPage($errorId, $this->language);

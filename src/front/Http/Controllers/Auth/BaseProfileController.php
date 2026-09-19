@@ -3,6 +3,7 @@
 namespace Lara\Front\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -103,6 +104,9 @@ class BaseProfileController extends Controller
 
 		// get params
 		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+		if ($this->data->params instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		// get related module page for SEO and Intro
 		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'form');

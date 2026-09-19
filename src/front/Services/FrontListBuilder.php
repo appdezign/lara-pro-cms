@@ -807,7 +807,7 @@ final class FrontListBuilder
 						if ($view->showtags == 'filterbytaxonomy') {
 							// redirect if tag is not in GET variables
 							if (! isset($_GET[$taxonomySlug])) {
-								return redirect()->route(Route::currentRouteName(), [$taxonomySlug => $tagSlug])->send();
+								return redirect()->route(Route::currentRouteName(), [$taxonomySlug => $tagSlug]);
 							}
 						}
 
@@ -822,7 +822,7 @@ final class FrontListBuilder
 						if ($view->showtags == 'filterbytaxonomy') {
 							// redirect if empty tag is in GET variables
 							if (isset($_GET[$taxonomySlug]) && $_GET[$taxonomySlug] == '') {
-								return redirect()->route(Route::currentRouteName())->send();
+								return redirect()->route(Route::currentRouteName());
 							}
 						}
 

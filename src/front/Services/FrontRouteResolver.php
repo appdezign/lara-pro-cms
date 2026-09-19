@@ -93,6 +93,9 @@ final class FrontRouteResolver
 
 			// redirect entity objects to their menu url, if possible
 			$isPreview = $this->checkEntityRoute($language, $entity, $activeroute, $object);
+			if ($isPreview instanceof \Illuminate\Http\RedirectResponse) {
+				return $isPreview;
+			}
 
 			// if the page is not a preview, make sure it is published
 			if (! $isPreview && ($entity->hasStatus())) {
@@ -119,13 +122,13 @@ final class FrontRouteResolver
 				->first();
 
 			if ($menuitem) {
-				return redirect($language.'/'.$menuitem->route)->send();
+				return redirect($language.'/'.$menuitem->route);
 			} else {
 				// this is a preview page, check if user is logged in
 				if (Auth::check()) {
 					return false;
 				} else {
-					return redirect(route('error.show.404', '404'))->send();
+					return redirect(route('error.show.404', '404'));
 				}
 			}
 
@@ -162,14 +165,14 @@ final class FrontRouteResolver
 						$redirectUrl = $redirectUrl.'.html';
 					}
 
-					redirect($redirectUrl)->send();
+					return redirect($redirectUrl);
 
 				} else {
 					// this is a preview page, check if user is logged in
 					if (Auth::check()) {
 						$isPreview = true;
 					} else {
-						return redirect(route('error.show.404', '404'))->send();
+						return redirect(route('error.show.404', '404'));
 					}
 				}
 
@@ -178,7 +181,7 @@ final class FrontRouteResolver
 				if (Auth::check()) {
 					$isPreview = true;
 				} else {
-					return redirect(route('error.show.404', '404'))->send();
+					return redirect(route('error.show.404', '404'));
 				}
 			}
 

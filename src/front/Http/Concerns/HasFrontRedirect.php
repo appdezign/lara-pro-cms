@@ -10,7 +10,7 @@ trait HasFrontRedirect
 	/**
 	 * @param $request
 	 * @param $routename
-	 * @return void
+	 * @return RedirectResponse
 	 */
 	private function processRedirect($request, $routename)
 	{
@@ -19,7 +19,7 @@ trait HasFrontRedirect
 
 		// catch redirects to full urls
 		if (str_starts_with($routename, 'http')) {
-			$this->processRedirectToUrl($routename);
+			return $this->getRedirectToUrl($routename);
 		}
 
 		$parts = explode('.', $routename);
@@ -35,13 +35,13 @@ trait HasFrontRedirect
 				// assume it's a url of a detail page
 				$newUrl = $routename;
 			} else {
-				$this->processRedirectHome();
+				return $this->getRedirectHome();
 			}
 		} elseif (sizeof($parts) == 1) {
 			// assume it's a url
 			$newUrl = $routename;
 		} else {
-			$this->processRedirectHome();
+			return $this->getRedirectHome();
 		}
 
 		if ($queryString) {
@@ -49,31 +49,31 @@ trait HasFrontRedirect
 		}
 
 		// redirect
-		$this->processRedirectToUrl($newUrl);
+		return $this->getRedirectToUrl($newUrl);
 	}
 
 	/**
 	 * @return RedirectResponse
 	 */
-	private function processRedirectHome()
+	private function getRedirectHome()
 	{
-		return redirect()->route('special.home.show')->send();
+		return redirect()->route('special.home.show');
 	}
 
 	/**
 	 * @return RedirectResponse
 	 */
-	private function processRedirectSetup()
+	private function getRedirectSetup()
 	{
-		return redirect()->route('setup.show')->send();
+		return redirect()->route('setup.show');
 	}
 
 	/**
 	 * @param $url
 	 * @return RedirectResponse
 	 */
-	private function processRedirectToUrl($url)
+	private function getRedirectToUrl($url)
 	{
-		return redirect($url)->send();
+		return redirect($url);
 	}
 }

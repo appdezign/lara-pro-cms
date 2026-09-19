@@ -31,7 +31,10 @@ class FrontRedirectorController extends Controller
 	 */
 	public function process(Request $request)
 	{
-		$this->processRedirect($request, $this->routename);
+		$redirect = $this->processRedirect($request, $this->routename);
+		if ($redirect instanceof \Illuminate\Http\RedirectResponse) {
+			return $redirect;
+		}
 	}
 
 	/**
@@ -39,7 +42,10 @@ class FrontRedirectorController extends Controller
 	 */
 	public function redirectHome()
 	{
-		return $this->processRedirectHome();
+		$redirect = $this->getRedirectHome();
+		if ($redirect instanceof \Illuminate\Http\RedirectResponse) {
+			return $redirect;
+		}
 	}
 
 	/**
@@ -47,6 +53,9 @@ class FrontRedirectorController extends Controller
 	 */
 	public function redirectSetup()
 	{
-		$this->processRedirectSetup();
+		$redirect = $this->getRedirectSetup();
+		if ($redirect instanceof \Illuminate\Http\RedirectResponse) {
+			return $redirect;
+		}
 	}
 }

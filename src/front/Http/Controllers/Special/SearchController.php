@@ -5,6 +5,7 @@ namespace Lara\Front\Http\Controllers\Special;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -129,6 +130,9 @@ class SearchController extends Controller
 	{
 
 		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+		if ($this->data->params instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		$this->data->results = new stdClass;
 
@@ -232,10 +236,13 @@ class SearchController extends Controller
 
 	}
 
-	public function modresult(Request $request, $module)
+	public function resourceresult(Request $request, $resource)
 	{
 
 		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+		if ($this->data->params instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		$this->data->results = new stdClass;
 
@@ -243,71 +250,81 @@ class SearchController extends Controller
 
 		if ($request->has('keywords')) {
 
-			$singleEntity = Entity::where('resource_slug', $module)->first();
+			// filter by search keywords
+			$this->data->keywords = $request->get('keywords');
+			$keywords = $this->cleanupFrontSearchString($this->data->keywords);
 
 			$mainMenuID = $this->getMainMenuId();
 
-			$ent = MenuItem::distinct('entity_id')
-				->langIs($this->language)
-				->menuIs($mainMenuID)
-				->where('type', 'entity')
-				->where('entity_id', $singleEntity->id)
-				->first();
+			$singleEntity = Entity::where('resource_slug', $resource)->first();
 
-			if ($ent) {
+			if($singleEntity) {
 
-				$entity = Entity::find($ent->entity_id);
-				$resource_slug = $entity->getResourceSlug();
+				// check if entity is in the menu
+				$menuEntity = MenuItem::distinct('entity_id')
+					->langIs($this->language)
+					->menuIs($mainMenuID)
+					->where('type', 'entity')
+					->where('entity_id', $singleEntity->id)
+					->first();
 
-				$laraEntity = $this->getResourceBySlug($resource_slug);
+				if ($menuEntity) {
 
-				$this->data->singleEntity = $laraEntity;
+					$entity = Entity::find($menuEntity->entity_id);
 
-				$collection = $entity->getEntityModelClass()::langIs($this->language);
+					$resource_slug = $entity->resource_slug;
 
-				// filter by search keywords
-				$this->data->keywords = $request->get('keywords');
-				$keywords = $this->cleanupFrontSearchString($this->data->keywords);
+					$laraEntity = $this->getResourceBySlug($entity->resource_slug);
 
-				$collection = $collection->where(function ($q) use ($entity, $keywords) {
-					foreach ($keywords as $value) {
-						$entityKey = $entity->getResourceSlug();
-						$entitySearchFields = config('lara-front.entity_search_fields');
-						if (array_key_exists($entityKey, $entitySearchFields)) {
-							// custom search fields
-							$customSearchFields = $entitySearchFields[$entityKey];
-							foreach ($customSearchFields as $customSearchField) {
-								$q->orWhere($customSearchField, 'like', "%{$value}%");
-							}
-						} else {
-							// default search fields (title, lead, body)
-							$q->orWhere('title', 'like', "%{$value}%");
-							if ($entity->columns->has_lead) {
-								$q->orWhere('lead', 'like', "%{$value}%");
-							}
-							if ($entity->columns->has_body) {
-								$q->orWhere('body', 'like', "%{$value}%");
+					$this->data->singleEntity = $laraEntity;
+
+					$collection = $laraEntity->getEntityModelClass()::langIs($this->language);
+
+					$collection = $collection->where(function ($q) use ($laraEntity, $keywords) {
+						foreach ($keywords as $value) {
+							$entityKey = $laraEntity->getResourceSlug();
+							$entitySearchFields = config('lara-front.entity_search_fields');
+							if (array_key_exists($entityKey, $entitySearchFields)) {
+								// custom search fields
+								$customSearchFields = $entitySearchFields[$entityKey];
+								foreach ($customSearchFields as $customSearchField) {
+									$q->orWhere($customSearchField, 'like', "%{$value}%");
+								}
+							} else {
+								// default search fields (title, lead, body)
+								$q->orWhere('title', 'like', "%{$value}%");
+								if ($laraEntity->hasLead()) {
+									$q->orWhere('lead', 'like', "%{$value}%");
+								}
+								if ($laraEntity->hasBody()) {
+									$q->orWhere('body', 'like', "%{$value}%");
+								}
 							}
 						}
+					});
+
+					if ($laraEntity->hasStatus()) {
+						$collection = $collection->where('publish', 1);
 					}
-				});
 
-				if ($laraEntity->hasStatus()) {
-					$collection = $collection->where('publish', 1);
+					$objects = $collection->get();
+
+					// get menu urls
+					foreach ($objects as $object) {
+						$object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
+					}
+
+					$this->data->results->$resource_slug = new stdClass;
+					$this->data->results->$resource_slug->entity = $laraEntity;
+					$this->data->results->$resource_slug->objects = $objects;
+
 				}
 
-				$objects = $collection->get();
-
-				// get menu urls
-				foreach ($objects as $object) {
-					$object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
-				}
-
-				$this->data->results->$resource_slug = new stdClass;
-				$this->data->results->$resource_slug->entity = $laraEntity;
-				$this->data->results->$resource_slug->objects = $objects;
-
+			} else {
+				//
 			}
+
+
 
 		}
 

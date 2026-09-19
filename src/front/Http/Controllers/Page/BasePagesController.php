@@ -5,6 +5,7 @@ namespace Lara\Front\Http\Controllers\Page;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -104,15 +105,24 @@ class BasePagesController extends Controller
 
 		// get params
 		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+		if ($this->data->params instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		// get page ID from request or route
 		$pageId = $this->getPageObjectId($id, $this->activeroute);
 
 		// get single object
 		$this->data->object = $this->getSingleFrontObject($this->language, $this->entity, $pageId);
+		if ($this->data->object instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		// redirect pages to their menu url, if possible
-		$this->checkPageRoute($this->language, $this->entity, $this->activeroute, $this->data->object->id);
+		$checkPage = $this->checkPageRoute($this->language, $this->entity, $this->activeroute, $this->data->object->id);
+		if ($checkPage instanceof \Illuminate\Http\RedirectResponse) {
+			return $checkPage;
+		}
 
 		// get page children
 		$this->data->children = $this->getPageChildren($this->language);

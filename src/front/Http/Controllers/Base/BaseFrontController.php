@@ -5,6 +5,7 @@ namespace Lara\Front\Http\Controllers\Base;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -124,6 +125,9 @@ class BaseFrontController extends Controller
 
 		// get params
 		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+		if ($this->data->params instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		// get objects
 		$this->data->objects = $this->getFrontObjects($request, $this->language, $this->entity, $this->activeroute, $this->data->menutag, $this->data->params);
@@ -163,9 +167,11 @@ class BaseFrontController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
+	 *  Display the specified resource.
 	 *
-	 * @return Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|View|object
+	 * @param Request $request
+	 * @param string|null $slug
+	 * @return Factory|\Illuminate\Contracts\View\View|RedirectResponse
 	 */
 	public function show(Request $request, ?string $slug = null)
 	{
@@ -175,15 +181,24 @@ class BaseFrontController extends Controller
 
 		// get params
 		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+		if ($this->data->params instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		// get active term
 		$this->data->tag = $this->getTagBySlug($this->language, $this->entity, $this->data->params->getFilterByTaxonomy());
 
 		// get single object
 		$this->data->object = $this->getSingleFrontObject($this->language, $this->entity, $slug);
+		if ($this->data->object instanceof RedirectResponse) {
+			return $this->data->params;
+		}
 
 		// check redirect
-		$this->checkFrontRedirect($this->language, $this->entity, $this->activeroute, $this->data->object);
+		$checkRedirect = $this->checkFrontRedirect($this->language, $this->entity, $this->activeroute, $this->data->object);
+		if ($checkRedirect instanceof RedirectResponse) {
+			return $checkRedirect;
+		}
 
 		// related objects from other entities
 		$this->data->relatedObjects = $this->getFrontRelated($this->entity, $this->data->object->id);
