@@ -3,44 +3,43 @@
 namespace Lara\Front\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\App;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-
 use Lara\Common\Models\User;
-
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
-use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
-
+use Lara\Front\Http\Concerns\HasTheme;
 use LaravelLocalization;
-
 use stdClass;
 
 class BaseProfileController extends Controller
 {
-
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
 	use HasFrontMenu;
 	use HasFrontObject;
-	use HasTheme;
 	use HasFrontView;
+	use HasTheme;
 
 	protected ?string $modelClass = User::class;
-	protected ?string $routename;
-	protected ?object $entity;
-	protected ?object $activeroute;
-	protected ?string $language;
-	protected ?object $data;
-	protected ?object $globalwidgets;
+
+	protected ?string $routename = null;
+
+	protected ?object $entity = null;
+
+	protected ?object $activeroute = null;
+
+	protected ?string $language = null;
+
+	protected ?object $data = null;
+
+	protected ?object $globalwidgets = null;
 
 	public function __construct()
 	{
@@ -51,7 +50,9 @@ class BaseProfileController extends Controller
 		// create an empty Laravel object to hold all the data (see: https://goo.gl/ufmFHe)
 		$this->data = new stdClass;
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
@@ -94,7 +95,7 @@ class BaseProfileController extends Controller
 	public function form(Request $request)
 	{
 
-		if(!config('lara.auth.has_front_profile')) {
+		if (! config('lara.auth.has_front_profile')) {
 			return redirect()->route('special.home.show');
 		}
 
@@ -134,7 +135,7 @@ class BaseProfileController extends Controller
 	public function process(Request $request)
 	{
 
-		if(!config('lara.auth.has_front_profile')) {
+		if (! config('lara.auth.has_front_profile')) {
 			return redirect()->route('special.home.show');
 		}
 
@@ -154,7 +155,4 @@ class BaseProfileController extends Controller
 		return redirect()->route('special.user.profile');
 
 	}
-
-
 }
-

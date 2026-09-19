@@ -3,14 +3,11 @@
 namespace Lara\Front\Http\Controllers\Page;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
-
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
@@ -18,14 +15,11 @@ use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontView;
-
 use LaravelLocalization;
-
 use stdClass;
 
 class BaseHomeController extends Controller
 {
-
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
@@ -34,13 +28,19 @@ class BaseHomeController extends Controller
 	use HasFrontRoutes;
 	use HasFrontView;
 
-	protected ?string $routename;
-	protected ?object $entity;
-	protected ?object $activeroute;
-	protected ?string $language;
-	protected ?object $data;
-	protected ?object $globalwidgets;
-	protected bool $ispreview;
+	protected ?string $routename = null;
+
+	protected ?object $entity = null;
+
+	protected ?object $activeroute = null;
+
+	protected ?string $language = null;
+
+	protected ?object $data = null;
+
+	protected ?object $globalwidgets = null;
+
+	protected bool $ispreview = false;
 
 	public function __construct()
 	{
@@ -50,7 +50,9 @@ class BaseHomeController extends Controller
 
 		$this->data = new stdClass;
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
@@ -95,7 +97,6 @@ class BaseHomeController extends Controller
 	/**
 	 * Display the page.
 	 *
-	 * @param Request $request
 	 * @return Application|Factory|View
 	 */
 	public function show(Request $request)
@@ -135,5 +136,4 @@ class BaseHomeController extends Controller
 		]);
 
 	}
-
 }

@@ -3,20 +3,14 @@
 namespace Lara\Front\Http\Controllers\Special;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
 use Lara\Front\Http\Concerns\HasFrontRedirect;
 
 class FrontRedirectorController extends Controller
 {
-
-	use hasFrontRedirect;
+	use HasFrontRedirect;
 
 	/**
 	 * @var string|null
@@ -25,13 +19,14 @@ class FrontRedirectorController extends Controller
 
 	public function __construct()
 	{
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 			$this->routename = Route::current()->getName();
 		}
 	}
 
 	/**
-	 * @param Request $request
 	 * @return void
 	 */
 	public function process(Request $request)
@@ -54,5 +49,4 @@ class FrontRedirectorController extends Controller
 	{
 		$this->processRedirectSetup();
 	}
-
 }

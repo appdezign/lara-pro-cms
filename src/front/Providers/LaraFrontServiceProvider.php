@@ -3,32 +3,24 @@
 namespace Lara\Front\Providers;
 
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
-
-
+use Illuminate\Support\ServiceProvider;
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
+use Lara\Common\Models\Setting;
+use Lara\Front\Http\Concerns\HasFrontend;
+use Lara\Front\Http\Concerns\HasTheme;
+use Lara\Front\LaraTheme\Theme;
+use Lara\Front\LaraTheme\ThemeViewFinder;
 use Lara\Front\View\Components\FrontFormRowComponent;
 use Lara\Front\View\Components\FrontShowRowComponent;
 
-use Lara\Front\Http\Concerns\HasFrontend;
-use Lara\Front\Http\Concerns\HasTheme;
-use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
-
-use Lara\Common\Models\Setting;
-
-use LaravelLocalization;
-
-use Lara\Front\LaraTheme\Theme;
-use Lara\Front\LaraTheme\ThemeViewFinder;
-
 class LaraFrontServiceProvider extends ServiceProvider
 {
-
 	use HasFrontend;
-	use HasTheme;
 	use HasSetup;
+	use HasTheme;
 
 	/**
 	 * Bootstrap the module services.
@@ -40,21 +32,28 @@ class LaraFrontServiceProvider extends ServiceProvider
 
 		// Publish Config
 		$this->publishes([
-			__DIR__ . '/../../../config/lara-front.php' => config_path('lara-front.php'),
+			__DIR__.'/../../../config/lara-front.php' => config_path('lara-front.php'),
 		], 'lara');
 
 		// Publish Views
 		$this->loadViewsFrom(__DIR__.'/../../../resources/views/front', 'lara-front');
 
 		// Load Translations
-		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-front', 'lara-front');
+		$this->loadTranslationsFrom(app()->langPath().'/vendor/lara-front', 'lara-front');
 
 		// register components
 		Blade::component('frontformrow', FrontFormRowComponent::class);
 		Blade::component('frontshowrow', FrontShowRowComponent::class);
 
-		// Frontend only
-		if (!App::runningInConsole() && !$this->app->request->is('admin/*')) {
+		// Frontend only.
+		//
+		// runningInConsole() is true under PHPUnit as well as under artisan,
+		// because both run on the CLI SAPI. Tests that simulate a frontend
+		// request do need the theme and the shared settings, so they are
+		// distinguished with runningUnitTests().
+		$isServingRequest = ! App::runningInConsole() || App::runningUnitTests();
+
+		if ($isServingRequest && ! $this->app->request->is('admin/*')) {
 
 			// Set theme
 			$theme = $this->getFrontTheme();
@@ -62,7 +61,7 @@ class LaraFrontServiceProvider extends ServiceProvider
 
 			Theme::set($theme, $parent);
 
-			if (!$this->laraNeedsSetup()) {
+			if (! $this->laraNeedsSetup()) {
 
 				// Share the settings with all views
 				$settings = Setting::pluck('value', 'key')->toArray();
@@ -88,14 +87,14 @@ class LaraFrontServiceProvider extends ServiceProvider
 	{
 
 		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-front.php', 'lara-front');
+		$this->mergeConfigFrom(__DIR__.'/../../../config/lara-front.php', 'lara-front');
 
 		$this->app->register(LaraFrontRouteProvider::class);
 
 		$this->registerThemeFinder();
 
 		// register facade alias, so we can use it in templates
-		$this->app->booting(function() {
+		$this->app->booting(function () {
 			$loader = AliasLoader::getInstance();
 			$loader->alias('Theme', '\Lara\Front\LaraTheme\Facade\LaraTheme');
 		});
@@ -118,5 +117,4 @@ class LaraFrontServiceProvider extends ServiceProvider
 		});
 
 	}
-
 }

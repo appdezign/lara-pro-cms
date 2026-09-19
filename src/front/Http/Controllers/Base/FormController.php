@@ -3,21 +3,16 @@
 namespace Lara\Front\Http\Controllers\Base;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
-
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
-
-use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontAuth;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
@@ -25,23 +20,18 @@ use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
 use Lara\Front\Http\Concerns\HasFrontTerms;
-use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 use Lara\Front\Http\Concerns\HasModelClass;
-
+use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Mail\MailConfirmation;
 use Lara\Front\Rules\ReCaptcha;
-
 use LaravelLocalization;
-
-
 use stdClass;
 
 class FormController extends Controller
 {
-
-	use HasFrontend;
 	use HasFrontAuth;
+	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
 	use HasFrontMenu;
@@ -49,18 +39,25 @@ class FormController extends Controller
 	use HasFrontRoutes;
 	use HasFrontSecurity;
 	use HasFrontTerms;
-	use HasTheme;
 	use HasFrontView;
 	use HasModelClass;
+	use HasTheme;
 
-	protected ?string $modelClass;
-	protected ?string $routename;
-	protected ?object $entity;
-	protected ?object $activeroute;
-	protected ?string $language;
-	protected ?object $data;
-	protected ?object $globalwidgets;
-	protected bool $ispreview;
+	protected ?string $modelClass = null;
+
+	protected ?string $routename = null;
+
+	protected ?object $entity = null;
+
+	protected ?object $activeroute = null;
+
+	protected ?string $language = null;
+
+	protected ?object $data = null;
+
+	protected ?object $globalwidgets = null;
+
+	protected bool $ispreview = false;
 
 	public function __construct()
 	{
@@ -73,7 +70,9 @@ class FormController extends Controller
 
 		$this->data = new stdClass;
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
@@ -119,7 +118,6 @@ class FormController extends Controller
 	/**
 	 * Show the form
 	 *
-	 * @param Request $request
 	 * @return Application|Factory|View
 	 */
 	public function form(Request $request)
@@ -159,8 +157,8 @@ class FormController extends Controller
 	/**
 	 * Process form
 	 *
-	 * @param Request $request
 	 * @return false|string
+	 *
 	 * @throws BindingResolutionException
 	 */
 	public function process(Request $request)
@@ -173,7 +171,7 @@ class FormController extends Controller
 		$request->validate($validationRules);
 
 		// save data
-		$formfields = array();
+		$formfields = [];
 		$formfields[] = 'title';
 		foreach ($this->entity->getCustomColumns() as $field) {
 			// fix empty strings
@@ -207,17 +205,17 @@ class FormController extends Controller
 		if ($isSpam->result) {
 			// Soft delete because it is suspicious (spam)
 			$newObject->delete();
-			$result = array(
-				"message"    => $isSpam->message,
-				"sendstatus" => 1,
-			);
+			$result = [
+				'message' => $isSpam->message,
+				'sendstatus' => 1,
+			];
 		} else {
 			// SEND MAIL
 			$this->sendMail($request);
-			$result = array(
-				"message"    => _q('lara-front::default.form.mail_sent_successfully'),
-				"sendstatus" => 1,
-			);
+			$result = [
+				'message' => _q('lara-front::default.form.mail_sent_successfully'),
+				'sendstatus' => 1,
+			];
 		}
 
 		return json_encode($result);
@@ -225,8 +223,8 @@ class FormController extends Controller
 	}
 
 	/**
-	 * @param Request $request
 	 * @return void
+	 *
 	 * @throws BindingResolutionException
 	 */
 	private function sendMail(Request $request)
@@ -239,7 +237,7 @@ class FormController extends Controller
 		$maildata->company = $company;
 
 		// visitor
-		if($request->has('email')) {
+		if ($request->has('email')) {
 			$user = new stdClass;
 			$user->email = $request->input('email');
 			if ($request->has('name')) {
@@ -265,7 +263,7 @@ class FormController extends Controller
 		$maildata->from->name = $company->company_name;
 
 		// subject
-		$maildata->subject = _q('lara-app::' . $this->entity->getResourceSlug() . '.email.subject');
+		$maildata->subject = _q('lara-app::'.$this->entity->getResourceSlug().'.email.subject');
 
 		// style
 		$maildata->style = json_decode(json_encode(config('lara-front.mail')), false);
@@ -281,8 +279,8 @@ class FormController extends Controller
 		$maildata->content->data = new stdClass;
 		foreach ($this->entity->getCustomColumns() as $field) {
 			$fieldname = $field->field_name;
-			if($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
-				if($request->input($fieldname) == 1) {
+			if ($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
+				if ($request->input($fieldname) == 1) {
 					$fieldvalue = _q('lara-admin::default.value.yes');
 				} else {
 					$fieldvalue = _q('lara-admin::default.value.no');
@@ -294,19 +292,19 @@ class FormController extends Controller
 				}
 			}
 			$maildata->content->data->$fieldname = [
-				'colname' => _q('lara-app::' . $this->entity->getResourceSlug() . '.column.' . $fieldname),
-				'colval'  => $fieldvalue,
+				'colname' => _q('lara-app::'.$this->entity->getResourceSlug().'.column.'.$fieldname),
+				'colval' => $fieldvalue,
 			];
 		}
 
 		// mail to visitor
-		if($user) {
-			$maildata->view = 'email.' . $this->entity->getResourceSlug() . '.confirm';
+		if ($user) {
+			$maildata->view = 'email.'.$this->entity->getResourceSlug().'.confirm';
 			Mail::to($user)->queue(new MailConfirmation($maildata));
 		}
 
 		// mail to webmaster
-		$maildata->view = 'email.' . $this->entity->getResourceSlug() . '.webmaster';
+		$maildata->view = 'email.'.$this->entity->getResourceSlug().'.webmaster';
 		$mlr = (config('app.env') == 'production') ? 'smtp' : 'dev';
 		Mail::mailer($mlr)->to($webmaster)->queue(new MailConfirmation($maildata));
 
@@ -323,5 +321,4 @@ class FormController extends Controller
 		return redirect()->route('special.home.show');
 
 	}
-
 }

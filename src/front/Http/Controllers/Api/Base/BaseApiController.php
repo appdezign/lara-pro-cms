@@ -3,23 +3,16 @@
 namespace Lara\Front\Http\Controllers\Api\Base;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\JsonResponse;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasModelClass;
-
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-
 use LaravelLocalization;
-
 use ReflectionException;
 
 class BaseApiController extends Controller
 {
-
 	use HasFrontEntity;
 	use HasModelClass;
 
@@ -56,7 +49,9 @@ class BaseApiController extends Controller
 
 		$this->language = LaravelLocalization::getCurrentLocale();
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
@@ -74,7 +69,6 @@ class BaseApiController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param Request $request
 	 * @return JsonResponse
 	 */
 	public function index(Request $request)
@@ -130,7 +124,7 @@ class BaseApiController extends Controller
 			}
 			// add all images
 			if ($object->gallery()->count()) {
-				$gallery = array();
+				$gallery = [];
 				foreach ($object->gallery as $img) {
 					$gallery[] = glideUrl($img->path, 1280, 960);
 				}
@@ -147,8 +141,7 @@ class BaseApiController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param Request $request
-	 * @param string|int|null $id
+	 * @param  string|int|null  $id
 	 * @return JsonResponse
 	 */
 	public function show(Request $request, $id = null)
@@ -226,7 +219,7 @@ class BaseApiController extends Controller
 
 			// add all images
 			if ($object->gallery()->count()) {
-				$gallery = array();
+				$gallery = [];
 				foreach ($object->fallery as $img) {
 					if ($getFullImages) {
 						$imagePath = glideUrl($img->filename, 1920, 1440);
@@ -240,15 +233,15 @@ class BaseApiController extends Controller
 			} else {
 				$object->images = null;
 			}
-			if (!$getMedia) {
+			if (! $getMedia) {
 				unset($object->media);
 			}
 
 			// files
 			if ($object->files()->count()) {
-				$files = array();
+				$files = [];
 				foreach ($object->files as $file) {
-					$filePath = url('assets/media/' . $this->entity->getResourceSlug() . '/' . $file->filename);
+					$filePath = url('assets/media/'.$this->entity->getResourceSlug().'/'.$file->filename);
 					$files[] = $filePath;
 					$file->file_url = $filePath;
 				}
@@ -256,7 +249,7 @@ class BaseApiController extends Controller
 			} else {
 				$object->attachments = null;
 			}
-			if (!$getFiles) {
+			if (! $getFiles) {
 				unset($object->files);
 			}
 
@@ -270,6 +263,7 @@ class BaseApiController extends Controller
 	 * Determine the model class name of the child controller
 	 *
 	 * @return string
+	 *
 	 * @throws ReflectionException
 	 */
 }

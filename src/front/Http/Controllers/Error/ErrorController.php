@@ -3,49 +3,46 @@
 namespace Lara\Front\Http\Controllers\Error;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-
 use Illuminate\View\View;
-
-use Lara\Common\Models\Page;
 use Lara\Common\Models\Entity;
-use Lara\Common\Models\User;
-
+use Lara\Common\Models\Page;
+use Lara\Front\Http\Concerns\HasError;
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontView;
-use Lara\Front\Http\Concerns\HasError;
-
 use LaravelLocalization;
-
 use stdClass;
 
 class ErrorController extends Controller
 {
-
+	use HasError;
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
 	use HasFrontMenu;
 	use HasFrontObject;
 	use HasFrontView;
-	use HasError;
 
-	protected ?string $routename;
-	protected ?object $entity;
-	protected ?object $activeroute;
-	protected ?string $language;
-	protected ?object $data;
-	protected ?object $globalwidgets;
-	protected bool $ispreview;
+	protected ?string $routename = null;
+
+	protected ?object $entity = null;
+
+	protected ?object $activeroute = null;
+
+	protected ?string $language = null;
+
+	protected ?object $data = null;
+
+	protected ?object $globalwidgets = null;
+
+	protected bool $ispreview = false;
 
 	public function __construct()
 	{
@@ -55,7 +52,9 @@ class ErrorController extends Controller
 
 		$this->data = new stdClass;
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
@@ -97,7 +96,6 @@ class ErrorController extends Controller
 	}
 
 	/**
-	 * @param Request $request
 	 * @return Application|Factory|View
 	 */
 	public function show(Request $request)
@@ -121,12 +119,11 @@ class ErrorController extends Controller
 		$this->data->gridvars = $this->getGridVars($this->entity);
 		$this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
 
-		$viewfile = '_error.' . $errorId;
+		$viewfile = '_error.'.$errorId;
 
 		return view($viewfile, [
 			'data' => $this->data,
 		]);
 
 	}
-
 }

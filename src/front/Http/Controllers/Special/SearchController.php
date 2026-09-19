@@ -3,44 +3,35 @@
 namespace Lara\Front\Http\Controllers\Special;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-
 use Illuminate\View\View;
-
+use Lara\Common\Models\Entity;
+use Lara\Common\Models\Menu;
+use Lara\Common\Models\MenuItem;
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
-
-use Lara\Common\Models\Entity;
-use Lara\Common\Models\Menu;
-use Lara\Common\Models\MenuItem;
-
+use Lara\Front\Http\Concerns\HasTheme;
 use LaravelLocalization;
-
 use stdClass;
 
 class SearchController extends Controller
 {
-
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
 	use HasFrontMenu;
 	use HasFrontObject;
 	use HasFrontRoutes;
-	use HasTheme;
 	use HasFrontView;
+	use HasTheme;
 
 	/**
 	 * @var string|null
@@ -62,7 +53,6 @@ class SearchController extends Controller
 	 */
 	protected $data;
 
-
 	/**
 	 * @var object
 	 */
@@ -77,7 +67,9 @@ class SearchController extends Controller
 		// create an empty Laravel object to hold all the data (see: https://goo.gl/ufmFHe)
 		$this->data = new stdClass;
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
@@ -131,7 +123,6 @@ class SearchController extends Controller
 	}
 
 	/**
-	 * @param Request $request
 	 * @return Application|Factory|View
 	 */
 	public function result(Request $request)
@@ -177,10 +168,10 @@ class SearchController extends Controller
 
 						$entityKey = $entity->resource_slug;
 						$entitySearchFields = config('lara-front.entity_search_fields');
-						if(key_exists($entityKey, $entitySearchFields)) {
+						if (array_key_exists($entityKey, $entitySearchFields)) {
 							// custom search fields
 							$customSearchFields = $entitySearchFields[$entityKey];
-							foreach($customSearchFields as $customSearchField) {
+							foreach ($customSearchFields as $customSearchField) {
 								$q->orWhere($customSearchField, 'like', "%{$value}%");
 							}
 						} else {
@@ -196,7 +187,7 @@ class SearchController extends Controller
 					}
 				});
 
-				if($laraEntity->hasStatus()) {
+				if ($laraEntity->hasStatus()) {
 					$collection = $collection->where('publish', 1);
 				}
 
@@ -282,10 +273,10 @@ class SearchController extends Controller
 					foreach ($keywords as $value) {
 						$entityKey = $entity->getResourceSlug();
 						$entitySearchFields = config('lara-front.entity_search_fields');
-						if(key_exists($entityKey, $entitySearchFields)) {
+						if (array_key_exists($entityKey, $entitySearchFields)) {
 							// custom search fields
 							$customSearchFields = $entitySearchFields[$entityKey];
-							foreach($customSearchFields as $customSearchField) {
+							foreach ($customSearchFields as $customSearchField) {
 								$q->orWhere($customSearchField, 'like', "%{$value}%");
 							}
 						} else {
@@ -301,7 +292,7 @@ class SearchController extends Controller
 					}
 				});
 
-				if($laraEntity->hasStatus()) {
+				if ($laraEntity->hasStatus()) {
 					$collection = $collection->where('publish', 1);
 				}
 
@@ -330,5 +321,4 @@ class SearchController extends Controller
 		]);
 
 	}
-
 }

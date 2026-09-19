@@ -3,17 +3,14 @@
 namespace Lara\Front\Http\Controllers\Base;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
-
 use Lara\Common\Models\Taxonomy;
-use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontAuth;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
@@ -21,20 +18,16 @@ use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
 use Lara\Front\Http\Concerns\HasFrontTerms;
-use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 use Lara\Front\Http\Concerns\HasModelClass;
-
+use Lara\Front\Http\Concerns\HasTheme;
 use LaravelLocalization;
-
-
 use stdClass;
 
 class BaseFrontController extends Controller
 {
-
-	use HasFrontend;
 	use HasFrontAuth;
+	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontList;
 	use HasFrontMenu;
@@ -42,18 +35,25 @@ class BaseFrontController extends Controller
 	use HasFrontRoutes;
 	use HasFrontSecurity;
 	use HasFrontTerms;
-	use HasTheme;
 	use HasFrontView;
 	use HasModelClass;
+	use HasTheme;
 
-	protected ?string $modelClass;
-	protected ?string $routename;
-	protected ?object $entity;
-	protected ?object $activeroute;
-	protected ?string $language;
-	protected ?object $data;
-	protected ?object $globalwidgets;
-	protected bool $ispreview;
+	protected ?string $modelClass = null;
+
+	protected ?string $routename = null;
+
+	protected ?object $entity = null;
+
+	protected ?object $activeroute = null;
+
+	protected ?string $language = null;
+
+	protected ?object $data = null;
+
+	protected ?object $globalwidgets = null;
+
+	protected bool $ispreview = false;
 
 	public function __construct()
 	{
@@ -66,7 +66,9 @@ class BaseFrontController extends Controller
 
 		$this->data = new stdClass;
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
@@ -112,7 +114,6 @@ class BaseFrontController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param Request $request
 	 * @return Application|Factory|View
 	 */
 	public function index(Request $request)
@@ -131,7 +132,7 @@ class BaseFrontController extends Controller
 		$this->data->terms = $this->getTagTreeWithCount($this->language, $this->entity);
 
 		// filter by taxonomy
-		$this->data = $this->setTaxonomyFilter($this->data, $this->data);
+		$this->data = $this->setTaxonomyFilter($this->data, $this->language, $this->entity);
 
 		// get related module page
 		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'index');
@@ -164,11 +165,9 @@ class BaseFrontController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param Request $request
-	 * @param string|null $slug
 	 * @return Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|View|object
 	 */
-	public function show(Request $request, string $slug = null)
+	public function show(Request $request, ?string $slug = null)
 	{
 
 		// get menutaxonomy (for previous and next model)
@@ -213,7 +212,7 @@ class BaseFrontController extends Controller
 		$this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
 
 		// get previous and next object
-		if($this->data->params->getPrevNext()) {
+		if ($this->data->params->getPrevNext()) {
 			$this->data->next = $this->getNextObject($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->params, $this->data->menutag);
 			$this->data->prev = $this->getPrevObject($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->params, $this->data->menutag);
 		}
@@ -229,5 +228,4 @@ class BaseFrontController extends Controller
 		]);
 
 	}
-
 }
