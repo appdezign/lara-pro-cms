@@ -34,30 +34,17 @@ class SearchController extends Controller
 	use HasFrontView;
 	use HasTheme;
 
-	/**
-	 * @var string|null
-	 */
-	protected $routename;
+	protected ?string $routename = null;
 
-	/**
-	 * @var object
-	 */
-	protected $entity;
+	protected ?object $entity = null;
 
-	/**
-	 * @var string
-	 */
-	protected $language;
+	protected ?string $language = null;
 
-	/**
-	 * @var object
-	 */
-	protected $data;
+	protected ?object $data = null;
 
-	/**
-	 * @var object
-	 */
-	protected $globalwidgets;
+	protected ?object $globalwidgets = null;
+
+	protected ?object $globalsettings = null;
 
 	public function __construct()
 	{
@@ -91,12 +78,16 @@ class SearchController extends Controller
 			// get global widgets
 			$this->globalwidgets = $this->getGlobalWidgets($this->language);
 
+			// get global settings
+			$this->globalsettings = $this->getGlobalSettings();
+
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
 				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
 				view()->share('globalwidgets', $this->globalwidgets);
+				view()->share('globalsettings', $this->globalsettings);
 				view()->share('firstpageload', $this->getFirstPageLoad());
 
 				return $next($request);

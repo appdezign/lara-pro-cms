@@ -7,6 +7,10 @@ use Lara\Common\Models\LaraWidget;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Setting;
+
+use Composer\InstalledVersions;
+
+use Cache;
 use stdClass;
 
 /**
@@ -16,6 +20,32 @@ use stdClass;
  */
 final class FrontPageContext
 {
+	/**
+	 * Get all global settings
+	 *
+	 * @return mixed
+	 */
+	public function getGlobalSettings()
+	{
+
+		$settings = Cache::remember('lara_global_settings', 3600, function () {
+
+			$settings = Setting::pluck('value', 'key')->toArray();
+
+			// getLara version from composer and add it to settings
+			$laraversion = $this->getFrontLaraVersion();
+			$settings['lara_version'] = $laraversion->version;
+			$settings['lara_version_major'] = $laraversion->major;
+			$settings['lara_version_minor'] = $laraversion->minor;
+			$settings['lara_version_patch'] = $laraversion->patch;
+
+			return $settings;
+
+		});
+
+		return json_decode(json_encode($settings), false);
+	}
+
 	/**
 	 * Get all settings from a specific group
 	 *
@@ -295,9 +325,7 @@ final class FrontPageContext
 	public function getFrontLaraVersion()
 	{
 
-		$laracomposer = file_get_contents(base_path('/laracms/core/composer.json'));
-		$laracomposer = json_decode($laracomposer, true);
-		$laraVersionStr = $laracomposer['version'];
+		$laraVersionStr = InstalledVersions::getPrettyVersion('appdezign/lara-pro-cms');
 
 		$laraversion = new stdClass;
 		$laraversion->version = $laraVersionStr;

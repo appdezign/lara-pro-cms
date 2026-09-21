@@ -42,6 +42,8 @@ class BaseProfileController extends Controller
 
 	protected ?object $globalwidgets = null;
 
+	protected ?object $globalsettings = null;
+
 	public function __construct()
 	{
 
@@ -79,6 +81,8 @@ class BaseProfileController extends Controller
 			// get global widgets
 			$this->globalwidgets = $this->getGlobalWidgets($this->language);
 
+			$this->globalsettings = $this->getGlobalSettings();
+
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
@@ -86,6 +90,7 @@ class BaseProfileController extends Controller
 				view()->share('language', $this->language);
 				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
+				view()->share('globalsettings', $this->globalsettings);
 
 				return $next($request);
 			});

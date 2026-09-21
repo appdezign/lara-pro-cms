@@ -61,19 +61,6 @@ class LaraFrontServiceProvider extends ServiceProvider
 
 			Theme::set($theme, $parent);
 
-			if (! $this->laraNeedsSetup()) {
-
-				// Share the settings with all views
-				$settings = Setting::pluck('value', 'key')->toArray();
-				$settingz = json_decode(json_encode($settings), false);
-				View::share('settngz', $settingz);
-
-			}
-
-			// get Lara Version
-			$laraversion = $this->getFrontLaraVersion();
-			View::share('laraversion', $laraversion);
-
 		}
 
 	}

@@ -19,6 +19,11 @@ trait HasFrontend
 		return app(FrontPageContext::class);
 	}
 
+	private function getGlobalSettings()
+	{
+		return $this->frontPageContext()->getGlobalSettings();
+	}
+
 	private function getSettingsByGroup(string $group)
 	{
 		return $this->frontPageContext()->getSettingsByGroup($group);

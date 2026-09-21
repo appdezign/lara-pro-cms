@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
+use Illuminate\Support\Facades\Route;
 use Lara\Front\Http\Concerns\HasFrontend;
 
 use Lara\Common\Entities\UsersEntity;
@@ -31,14 +32,11 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 	use HasFrontend;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
+    protected string $redirectTo = '/';
 
-    /**
+	protected ?object $globalsettings = null;
+
+	/**
      * Create a new controller instance.
      *
      * @return void
@@ -51,6 +49,14 @@ class LoginController extends Controller
 	    $this->entity = new UsersEntity();
 
 	    $this->data = new stdClass();
+
+	    if (Route::current() !== null) {
+		    $this->globalsettings = $this->getGlobalSettings();
+		    $this->middleware(function ($request, $next) {
+			    view()->share('globalsettings', $this->globalsettings);
+			    return $next($request);
+		    });
+	    }
     }
 
 	public function showLoginForm()

@@ -57,6 +57,8 @@ class FormController extends Controller
 
 	protected ?object $globalwidgets = null;
 
+	protected ?object $globalsettings = null;
+
 	protected bool $ispreview = false;
 
 	public function __construct()
@@ -98,6 +100,9 @@ class FormController extends Controller
 			// get global widgets
 			$this->globalwidgets = $this->getGlobalWidgets($this->language);
 
+			// get global settings
+			$this->globalsettings = $this->getGlobalSettings();
+
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
@@ -105,6 +110,7 @@ class FormController extends Controller
 				view()->share('language', $this->language);
 				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
+				view()->share('globalsettings', $this->globalsettings);
 				view()->share('activemenu', $this->getActiveMenuArray());
 				view()->share('firstpageload', $this->getFirstPageLoad());
 
