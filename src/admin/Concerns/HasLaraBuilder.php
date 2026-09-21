@@ -201,11 +201,15 @@ trait HasLaraBuilder
 	private static function checkDatabaseTable(Entity $entity): void
 	{
 
-		$modelClass = $entity->model_class;
-		$model = new $modelClass;
-		$tablename = $model->getTable();
+		// get tablename
+		$entityPrefixes = config('lara-common.database.entity');
+		$entityPrefix = $entityPrefixes[$entity->cgroup.'_prefix'];
+		$tablename = $entityPrefix.$entity->resource_slug;
+
+		// form
 		$isForm = $entity->cgroup == 'form';
 
+		// get all tablenames
 		$tablenames = config('lara-common.database');
 
 		if ($isForm) {
