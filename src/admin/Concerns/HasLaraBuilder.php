@@ -113,9 +113,10 @@ trait HasLaraBuilder
 			->ext('php')
 			->replaces([
 				'NAMESPACE' => 'Lara\App\Models',
-				'CLASS' => $modelNameSingle,
-				'MODEL' => $modelNameSingle,
-				'TABLE' => $tablename,
+				'CLASS'   => $modelNameSingle,
+				'MODEL'   => $modelNameSingle,
+				'FACTORY' => $modelNameSingle . 'Factory',
+				'TABLE'   => $tablename,
 			])
 			->generate();
 
@@ -171,6 +172,19 @@ trait HasLaraBuilder
 				'MODEL' => $modelNameSingle,
 				'MODELVARIABLE' => $modelVarSingle,
 				'RESOURCE' => $resourceName,
+			])
+			->generate();
+
+		// stub - factory
+		LaravelStub::from($fromPath.'factory.stub')
+			->to($toPath.'Database/Factories')
+			->name($modelNameSingle.'Factory')
+			->ext('php')
+			->replaces([
+				'NAMESPACE' => 'Lara\App\Database\Factories',
+				'CLASS' => $modelNameSingle.'Factory',
+				'MODEL' => $modelNameSingle,
+				'RESOURCESLUG' => $modelVarPlural,
 			])
 			->generate();
 

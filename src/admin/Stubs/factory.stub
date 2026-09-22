@@ -1,29 +1,29 @@
 <?php
 
-namespace Lara\Common\Database\Factories;
+namespace {{ NAMESPACE }};
 
 use App\Models\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
 use Exception;
 
-use Lara\Common\Models\Page;
+use Lara\App\Models\{{ MODEL }};
 
-class PageFactory extends Factory
+class {{ CLASS }} extends Factory
 {
 
-	protected ?string $resourceSlug = 'pages';
+	protected ?string $resourceSlug = '{{ RESOURCESLUG }}';
 
 	use HasLaraFactory;
 
-	protected $model = Page::class;
+	protected $model = {{ MODEL }}::class;
 
 	/**
 	 * @return array
 	 * @throws Exception
 	 */
 	public function definition(): array
-    {
-	    return $this->generateContent($this->resourceSlug);
-    }
+	{
+		return $this->generateContent($this->resourceSlug);
+	}
 }
