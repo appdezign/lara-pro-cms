@@ -5,11 +5,18 @@ namespace Lara\Common\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Lara\Common\Database\Factories\PageFactory;
+
 
 class Page extends BaseModel
 {
 
     protected $table = 'lara_content_pages';
+
+	protected static function newFactory()
+	{
+		return PageFactory::new();
+	}
 
 	/**
 	 * @return BelongsTo
