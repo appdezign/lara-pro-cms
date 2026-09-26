@@ -34,7 +34,6 @@ trait HasLaraFactory
 			throw new Exception('No resource entity found');
 		}
 
-
 		$content = [
 			'user_id'      => $adminId,
 			'language'     => $locale,
@@ -87,6 +86,24 @@ trait HasLaraFactory
 
 		}
 
+		// relations
+		foreach($entity->relations as $relation) {
+			if($relation->type == 'belongsTo') {
+
+				$foreignKey = $relation->foreign_key;
+
+				// create related object
+				$relatedEntityId = $relation->related_entity_id;
+				$relatedEntity = Entity::find($relatedEntityId);
+				$relatedModelClass = $relatedEntity->model_class;
+
+				// create related Model
+				$relatedObject = $relatedModelClass::factory()->create();
+
+				// add related object id to content
+				$content[$foreignKey] = $relatedObject->id;
+			}
+		}
 
 		return $content;
 	}
