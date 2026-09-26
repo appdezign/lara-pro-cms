@@ -2,6 +2,7 @@
 
 namespace Lara\Admin\Resources\Forms\RelationManagers\Schemas;
 
+use Closure;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
@@ -15,13 +16,13 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Lara\Admin\Enums\FormFieldType;
 use Lara\Admin\Enums\FormHook;
+use Lara\Common\Entities\EntityFieldName;
 use Lara\Common\Models\EntityCustomField;
-
-use Closure;
 
 class CustomFieldForm
 {
 	protected static ?string $slug = 'customfields';
+
 	protected static ?string $module = 'lara-admin';
 
 	public static function configure(Schema $schema): Schema
@@ -34,14 +35,18 @@ class CustomFieldForm
 					->collapsible()
 					->schema([
 						TextInput::make('title')
-							->label(_q(static::module() . '::' . static::slug() . '.column.title'))
+							->label(_q(static::module().'::'.static::slug().'.column.title'))
 							->maxLength(255)
 							->required(),
 						TextInput::make('field_name')
-							->label(_q(static::module() . '::' . static::slug() . '.column.field_name'))
+							->label(_q(static::module().'::'.static::slug().'.column.field_name'))
 							->rules([
-								fn(RelationManager $livewire, $operation): Closure => function (string $attribute, $value, Closure $fail) use ($livewire, $operation) {
+								fn (RelationManager $livewire, $operation): Closure => function (string $attribute, $value, Closure $fail) use ($livewire, $operation) {
 									if ($operation == 'create') {
+										$rejection = filled($value) ? EntityFieldName::reject($value) : null;
+										if ($rejection) {
+											$fail($rejection);
+										}
 										$entity = $livewire->getOwnerRecord();
 										$check = $entity->customfields()->where('field_name', $value)->first();
 										if ($check) {
@@ -50,15 +55,19 @@ class CustomFieldForm
 									}
 								},
 							])
-							->disabled(fn(string $operation): bool => $operation == 'edit')
+							->disabled(fn (string $operation): bool => $operation == 'edit')
 							->visible(function (string $operation, Get $get): bool {
-								return $operation == 'create' || ($operation == 'edit' && !$get('field_name_edit'));
+								return $operation == 'create' || ($operation == 'edit' && ! $get('field_name_edit'));
 							}),
 						TextInput::make('field_name_temp')
-							->label(_q(static::module() . '::' . static::slug() . '.column.field_name_temp'))
+							->label(_q(static::module().'::'.static::slug().'.column.field_name_temp'))
 							->rules([
-								fn(RelationManager $livewire, $operation): Closure => function (string $attribute, $value, Closure $fail) use ($livewire, $operation) {
+								fn (RelationManager $livewire, $operation): Closure => function (string $attribute, $value, Closure $fail) use ($livewire, $operation) {
 									if ($operation == 'edit') {
+										$rejection = filled($value) ? EntityFieldName::reject($value) : null;
+										if ($rejection) {
+											$fail($rejection);
+										}
 										$entity = $livewire->getOwnerRecord();
 										$check = $entity->customfields()->where('field_name', $value)->first();
 										if ($check) {
@@ -67,9 +76,9 @@ class CustomFieldForm
 									}
 								},
 							])
-							->visible(fn(string $operation, Get $get): bool => $operation == 'edit' && $get('field_name_edit')),
+							->visible(fn (string $operation, Get $get): bool => $operation == 'edit' && $get('field_name_edit')),
 						Toggle::make('field_name_edit')
-							->label(_q(static::module() . '::' . static::slug() . '.column.field_name_edit'))
+							->label(_q(static::module().'::'.static::slug().'.column.field_name_edit'))
 							->live()
 							->afterStateUpdated(function ($state, Set $set, Get $get) {
 								if ($state) {
@@ -77,9 +86,9 @@ class CustomFieldForm
 								} else {
 									$set('field_name_temp', null);
 								}
-							})->visible(fn(string $operation): bool => $operation == 'edit'),
+							})->visible(fn (string $operation): bool => $operation == 'edit'),
 						Select::make('field_type')
-							->label(_q(static::module() . '::' . static::slug() . '.column.field_type'))
+							->label(_q(static::module().'::'.static::slug().'.column.field_type'))
 							->live()
 							->options(FormFieldType::toArray())
 							->default('string')
@@ -88,34 +97,34 @@ class CustomFieldForm
 							})
 							->required(),
 						TagsInput::make('field_options')
-							->label(_q(static::module() . '::' . static::slug() . '.column.field_options'))
+							->label(_q(static::module().'::'.static::slug().'.column.field_options'))
 							->placeholder('options')
 							->visible(function (Get $get): bool {
 								return in_array($get('field_type'), static::getFieldTypesWithOptions());
 							}),
 						Select::make('field_hook')
-							->label(_q(static::module() . '::' . static::slug() . '.column.field_hook'))
+							->label(_q(static::module().'::'.static::slug().'.column.field_hook'))
 							->options(FormHook::class)
 							->default('default')
 							->required(),
 
 						Toggle::make('show_in_list')
-							->label(_q(static::module() . '::' . static::slug() . '.column.show_in_list')),
+							->label(_q(static::module().'::'.static::slug().'.column.show_in_list')),
 
 						Toggle::make('is_required')
-							->label(_q(static::module() . '::' . static::slug() . '.column.is_required')),
+							->label(_q(static::module().'::'.static::slug().'.column.is_required')),
 
 						TextInput::make('sort_order')
-							->label(_q(static::module() . '::' . static::slug() . '.column.sort_order'))
+							->label(_q(static::module().'::'.static::slug().'.column.sort_order'))
 							->numeric(),
 
 						Toggle::make('conditional')
-							->label(_q(static::module() . '::' . static::slug() . '.column.conditional'))
+							->label(_q(static::module().'::'.static::slug().'.column.conditional'))
 							->live()
 							->afterStateUpdated(function (Set $set) {
 								$set('rule_state', 'enabled');
 							})
-							->visible(fn(string $operation) => $operation == 'edit'),
+							->visible(fn (string $operation) => $operation == 'edit'),
 						Hidden::make('rule_state')
 							->default('enabled'),
 						Fieldset::make('Status')
@@ -126,10 +135,10 @@ class CustomFieldForm
 									->hiddenLabel()
 									->live()
 									->options([
-										'enabled'   => 'enabled',
+										'enabled' => 'enabled',
 										'enabledif' => 'enabledif',
-										'hidden'    => 'hidden',
-										'disabled'  => 'disabled',
+										'hidden' => 'hidden',
+										'disabled' => 'disabled',
 									])
 									->default('enabled')
 									->selectablePlaceholder(false)
@@ -153,25 +162,25 @@ class CustomFieldForm
 									->options(function ($record) {
 										return EntityCustomField::where('entity_id', $record->entity_id)->pluck('field_name', 'field_name')->toArray();
 									})
-									->required(fn(Get $get): bool => $get('rule_state') == 'enabledif')
-									->visible(fn(Get $get): bool => $get('rule_state') == 'enabledif'),
+									->required(fn (Get $get): bool => $get('rule_state') == 'enabledif')
+									->visible(fn (Get $get): bool => $get('rule_state') == 'enabledif'),
 
 								Select::make('rule_operator')
 									->hiddenLabel()
 									->options([
-										'isequal'    => 'is equal to',
+										'isequal' => 'is equal to',
 										'isnotequal' => 'is not equal to',
 									])
-									->required(fn(Get $get): bool => $get('rule_state') == 'enabledif')
-									->visible(fn(Get $get): bool => $get('rule_state') == 'enabledif'),
+									->required(fn (Get $get): bool => $get('rule_state') == 'enabledif')
+									->visible(fn (Get $get): bool => $get('rule_state') == 'enabledif'),
 
 								TextInput::make('rule_value')
 									->hiddenLabel()
-									->required(fn(Get $get): bool => $get('rule_state') == 'enabledif')
-									->visible(fn(Get $get): bool => $get('rule_state') == 'enabledif'),
+									->required(fn (Get $get): bool => $get('rule_state') == 'enabledif')
+									->visible(fn (Get $get): bool => $get('rule_state') == 'enabledif'),
 
 							])
-							->visible(fn(Get $get): bool => $get('conditional')),
+							->visible(fn (Get $get): bool => $get('conditional')),
 
 					]),
 			]);
@@ -179,7 +188,7 @@ class CustomFieldForm
 
 	private static function getFieldTypesWithOptions(): array
 	{
-		$fieldTypesWithOptions = array();
+		$fieldTypesWithOptions = [];
 
 		foreach (FormFieldType::cases() as $fieldType) {
 			if ($fieldType->hasOptions()) {
@@ -190,13 +199,13 @@ class CustomFieldForm
 		return $fieldTypesWithOptions;
 	}
 
-	private static function slug(): string {
+	private static function slug(): string
+	{
 		return static::$slug;
 	}
 
-	private static function module(): string {
+	private static function module(): string
+	{
 		return static::$module;
 	}
-
-
 }

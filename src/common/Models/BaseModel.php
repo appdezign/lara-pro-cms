@@ -3,6 +3,9 @@
 namespace Lara\Common\Models;
 
 use Carbon\Carbon;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Filament\Forms\Components\RichEditor\Models\Concerns\InteractsWithRichContent;
+use Filament\Forms\Components\RichEditor\Models\Contracts\HasRichContent;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,29 +13,28 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-use Filament\Forms\Components\RichEditor\Models\Concerns\InteractsWithRichContent;
-use Filament\Forms\Components\RichEditor\Models\Contracts\HasRichContent;
-
-use Cviebrock\EloquentSluggable\Sluggable;
-
-use Lara\Common\Models\Concerns\HasLaraMedia;
+use Lara\Admin\Enums\CustomFieldType;
+use Lara\Common\Entities\EntityRegistry;
 use Lara\Common\Models\Concerns\HasLaraLocks;
-
+use Lara\Common\Models\Concerns\HasLaraMedia;
 use Usamamuneerchaudhary\FilaRank\Concerns\HasSeo;
 
 class BaseModel extends Model implements HasRichContent
 {
 	use HasFactory;
-
+	use HasLaraLocks;
+	use HasLaraMedia;
+	use HasSeo;
+	use InteractsWithRichContent;
 	use Sluggable;
 	use SoftDeletes;
-	use InteractsWithRichContent;
 
-	use HasLaraMedia;
-	use HasLaraLocks;
-
-	use HasSeo;
+	/**
+	 * Per model class and entity config version, see getCustomFieldCasts().
+	 *
+	 * @var array<string, array<string, string>>
+	 */
+	private static array $customFieldCasts = [];
 
 	protected $guarded = [
 		'id',
@@ -44,13 +46,44 @@ class BaseModel extends Model implements HasRichContent
 	protected function casts(): array
 	{
 		return [
-			'created_at'   => 'datetime',
-			'updated_at'   => 'datetime',
-			'deleted_at'   => 'datetime',
+			'created_at' => 'datetime',
+			'updated_at' => 'datetime',
+			'deleted_at' => 'datetime',
 			'publish_from' => 'datetime',
-			'publish_to'   => 'datetime',
-			'bricks'       => 'array',
+			'publish_to' => 'datetime',
+			'bricks' => 'array',
+			...static::getCustomFieldCasts(),
 		];
+	}
+
+	/**
+	 * Array casts for the custom fields stored in json columns (multiselect, checkbox list, …).
+	 *
+	 * Derived from the entity configuration, so a field added in the admin works without editing
+	 * the model. Casts a model declares itself still take precedence.
+	 *
+	 * @return array<string, string>
+	 */
+	protected static function getCustomFieldCasts(): array
+	{
+		$registry = app(EntityRegistry::class);
+		$cacheKey = static::class.'|'.$registry->version();
+
+		if (array_key_exists($cacheKey, self::$customFieldCasts)) {
+			return self::$customFieldCasts[$cacheKey];
+		}
+
+		$casts = [];
+
+		foreach ($registry->findByModelClass(static::class)?->customFields() ?? [] as $customField) {
+			$fieldType = CustomFieldType::tryFrom((string) $customField->field_type);
+
+			if ($fieldType?->getDatabaseColumnType() == 'json') {
+				$casts[$customField->field_name] = 'array';
+			}
+		}
+
+		return self::$customFieldCasts[$cacheKey] = $casts;
 	}
 
 	// get Seo content for FilaRank
@@ -75,7 +108,7 @@ class BaseModel extends Model implements HasRichContent
 
 		// extra body fields
 		for ($i = 2; $i <= config('lara.filament.max_extra_body_fields') + 1; $i++) {
-			$this->registerRichContent('body' . $i)
+			$this->registerRichContent('body'.$i)
 				->customBlocks($this->getCustomBlocks());
 		}
 
@@ -95,8 +128,8 @@ class BaseModel extends Model implements HasRichContent
 	{
 		return [
 			'slug' => [
-				'source' => 'title'
-			]
+				'source' => 'title',
+			],
 		];
 	}
 
@@ -112,12 +145,12 @@ class BaseModel extends Model implements HasRichContent
 
 	public function tags(): MorphToMany
 	{
-		return $this->morphToMany(Tag::class, 'entity', config('lara-common.database.object.taggables'))->whereHas('taxonomy', fn($query) => $query->where('slug', 'tag'))->orderBy('position');
+		return $this->morphToMany(Tag::class, 'entity', config('lara-common.database.object.taggables'))->whereHas('taxonomy', fn ($query) => $query->where('slug', 'tag'))->orderBy('position');
 	}
 
 	public function categories(): MorphToMany
 	{
-		return $this->morphToMany(Tag::class, 'entity', config('lara-common.database.object.taggables'))->whereHas('taxonomy', fn($query) => $query->where('slug', 'category'))->orderBy('position');
+		return $this->morphToMany(Tag::class, 'entity', config('lara-common.database.object.taggables'))->whereHas('taxonomy', fn ($query) => $query->where('slug', 'category'))->orderBy('position');
 	}
 
 	/**
@@ -186,5 +219,4 @@ class BaseModel extends Model implements HasRichContent
 	{
 		return $this->belongsTo(User::class)->withTrashed();
 	}
-
 }

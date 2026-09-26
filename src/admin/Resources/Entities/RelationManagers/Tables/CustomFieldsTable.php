@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Lara\Admin\Resources\Entities\RelationManagers\Tables;
 
 use Filament\Actions\CreateAction;
@@ -10,16 +9,18 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use InvalidArgumentException;
 use Lara\Admin\Concerns\HasCache;
 use Lara\Admin\Concerns\HasLaraBuilder;
 use Lara\Common\Models\EntityCustomField;
 
 class CustomFieldsTable
 {
-	use HasLaraBuilder;
 	use HasCache;
+	use HasLaraBuilder;
 
 	protected static ?string $slug = 'customfields';
+
 	protected static ?string $module = 'lara-admin';
 
 	public static function configure(Table $table): Table
@@ -28,61 +29,80 @@ class CustomFieldsTable
 		return $table
 			->columns([
 				TextColumn::make('title')
-					->label(_q(static::module() . '::' . static::slug() . '.column.title')),
+					->label(_q(static::module().'::'.static::slug().'.column.title')),
 				TextColumn::make('field_name')
-					->label(_q(static::module() . '::' . static::slug() . '.column.field_name')),
+					->label(_q(static::module().'::'.static::slug().'.column.field_name')),
 				TextColumn::make('field_type')
-					->label(_q(static::module() . '::' . static::slug() . '.column.field_type')),
+					->label(_q(static::module().'::'.static::slug().'.column.field_type')),
 				TextColumn::make('field_hook')
-					->label(_q(static::module() . '::' . static::slug() . '.column.field_hook')),
+					->label(_q(static::module().'::'.static::slug().'.column.field_hook')),
 				IconColumn::make('is_required')
-					->label(_q(static::module() . '::' . static::slug() . '.column.is_required'))
+					->label(_q(static::module().'::'.static::slug().'.column.is_required'))
 					->boolean()
 					->trueIcon('bi-check2-circle')
 					->trueColor('gray')
-					->state(fn($record) => ($record->is_required == 1) ? 1 : null)
+					->state(fn ($record) => ($record->is_required == 1) ? 1 : null)
 					->size('sm'),
 
 				IconColumn::make('show_in_list')
-					->label(_q(static::module() . '::' . static::slug() . '.column.show_in_list'))
+					->label(_q(static::module().'::'.static::slug().'.column.show_in_list'))
 					->boolean()
 					->trueIcon('bi-check2-circle')
 					->trueColor('gray')
-					->state(fn($record) => ($record->show_in_list == 1) ? 1 : null)
+					->state(fn ($record) => ($record->show_in_list == 1) ? 1 : null)
 					->size('sm'),
 				IconColumn::make('conditional')
-					->label(_q(static::module() . '::' . static::slug() . '.column.conditional'))
+					->label(_q(static::module().'::'.static::slug().'.column.conditional'))
 					->boolean()
 					->trueIcon('bi-sliders')
 					->trueColor('gray')
-					->state(fn($record) => ($record->conditional == 1) ? 1 : null)
+					->state(fn ($record) => ($record->conditional == 1) ? 1 : null)
 					->size('md'),
 				TextColumn::make('sort_order')
-					->label(_q(static::module() . '::' . static::slug() . '.column.sort_order')),
+					->label(_q(static::module().'::'.static::slug().'.column.sort_order')),
 			])
 			->headerActions([
 				CreateAction::make()
 					->icon('bi-plus-lg')
 					->iconButton()
-					->after(function (RelationManager $livewire, EntityCustomField $customField) {
+					->after(function (EntityCustomField $customField, CreateAction $action) {
 						static::checkRuleState($customField);
-						static::checkCustomDatabaseColumns($livewire->getOwnerRecord());
+						$isBuilt = static::buildCustomField($customField);
 						static::clearCacheTypes();
+						if (! $isBuilt) {
+							$action->halt();
+						}
 					}),
 			])
 			->actions([
 				EditAction::make()
 					->label('')
-					->after(function (RelationManager $livewire, EntityCustomField $customField) {
+					->after(function (EntityCustomField $customField, EditAction $action, RelationManager $livewire) {
+						$previousValues = $customField->getPrevious();
 						static::checkRuleState($customField);
-						static::checkCustomDatabaseColumns($livewire->getOwnerRecord());
+						$isBuilt = static::buildCustomField($customField, $previousValues);
 						static::clearCacheTypes();
+						if (! $isBuilt) {
+							$action->halt();
+						}
+						// a rename or type change keeps the previous column as a backup
+						$livewire->dispatch('lara-backup-columns-changed');
 					}),
 				DeleteAction::make()
 					->label('')
-					->after(function (EntityCustomField $customField) {
-						static::dropCustomColumn($customField);
+					->before(function (EntityCustomField $customField, DeleteAction $action) {
+						// the field's column becomes a backup column, which must not replace an older one
+						try {
+							static::assertCustomFieldCanBeArchived($customField);
+						} catch (InvalidArgumentException $e) {
+							static::notifyBuildFailure('The field "'.$customField->title.'" cannot be deleted yet', $e, changesUndone: false);
+							$action->cancel();
+						}
+					})
+					->after(function (EntityCustomField $customField, RelationManager $livewire) {
+						static::archiveCustomFieldColumn($customField);
 						static::clearCacheTypes();
+						$livewire->dispatch('lara-backup-columns-changed');
 					}),
 			])
 			->bulkActions([])
@@ -107,12 +127,13 @@ class CustomFieldsTable
 
 	}
 
-	private static function slug(): string {
+	private static function slug(): string
+	{
 		return static::$slug;
 	}
 
-	private static function module(): string {
+	private static function module(): string
+	{
 		return static::$module;
 	}
-
 }

@@ -24,7 +24,6 @@ use RuntimeException;
  */
 class EntityRegistry
 {
-
 	private const CACHE_KEY = 'lara:entities:v1';
 
 	private const VERSION_KEY = 'lara:entities:version';
@@ -61,7 +60,7 @@ class EntityRegistry
 
 		$entity = $this->entities()[$resourceSlug] ?? null;
 
-		if (!$entity) {
+		if (! $entity) {
 			return null;
 		}
 
@@ -77,11 +76,25 @@ class EntityRegistry
 	{
 		$config = $this->find($resourceSlug);
 
-		if (!$config) {
-			throw new RuntimeException('No entity registered for resource slug "' . $resourceSlug . '".');
+		if (! $config) {
+			throw new RuntimeException('No entity registered for resource slug "'.$resourceSlug.'".');
 		}
 
 		return $config;
+	}
+
+	/**
+	 * Config for the entity a model class belongs to, or null when there is none.
+	 */
+	public function findByModelClass(string $modelClass): ?EntityConfig
+	{
+		foreach ($this->entities() as $resourceSlug => $entity) {
+			if ($entity->model_class === $modelClass) {
+				return $this->find($resourceSlug);
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -129,7 +142,7 @@ class EntityRegistry
 
 		return $this->version = Cache::rememberForever(
 			self::VERSION_KEY,
-			static fn(): string => (string) time(),
+			static fn (): string => (string) time(),
 		);
 	}
 
@@ -196,12 +209,11 @@ class EntityRegistry
 		$keyed = [];
 
 		foreach ($entities as $entity) {
-			if (!empty($entity->resource_slug)) {
+			if (! empty($entity->resource_slug)) {
 				$keyed[$entity->resource_slug] = $entity;
 			}
 		}
 
 		return $keyed;
 	}
-
 }

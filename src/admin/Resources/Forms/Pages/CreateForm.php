@@ -5,13 +5,11 @@ namespace Lara\Admin\Resources\Forms\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\View\View;
-use Lara\Admin\Resources\Forms\FormResource;
-
 use Lara\Admin\Concerns\HasLaraBuilder;
+use Lara\Admin\Resources\Forms\FormResource;
 
 class CreateForm extends CreateRecord
 {
-
 	use HasLaraBuilder;
 
     protected static string $resource = FormResource::class;
@@ -32,15 +30,18 @@ class CreateForm extends CreateRecord
             $this->getCreateFormAction()
                 ->label(_q('lara-admin::default.action.save'))
                 ->submit(null)
-                ->action(fn() => $this->create()),
+                ->action(fn () => $this->create()),
         ];
     }
 
     protected function afterCreate(): void
     {
         $entity = $this->getRecord();
-        static::createEntity($entity);
-        static::checkDatabaseTable($entity);
+
+	    // on failure the entity row is removed again, so stay on the form to correct it
+	    if (! static::buildEntity($entity)) {
+		    $this->halt();
+	    }
 
 	    // refresh route cache
 	    session(['laracacheclear' => ['response_cache', 'route_cache']]);
@@ -56,5 +57,4 @@ class CreateForm extends CreateRecord
 				...$this->getLayoutData(),
 			]);
 	}
-
 }

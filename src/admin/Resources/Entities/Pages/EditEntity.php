@@ -5,13 +5,11 @@ namespace Lara\Admin\Resources\Entities\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
-use Lara\Admin\Resources\Entities\EntityResource;
-
 use Lara\Admin\Concerns\HasLaraBuilder;
+use Lara\Admin\Resources\Entities\EntityResource;
 
 class EditEntity extends EditRecord
 {
-
 	use HasLaraBuilder;
 
     protected static string $resource = EntityResource::class;
@@ -19,6 +17,7 @@ class EditEntity extends EditRecord
     public function getTitle(): string
     {
         $entity = $this->getRecord();
+
         return $entity->title;
     }
 
@@ -39,7 +38,7 @@ class EditEntity extends EditRecord
 		        ->label('save')
 		        ->color('danger')
 		        ->submit(null)
-		        ->action(function() {
+		        ->action(function () {
 			        $this->save();
 		        }),
         ];
@@ -53,12 +52,15 @@ class EditEntity extends EditRecord
 				$this->record->sort_primary_order = 'asc';
 			}
 		}
+
 		return $data;
 	}
 
 	protected function afterSave(): void
 	{
-		$this->checkExtraDatabaseColumns($this->record);
+		if (! static::buildExtraBodyColumns($this->record, $this->record->getPrevious())) {
+			$this->halt();
+		}
 
 		// refresh route cache
 		session(['laracacheclear' => ['response_cache', 'route_cache']]);
@@ -69,11 +71,9 @@ class EditEntity extends EditRecord
 	{
 		return view($this->getView(), $this->getViewData())
 			->layout('lara-admin::layout.entity-focus-mode', [
-				'livewire'        => $this,
+				'livewire' => $this,
 				'maxContentWidth' => $this->getMaxContentWidth(),
 				...$this->getLayoutData(),
 			]);
 	}
-
-
 }

@@ -8,34 +8,29 @@ use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
-
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
-
-use Lara\Admin\Resources\Base\Concerns\HasBasePolicy;
-use Lara\Admin\Resources\Base\Concerns\HasBaseForm;
-use Lara\Admin\Resources\Base\Concerns\HasBaseTable;
 use Lara\Admin\Concerns\HasLanguage;
 use Lara\Admin\Concerns\HasLaraEntity;
 use Lara\Admin\Concerns\HasLayout;
 use Lara\Admin\Concerns\HasMedia;
 use Lara\Admin\Concerns\HasNestedSet;
 use Lara\Admin\Concerns\HasParams;
+use Lara\Admin\Resources\Base\Concerns\HasBaseForm;
+use Lara\Admin\Resources\Base\Concerns\HasBasePolicy;
+use Lara\Admin\Resources\Base\Concerns\HasBaseTable;
 
 class BaseResource extends Resource
 {
-
+	use HasBaseForm;
+	use HasBasePolicy;
+	use HasBaseTable;
 	use HasLanguage;
 	use HasLaraEntity;
 	use HasLayout;
 	use HasMedia;
 	use HasNestedSet;
 	use HasParams;
-	use HasBasePolicy;
-	use HasBaseTable;
-	use HasBaseForm;
 
 	protected static ?string $model = null;
 
@@ -52,17 +47,17 @@ class BaseResource extends Resource
 
 	public static function getModelLabel(): string
 	{
-		return _q(static::getModule() . '::' . static::getSlug() . '.model.label_single');
+		return _q(static::getModule().'::'.static::getSlug().'.model.label_single');
 	}
 
 	public static function getPluralModelLabel(): string
 	{
-		return _q(static::getModule() . '::' . static::getSlug() . '.model.label_plural');
+		return _q(static::getModule().'::'.static::getSlug().'.model.label_plural');
 	}
 
 	public static function getNavigationLabel(): string
 	{
-		return _q(static::getModule() . '::' . static::getSlug() . '.navigation.label', true);
+		return _q(static::getModule().'::'.static::getSlug().'.navigation.label', true);
 	}
 
 	public static function getNavigationGroup(): ?string
@@ -86,9 +81,10 @@ class BaseResource extends Resource
 					->persistTab()
 					->id(function (string $operation, $record): string {
 						if ($operation === 'edit') {
-							return static::getSlug() . '-' . $record->id . '-tab';
+							return static::getSlug().'-'.$record->id.'-tab';
 						}
-						return static::getSlug() . '-tab';
+
+						return static::getSlug().'-tab';
 					}),
 			]);
 	}
@@ -110,8 +106,8 @@ class BaseResource extends Resource
 			->deferColumnManager(false)
 			->actions(static::getBaseTableActions())
 			->bulkActions(static::getBaseTableBulkActions())
-			->modifyQueryUsing(fn(Builder $query) => static::getBaseQuery($query))
-			->defaultSort(fn(Builder $query) => static::getSortOrder($query));
+			->modifyQueryUsing(fn (Builder $query) => static::getBaseQuery($query))
+			->defaultSort(fn (Builder $query) => static::getSortOrder($query));
 	}
 
 	public static function getEloquentQuery(): Builder
@@ -123,10 +119,4 @@ class BaseResource extends Resource
 
 		return $query;
 	}
-
-	private static function getSingleSlug(): string
-	{
-		return Str::singular(static::getSlug());
-	}
-
 }

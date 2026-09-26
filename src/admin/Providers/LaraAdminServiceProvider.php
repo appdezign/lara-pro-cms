@@ -4,28 +4,26 @@ namespace Lara\Admin\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Lara\Admin\Livewire\BackupColumns;
 use Lara\Admin\Livewire\ClearCache;
 use Lara\Admin\Livewire\LaraEntityReorder;
 use Lara\Admin\Livewire\LaraMenuReorder;
 use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Livewire\LaraTagReorder;
 use Lara\Admin\Widgets\Analytics;
+use Lara\Front\Http\Concerns\HasTheme;
+use Lara\Front\LaraTheme\Theme;
 use Livewire\Livewire;
-
-use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\CacheCheck;
-use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
-
-use Lara\Front\Http\Concerns\HasTheme;
-use Lara\Front\LaraTheme\Theme;
 
 class LaraAdminServiceProvider extends ServiceProvider
 {
-
 	use HasTheme;
 
 	/**
@@ -38,14 +36,14 @@ class LaraAdminServiceProvider extends ServiceProvider
 
 		// Publish Config
 		$this->publishes([
-			__DIR__ . '/../../../config/lara-admin.php' => config_path('lara-admin.php'),
+			__DIR__.'/../../../config/lara-admin.php' => config_path('lara-admin.php'),
 		], 'lara');
 
 		// Load Views
 		$this->loadViewsFrom(__DIR__.'/../../../resources/views/admin', 'lara-admin');
 
 		// Load Translations
-		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-admin', 'lara-admin');
+		$this->loadTranslationsFrom(app()->langPath().'/vendor/lara-admin', 'lara-admin');
 
 		// Set theme, so we can load layout.xml
 		$theme = $this->getFrontTheme();
@@ -60,6 +58,7 @@ class LaraAdminServiceProvider extends ServiceProvider
 
 		// register namespaced Livewire Components
 		Livewire::component('clear-cache', ClearCache::class);
+		Livewire::component('lara-backup-columns', BackupColumns::class);
 		Livewire::component('lara-menu-reorder', LaraMenuReorder::class);
 		Livewire::component('lara-tag-reorder-nested', LaraTagReorder::class);
 		Livewire::component('lara-tag-reorder-list', LaraTagReorder::class);
@@ -78,7 +77,6 @@ class LaraAdminServiceProvider extends ServiceProvider
 		Livewire::component('Lara-top-referrers-list-widget', Analytics\LaraTopReferrersListWidget::class);
 		Livewire::component('lara-visitors-widget', Analytics\LaraVisitorsWidget::class);
 
-
 		Health::checks([
 			CacheCheck::new(),
 			OptimizedAppCheck::new(),
@@ -87,7 +85,6 @@ class LaraAdminServiceProvider extends ServiceProvider
 			EnvironmentCheck::new(),
 			DebugModeCheck::new(),
 		]);
-
 
 	}
 
@@ -99,7 +96,7 @@ class LaraAdminServiceProvider extends ServiceProvider
 	public function register()
 	{
 		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-admin.php', 'lara-admin');
+		$this->mergeConfigFrom(__DIR__.'/../../../config/lara-admin.php', 'lara-admin');
 
 	}
 }
