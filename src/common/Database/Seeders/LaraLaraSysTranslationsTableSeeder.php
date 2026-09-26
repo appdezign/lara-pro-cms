@@ -10929,6 +10929,102 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2026-08-10 15:55:48',
                 'updated_at' => '2026-08-10 15:55:48',
             ),
+            409 => 
+            array (
+                'id' => 2797,
+                'language' => 'en',
+                'module' => 'lara-app',
+                'resource' => 'ctas',
+                'tag' => 'tablecolumn',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-09-18 13:31:52',
+                'updated_at' => '2026-09-18 13:31:52',
+            ),
+            410 => 
+            array (
+                'id' => 2798,
+                'language' => 'nl',
+                'module' => 'lara-app',
+                'resource' => 'ctas',
+                'tag' => 'tablecolumn',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-09-18 13:31:52',
+                'updated_at' => '2026-09-18 13:31:52',
+            ),
+            411 => 
+            array (
+                'id' => 2799,
+                'language' => 'en',
+                'module' => 'lara-app',
+                'resource' => 'sliders',
+                'tag' => 'tablecolumn',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-09-18 13:31:53',
+                'updated_at' => '2026-09-18 13:31:53',
+            ),
+            412 => 
+            array (
+                'id' => 2800,
+                'language' => 'nl',
+                'module' => 'lara-app',
+                'resource' => 'sliders',
+                'tag' => 'tablecolumn',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-09-18 13:31:53',
+                'updated_at' => '2026-09-18 13:31:53',
+            ),
+            413 => 
+            array (
+                'id' => 2801,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'menu-items',
+                'tag' => 'target',
+                'key' => '_self',
+                'value' => '__self',
+                'created_at' => '2026-09-18 18:36:16',
+                'updated_at' => '2026-09-18 18:36:16',
+            ),
+            414 => 
+            array (
+                'id' => 2802,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'menu-items',
+                'tag' => 'target',
+                'key' => '_self',
+                'value' => '__self',
+                'created_at' => '2026-09-18 18:36:16',
+                'updated_at' => '2026-09-18 18:36:16',
+            ),
+            415 => 
+            array (
+                'id' => 2803,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'menu-items',
+                'tag' => 'target',
+                'key' => '_blank',
+                'value' => '__blank',
+                'created_at' => '2026-09-18 18:36:16',
+                'updated_at' => '2026-09-18 18:36:16',
+            ),
+            416 => 
+            array (
+                'id' => 2804,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'menu-items',
+                'tag' => 'target',
+                'key' => '_blank',
+                'value' => '__blank',
+                'created_at' => '2026-09-18 18:36:16',
+                'updated_at' => '2026-09-18 18:36:16',
+            ),
         ));
         
         

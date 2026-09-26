@@ -701,61 +701,13 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
             ),
             85 => 
             array (
-                'id' => 184,
-                'name' => 'view_any_widget',
-                'guard_name' => 'web',
-                'created_at' => '2025-07-11 09:41:16',
-                'updated_at' => '2025-07-11 09:41:16',
-            ),
-            86 => 
-            array (
-                'id' => 185,
-                'name' => 'view_widget',
-                'guard_name' => 'web',
-                'created_at' => '2025-07-11 09:41:16',
-                'updated_at' => '2025-07-11 09:41:16',
-            ),
-            87 => 
-            array (
-                'id' => 186,
-                'name' => 'create_widget',
-                'guard_name' => 'web',
-                'created_at' => '2025-07-11 09:41:16',
-                'updated_at' => '2025-07-11 09:41:16',
-            ),
-            88 => 
-            array (
-                'id' => 187,
-                'name' => 'update_widget',
-                'guard_name' => 'web',
-                'created_at' => '2025-07-11 09:41:16',
-                'updated_at' => '2025-07-11 09:41:16',
-            ),
-            89 => 
-            array (
-                'id' => 188,
-                'name' => 'delete_widget',
-                'guard_name' => 'web',
-                'created_at' => '2025-07-11 09:41:16',
-                'updated_at' => '2025-07-11 09:41:16',
-            ),
-            90 => 
-            array (
-                'id' => 189,
-                'name' => 'delete_any_widget',
-                'guard_name' => 'web',
-                'created_at' => '2025-07-11 09:41:16',
-                'updated_at' => '2025-07-11 09:41:16',
-            ),
-            91 => 
-            array (
                 'id' => 190,
                 'name' => 'view_any_cta',
                 'guard_name' => 'web',
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
             ),
-            92 => 
+            86 => 
             array (
                 'id' => 191,
                 'name' => 'view_cta',
@@ -763,7 +715,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
             ),
-            93 => 
+            87 => 
             array (
                 'id' => 192,
                 'name' => 'create_cta',
@@ -771,7 +723,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
             ),
-            94 => 
+            88 => 
             array (
                 'id' => 193,
                 'name' => 'update_cta',
@@ -779,7 +731,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
             ),
-            95 => 
+            89 => 
             array (
                 'id' => 194,
                 'name' => 'delete_cta',
@@ -787,7 +739,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
             ),
-            96 => 
+            90 => 
             array (
                 'id' => 195,
                 'name' => 'delete_any_cta',
@@ -795,7 +747,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
             ),
-            97 => 
+            91 => 
             array (
                 'id' => 196,
                 'name' => 'view_any_larawidget',
@@ -803,7 +755,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            98 => 
+            92 => 
             array (
                 'id' => 197,
                 'name' => 'view_larawidget',
@@ -811,7 +763,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            99 => 
+            93 => 
             array (
                 'id' => 198,
                 'name' => 'create_larawidget',
@@ -819,7 +771,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            100 => 
+            94 => 
             array (
                 'id' => 199,
                 'name' => 'update_larawidget',
@@ -827,7 +779,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            101 => 
+            95 => 
             array (
                 'id' => 200,
                 'name' => 'delete_larawidget',
@@ -835,7 +787,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            102 => 
+            96 => 
             array (
                 'id' => 201,
                 'name' => 'delete_any_larawidget',
@@ -843,7 +795,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            103 => 
+            97 => 
             array (
                 'id' => 202,
                 'name' => 'view_any_service',
@@ -851,7 +803,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            104 => 
+            98 => 
             array (
                 'id' => 203,
                 'name' => 'view_service',
@@ -859,7 +811,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            105 => 
+            99 => 
             array (
                 'id' => 204,
                 'name' => 'create_service',
@@ -867,7 +819,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            106 => 
+            100 => 
             array (
                 'id' => 205,
                 'name' => 'update_service',
@@ -875,7 +827,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            107 => 
+            101 => 
             array (
                 'id' => 206,
                 'name' => 'delete_service',
@@ -883,7 +835,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            108 => 
+            102 => 
             array (
                 'id' => 207,
                 'name' => 'delete_any_service',
@@ -891,7 +843,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            109 => 
+            103 => 
             array (
                 'id' => 208,
                 'name' => 'view_any_testimonial',
@@ -899,7 +851,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            110 => 
+            104 => 
             array (
                 'id' => 209,
                 'name' => 'view_testimonial',
@@ -907,7 +859,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            111 => 
+            105 => 
             array (
                 'id' => 210,
                 'name' => 'create_testimonial',
@@ -915,7 +867,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            112 => 
+            106 => 
             array (
                 'id' => 211,
                 'name' => 'update_testimonial',
@@ -923,7 +875,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            113 => 
+            107 => 
             array (
                 'id' => 212,
                 'name' => 'delete_testimonial',
@@ -931,7 +883,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            114 => 
+            108 => 
             array (
                 'id' => 213,
                 'name' => 'delete_any_testimonial',
@@ -939,7 +891,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            115 => 
+            109 => 
             array (
                 'id' => 214,
                 'name' => 'view_any_portfolio',
@@ -947,7 +899,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            116 => 
+            110 => 
             array (
                 'id' => 215,
                 'name' => 'view_portfolio',
@@ -955,7 +907,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            117 => 
+            111 => 
             array (
                 'id' => 216,
                 'name' => 'create_portfolio',
@@ -963,7 +915,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            118 => 
+            112 => 
             array (
                 'id' => 217,
                 'name' => 'update_portfolio',
@@ -971,7 +923,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            119 => 
+            113 => 
             array (
                 'id' => 218,
                 'name' => 'delete_portfolio',
@@ -979,7 +931,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            120 => 
+            114 => 
             array (
                 'id' => 219,
                 'name' => 'delete_any_portfolio',
@@ -987,7 +939,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            121 => 
+            115 => 
             array (
                 'id' => 220,
                 'name' => 'view_any_gallery',
@@ -995,7 +947,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            122 => 
+            116 => 
             array (
                 'id' => 221,
                 'name' => 'view_gallery',
@@ -1003,7 +955,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            123 => 
+            117 => 
             array (
                 'id' => 222,
                 'name' => 'create_gallery',
@@ -1011,7 +963,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            124 => 
+            118 => 
             array (
                 'id' => 223,
                 'name' => 'update_gallery',
@@ -1019,7 +971,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            125 => 
+            119 => 
             array (
                 'id' => 224,
                 'name' => 'delete_gallery',
@@ -1027,7 +979,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            126 => 
+            120 => 
             array (
                 'id' => 225,
                 'name' => 'delete_any_gallery',
@@ -1035,7 +987,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            127 => 
+            121 => 
             array (
                 'id' => 226,
                 'name' => 'view_any_doc',
@@ -1043,7 +995,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            128 => 
+            122 => 
             array (
                 'id' => 227,
                 'name' => 'view_doc',
@@ -1051,7 +1003,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            129 => 
+            123 => 
             array (
                 'id' => 228,
                 'name' => 'create_doc',
@@ -1059,7 +1011,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            130 => 
+            124 => 
             array (
                 'id' => 229,
                 'name' => 'update_doc',
@@ -1067,7 +1019,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            131 => 
+            125 => 
             array (
                 'id' => 230,
                 'name' => 'delete_doc',
@@ -1075,7 +1027,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            132 => 
+            126 => 
             array (
                 'id' => 231,
                 'name' => 'delete_any_doc',
@@ -1083,7 +1035,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            133 => 
+            127 => 
             array (
                 'id' => 232,
                 'name' => 'view_any_video',
@@ -1091,7 +1043,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            134 => 
+            128 => 
             array (
                 'id' => 233,
                 'name' => 'view_video',
@@ -1099,7 +1051,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            135 => 
+            129 => 
             array (
                 'id' => 234,
                 'name' => 'create_video',
@@ -1107,7 +1059,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            136 => 
+            130 => 
             array (
                 'id' => 235,
                 'name' => 'update_video',
@@ -1115,7 +1067,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            137 => 
+            131 => 
             array (
                 'id' => 236,
                 'name' => 'delete_video',
@@ -1123,7 +1075,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            138 => 
+            132 => 
             array (
                 'id' => 237,
                 'name' => 'delete_any_video',
@@ -1131,7 +1083,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            139 => 
+            133 => 
             array (
                 'id' => 238,
                 'name' => 'view_any_classicform',
@@ -1139,7 +1091,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            140 => 
+            134 => 
             array (
                 'id' => 239,
                 'name' => 'view_classicform',
@@ -1147,7 +1099,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            141 => 
+            135 => 
             array (
                 'id' => 240,
                 'name' => 'create_classicform',
@@ -1155,7 +1107,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            142 => 
+            136 => 
             array (
                 'id' => 241,
                 'name' => 'update_classicform',
@@ -1163,7 +1115,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            143 => 
+            137 => 
             array (
                 'id' => 242,
                 'name' => 'delete_classicform',
@@ -1171,7 +1123,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            144 => 
+            138 => 
             array (
                 'id' => 243,
                 'name' => 'delete_any_classicform',
@@ -1179,7 +1131,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
             ),
-            145 => 
+            139 => 
             array (
                 'id' => 244,
                 'name' => 'view_any_product',
@@ -1187,7 +1139,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
             ),
-            146 => 
+            140 => 
             array (
                 'id' => 245,
                 'name' => 'view_product',
@@ -1195,7 +1147,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
             ),
-            147 => 
+            141 => 
             array (
                 'id' => 246,
                 'name' => 'create_product',
@@ -1203,7 +1155,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
             ),
-            148 => 
+            142 => 
             array (
                 'id' => 247,
                 'name' => 'update_product',
@@ -1211,7 +1163,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
             ),
-            149 => 
+            143 => 
             array (
                 'id' => 248,
                 'name' => 'delete_product',
@@ -1219,7 +1171,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
             ),
-            150 => 
+            144 => 
             array (
                 'id' => 249,
                 'name' => 'delete_any_product',
@@ -1227,55 +1179,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
             ),
-            151 => 
-            array (
-                'id' => 250,
-                'name' => 'view_any_city',
-                'guard_name' => 'web',
-                'created_at' => '2025-10-22 13:55:53',
-                'updated_at' => '2025-10-22 13:55:53',
-            ),
-            152 => 
-            array (
-                'id' => 251,
-                'name' => 'view_city',
-                'guard_name' => 'web',
-                'created_at' => '2025-10-22 13:55:53',
-                'updated_at' => '2025-10-22 13:55:53',
-            ),
-            153 => 
-            array (
-                'id' => 252,
-                'name' => 'create_city',
-                'guard_name' => 'web',
-                'created_at' => '2025-10-22 13:55:53',
-                'updated_at' => '2025-10-22 13:55:53',
-            ),
-            154 => 
-            array (
-                'id' => 253,
-                'name' => 'update_city',
-                'guard_name' => 'web',
-                'created_at' => '2025-10-22 13:55:53',
-                'updated_at' => '2025-10-22 13:55:53',
-            ),
-            155 => 
-            array (
-                'id' => 254,
-                'name' => 'delete_city',
-                'guard_name' => 'web',
-                'created_at' => '2025-10-22 13:55:53',
-                'updated_at' => '2025-10-22 13:55:53',
-            ),
-            156 => 
-            array (
-                'id' => 255,
-                'name' => 'delete_any_city',
-                'guard_name' => 'web',
-                'created_at' => '2025-10-22 13:55:53',
-                'updated_at' => '2025-10-22 13:55:53',
-            ),
-            157 => 
+            145 => 
             array (
                 'id' => 256,
                 'name' => 'view_any_media',
@@ -1283,7 +1187,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
             ),
-            158 => 
+            146 => 
             array (
                 'id' => 257,
                 'name' => 'view_media',
@@ -1291,7 +1195,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
             ),
-            159 => 
+            147 => 
             array (
                 'id' => 258,
                 'name' => 'create_media',
@@ -1299,7 +1203,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
             ),
-            160 => 
+            148 => 
             array (
                 'id' => 259,
                 'name' => 'update_media',
@@ -1307,7 +1211,7 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
             ),
-            161 => 
+            149 => 
             array (
                 'id' => 260,
                 'name' => 'delete_media',
@@ -1315,21 +1219,13 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
             ),
-            162 => 
+            150 => 
             array (
                 'id' => 261,
                 'name' => 'delete_any_media',
                 'guard_name' => 'web',
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
-            ),
-            163 => 
-            array (
-                'id' => 262,
-                'name' => 'view any_media',
-                'guard_name' => 'web',
-                'created_at' => '2025-12-17 19:20:09',
-                'updated_at' => '2025-12-17 19:20:09',
             ),
         ));
         

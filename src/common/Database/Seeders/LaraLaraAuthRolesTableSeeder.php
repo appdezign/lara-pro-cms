@@ -37,7 +37,7 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'has_panel_access' => 1,
                 'level' => 95,
                 'created_at' => '2025-06-17 19:21:45',
-                'updated_at' => '2025-06-17 19:21:45',
+                'updated_at' => '2026-09-26 17:55:58',
             ),
             2 => 
             array (

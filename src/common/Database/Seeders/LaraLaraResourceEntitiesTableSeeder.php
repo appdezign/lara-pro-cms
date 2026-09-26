@@ -32,7 +32,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'nav_group' => 'root',
                 'has_front_auth' => 0,
                 'created_at' => '2025-04-14 18:39:44',
-                'updated_at' => '2025-09-13 10:09:13',
+                'updated_at' => '2026-09-26 15:37:13',
                 'cgroup' => 'page',
                 'position' => 10,
                 'col_has_lead' => 0,
