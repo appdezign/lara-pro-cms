@@ -17,177 +17,177 @@ use Lara\Front\Http\Lara\FrontActiveRoute;
  */
 final class FrontRouteResolver
 {
-	public function __construct(
-		private readonly FrontEntityResolver $entityResolver,
-	) {}
+    public function __construct(
+        private readonly FrontEntityResolver $entityResolver,
+    ) {}
 
-	/**
-	 * Get the Laravel route name from the given url
-	 *
-	 * @return mixed
-	 */
-	public function getRouteFromUrl(string $url)
-	{
-		// NOTE: v10
+    /**
+     * Get the Laravel route name from the given url
+     *
+     * @return mixed
+     */
+    public function getRouteFromUrl(string $url)
+    {
+        // NOTE: v10
 
-		return app('router')->getRoutes()->match(app('request')->create($url))->getName();
-	}
+        return app('router')->getRoutes()->match(app('request')->create($url))->getName();
+    }
 
-	/**
-	 * Get a complete Frontent SEO Route for a specific entity list or object
-	 *
-	 * @return string
-	 */
-	public function getFrontSeoRoute(string $resourceSlug, string $method, bool $single = false)
-	{
+    /**
+     * Get a complete Frontent SEO Route for a specific entity list or object
+     *
+     * @return string
+     */
+    public function getFrontSeoRoute(string $resourceSlug, string $method, bool $single = false)
+    {
 
-		if ($resourceSlug == 'pages') {
-			$method = 'show';
-		}
+        if ($resourceSlug == 'pages') {
+            $method = 'show';
+        }
 
-		$entity = $this->entityResolver->getResourceBySlug($resourceSlug);
+        $entity = $this->entityResolver->getResourceBySlug($resourceSlug);
 
-		$entityView = $entity->getViews()->where('method', $method)->first();
+        $entityView = $entity->getViews()->where('method', $method)->first();
 
-		if ($entityView) {
-			$menuItem = MenuItem::where('entity_id', $entity->getEntityId())
-				->where('entity_view_id', $entityView->id)
-				->whereNull('tag_id')
-				->first();
+        if ($entityView) {
+            $menuItem = MenuItem::where('entity_id', $entity->getEntityId())
+                ->where('entity_view_id', $entityView->id)
+                ->whereNull('tag_id')
+                ->first();
 
-			if ($menuItem) {
-				if ($menuItem->is_home == 1) {
-					return 'special.home.show';
-				} else {
-					return $this->buildRouteName($menuItem->routename, $single);
-				}
-			}
-		}
+            if ($menuItem) {
+                if ($menuItem->is_home == 1) {
+                    return 'special.home.show';
+                } else {
+                    return $this->buildRouteName($menuItem->routename, $single);
+                }
+            }
+        }
 
-		if (Route::has('contenttag.'.$resourceSlug.'.'.$method)) {
-			return $this->buildRouteName('contenttag.'.$resourceSlug.'.'.$method, $single);
-		} else {
-			return $this->buildRouteName('content.'.$resourceSlug.'.'.$method, $single);
-		}
+        if (Route::has('contenttag.'.$resourceSlug.'.'.$method)) {
+            return $this->buildRouteName('contenttag.'.$resourceSlug.'.'.$method, $single);
+        } else {
+            return $this->buildRouteName('content.'.$resourceSlug.'.'.$method, $single);
+        }
 
-	}
+    }
 
-	private function buildRouteName(string $routename, bool $single = false)
-	{
-		if ($single) {
-			return $routename.'.show';
-		} else {
-			return $routename;
-		}
-	}
+    private function buildRouteName(string $routename, bool $single = false)
+    {
+        if ($single) {
+            return $routename.'.show';
+        } else {
+            return $routename;
+        }
+    }
 
-	public function checkFrontRedirect($language, $entity, $activeroute, $object)
-	{
+    public function checkFrontRedirect($language, $entity, $activeroute, $object)
+    {
 
-		if (empty($object)) {
+        if (empty($object)) {
 
-			// object not found, redirect to list
-			return redirect()->route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
+            // object not found, redirect to list
+            return redirect()->route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
 
-		} else {
+        } else {
 
-			// redirect entity objects to their menu url, if possible
-			$isPreview = $this->checkEntityRoute($language, $entity, $activeroute, $object);
-			if ($isPreview instanceof \Illuminate\Http\RedirectResponse) {
-				return $isPreview;
-			}
+            // redirect entity objects to their menu url, if possible
+            $isPreview = $this->checkEntityRoute($language, $entity, $activeroute, $object);
+            if ($isPreview instanceof RedirectResponse) {
+                return $isPreview;
+            }
 
-			// if the page is not a preview, make sure it is published
-			if (! $isPreview && ($entity->hasStatus())) {
-				if ($object->publish == 0 || (! empty($object->publish_to) && $object->publish_to < Carbon::now()->toDateTimeString())) {
-					return redirect()->route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
-				}
-			}
+            // if the page is not a preview, make sure it is published
+            if (! $isPreview && ($entity->hasStatus())) {
+                if ($object->publish == 0 || (! empty($object->publish_to) && $object->publish_to < Carbon::now()->toDateTimeString())) {
+                    return redirect()->route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
+                }
+            }
 
-		}
-	}
+        }
+    }
 
-	/**
-	 * Check if a page with a preview route can be redirected to a menu route
-	 *
-	 * @return false|Application|RedirectResponse
-	 */
-	public function checkPageRoute(string $language, object $entity, FrontActiveRoute $activeroute, int $id)
-	{
+    /**
+     * Check if a page with a preview route can be redirected to a menu route
+     *
+     * @return false|Application|RedirectResponse
+     */
+    public function checkPageRoute(string $language, object $entity, FrontActiveRoute $activeroute, int $id)
+    {
 
-		if ($entity->getResourceSlug() == 'pages' && $activeroute->getPrefix() == 'content') {
+        if ($entity->getResourceSlug() == 'pages' && $activeroute->getPrefix() == 'content') {
 
-			$menuitem = MenuItem::where('type', 'page')
-				->where('object_id', $id)
-				->first();
+            $menuitem = MenuItem::where('type', 'page')
+                ->where('object_id', $id)
+                ->first();
 
-			if ($menuitem) {
-				return redirect($language.'/'.$menuitem->route);
-			} else {
-				// this is a preview page, check if user is logged in
-				if (Auth::check()) {
-					return false;
-				} else {
-					return redirect(route('error.show.404', '404'));
-				}
-			}
+            if ($menuitem) {
+                return redirect($language.'/'.$menuitem->route);
+            } else {
+                // this is a preview page, check if user is logged in
+                if (Auth::check()) {
+                    return false;
+                } else {
+                    return redirect(route('error.show.404', '404'));
+                }
+            }
 
-		} else {
-			return false;
-		}
+        } else {
+            return false;
+        }
 
-	}
+    }
 
-	/**
-	 * Check if a page with a preview route can be redirected to a menu route
-	 *
-	 * @return false|Application|RedirectResponse
-	 */
-	public function checkEntityRoute(string $language, object $entity, FrontActiveRoute $activeroute, object $object)
-	{
+    /**
+     * Check if a page with a preview route can be redirected to a menu route
+     *
+     * @return false|Application|RedirectResponse
+     */
+    public function checkEntityRoute(string $language, object $entity, FrontActiveRoute $activeroute, object $object)
+    {
 
-		$isPreview = false;
+        $isPreview = false;
 
-		if ($activeroute->getPrefix() == 'content' || $activeroute->getPrefix() == 'contenttag') {
+        if ($activeroute->getPrefix() == 'content' || $activeroute->getPrefix() == 'contenttag') {
 
-			if ($object->publish == 1) {
+            if ($object->publish == 1) {
 
-				$menuitem = MenuItem::langIs($language)->where('type', 'entity')
-					->where('entity_id', $entity->getEntityId())
-					->whereNull('tag_id')
-					->first();
+                $menuitem = MenuItem::langIs($language)->where('type', 'entity')
+                    ->where('entity_id', $entity->getEntityId())
+                    ->whereNull('tag_id')
+                    ->first();
 
-				if ($menuitem) {
+                if ($menuitem) {
 
-					$redirectUrl = $language.'/'.$menuitem->route.'/'.$object->slug;
+                    $redirectUrl = $language.'/'.$menuitem->route.'/'.$object->slug;
 
-					if ($entity->hasTags()) {
-						$redirectUrl = $redirectUrl.'.html';
-					}
+                    if ($entity->hasTags()) {
+                        $redirectUrl = $redirectUrl.'.html';
+                    }
 
-					return redirect($redirectUrl);
+                    return redirect($redirectUrl);
 
-				} else {
-					// this is a preview page, check if user is logged in
-					if (Auth::check()) {
-						$isPreview = true;
-					} else {
-						return redirect(route('error.show.404', '404'));
-					}
-				}
+                } else {
+                    // this is a preview page, check if user is logged in
+                    if (Auth::check()) {
+                        $isPreview = true;
+                    } else {
+                        return redirect(route('error.show.404', '404'));
+                    }
+                }
 
-			} else {
-				// this is a preview page, check if user is logged in
-				if (Auth::check()) {
-					$isPreview = true;
-				} else {
-					return redirect(route('error.show.404', '404'));
-				}
-			}
+            } else {
+                // this is a preview page, check if user is logged in
+                if (Auth::check()) {
+                    $isPreview = true;
+                } else {
+                    return redirect(route('error.show.404', '404'));
+                }
+            }
 
-		}
+        }
 
-		return $isPreview;
+        return $isPreview;
 
-	}
+    }
 }

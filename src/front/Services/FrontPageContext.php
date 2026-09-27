@@ -2,15 +2,13 @@
 
 namespace Lara\Front\Services;
 
+use Cache;
+use Composer\InstalledVersions;
 use Lara\Common\Models\Language;
 use Lara\Common\Models\LaraWidget;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Setting;
-
-use Composer\InstalledVersions;
-
-use Cache;
 use stdClass;
 
 /**
@@ -20,334 +18,334 @@ use stdClass;
  */
 final class FrontPageContext
 {
-	/**
-	 * Get all global settings
-	 *
-	 * @return mixed
-	 */
-	public function getGlobalSettings()
-	{
+    /**
+     * Get all global settings
+     *
+     * @return mixed
+     */
+    public function getGlobalSettings()
+    {
 
-		$settings = Cache::remember('lara_global_settings', 3600, function () {
+        $settings = Cache::remember('lara_global_settings', 3600, function () {
 
-			$settings = Setting::pluck('value', 'key')->toArray();
+            $settings = Setting::pluck('value', 'key')->toArray();
 
-			// getLara version from composer and add it to settings
-			$laraversion = $this->getFrontLaraVersion();
-			$settings['lara_version'] = $laraversion->version;
-			$settings['lara_version_major'] = $laraversion->major;
-			$settings['lara_version_minor'] = $laraversion->minor;
-			$settings['lara_version_patch'] = $laraversion->patch;
+            // getLara version from composer and add it to settings
+            $laraversion = $this->getFrontLaraVersion();
+            $settings['lara_version'] = $laraversion->version;
+            $settings['lara_version_major'] = $laraversion->major;
+            $settings['lara_version_minor'] = $laraversion->minor;
+            $settings['lara_version_patch'] = $laraversion->patch;
 
-			return $settings;
+            return $settings;
 
-		});
+        });
 
-		return json_decode(json_encode($settings), false);
-	}
+        return json_decode(json_encode($settings), false);
+    }
 
-	/**
-	 * Get all settings from a specific group
-	 *
-	 * @return stdClass
-	 */
-	public function getSettingsByGroup(string $group)
-	{
+    /**
+     * Get all settings from a specific group
+     *
+     * @return stdClass
+     */
+    public function getSettingsByGroup(string $group)
+    {
 
-		$settings = Setting::where('cgroup', $group)->get();
+        $settings = Setting::where('cgroup', $group)->get();
 
-		$object = new stdClass;
+        $object = new stdClass;
 
-		foreach ($settings as $setting) {
-			$key = $setting->key;
-			$value = $setting->value;
-			$object->$key = $value;
-		}
+        foreach ($settings as $setting) {
+            $key = $setting->key;
+            $value = $setting->value;
+            $object->$key = $value;
+        }
 
-		return $object;
+        return $object;
 
-	}
+    }
 
-	/**
-	 * Get all the language versions of an object or an entity
-	 *
-	 * @return array
-	 */
-	public function getFrontLanguageVersions(string $curlang, ?object $entity = null, ?object $object = null)
-	{
+    /**
+     * Get all the language versions of an object or an entity
+     *
+     * @return array
+     */
+    public function getFrontLanguageVersions(string $curlang, ?object $entity = null, ?object $object = null)
+    {
 
-		$versions = [];
+        $versions = [];
 
-		$languages = Language::isPublished()->get();
+        $languages = Language::isPublished()->get();
 
-		foreach ($languages as $lang) {
+        foreach ($languages as $lang) {
 
-			$version = new stdClass;
+            $version = new stdClass;
 
-			$version->langcode = $lang->code;
-			$version->langname = $lang->name;
+            $version->langcode = $lang->code;
+            $version->langname = $lang->name;
 
-			if ($lang->code == $curlang) {
+            if ($lang->code == $curlang) {
 
-				/*
-				 * find url and route for current active page
-				 */
+                /*
+                 * find url and route for current active page
+                 */
 
-				$version->active = true;
+                $version->active = true;
 
-				if ($entity) {
+                if ($entity) {
 
-					if ($entity->resource_slug == 'page') {
+                    if ($entity->resource_slug == 'page') {
 
-						// The Page entity has no index method,
-						// so we should have an object here
-						if (! empty($object)) {
+                        // The Page entity has no index method,
+                        // so we should have an object here
+                        if (! empty($object)) {
 
-							$menuitem = MenuItem::langIs($lang->code)
-								->isPublished()
-								->where('entity_id', $entity->getEntityId())
-								->where('object_id', $object->id)
-								->first();
+                            $menuitem = MenuItem::langIs($lang->code)
+                                ->isPublished()
+                                ->where('entity_id', $entity->getEntityId())
+                                ->where('object_id', $object->id)
+                                ->first();
 
-							if ($menuitem) {
+                            if ($menuitem) {
 
-								$languageRoutename = $menuitem->routename;
-								$languageRoute = $menuitem->route;
+                                $languageRoutename = $menuitem->routename;
+                                $languageRoute = $menuitem->route;
 
-								$version->entity = $entity->resource_slug;
-								$version->object = $object->id;
-								$version->route = url($lang->code.'/'.$languageRoute);
-								$version->routename = $languageRoutename;
+                                $version->entity = $entity->resource_slug;
+                                $version->object = $object->id;
+                                $version->route = url($lang->code.'/'.$languageRoute);
+                                $version->routename = $languageRoutename;
 
-							}
+                            }
 
-						}
+                        }
 
-					} elseif ($entity->resource_slug == 'search') {
+                    } elseif ($entity->resource_slug == 'search') {
 
-						$version->entity = $entity->resource_slug;
-						$version->object = null;
-						$version->route = url($lang->code.'/search');
-						$version->routename = 'special.search.form';
+                        $version->entity = $entity->resource_slug;
+                        $version->object = null;
+                        $version->route = url($lang->code.'/search');
+                        $version->routename = 'special.search.form';
 
-					} else {
+                    } else {
 
-						// find entity in menu
+                        // find entity in menu
 
-						$menuitem = MenuItem::langIs($lang->code)->isPublished()->where('entity_id', $entity->getEntityId())->first();
+                        $menuitem = MenuItem::langIs($lang->code)->isPublished()->where('entity_id', $entity->getEntityId())->first();
 
-						if ($menuitem) {
+                        if ($menuitem) {
 
-							$languageRoutename = $menuitem->routename;
-							$languageRoute = $menuitem->route;
+                            $languageRoutename = $menuitem->routename;
+                            $languageRoute = $menuitem->route;
 
-							$version->entity = $entity->resource_slug;
-							if (! empty($object)) {
-								$version->object = $object->id;
-								if ($entity->hasTags()) {
-									$version->route = url($lang->code.'/'.$languageRoute.'/'.$object->slug.'.html');
-								} else {
-									$version->route = url($lang->code.'/'.$languageRoute.'/'.$object->slug);
-								}
-							} else {
-								$version->object = null;
-								$version->route = url($lang->code.'/'.$languageRoute);
-							}
-							$version->routename = $languageRoutename;
+                            $version->entity = $entity->resource_slug;
+                            if (! empty($object)) {
+                                $version->object = $object->id;
+                                if ($entity->hasTags()) {
+                                    $version->route = url($lang->code.'/'.$languageRoute.'/'.$object->slug.'.html');
+                                } else {
+                                    $version->route = url($lang->code.'/'.$languageRoute.'/'.$object->slug);
+                                }
+                            } else {
+                                $version->object = null;
+                                $version->route = url($lang->code.'/'.$languageRoute);
+                            }
+                            $version->routename = $languageRoutename;
 
-						}
+                        }
 
-					}
-				}
+                    }
+                }
 
-			} else {
+            } else {
 
-				/*
-				 * find url and route for language sibling
-				 */
+                /*
+                 * find url and route for language sibling
+                 */
 
-				$sibling = null;
+                $sibling = null;
 
-				$version->active = false;
+                $version->active = false;
 
-				if ($object) {
-					// find sibling
-					$sibling = $this->getFrontLanguageSibling($object, $lang->code);
-				}
+                if ($object) {
+                    // find sibling
+                    $sibling = $this->getFrontLanguageSibling($object, $lang->code);
+                }
 
-				$found = false;
+                $found = false;
 
-				if ($entity) {
+                if ($entity) {
 
-					if ($entity->resource_slug == 'page') {
+                    if ($entity->resource_slug == 'page') {
 
-						// find page in menu
-						if ($sibling) {
+                        // find page in menu
+                        if ($sibling) {
 
-							$menuitem = MenuItem::langIs($lang->code)
-								->isPublished()
-								->where('entity_id', $entity->getEntityId())
-								->where('object_id', $sibling->id)
-								->first();
+                            $menuitem = MenuItem::langIs($lang->code)
+                                ->isPublished()
+                                ->where('entity_id', $entity->getEntityId())
+                                ->where('object_id', $sibling->id)
+                                ->first();
 
-							if ($menuitem) {
+                            if ($menuitem) {
 
-								$languageRoutename = $menuitem->routename;
-								$languageRoute = $menuitem->route;
+                                $languageRoutename = $menuitem->routename;
+                                $languageRoute = $menuitem->route;
 
-								$version->entity = $entity->resource_slug;
-								$version->object = $sibling->id;
-								$version->route = url($lang->code.'/'.$languageRoute);
-								$version->routename = $languageRoutename;
+                                $version->entity = $entity->resource_slug;
+                                $version->object = $sibling->id;
+                                $version->route = url($lang->code.'/'.$languageRoute);
+                                $version->routename = $languageRoutename;
 
-								$found = true;
+                                $found = true;
 
-							}
-						}
-					} elseif ($entity->resource_slug == 'search') {
+                            }
+                        }
+                    } elseif ($entity->resource_slug == 'search') {
 
-						$version->entity = $entity->resource_slug;
-						$version->object = null;
-						$version->route = url($lang->code.'/search');
-						$version->routename = 'special.search.form';
+                        $version->entity = $entity->resource_slug;
+                        $version->object = null;
+                        $version->route = url($lang->code.'/search');
+                        $version->routename = 'special.search.form';
 
-						$found = true;
+                        $found = true;
 
-					} else {
+                    } else {
 
-						// find entity in menu
-						$menuitem = MenuItem::langIs($lang->code)->isPublished()->where('entity_id', $entity->getEntityId())->first();
+                        // find entity in menu
+                        $menuitem = MenuItem::langIs($lang->code)->isPublished()->where('entity_id', $entity->getEntityId())->first();
 
-						if ($menuitem) {
+                        if ($menuitem) {
 
-							$languageRoutename = $menuitem->routename;
-							$languageRoute = $menuitem->route;
+                            $languageRoutename = $menuitem->routename;
+                            $languageRoute = $menuitem->route;
 
-							$version->entity = $entity->resource_slug;
-							if ($sibling) {
-								$version->object = $sibling->id;
-								if ($entity->hasTags()) {
-									$version->route = url($lang->code.'/'.$languageRoute.'/'.$sibling->slug).'.html';
-								} else {
-									$version->route = url($lang->code.'/'.$languageRoute.'/'.$sibling->slug);
-								}
-							} else {
-								$version->object = null;
-								$version->route = url($lang->code.'/'.$languageRoute);
-							}
-							$version->routename = $languageRoutename;
+                            $version->entity = $entity->resource_slug;
+                            if ($sibling) {
+                                $version->object = $sibling->id;
+                                if ($entity->hasTags()) {
+                                    $version->route = url($lang->code.'/'.$languageRoute.'/'.$sibling->slug).'.html';
+                                } else {
+                                    $version->route = url($lang->code.'/'.$languageRoute.'/'.$sibling->slug);
+                                }
+                            } else {
+                                $version->object = null;
+                                $version->route = url($lang->code.'/'.$languageRoute);
+                            }
+                            $version->routename = $languageRoutename;
 
-							$found = true;
+                            $found = true;
 
-						}
+                        }
 
-					}
+                    }
 
-				}
+                }
 
-				if (! $found) {
+                if (! $found) {
 
-					// fall back to homepage
-					$menu = Menu::where('slug', 'main')->first();
-					$menuitem = MenuItem::langIs($lang->code)->where('menu_id', $menu->id)->where('is_home', 1)->first();
+                    // fall back to homepage
+                    $menu = Menu::where('slug', 'main')->first();
+                    $menuitem = MenuItem::langIs($lang->code)->where('menu_id', $menu->id)->where('is_home', 1)->first();
 
-					if ($menuitem) {
-						$version->entity = $menuitem->entity->resource_slug;
-						$version->object = $menuitem->object_id;
-					} else {
-						// last fall back, no homepage defined yet
-						$version->entity = 'page';
-						$version->object = null;
-					}
-					$version->route = url($lang->code.'/');
-					$version->routename = 'special.home.show';
+                    if ($menuitem) {
+                        $version->entity = $menuitem->entity->resource_slug;
+                        $version->object = $menuitem->object_id;
+                    } else {
+                        // last fall back, no homepage defined yet
+                        $version->entity = 'page';
+                        $version->object = null;
+                    }
+                    $version->route = url($lang->code.'/');
+                    $version->routename = 'special.home.show';
 
-				}
-			}
+                }
+            }
 
-			$versions[] = $version;
+            $versions[] = $version;
 
-		}
+        }
 
-		return $versions;
+        return $versions;
 
-	}
+    }
 
-	/**
-	 * Get a specific language version for this object
-	 *
-	 * @return object|null
-	 */
-	private function getFrontLanguageSibling(object $object, string $dest)
-	{
+    /**
+     * Get a specific language version for this object
+     *
+     * @return object|null
+     */
+    private function getFrontLanguageSibling(object $object, string $dest)
+    {
 
-		$modelClass = get_class($object);
+        $modelClass = get_class($object);
 
-		// find parent
-		if ($object->languageParent) {
-			$parent = $object->languageParent;
-		} else {
-			$parent = $object;
-		}
+        // find parent
+        if ($object->languageParent) {
+            $parent = $object->languageParent;
+        } else {
+            $parent = $object;
+        }
 
-		// check if we're looking for the parent itself
-		if ($parent->language == $dest) {
-			return $parent;
-		} else {
-			// get and return sibling
-			$sibling = $modelClass::langIs($dest)->where('language_parent', $parent->id)->first();
-			if ($sibling) {
-				return $sibling;
-			} else {
-				return null;
-			}
+        // check if we're looking for the parent itself
+        if ($parent->language == $dest) {
+            return $parent;
+        } else {
+            // get and return sibling
+            $sibling = $modelClass::langIs($dest)->where('language_parent', $parent->id)->first();
+            if ($sibling) {
+                return $sibling;
+            } else {
+                return null;
+            }
 
-		}
+        }
 
-	}
+    }
 
-	/**
-	 * @return object
-	 */
-	public function getGlobalWidgets($language)
-	{
-		return LaraWidget::where('language', $language)
-			->where('is_global', 1)
-			->orderBy('hook')
-			->orderBy('sortorder')
-			->get();
+    /**
+     * @return object
+     */
+    public function getGlobalWidgets($language)
+    {
+        return LaraWidget::where('language', $language)
+            ->where('is_global', 1)
+            ->orderBy('hook')
+            ->orderBy('sortorder')
+            ->get();
 
-	}
+    }
 
-	/**
-	 * @return stdClass
-	 */
-	public function getFrontLaraVersion()
-	{
+    /**
+     * @return stdClass
+     */
+    public function getFrontLaraVersion()
+    {
 
-		$laraVersionStr = InstalledVersions::getPrettyVersion('appdezign/lara-pro-cms');
+        $laraVersionStr = InstalledVersions::getPrettyVersion('appdezign/lara-pro-cms');
 
-		$laraversion = new stdClass;
-		$laraversion->version = $laraVersionStr;
-		[$laraversion->major, $laraversion->minor, $laraversion->patch] = explode('.', $laraVersionStr);
+        $laraversion = new stdClass;
+        $laraversion->version = $laraVersionStr;
+        [$laraversion->major, $laraversion->minor, $laraversion->patch] = explode('.', $laraVersionStr);
 
-		return $laraversion;
+        return $laraversion;
 
-	}
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function getFirstPageLoad()
-	{
+    /**
+     * @return bool
+     */
+    public function getFirstPageLoad()
+    {
 
-		if (session()->has('lara_first_page_load') && session()->get('lara_first_page_load') === true) {
-			return false;
-		} else {
-			session(['lara_first_page_load' => true]);
+        if (session()->has('lara_first_page_load') && session()->get('lara_first_page_load') === true) {
+            return false;
+        } else {
+            session(['lara_first_page_load' => true]);
 
-			return true;
-		}
+            return true;
+        }
 
-	}
+    }
 }

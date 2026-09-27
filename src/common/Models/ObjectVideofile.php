@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ObjectVideofile extends Model
 {
-
     protected $table = 'lara_object_videofiles';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -18,8 +17,7 @@ class ObjectVideofile extends Model
         'id',
     ];
 
-	protected $casts = [
-		'entity_videofiles' => 'array',
-	];
-
+    protected $casts = [
+        'entity_videofiles' => 'array',
+    ];
 }

@@ -7,5 +7,5 @@ use Lara\Admin\Resources\Pages\PageResource;
 
 class EditPage extends LaraEditRecord
 {
-	protected static string $resource = PageResource::class;
+    protected static string $resource = PageResource::class;
 }

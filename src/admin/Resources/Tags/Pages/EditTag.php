@@ -5,29 +5,28 @@ namespace Lara\Admin\Resources\Tags\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
-use Lara\Admin\Resources\Tags\TagResource;
 use Lara\Admin\Concerns\HasLocks;
 use Lara\Admin\Concerns\HasTerms;
+use Lara\Admin\Resources\Tags\TagResource;
 
 class EditTag extends EditRecord
 {
-
-	use HasTerms;
-	use HasLocks;
+    use HasLocks;
+    use HasTerms;
 
     protected static string $resource = TagResource::class;
 
-	public function mount(int|string $record): void
-	{
-		parent::mount($record);
-		static::checkRecordLock($this->record);
-		static::lockRecord($this->record);
-	}
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+        static::checkRecordLock($this->record);
+        static::lockRecord($this->record);
+    }
 
-
-	public function getTitle(): string
+    public function getTitle(): string
     {
         $entity = $this->getRecord();
+
         return $entity->title;
     }
 
@@ -39,41 +38,40 @@ class EditTag extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-	        Action::make('unlockrecord')
-		        ->icon('bi-chevron-left')
-		        ->iconButton()
-		        ->color('gray')
-		        ->action(function () {
-			        static::unlockRecord($this->record);
-			        if($this->previousUrl) {
-				        return redirect($this->previousUrl);
-			        } else {
-				        return redirect($this->getResource()::getUrl('index'));
-			        }
-		        }),
-	        Action::make('save')
-		        ->label('save')
-		        ->color('danger')
-		        ->submit(null)
-		        ->action(function() {
-			        $this->save();
-		        }),
+            Action::make('unlockrecord')
+                ->icon('bi-chevron-left')
+                ->iconButton()
+                ->color('gray')
+                ->action(function () {
+                    static::unlockRecord($this->record);
+                    if ($this->previousUrl) {
+                        return redirect($this->previousUrl);
+                    } else {
+                        return redirect($this->getResource()::getUrl('index'));
+                    }
+                }),
+            Action::make('save')
+                ->label('save')
+                ->color('danger')
+                ->submit(null)
+                ->action(function () {
+                    $this->save();
+                }),
         ];
     }
 
-	public function render(): View
-	{
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire'        => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
+    public function render(): View
+    {
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 
-	protected function afterSave(): void
-	{
-		static::processTagNodes($this->record->language, $this->record->resource_slug, $this->record->taxonomy_id);
-	}
-
+    protected function afterSave(): void
+    {
+        static::processTagNodes($this->record->language, $this->record->resource_slug, $this->record->taxonomy_id);
+    }
 }

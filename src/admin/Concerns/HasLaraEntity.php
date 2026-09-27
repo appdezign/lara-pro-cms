@@ -11,53 +11,53 @@ use Lara\Common\Models\Entity;
 
 trait HasLaraEntity
 {
-	/**
-	 * The configuration row for this resource.
-	 *
-	 * Served by EntityRegistry, which holds every entity behind a single cache
-	 * key. This used to keep its own `lara_entity_{slug}` rememberForever entry,
-	 * separate from the one in LaraEntity, and neither was ever invalidated.
-	 *
-	 * @throws ModelNotFoundException when the resource has no entity row
-	 */
-	public static function getEntity(): Entity
-	{
-		$resourceSlug = static::getSlug();
+    /**
+     * The configuration row for this resource.
+     *
+     * Served by EntityRegistry, which holds every entity behind a single cache
+     * key. This used to keep its own `lara_entity_{slug}` rememberForever entry,
+     * separate from the one in LaraEntity, and neither was ever invalidated.
+     *
+     * @throws ModelNotFoundException when the resource has no entity row
+     */
+    public static function getEntity(): Entity
+    {
+        $resourceSlug = static::getSlug();
 
-		$entity = app(EntityRegistry::class)->model($resourceSlug);
+        $entity = app(EntityRegistry::class)->model($resourceSlug);
 
-		if (! $entity) {
-			throw (new ModelNotFoundException)
-				->setModel(Entity::class, [$resourceSlug]);
-		}
+        if (! $entity) {
+            throw (new ModelNotFoundException)
+                ->setModel(Entity::class, [$resourceSlug]);
+        }
 
-		return $entity;
-	}
+        return $entity;
+    }
 
-	/**
-	 * Typed configuration for this resource. Prefer this in new code.
-	 */
-	public static function getEntityConfig(): EntityConfig
-	{
-		return app(EntityRegistry::class)->get(static::getSlug());
-	}
+    /**
+     * Typed configuration for this resource. Prefer this in new code.
+     */
+    public static function getEntityConfig(): EntityConfig
+    {
+        return app(EntityRegistry::class)->get(static::getSlug());
+    }
 
-	public static function getEntityNavGroup(): ?string
-	{
-		$navGroup = static::getEntity()->nav_group;
+    public static function getEntityNavGroup(): ?string
+    {
+        $navGroup = static::getEntity()->nav_group;
 
-		if (empty($navGroup) || $navGroup == 'root') {
-			return '';
-		} else {
-			$navigationGroup = NavGroup::from($navGroup);
-			$locale = App::currentLocale();
-			if ($locale == 'nl') {
-				return $navigationGroup->getLabelNl();
-			} else {
-				return $navigationGroup->getLabelEn();
-			}
-		}
-	}
+        if (empty($navGroup) || $navGroup == 'root') {
+            return '';
+        } else {
+            $navigationGroup = NavGroup::from($navGroup);
+            $locale = App::currentLocale();
+            if ($locale == 'nl') {
+                return $navigationGroup->getLabelNl();
+            } else {
+                return $navigationGroup->getLabelEn();
+            }
+        }
+    }
 
     // columns
     public static function resourceHasLead(): bool
@@ -140,10 +140,10 @@ trait HasLaraEntity
         return static::getEntity()->show_seo;
     }
 
-	public static function resourceShowSync(): bool
-	{
-		return static::getEntity()->show_sync;
-	}
+    public static function resourceShowSync(): bool
+    {
+        return static::getEntity()->show_sync;
+    }
 
     public static function resourceShowAuthor(): bool
     {
@@ -180,101 +180,101 @@ trait HasLaraEntity
         return static::getEntity()->show_restore_action;
     }
 
-	// relations
-	public static function resourceHasTerms(): bool
-	{
-		return static::getEntity()->objrel_has_terms;
-	}
+    // relations
+    public static function resourceHasTerms(): bool
+    {
+        return static::getEntity()->objrel_has_terms;
+    }
 
-	public static function resourceHasGroups(): bool
-	{
-		return static::getEntity()->objrel_has_groups;
-	}
+    public static function resourceHasGroups(): bool
+    {
+        return static::getEntity()->objrel_has_groups;
+    }
 
-	public static function resourceHasRelated(): bool
-	{
-		return static::getEntity()->objrel_has_related;
-	}
+    public static function resourceHasRelated(): bool
+    {
+        return static::getEntity()->objrel_has_related;
+    }
 
-	// Media
+    // Media
 
-	public static function resourceHasMedia(): bool
-	{
-		return
-			static::resourceHasFeatured()
-			|| static::resourceHasThumb()
-			|| static::resourceHasHero()
-			|| static::resourceHasIcon()
-			|| static::resourceHasGallery();
-	}
+    public static function resourceHasMedia(): bool
+    {
+        return
+            static::resourceHasFeatured()
+            || static::resourceHasThumb()
+            || static::resourceHasHero()
+            || static::resourceHasIcon()
+            || static::resourceHasGallery();
+    }
 
-	public static function resourceHasFeatured(): bool
-	{
-		return static::getEntity()->media_has_featured;
-	}
+    public static function resourceHasFeatured(): bool
+    {
+        return static::getEntity()->media_has_featured;
+    }
 
-	public static function resourceHasThumb(): bool
-	{
-		return static::getEntity()->media_has_thumb;
-	}
+    public static function resourceHasThumb(): bool
+    {
+        return static::getEntity()->media_has_thumb;
+    }
 
-	public static function resourceHasHero(): bool
-	{
-		return static::getEntity()->media_has_hero;
-	}
+    public static function resourceHasHero(): bool
+    {
+        return static::getEntity()->media_has_hero;
+    }
 
-	public static function resourceHasIcon(): bool
-	{
-		return static::getEntity()->media_has_icon;
-	}
+    public static function resourceHasIcon(): bool
+    {
+        return static::getEntity()->media_has_icon;
+    }
 
-	public static function resourceHasGallery(): bool
-	{
-		return static::getEntity()->media_has_gallery;
-	}
+    public static function resourceHasGallery(): bool
+    {
+        return static::getEntity()->media_has_gallery;
+    }
 
-	public static function resourceHasFiles(): bool
-	{
-		return static::getEntity()->media_has_files;
-	}
+    public static function resourceHasFiles(): bool
+    {
+        return static::getEntity()->media_has_files;
+    }
 
-	public static function resourceHasVideos(): bool
-	{
-		return static::getEntity()->media_has_videos;
-	}
+    public static function resourceHasVideos(): bool
+    {
+        return static::getEntity()->media_has_videos;
+    }
 
-	public static function resourceHasVideoFiles(): bool
-	{
-		return static::getEntity()->media_has_videofiles;
-	}
+    public static function resourceHasVideoFiles(): bool
+    {
+        return static::getEntity()->media_has_videofiles;
+    }
 
-	public static function getMaxGallery(): int
-	{
-		return static::getEntity()->media_max_gallery;
-	}
+    public static function getMaxGallery(): int
+    {
+        return static::getEntity()->media_max_gallery;
+    }
 
-	public static function getMaxVideos(): int
-	{
-		return static::getEntity()->media_max_videos;
-	}
+    public static function getMaxVideos(): int
+    {
+        return static::getEntity()->media_max_videos;
+    }
 
-	public static function getMaxVideofiles(): int
-	{
-		return static::getEntity()->media_max_videofiles;
-	}
+    public static function getMaxVideofiles(): int
+    {
+        return static::getEntity()->media_max_videofiles;
+    }
 
-	public static function getMaxFiles(): int
-	{
-		return static::getEntity()->media_max_files;
-	}
+    public static function getMaxFiles(): int
+    {
+        return static::getEntity()->media_max_files;
+    }
 
-	public static function getDiskForFiles(): string
-	{
-		return static::getEntity()->media_disk_files;
-	}
+    public static function getDiskForFiles(): string
+    {
+        return static::getEntity()->media_disk_files;
+    }
 
-	public static function getDiskForVideos(): string
-	{
-		return static::getEntity()->media_disk_videos;
-	}
+    public static function getDiskForVideos(): string
+    {
+        return static::getEntity()->media_disk_videos;
+    }
 }

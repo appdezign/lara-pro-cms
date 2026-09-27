@@ -10,39 +10,39 @@ use Lara\Common\Models\Language;
 
 trait HasLanguageSection
 {
-	private static function getLanguageParentSection(): array
-	{
-		$rows = array();
+    private static function getLanguageParentSection(): array
+    {
+        $rows = [];
 
-		$rows[] = Select::make('language_parent')
-			->label(_q('lara-admin::default.column.language_parent'))
-			->options(function (Get $get) {
-				$parents = null;
-				$defaultLanguage = static::getDefaultLanguage();
-				$entity = Entity::where('resource_slug', static::getSlug())->first();
-				if ($entity) {
-					$modelClass = $entity->model_class;
-					$parents = $modelClass::langIs($defaultLanguage)->whereNot('language', $get('language'))->pluck('title', 'id')->toArray();
-				}
+        $rows[] = Select::make('language_parent')
+            ->label(_q('lara-admin::default.column.language_parent'))
+            ->options(function (Get $get) {
+                $parents = null;
+                $defaultLanguage = static::getDefaultLanguage();
+                $entity = Entity::where('resource_slug', static::getSlug())->first();
+                if ($entity) {
+                    $modelClass = $entity->model_class;
+                    $parents = $modelClass::langIs($defaultLanguage)->whereNot('language', $get('language'))->pluck('title', 'id')->toArray();
+                }
 
-				return $parents;
-			});
+                return $parents;
+            });
 
-		return $rows;
-	}
+        return $rows;
+    }
 
-	private static function getLanguageChildrenSection(): array
-	{
-		$rows = array();
+    private static function getLanguageChildrenSection(): array
+    {
+        $rows = [];
 
-		$rows[] = LanguageVersions::make('language_children')
-			->label(_q('lara-admin::default.column.language_children'));
+        $rows[] = LanguageVersions::make('language_children')
+            ->label(_q('lara-admin::default.column.language_children'));
 
-		return $rows;
-	}
+        return $rows;
+    }
 
-	private static function getDefaultLanguage(): string
-	{
-		return Language::where('default', 1)->pluck('code')->first();
-	}
+    private static function getDefaultLanguage(): string
+    {
+        return Language::where('default', 1)->pluck('code')->first();
+    }
 }

@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ObjectVideo extends Model
 {
-
     protected $table = 'lara_object_videos';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -18,8 +17,7 @@ class ObjectVideo extends Model
         'id',
     ];
 
-	protected $casts = [
-		'entity_videos' => 'array',
-	];
-
+    protected $casts = [
+        'entity_videos' => 'array',
+    ];
 }

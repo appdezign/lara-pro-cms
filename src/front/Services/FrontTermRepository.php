@@ -16,380 +16,380 @@ use stdClass;
  */
 final class FrontTermRepository
 {
-	/**
-	 * @return array|mixed
-	 *
-	 * @throws BindingResolutionException
-	 */
-	private function getAllTags(string $language, object $entity, $activetag = false)
-	{
-
-		$tags = new stdClass;
-
-		if ($activetag) {
-			$taxonomies = Taxonomy::where('id', $activetag->taxonomy_id)->get();
-		} else {
-			$taxonomies = Taxonomy::get();
-		}
-
-		foreach ($taxonomies as $taxonomy) {
-
-			$key = $taxonomy->slug;
-
-			if ($entity->hasTags()) {
-
-				$root = Tag::langIs($language)
-					->resourceIs($entity->getResourceSlug())
-					->taxonomyIs($taxonomy->id)
-					->whereNull('parent_id')
-					->first();
-
-				if (empty($root)) {
-
-					Tag::create([
-						'language' => $language,
-						'resource_slug' => $entity->getResourceSlug(),
-						'taxonomy_id' => $taxonomy->id,
-						'title' => 'root',
-						'slug' => null,
-						'body' => '',
-						'lead' => '',
-					]);
-				}
-
-				if ($activetag) {
-
-					// get subtree
-					$tags->$key = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomy->id])
-						->defaultOrder()
-						->descendantsOf($activetag->id)
-						->toTree();
+    /**
+     * @return array|mixed
+     *
+     * @throws BindingResolutionException
+     */
+    private function getAllTags(string $language, object $entity, $activetag = false)
+    {
+
+        $tags = new stdClass;
+
+        if ($activetag) {
+            $taxonomies = Taxonomy::where('id', $activetag->taxonomy_id)->get();
+        } else {
+            $taxonomies = Taxonomy::get();
+        }
+
+        foreach ($taxonomies as $taxonomy) {
+
+            $key = $taxonomy->slug;
+
+            if ($entity->hasTags()) {
+
+                $root = Tag::langIs($language)
+                    ->resourceIs($entity->getResourceSlug())
+                    ->taxonomyIs($taxonomy->id)
+                    ->whereNull('parent_id')
+                    ->first();
+
+                if (empty($root)) {
+
+                    Tag::create([
+                        'language' => $language,
+                        'resource_slug' => $entity->getResourceSlug(),
+                        'taxonomy_id' => $taxonomy->id,
+                        'title' => 'root',
+                        'slug' => null,
+                        'body' => '',
+                        'lead' => '',
+                    ]);
+                }
+
+                if ($activetag) {
+
+                    // get subtree
+                    $tags->$key = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomy->id])
+                        ->defaultOrder()
+                        ->descendantsOf($activetag->id)
+                        ->toTree();
 
-				} else {
-					// get full tree
-					$tags->$key = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomy->id])
-						->defaultOrder()
-						->get()
-						->toTree();
-				}
-			}
-		}
-
-		return $tags;
-
-	}
-
-	/**
-	 * @return void|null
-	 */
-	public function getTagTreeWithCount($language, $entity)
-	{
+                } else {
+                    // get full tree
+                    $tags->$key = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomy->id])
+                        ->defaultOrder()
+                        ->get()
+                        ->toTree();
+                }
+            }
+        }
+
+        return $tags;
+
+    }
+
+    /**
+     * @return void|null
+     */
+    public function getTagTreeWithCount($language, $entity)
+    {
 
-		// use the entity that was passed in, not the controller's property:
-		// the sole caller passes $this->entity, so this is the same object,
-		// but reading the property here was the only thing tying this trait
-		// to controller state
-		if ($entity->hasTags()) {
-			$terms = new stdClass;
-			$taxonomies = Taxonomy::get();
-			foreach ($taxonomies as $taxonomy) {
-				$taxonomySlug = $taxonomy->slug;
-				$terms->$taxonomySlug = $this->getTags($language, $entity, 'tree', $taxonomySlug);
-			}
+        // use the entity that was passed in, not the controller's property:
+        // the sole caller passes $this->entity, so this is the same object,
+        // but reading the property here was the only thing tying this trait
+        // to controller state
+        if ($entity->hasTags()) {
+            $terms = new stdClass;
+            $taxonomies = Taxonomy::get();
+            foreach ($taxonomies as $taxonomy) {
+                $taxonomySlug = $taxonomy->slug;
+                $terms->$taxonomySlug = $this->getTags($language, $entity, 'tree', $taxonomySlug);
+            }
 
-			return $terms;
-		} else {
-			return null;
-		}
+            return $terms;
+        } else {
+            return null;
+        }
 
-	}
+    }
 
-	/**
-	 * Get all the tags for a specific entity
-	 * Return it as a nested set (tree), or an array
-	 *
-	 * @return object|null
-	 */
-	private function getTags(string $language, object $entity, string $type = 'tree', ?string $taxonomy = null, bool $withCount = true)
-	{
+    /**
+     * Get all the tags for a specific entity
+     * Return it as a nested set (tree), or an array
+     *
+     * @return object|null
+     */
+    private function getTags(string $language, object $entity, string $type = 'tree', ?string $taxonomy = null, bool $withCount = true)
+    {
 
-		$tags = null;
+        $tags = null;
 
-		// get Taxonomy ID
-		$taxonomyId = $this->getFrontTaxonomyIdbySlug($taxonomy);
+        // get Taxonomy ID
+        $taxonomyId = $this->getFrontTaxonomyIdbySlug($taxonomy);
 
-		if ($taxonomyId) {
+        if ($taxonomyId) {
 
-			if ($entity->hasTags()) {
+            if ($entity->hasTags()) {
 
-				$root = Tag::langIs($language)
-					->resourceIs($entity->getResourceSlug())
-					->whereNull('parent_id')
-					->first();
+                $root = Tag::langIs($language)
+                    ->resourceIs($entity->getResourceSlug())
+                    ->whereNull('parent_id')
+                    ->first();
 
-				if ($root) {
+                if ($root) {
 
-					if ($type == 'array') {
+                    if ($type == 'array') {
 
-						// kalnoy/nestedset
-						$tags = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomyId])
-							->defaultOrder()
-							->get()
-							->toArray();
+                        // kalnoy/nestedset
+                        $tags = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomyId])
+                            ->defaultOrder()
+                            ->get()
+                            ->toArray();
 
-					} elseif ($type == 'tree') {
+                    } elseif ($type == 'tree') {
 
-						// kalnoy/nestedset
-						$tags = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomyId])
-							->defaultOrder()
-							->get()
-							->toTree();
+                        // kalnoy/nestedset
+                        $tags = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomyId])
+                            ->defaultOrder()
+                            ->get()
+                            ->toTree();
 
-					} else {
+                    } else {
 
-						$tags = null;
+                        $tags = null;
 
-					}
+                    }
 
-				}
+                }
 
-			}
+            }
 
-		}
+        }
 
-		if ($withCount) {
-			$tags = $this->getTreeCount($tags, $entity, $type);
-		}
+        if ($withCount) {
+            $tags = $this->getTreeCount($tags, $entity, $type);
+        }
 
-		return $tags;
+        return $tags;
 
-	}
+    }
 
-	/**
-	 * @param  mixed  $tags
-	 */
-	private function getTreeCount($tags, object $entity, string $type)
-	{
+    /**
+     * @param  mixed  $tags
+     */
+    private function getTreeCount($tags, object $entity, string $type)
+    {
 
-		if ($tags) {
-			foreach ($tags as $node) {
-				$this->getTagCount($node, $entity, $type);
-			}
-		}
+        if ($tags) {
+            foreach ($tags as $node) {
+                $this->getTagCount($node, $entity, $type);
+            }
+        }
 
-		return $tags;
+        return $tags;
 
-	}
+    }
 
-	/**
-	 * @param  mixed  $node
-	 */
-	private function getTagCount($node, object $entity, string $type)
-	{
+    /**
+     * @param  mixed  $node
+     */
+    private function getTagCount($node, object $entity, string $type)
+    {
 
-		$modelClass = $entity->getEntityModelClass();
-		$collection = new $modelClass;
+        $modelClass = $entity->getEntityModelClass();
+        $collection = new $modelClass;
 
-		if ($type == 'array') {
+        if ($type == 'array') {
 
-			$collection = $collection->langIs($node['language']);
+            $collection = $collection->langIs($node['language']);
 
-			if ($entity->hasStatus()) {
-				$collection = $collection->isPublished();
-			}
+            if ($entity->hasStatus()) {
+                $collection = $collection->isPublished();
+            }
 
-			$collection = $collection->whereHas('terms', function ($query) use ($node) {
-				$query->where(config('lara-common.database.object.terms').'.id', $node['id']);
-			});
+            $collection = $collection->whereHas('terms', function ($query) use ($node) {
+                $query->where(config('lara-common.database.object.terms').'.id', $node['id']);
+            });
 
-			// add object count to node
-			$node['object_count'] = $collection->count();
+            // add object count to node
+            $node['object_count'] = $collection->count();
 
-		} else {
+        } else {
 
-			// tree
+            // tree
 
-			$collection = $collection->langIs($node->language);
+            $collection = $collection->langIs($node->language);
 
-			if ($entity->hasStatus()) {
-				$collection = $collection->isPublished();
-			}
+            if ($entity->hasStatus()) {
+                $collection = $collection->isPublished();
+            }
 
-			$collection = $collection->whereHas('terms', function ($query) use ($node) {
-				$query->where(config('lara-common.database.object.terms').'.id', $node->id);
-			});
+            $collection = $collection->whereHas('terms', function ($query) use ($node) {
+                $query->where(config('lara-common.database.object.terms').'.id', $node->id);
+            });
 
-			// add object count to node
-			$node->object_count = $collection->count();
+            // add object count to node
+            $node->object_count = $collection->count();
 
-			foreach ($node->children as $child) {
-				$this->getTagCount($child, $entity, $type);
-			}
+            foreach ($node->children as $child) {
+                $this->getTagCount($child, $entity, $type);
+            }
 
-		}
+        }
 
-	}
+    }
 
-	/**
-	 * @return int|null
-	 */
-	private function getFrontTaxonomyIdbySlug(?string $slug = null)
-	{
+    /**
+     * @return int|null
+     */
+    private function getFrontTaxonomyIdbySlug(?string $slug = null)
+    {
 
-		if ($slug) {
-			$taxonomy = Taxonomy::where('slug', $slug)->first();
-			if ($taxonomy) {
-				return $taxonomy->id;
-			} else {
-				$defaultTaxonomy = $this->getFrontDefaultTaxonomy();
+        if ($slug) {
+            $taxonomy = Taxonomy::where('slug', $slug)->first();
+            if ($taxonomy) {
+                return $taxonomy->id;
+            } else {
+                $defaultTaxonomy = $this->getFrontDefaultTaxonomy();
 
-				return $defaultTaxonomy->id;
-			}
-		} else {
-			$defaultTaxonomy = $this->getFrontDefaultTaxonomy();
+                return $defaultTaxonomy->id;
+            }
+        } else {
+            $defaultTaxonomy = $this->getFrontDefaultTaxonomy();
 
-			return $defaultTaxonomy->id;
-		}
+            return $defaultTaxonomy->id;
+        }
 
-	}
+    }
 
-	/**
-	 * @return object|null
-	 */
-	public function getFrontDefaultTaxonomy()
-	{
+    /**
+     * @return object|null
+     */
+    public function getFrontDefaultTaxonomy()
+    {
 
-		$taxonomy = Taxonomy::where('is_default', 1)->first();
-		if ($taxonomy) {
-			return $taxonomy;
-		} else {
-			return null;
-		}
+        $taxonomy = Taxonomy::where('is_default', 1)->first();
+        if ($taxonomy) {
+            return $taxonomy;
+        } else {
+            return null;
+        }
 
-	}
+    }
 
-	/**
-	 * Get all entity tags that are used by one or more objects
-	 *
-	 * @return object|null
-	 */
-	public function getTagsFromCollection(string $language, object $entity, object $objects)
-	{
+    /**
+     * Get all entity tags that are used by one or more objects
+     *
+     * @return object|null
+     */
+    public function getTagsFromCollection(string $language, object $entity, object $objects)
+    {
 
-		// The result is derived from this exact collection (a paginated list yields a
-		// different tag set per page) and from the language, so both have to be part
-		// of the key. Keying on the resource slug alone pinned every language and
-		// every page to whichever one was cached first.
-		$cache_key = 'front_collection_tags_'
-			.$entity->getResourceSlug().'_'
-			.$language.'_'
-			.$this->getCollectionFingerprint($objects);
+        // The result is derived from this exact collection (a paginated list yields a
+        // different tag set per page) and from the language, so both have to be part
+        // of the key. Keying on the resource slug alone pinned every language and
+        // every page to whichever one was cached first.
+        $cache_key = 'front_collection_tags_'
+            .$entity->getResourceSlug().'_'
+            .$language.'_'
+            .$this->getCollectionFingerprint($objects);
 
-		$tags = Cache::remember($cache_key, 86400, function () use ($language, $entity, $objects) {
+        $tags = Cache::remember($cache_key, 86400, function () use ($language, $entity, $objects) {
 
-			// get used tags from collection
-			$activeTags = [];
-			foreach ($objects as $object) {
-				foreach ($object->tags as $wtag) {
-					$activeTags[$wtag->slug] = $wtag->title;
-				}
-			}
+            // get used tags from collection
+            $activeTags = [];
+            foreach ($objects as $object) {
+                foreach ($object->tags as $wtag) {
+                    $activeTags[$wtag->slug] = $wtag->title;
+                }
+            }
 
-			// get all entity tags in correct order
+            // get all entity tags in correct order
 
-			// kalnoy/nestedset
-			$entityTags = $this->getTags($language, $entity, 'array');
+            // kalnoy/nestedset
+            $entityTags = $this->getTags($language, $entity, 'array');
 
-			if (! empty($entityTags)) {
+            if (! empty($entityTags)) {
 
-				$tags = [];
+                $tags = [];
 
-				// remove unused tags
-				$i = 0;
-				foreach ($entityTags as $tag) {
-					if (array_key_exists($tag['slug'], $activeTags)) {
-						$tags[$i]['title'] = $tag['title'];
-						$tags[$i]['slug'] = $tag['slug'];
-						$i++;
-					}
-				}
+                // remove unused tags
+                $i = 0;
+                foreach ($entityTags as $tag) {
+                    if (array_key_exists($tag['slug'], $activeTags)) {
+                        $tags[$i]['title'] = $tag['title'];
+                        $tags[$i]['slug'] = $tag['slug'];
+                        $i++;
+                    }
+                }
 
-			} else {
+            } else {
 
-				$tags = null;
+                $tags = null;
 
-			}
+            }
 
-			return $tags;
+            return $tags;
 
-		});
+        });
 
-		// convert array to standard object
-		$tags = json_decode(json_encode($tags), false);
+        // convert array to standard object
+        $tags = json_decode(json_encode($tags), false);
 
-		return $tags;
+        return $tags;
 
-	}
+    }
 
-	/**
-	 * Build a short, stable fingerprint of the objects in a collection,
-	 * so a derived value can be cached per collection rather than per entity.
-	 */
-	private function getCollectionFingerprint(object $objects): string
-	{
+    /**
+     * Build a short, stable fingerprint of the objects in a collection,
+     * so a derived value can be cached per collection rather than per entity.
+     */
+    private function getCollectionFingerprint(object $objects): string
+    {
 
-		$ids = [];
+        $ids = [];
 
-		foreach ($objects as $object) {
-			$ids[] = $object instanceof Model
-				? (string) $object->getKey()
-				: (string) ($object->id ?? spl_object_id($object));
-		}
+        foreach ($objects as $object) {
+            $ids[] = $object instanceof Model
+                ? (string) $object->getKey()
+                : (string) ($object->id ?? spl_object_id($object));
+        }
 
-		sort($ids);
+        sort($ids);
 
-		return md5(implode(',', $ids));
+        return md5(implode(',', $ids));
 
-	}
+    }
 
-	/**
-	 * Get all Tag children of a Tag tree (nested set)
-	 *
-	 * Children are fetched recursively,
-	 * so it includes grandchildren great-grandchildren, etc
-	 *
-	 * @return object|null
-	 */
-	public function getTagChildren(string $language, object $entity, ?string $term)
-	{
+    /**
+     * Get all Tag children of a Tag tree (nested set)
+     *
+     * Children are fetched recursively,
+     * so it includes grandchildren great-grandchildren, etc
+     *
+     * @return object|null
+     */
+    public function getTagChildren(string $language, object $entity, ?string $term)
+    {
 
-		// kalnoy/nestedset
-		$tag = $this->getTagBySlug($language, $entity, $term);
+        // kalnoy/nestedset
+        $tag = $this->getTagBySlug($language, $entity, $term);
 
-		$children = null;
+        $children = null;
 
-		if ($tag) {
-			$children = $tag->descendants()
-				->defaultOrder()
-				->get()
-				->toTree();
+        if ($tag) {
+            $children = $tag->descendants()
+                ->defaultOrder()
+                ->get()
+                ->toTree();
 
-		}
+        }
 
-		return $children;
+        return $children;
 
-	}
+    }
 
-	/**
-	 * @return void
-	 */
-	public function getTagBySlug(string $language, object $entity, ?string $slug): ?Tag
-	{
-		if ($slug) {
-			return Tag::langIs($language)->resourceIs($entity->getResourceSlug())->where('slug', $slug)->first();
-		} else {
-			return null;
-		}
+    /**
+     * @return void
+     */
+    public function getTagBySlug(string $language, object $entity, ?string $slug): ?Tag
+    {
+        if ($slug) {
+            return Tag::langIs($language)->resourceIs($entity->getResourceSlug())->where('slug', $slug)->first();
+        } else {
+            return null;
+        }
 
-	}
+    }
 }

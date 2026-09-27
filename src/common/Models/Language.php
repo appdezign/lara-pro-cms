@@ -7,40 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model
 {
+    /**
+     * @var string
+     */
+    protected $table = 'lara_sys_languages';
 
-	/**
-	 * @var string
-	 */
-	protected $table = 'lara_sys_languages';
+    /**
+     * @var string[]
+     */
+    protected $guarded = [
+        'id',
+    ];
 
-	/**
-	 * @var string[]
-	 */
-	protected $guarded = [
-		'id',
-	];
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
-	protected $casts = [
-		'created_at'   => 'datetime',
-		'updated_at'   => 'datetime',
-	];
+    /**
+     * @return Builder
+     */
+    public function scopeIsDefault(Builder $query)
+    {
+        return $query->where('default', 1);
+    }
 
-	/**
-	 * @param Builder $query
-	 * @return Builder
-	 */
-	public function scopeIsDefault(Builder $query)
-	{
-		return $query->where('default', 1);
-	}
-
-	/**
-	 * @param Builder $query
-	 * @return Builder
-	 */
-	public function scopeIsPublished(Builder $query)
-	{
-		return $query->where('publish', 1);
-	}
-
+    /**
+     * @return Builder
+     */
+    public function scopeIsPublished(Builder $query)
+    {
+        return $query->where('publish', 1);
+    }
 }

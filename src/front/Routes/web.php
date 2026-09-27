@@ -7,126 +7,125 @@
 */
 
 use Illuminate\Support\Facades\Schema;
-
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Routes\FrontRouteMiddleware;
 
 $tablename = config('lara-common.database.ent.entities');
-$laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+$laraNeedsSetup = ! Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
 
-if (!$laraNeedsSetup) {
+if (! $laraNeedsSetup) {
 
-	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'throttle:60,1', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
+    Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'throttle:60,1', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
 
-		$locale = LaravelLocalization::getCurrentLocale();
+        $locale = LaravelLocalization::getCurrentLocale();
 
-		// get home
-		$rootMenuItem = MenuItem::langIs($locale)
-			->menuSlugIs('main')
-			->whereNull('parent_id')
-			->with('entity')
-			->first();
+        // get home
+        $rootMenuItem = MenuItem::langIs($locale)
+            ->menuSlugIs('main')
+            ->whereNull('parent_id')
+            ->with('entity')
+            ->first();
 
-		if ($rootMenuItem) {
+        if ($rootMenuItem) {
 
-			$specialMiddleware = FrontRouteMiddleware::build($rootMenuItem->entity, $rootMenuItem);
+            $specialMiddleware = FrontRouteMiddleware::build($rootMenuItem->entity, $rootMenuItem);
 
-			// Search
-			Route::get('search', 'Special\SearchController@form')->name('special.search.form')->middleware($specialMiddleware);
-			Route::get('searchresult', 'Special\SearchController@result')->name('special.search.result')->middleware($specialMiddleware);
+            // Search
+            Route::get('search', 'Special\SearchController@form')->name('special.search.form')->middleware($specialMiddleware);
+            Route::get('searchresult', 'Special\SearchController@result')->name('special.search.result')->middleware($specialMiddleware);
 
-			Route::get('searchresult/{resource}', 'Special\SearchController@resourceresult')->name('special.search.resourceresult')->middleware($specialMiddleware);
+            Route::get('searchresult/{resource}', 'Special\SearchController@resourceresult')->name('special.search.resourceresult')->middleware($specialMiddleware);
 
-		}
+        }
 
-		// debug, use for console command (artisan)
-		// $locale = 'nl';
-		$locale = LaravelLocalization::getCurrentLocale();
+        // debug, use for console command (artisan)
+        // $locale = 'nl';
+        $locale = LaravelLocalization::getCurrentLocale();
 
-		/**
-		 * Get all FOLDERS from the MENU
-		 * and create redirects
-		 */
-		$menuFolders = MenuItem::langIs($locale)
-			->typeIs('parent')
-			->get();
+        /**
+         * Get all FOLDERS from the MENU
+         * and create redirects
+         */
+        $menuFolders = MenuItem::langIs($locale)
+            ->typeIs('parent')
+            ->get();
 
-		foreach ($menuFolders as $menuFolder) {
+        foreach ($menuFolders as $menuFolder) {
 
-			if (!empty($menuFolder->route)) {
+            if (! empty($menuFolder->route)) {
 
-				$child = $menuFolder->descendants()->defaultOrder()->first();
+                $child = $menuFolder->descendants()->defaultOrder()->first();
 
-				if (!empty($child)) {
+                if (! empty($child)) {
 
-					$childroute = str_replace('/', '|', $child->route);
-					$childroutename = 'special.redirect.' . $childroute;
+                    $childroute = str_replace('/', '|', $child->route);
+                    $childroutename = 'special.redirect.'.$childroute;
 
-					Route::get($menuFolder->route, 'Special\FrontRedirectorController@process')
-						->name($childroutename);
+                    Route::get($menuFolder->route, 'Special\FrontRedirectorController@process')
+                        ->name($childroutename);
 
-				} else {
+                } else {
 
-					Route::get($menuFolder->route, 'Special\FrontRedirectorController@redirectHome');
+                    Route::get($menuFolder->route, 'Special\FrontRedirectorController@redirectHome');
 
-				}
+                }
 
-			}
-		}
+            }
+        }
 
-		// 404
-		// Route::get('/{route}', 'Error\ErrorController@show')->name('error.show.404');
+        // 404
+        // Route::get('/{route}', 'Error\ErrorController@show')->name('error.show.404');
 
-		// redirects
-		/* TODO: Redirects
-		$redirects = Redirect::langIs($locale)->isPublished()->where('has_error', 0)->get();
+        // redirects
+        /* TODO: Redirects
+        $redirects = Redirect::langIs($locale)->isPublished()->where('has_error', 0)->get();
 
-		foreach ($redirects as $redirect) {
-			$from = $redirect->redirectfrom;
-			$to = $redirect->redirectto;
-			$check = MenuItem::langIs($locale)->where('route', $from)->first();
-			if ($check) {
-				// ignore redirect
-				$redirect->has_error = 1;
-				$redirect->save();
-			} else {
-				Route::get($from, 'Special\FrontRedirectorController@process')
-					->name($to);
-			}
-		}
-		*/
+        foreach ($redirects as $redirect) {
+            $from = $redirect->redirectfrom;
+            $to = $redirect->redirectto;
+            $check = MenuItem::langIs($locale)->where('route', $from)->first();
+            if ($check) {
+                // ignore redirect
+                $redirect->has_error = 1;
+                $redirect->save();
+            } else {
+                Route::get($from, 'Special\FrontRedirectorController@process')
+                    ->name($to);
+            }
+        }
+        */
 
-	});
+    });
 
-	// API for Pages and Blocks
-	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+    // API for Pages and Blocks
+    Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 
-		Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
+        Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
 
-			Route::resource('page', 'Api\\Page\\PagesController', ['as' => 'api', 'parameters' => ['page' => 'id']])->only(['index', 'show']);
+            Route::resource('page', 'Api\\Page\\PagesController', ['as' => 'api', 'parameters' => ['page' => 'id']])->only(['index', 'show']);
 
-			$entities = Entity::where('cgroup', 'block')->get();
-			foreach ($entities as $entity) {
-				Route::resource($entity->resource_slug, 'Api\\Blocks\\' . $entity->controller, ['as' => 'api', 'parameters' => ['page' => 'id']])->only(['index', 'show']);
-			}
+            $entities = Entity::where('cgroup', 'block')->get();
+            foreach ($entities as $entity) {
+                Route::resource($entity->resource_slug, 'Api\\Blocks\\'.$entity->controller, ['as' => 'api', 'parameters' => ['page' => 'id']])->only(['index', 'show']);
+            }
 
-		});
+        });
 
-	});
+    });
 
-	// get CSRF token without HttpCache
-	Route::get('csrf/{type}', '\Lara\Front\Http\Controllers\Special\CsrfController@show')->name('front.csrf');
+    // get CSRF token without HttpCache
+    Route::get('csrf/{type}', '\Lara\Front\Http\Controllers\Special\CsrfController@show')->name('front.csrf');
 
-	// get User IP without HttpCache
-	Route::get('usrip/{type}', '\Lara\Front\Http\Controllers\Special\UsripController@show')->name('front.usrip');
+    // get User IP without HttpCache
+    Route::get('usrip/{type}', '\Lara\Front\Http\Controllers\Special\UsripController@show')->name('front.usrip');
 
-	// get Login Widget without HttpCache
-	Route::get('loginwidget/{type}', '\Lara\Front\Http\Controllers\Special\LoginwidgetController@show')->name('front.loginwidget');
+    // get Login Widget without HttpCache
+    Route::get('loginwidget/{type}', '\Lara\Front\Http\Controllers\Special\LoginwidgetController@show')->name('front.loginwidget');
 
-	// Frontend Uploaders
-	Route::post('upload/{type}', '\Lara\Front\Http\Controllers\Special\UploadController@process')->name('front.upload');
+    // Frontend Uploaders
+    Route::post('upload/{type}', '\Lara\Front\Http\Controllers\Special\UploadController@process')->name('front.upload');
 
-	Route::post('upload2/{type}', '\Lara\Front\Http\Controllers\Special\Upload2Controller@process')->name('front.upload2');
+    Route::post('upload2/{type}', '\Lara\Front\Http\Controllers\Special\Upload2Controller@process')->name('front.upload2');
 
 }

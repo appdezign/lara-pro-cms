@@ -6,16 +6,14 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 use Lara\Common\Entities\EntityConfigObserver;
 
 #[ObservedBy(EntityConfigObserver::class)]
 class EntityView extends Model
 {
-
     protected $table = 'lara_resource_entity_views';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -26,21 +24,19 @@ class EntityView extends Model
         'updated_at',
     ];
 
-	/**
-	 * @param Builder $query
-	 * @return Builder
-	 */
-	public function scopeIsSingle(Builder $query)
-	{
-		return $query->where('is_single', 1);
-	}
+    /**
+     * @return Builder
+     */
+    public function scopeIsSingle(Builder $query)
+    {
+        return $query->where('is_single', 1);
+    }
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function entity()
-	{
-		return $this->belongsTo(\Lara\Common\Models\Entity::class);
-	}
-
+    /**
+     * @return BelongsTo
+     */
+    public function entity()
+    {
+        return $this->belongsTo(Entity::class);
+    }
 }

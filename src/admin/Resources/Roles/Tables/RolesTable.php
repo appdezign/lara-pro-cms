@@ -11,33 +11,33 @@ use Spatie\Permission\Models\Role;
 
 class RolesTable
 {
-	private static function rs(): RoleResource
-	{
-		$class = RoleResource::class;
-		return new $class;
-	}
+    private static function rs(): RoleResource
+    {
+        $class = RoleResource::class;
 
-	public static function configure(Table $table): Table
-	{
-		return $table
-			->columns([
-				TextColumn::make('name')
-					->sortable()
-					->searchable()
-					->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.name')),
-				TextColumn::make('guard_name')
-					->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.guard')),
+        return new $class;
+    }
 
-			])
-			->filters([])
-			->actions([
-				EditAction::make()
-					->label(''),
-				DeleteAction::make()
-					->label('')
-					->disabled(fn(Role $record) => $record->users()->count() > 0),
-			])
-			->bulkActions([]);
-	}
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable()
+                    ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.name')),
+                TextColumn::make('guard_name')
+                    ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.guard')),
 
+            ])
+            ->filters([])
+            ->actions([
+                EditAction::make()
+                    ->label(''),
+                DeleteAction::make()
+                    ->label('')
+                    ->disabled(fn (Role $record) => $record->users()->count() > 0),
+            ])
+            ->bulkActions([]);
+    }
 }

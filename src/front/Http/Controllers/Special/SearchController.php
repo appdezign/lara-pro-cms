@@ -25,308 +25,306 @@ use stdClass;
 
 class SearchController extends Controller
 {
-	use HasFrontend;
-	use HasFrontEntity;
-	use HasFrontList;
-	use HasFrontMenu;
-	use HasFrontObject;
-	use HasFrontRoutes;
-	use HasFrontView;
-	use HasTheme;
+    use HasFrontend;
+    use HasFrontEntity;
+    use HasFrontList;
+    use HasFrontMenu;
+    use HasFrontObject;
+    use HasFrontRoutes;
+    use HasFrontView;
+    use HasTheme;
 
-	protected ?string $routename = null;
+    protected ?string $routename = null;
 
-	protected ?object $entity = null;
+    protected ?object $entity = null;
 
-	protected ?string $language = null;
+    protected ?string $language = null;
 
-	protected ?object $data = null;
+    protected ?object $data = null;
 
-	protected ?object $globalwidgets = null;
+    protected ?object $globalwidgets = null;
 
-	protected ?object $globalsettings = null;
+    protected ?object $globalsettings = null;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
 
-		// get language
-		$this->language = LaravelLocalization::getCurrentLocale();
+        // get language
+        $this->language = LaravelLocalization::getCurrentLocale();
 
-		// create an empty Laravel object to hold all the data (see: https://goo.gl/ufmFHe)
-		$this->data = new stdClass;
+        // create an empty Laravel object to hold all the data (see: https://goo.gl/ufmFHe)
+        $this->data = new stdClass;
 
-		// only when handling a matched HTTP request: there is no route to read
-		// in console, queue or test-bootstrap contexts
-		if (Route::current() !== null) {
+        // only when handling a matched HTTP request: there is no route to read
+        // in console, queue or test-bootstrap contexts
+        if (Route::current() !== null) {
 
-			// get route name
-			$this->routename = Route::current()->getName();
+            // get route name
+            $this->routename = Route::current()->getName();
 
-			// get entity
-			$this->entity = $this->getFrontEntity($this->routename);
+            // get entity
+            $this->entity = $this->getFrontEntity($this->routename);
 
-			// get active route
-			$this->activeroute = $this->getLaraActiveRoute($this->routename);
+            // get active route
+            $this->activeroute = $this->getLaraActiveRoute($this->routename);
 
-			// get default seo
-			$this->data->seo = $this->getDefaultSeo($this->language);
+            // get default seo
+            $this->data->seo = $this->getDefaultSeo($this->language);
 
-			// get default layout
-			$this->data->layout = $this->getDefaultThemeLayout();
-			$this->data->grid = $this->getGrid($this->data->layout);
+            // get default layout
+            $this->data->layout = $this->getDefaultThemeLayout();
+            $this->data->grid = $this->getGrid($this->data->layout);
 
-			// get global widgets
-			$this->globalwidgets = $this->getGlobalWidgets($this->language);
+            // get global widgets
+            $this->globalwidgets = $this->getGlobalWidgets($this->language);
 
-			// get global settings
-			$this->globalsettings = $this->getGlobalSettings();
+            // get global settings
+            $this->globalsettings = $this->getGlobalSettings();
 
-			// share data with all views, see: https://goo.gl/Aqxquw
-			$this->middleware(function ($request, $next) {
-				view()->share('entity', $this->entity);
-				view()->share('activeroute', $this->activeroute);
-				view()->share('language', $this->language);
-				view()->share('globalwidgets', $this->globalwidgets);
-				view()->share('globalsettings', $this->globalsettings);
-				view()->share('firstpageload', $this->getFirstPageLoad());
+            // share data with all views, see: https://goo.gl/Aqxquw
+            $this->middleware(function ($request, $next) {
+                view()->share('entity', $this->entity);
+                view()->share('activeroute', $this->activeroute);
+                view()->share('language', $this->language);
+                view()->share('globalwidgets', $this->globalwidgets);
+                view()->share('globalsettings', $this->globalsettings);
+                view()->share('firstpageload', $this->getFirstPageLoad());
 
-				return $next($request);
-			});
+                return $next($request);
+            });
 
-		}
+        }
 
-	}
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function form()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function form()
+    {
 
-		// get language versions
-		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
+        // get language versions
+        $this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
 
-		$viewfile = '_search.form';
+        $viewfile = '_search.form';
 
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
+        return view($viewfile, [
+            'data' => $this->data,
+        ]);
 
-	}
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function result(Request $request)
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function result(Request $request)
+    {
 
-		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
-		if ($this->data->params instanceof RedirectResponse) {
-			return $this->data->params;
-		}
+        $this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+        if ($this->data->params instanceof RedirectResponse) {
+            return $this->data->params;
+        }
 
-		$this->data->results = new stdClass;
+        $this->data->results = new stdClass;
 
-		$this->data->singleEntity = null;
+        $this->data->singleEntity = null;
 
-		if ($request->has('keywords')) {
+        if ($request->has('keywords')) {
 
-			$mainMenuID = $this->getMainMenuId();
+            $mainMenuID = $this->getMainMenuId();
 
-			$entities = MenuItem::distinct('entity_id')
-				->langIs($this->language)
-				->menuIs($mainMenuID)
-				->where('type', 'page')
-				->orWhere('type', 'entity')
-				->where('publish', 1)
-				->pluck('entity_id');
+            $entities = MenuItem::distinct('entity_id')
+                ->langIs($this->language)
+                ->menuIs($mainMenuID)
+                ->where('type', 'page')
+                ->orWhere('type', 'entity')
+                ->where('publish', 1)
+                ->pluck('entity_id');
 
-			foreach ($entities as $entity_id) {
+            foreach ($entities as $entity_id) {
 
-				$entity = Entity::find($entity_id);
-				$resource_slug = $entity->resource_slug;
+                $entity = Entity::find($entity_id);
+                $resource_slug = $entity->resource_slug;
 
-				$laraEntity = $this->getResourceBySlug($resource_slug);
+                $laraEntity = $this->getResourceBySlug($resource_slug);
 
-				$collection = $entity->model_class::langIs($this->language);
+                $collection = $entity->model_class::langIs($this->language);
 
-				// filter by search keywords
-				$this->data->keywords = $request->get('keywords');
-				$keywords = $this->cleanupFrontSearchString($this->data->keywords);
+                // filter by search keywords
+                $this->data->keywords = $request->get('keywords');
+                $keywords = $this->cleanupFrontSearchString($this->data->keywords);
 
-				if ($resource_slug == 'page') {
-					$collection = $collection->whereNotNull('menuroute');
-				}
+                if ($resource_slug == 'page') {
+                    $collection = $collection->whereNotNull('menuroute');
+                }
 
-				$collection = $collection->where(function ($q) use ($entity, $keywords) {
-					foreach ($keywords as $value) {
+                $collection = $collection->where(function ($q) use ($entity, $keywords) {
+                    foreach ($keywords as $value) {
 
-						$entityKey = $entity->resource_slug;
-						$entitySearchFields = config('lara-front.entity_search_fields');
-						if (array_key_exists($entityKey, $entitySearchFields)) {
-							// custom search fields
-							$customSearchFields = $entitySearchFields[$entityKey];
-							foreach ($customSearchFields as $customSearchField) {
-								$q->orWhere($customSearchField, 'like', "%{$value}%");
-							}
-						} else {
-							// default search fields (title, lead, body)
-							$q->orWhere('title', 'like', "%{$value}%");
-							if ($entity->col_has_lead) {
-								$q->orWhere('lead', 'like', "%{$value}%");
-							}
-							if ($entity->col_has_body) {
-								$q->orWhere('body', 'like', "%{$value}%");
-							}
-						}
-					}
-				});
+                        $entityKey = $entity->resource_slug;
+                        $entitySearchFields = config('lara-front.entity_search_fields');
+                        if (array_key_exists($entityKey, $entitySearchFields)) {
+                            // custom search fields
+                            $customSearchFields = $entitySearchFields[$entityKey];
+                            foreach ($customSearchFields as $customSearchField) {
+                                $q->orWhere($customSearchField, 'like', "%{$value}%");
+                            }
+                        } else {
+                            // default search fields (title, lead, body)
+                            $q->orWhere('title', 'like', "%{$value}%");
+                            if ($entity->col_has_lead) {
+                                $q->orWhere('lead', 'like', "%{$value}%");
+                            }
+                            if ($entity->col_has_body) {
+                                $q->orWhere('body', 'like', "%{$value}%");
+                            }
+                        }
+                    }
+                });
 
-				if ($laraEntity->hasStatus()) {
-					$collection = $collection->where('publish', 1);
-				}
+                if ($laraEntity->hasStatus()) {
+                    $collection = $collection->where('publish', 1);
+                }
 
-				if ($resource_slug != 'pages') {
-					if ($laraEntity->getPrimarySortField()) {
-						$collection = $collection->orderBy($laraEntity->getPrimarySortField(), $laraEntity->getPrimarySortOrder());
-					}
-					if ($laraEntity->getSecondarySortField()) {
-						$collection = $collection->orderBy($laraEntity->getSecondarySortField(), $laraEntity->getSecondarySortOrder());
-					}
-				}
+                if ($resource_slug != 'pages') {
+                    if ($laraEntity->getPrimarySortField()) {
+                        $collection = $collection->orderBy($laraEntity->getPrimarySortField(), $laraEntity->getPrimarySortOrder());
+                    }
+                    if ($laraEntity->getSecondarySortField()) {
+                        $collection = $collection->orderBy($laraEntity->getSecondarySortField(), $laraEntity->getSecondarySortOrder());
+                    }
+                }
 
-				$objects = $collection->get();
+                $objects = $collection->get();
 
-				// get menu urls
-				foreach ($objects as $object) {
-					$object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
+                // get menu urls
+                foreach ($objects as $object) {
+                    $object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
 
-				}
+                }
 
-				$this->data->results->$resource_slug = new stdClass;
-				$this->data->results->$resource_slug->entity = $laraEntity;
-				$this->data->results->$resource_slug->objects = $objects;
+                $this->data->results->$resource_slug = new stdClass;
+                $this->data->results->$resource_slug->entity = $laraEntity;
+                $this->data->results->$resource_slug->objects = $objects;
 
-			}
+            }
 
-		} else {
+        } else {
 
-			$this->data->keywords = null;
-			$this->data->results = [];
+            $this->data->keywords = null;
+            $this->data->results = [];
 
-		}
+        }
 
-		// get language versions
-		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
+        // get language versions
+        $this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
 
-		$viewfile = '_search.result';
+        $viewfile = '_search.result';
 
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
+        return view($viewfile, [
+            'data' => $this->data,
+        ]);
 
-	}
+    }
 
-	public function resourceresult(Request $request, $resource)
-	{
+    public function resourceresult(Request $request, $resource)
+    {
 
-		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
-		if ($this->data->params instanceof RedirectResponse) {
-			return $this->data->params;
-		}
+        $this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+        if ($this->data->params instanceof RedirectResponse) {
+            return $this->data->params;
+        }
 
-		$this->data->results = new stdClass;
+        $this->data->results = new stdClass;
 
-		$this->data->singleEntity = null;
+        $this->data->singleEntity = null;
 
-		if ($request->has('keywords')) {
+        if ($request->has('keywords')) {
 
-			// filter by search keywords
-			$this->data->keywords = $request->get('keywords');
-			$keywords = $this->cleanupFrontSearchString($this->data->keywords);
+            // filter by search keywords
+            $this->data->keywords = $request->get('keywords');
+            $keywords = $this->cleanupFrontSearchString($this->data->keywords);
 
-			$mainMenuID = $this->getMainMenuId();
+            $mainMenuID = $this->getMainMenuId();
 
-			$singleEntity = Entity::where('resource_slug', $resource)->first();
+            $singleEntity = Entity::where('resource_slug', $resource)->first();
 
-			if($singleEntity) {
+            if ($singleEntity) {
 
-				// check if entity is in the menu
-				$menuEntity = MenuItem::distinct('entity_id')
-					->langIs($this->language)
-					->menuIs($mainMenuID)
-					->where('type', 'entity')
-					->where('entity_id', $singleEntity->id)
-					->first();
+                // check if entity is in the menu
+                $menuEntity = MenuItem::distinct('entity_id')
+                    ->langIs($this->language)
+                    ->menuIs($mainMenuID)
+                    ->where('type', 'entity')
+                    ->where('entity_id', $singleEntity->id)
+                    ->first();
 
-				if ($menuEntity) {
+                if ($menuEntity) {
 
-					$entity = Entity::find($menuEntity->entity_id);
+                    $entity = Entity::find($menuEntity->entity_id);
 
-					$resource_slug = $entity->resource_slug;
+                    $resource_slug = $entity->resource_slug;
 
-					$laraEntity = $this->getResourceBySlug($entity->resource_slug);
+                    $laraEntity = $this->getResourceBySlug($entity->resource_slug);
 
-					$this->data->singleEntity = $laraEntity;
+                    $this->data->singleEntity = $laraEntity;
 
-					$collection = $laraEntity->getEntityModelClass()::langIs($this->language);
+                    $collection = $laraEntity->getEntityModelClass()::langIs($this->language);
 
-					$collection = $collection->where(function ($q) use ($laraEntity, $keywords) {
-						foreach ($keywords as $value) {
-							$entityKey = $laraEntity->getResourceSlug();
-							$entitySearchFields = config('lara-front.entity_search_fields');
-							if (array_key_exists($entityKey, $entitySearchFields)) {
-								// custom search fields
-								$customSearchFields = $entitySearchFields[$entityKey];
-								foreach ($customSearchFields as $customSearchField) {
-									$q->orWhere($customSearchField, 'like', "%{$value}%");
-								}
-							} else {
-								// default search fields (title, lead, body)
-								$q->orWhere('title', 'like', "%{$value}%");
-								if ($laraEntity->hasLead()) {
-									$q->orWhere('lead', 'like', "%{$value}%");
-								}
-								if ($laraEntity->hasBody()) {
-									$q->orWhere('body', 'like', "%{$value}%");
-								}
-							}
-						}
-					});
+                    $collection = $collection->where(function ($q) use ($laraEntity, $keywords) {
+                        foreach ($keywords as $value) {
+                            $entityKey = $laraEntity->getResourceSlug();
+                            $entitySearchFields = config('lara-front.entity_search_fields');
+                            if (array_key_exists($entityKey, $entitySearchFields)) {
+                                // custom search fields
+                                $customSearchFields = $entitySearchFields[$entityKey];
+                                foreach ($customSearchFields as $customSearchField) {
+                                    $q->orWhere($customSearchField, 'like', "%{$value}%");
+                                }
+                            } else {
+                                // default search fields (title, lead, body)
+                                $q->orWhere('title', 'like', "%{$value}%");
+                                if ($laraEntity->hasLead()) {
+                                    $q->orWhere('lead', 'like', "%{$value}%");
+                                }
+                                if ($laraEntity->hasBody()) {
+                                    $q->orWhere('body', 'like', "%{$value}%");
+                                }
+                            }
+                        }
+                    });
 
-					if ($laraEntity->hasStatus()) {
-						$collection = $collection->where('publish', 1);
-					}
+                    if ($laraEntity->hasStatus()) {
+                        $collection = $collection->where('publish', 1);
+                    }
 
-					$objects = $collection->get();
+                    $objects = $collection->get();
 
-					// get menu urls
-					foreach ($objects as $object) {
-						$object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
-					}
+                    // get menu urls
+                    foreach ($objects as $object) {
+                        $object->routename = $this->getFrontSeoRoute($resource_slug, 'index', true);
+                    }
 
-					$this->data->results->$resource_slug = new stdClass;
-					$this->data->results->$resource_slug->entity = $laraEntity;
-					$this->data->results->$resource_slug->objects = $objects;
+                    $this->data->results->$resource_slug = new stdClass;
+                    $this->data->results->$resource_slug->entity = $laraEntity;
+                    $this->data->results->$resource_slug->objects = $objects;
 
-				}
+                }
 
-			} else {
-				//
-			}
+            } else {
+                //
+            }
 
+        }
 
+        // get language versions
+        $this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
 
-		}
+        $viewfile = '_search.result';
 
-		// get language versions
-		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
+        return view($viewfile, [
+            'data' => $this->data,
+        ]);
 
-		$viewfile = '_search.result';
-
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
-
-	}
+    }
 }

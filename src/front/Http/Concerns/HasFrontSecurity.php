@@ -13,23 +13,23 @@ use Lara\Front\Services\FrontSecurityGuard;
  */
 trait HasFrontSecurity
 {
-	private function frontSecurityGuard(): FrontSecurityGuard
-	{
-		return app(FrontSecurityGuard::class);
-	}
+    private function frontSecurityGuard(): FrontSecurityGuard
+    {
+        return app(FrontSecurityGuard::class);
+    }
 
-	private function detectSpam(object $entity, object $object, array $fieldtypes)
-	{
-		return $this->frontSecurityGuard()->detectSpam($entity, $object, $fieldtypes);
-	}
+    private function detectSpam(object $entity, object $object, array $fieldtypes)
+    {
+        return $this->frontSecurityGuard()->detectSpam($entity, $object, $fieldtypes);
+    }
 
-	private function checkBlackListColumn($entity)
-	{
-		return $this->frontSecurityGuard()->checkBlackListColumn($entity);
-	}
+    private function checkBlackListColumn($entity)
+    {
+        return $this->frontSecurityGuard()->checkBlackListColumn($entity);
+    }
 
-	private function getValidationRules(object $entity)
-	{
-		return $this->frontSecurityGuard()->getValidationRules($entity);
-	}
+    private function getValidationRules(object $entity)
+    {
+        return $this->frontSecurityGuard()->getValidationRules($entity);
+    }
 }

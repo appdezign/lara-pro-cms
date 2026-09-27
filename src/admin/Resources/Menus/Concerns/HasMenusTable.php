@@ -11,54 +11,54 @@ use Lara\Common\Models\Menu;
 
 trait HasMenusTable
 {
-	private static function rs(): MenuResource
-	{
-		$class = MenuResource::class;
-		return new $class;
-	}
+    private static function rs(): MenuResource
+    {
+        $class = MenuResource::class;
 
-	private static function getMenuTableColumns(): array
-	{
+        return new $class;
+    }
 
-		$columns = array();
+    private static function getMenuTableColumns(): array
+    {
 
-		$columns[] = TextColumn::make('id')
-			->width('10%')
-			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.id'))
-			->sortable();
+        $columns = [];
 
-		$columns[] = TextColumn::make('title')
-			->width('20%')
-			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'))
-			->sortable()
-			->searchable();
-		$columns[] = TextColumn::make('slug')
-			->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.slug'));
+        $columns[] = TextColumn::make('id')
+            ->width('10%')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.id'))
+            ->sortable();
 
-		return $columns;
+        $columns[] = TextColumn::make('title')
+            ->width('20%')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.title'))
+            ->sortable()
+            ->searchable();
+        $columns[] = TextColumn::make('slug')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.slug'));
 
-	}
+        return $columns;
 
-	private static function getMenuTableActions(): array
-	{
-		$actions = array();
+    }
 
-		$actions[] = Action::make('configure_menu')
-			->label('')
-			->icon('bi-menu-button')
-			->url(fn(Menu $record): string => static::getUrl('reorder', ['record' => $record]));
+    private static function getMenuTableActions(): array
+    {
+        $actions = [];
 
-		$actions[] = EditAction::make()
-			->label('')
-			->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')
-			->disabled(fn($record) => $record->isLocked());
+        $actions[] = Action::make('configure_menu')
+            ->label('')
+            ->icon('bi-menu-button')
+            ->url(fn (Menu $record): string => static::getUrl('reorder', ['record' => $record]));
 
-		$actions[] = DeleteAction::make()
-			->label('')
-			->tableIcon(fn($record) => $record->isLocked() ? 'bi-lock' : 'bi-trash3')
-			->disabled(fn($record) => $record->isLocked());
+        $actions[] = EditAction::make()
+            ->label('')
+            ->tableIcon(fn ($record) => $record->isLocked() ? 'bi-lock' : 'bi-pencil-square')
+            ->disabled(fn ($record) => $record->isLocked());
 
-		return $actions;
-	}
+        $actions[] = DeleteAction::make()
+            ->label('')
+            ->tableIcon(fn ($record) => $record->isLocked() ? 'bi-lock' : 'bi-trash3')
+            ->disabled(fn ($record) => $record->isLocked());
 
+        return $actions;
+    }
 }

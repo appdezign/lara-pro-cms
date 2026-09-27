@@ -9,14 +9,14 @@ use Lara\App\Models\{{ MODEL }};
 class {{ CLASS }} extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	protected function make(): {{ MODEL }}
-	{
-		return {{ MODEL }}::create();
-	}
+    protected function make(): {{ MODEL }}
+    {
+        return {{ MODEL }}::create();
+    }
 
 }

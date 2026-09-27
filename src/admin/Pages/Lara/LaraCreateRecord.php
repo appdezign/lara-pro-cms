@@ -24,15 +24,15 @@ class LaraCreateRecord extends CreateRecord
             $this->getCreateFormAction()
                 ->label(_q('lara-admin::default.action.save'))
                 ->submit(null)
-                ->action(fn() => $this->create()),
+                ->action(fn () => $this->create()),
         ];
     }
 
-	protected function afterCreate(): void
-	{
-		// refresh route cache
-		session(['laracacheclear' => ['response_cache', 'route_cache']]);
-	}
+    protected function afterCreate(): void
+    {
+        // refresh route cache
+        session(['laracacheclear' => ['response_cache', 'route_cache']]);
+    }
 
     protected function getRedirectUrl(): string
     {
@@ -40,13 +40,13 @@ class LaraCreateRecord extends CreateRecord
         return $this->getResource()::getUrl('edit', ['record' => $this->getRecord(), ...$this->getRedirectUrlParameters()]);
     }
 
-	public function render(): View
-	{
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire' => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
+    public function render(): View
+    {
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 }

@@ -1,38 +1,41 @@
 <?php
 
+use Lara\Admin\Components\CustomBlocks\HeroBlock;
+use Lara\App\Filament\Components\CustomBlocks\Hero2Block;
+
 return [
 
-	'has_custom_routes' => false,
+    'has_custom_routes' => false,
 
-	'filarank' => [
-		'section_collapsed' => true,
-		'show_in_table' => false,
-	],
+    'filarank' => [
+        'section_collapsed' => true,
+        'show_in_table' => false,
+    ],
 
-	'rich_editor' => [
-		'full' => [
-			'toolbar_buttons' => [
-				['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'highlight', 'textColor', 'link'],
-				['h1', 'h2', 'h3', 'small', 'alignStart', 'alignCenter', 'alignEnd', 'alignJustify'],
-				['blockquote', 'codeBlock', 'horizontalRule', 'bulletList', 'orderedList'],
-				['table', 'grid', 'gridDelete', 'attachFiles', 'attachCuratorMedia', 'details', 'customBlocks'],
-				['clearFormatting', 'undo', 'redo'],
-				['sourceCode', 'fullscreen'],
-			],
-		],
-		'minimal' => [
-			'toolbar_buttons' => [
-				['bold', 'italic', 'underline', 'strike', 'link'],
-				['clearFormatting', 'undo', 'redo'],
-				['sourceCode', 'fullscreen'],
-			],
-		],
+    'rich_editor' => [
+        'full' => [
+            'toolbar_buttons' => [
+                ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'highlight', 'textColor', 'link'],
+                ['h1', 'h2', 'h3', 'small', 'alignStart', 'alignCenter', 'alignEnd', 'alignJustify'],
+                ['blockquote', 'codeBlock', 'horizontalRule', 'bulletList', 'orderedList'],
+                ['table', 'grid', 'gridDelete', 'attachFiles', 'attachCuratorMedia', 'details', 'customBlocks'],
+                ['clearFormatting', 'undo', 'redo'],
+                ['sourceCode', 'fullscreen'],
+            ],
+        ],
+        'minimal' => [
+            'toolbar_buttons' => [
+                ['bold', 'italic', 'underline', 'strike', 'link'],
+                ['clearFormatting', 'undo', 'redo'],
+                ['sourceCode', 'fullscreen'],
+            ],
+        ],
 
-		'custom_blocks' => [
-			Lara\App\Filament\Components\CustomBlocks\Hero2Block::class,
-			Lara\Admin\Components\CustomBlocks\HeroBlock::class,
+        'custom_blocks' => [
+            Hero2Block::class,
+            HeroBlock::class,
 
-		]
-	],
+        ],
+    ],
 
 ];

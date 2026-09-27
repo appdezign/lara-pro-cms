@@ -6,7 +6,6 @@ use Filament\Actions\Action;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
-
 use Lara\Admin\Resources\MenuItems\MenuItemResource;
 use Lara\Admin\Resources\Menus\MenuResource;
 
@@ -18,34 +17,32 @@ class ReorderMenu extends Page
 
     protected string $view = 'lara-admin::pages.menu-reorder';
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return _q('lara-admin::menu-reorder.page.title');
     }
 
-	public static function shouldRegisterNavigation(array $parameters = []): bool
-	{
-		return false;
-	}
+    public static function shouldRegisterNavigation(array $parameters = []): bool
+    {
+        return false;
+    }
 
-	protected function getHeaderActions(): array
-	{
-		return [
-			Action::make('done')
-				->label(_q('lara-admin::default.button.done'))
-				->action(function () {
-					return redirect(MenuItemResource::getUrl());
-				}),
-		];
-	}
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('done')
+                ->label(_q('lara-admin::default.button.done'))
+                ->action(function () {
+                    return redirect(MenuItemResource::getUrl());
+                }),
+        ];
+    }
 
-	public function mount($record): void
+    public function mount($record): void
     {
 
         $this->record = $this->resolveRecord($record);
 
         $this->heading = $this->getTitle();
     }
-
-
 }

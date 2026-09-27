@@ -2,28 +2,26 @@
 
 namespace Lara\Common\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
-
+use Illuminate\Http\Request;
 use LaravelLocalization;
 
-use Carbon\Carbon;
+class DateLocale
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  Request  $request
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
 
-class DateLocale {
+        $language = LaravelLocalization::getCurrentLocale();
 
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next) {
+        Carbon::setLocale($language);
 
-		$language = LaravelLocalization::getCurrentLocale();
-
-		Carbon::setLocale($language);
-
-		return $next($request);
-	}
-
+        return $next($request);
+    }
 }

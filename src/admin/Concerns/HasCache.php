@@ -4,39 +4,37 @@ namespace Lara\Admin\Concerns;
 
 trait HasCache
 {
+    public static function clearCacheTypes(array $types = [], $force = true): bool
+    {
+        if ($force) {
 
-	public static function clearCacheTypes(array $types = [], $force = true): bool
-	{
-		if ($force) {
+            $types = [
+                'app_cache',
+                'config_cache',
+                'view_cache',
+                'response_cache',
+                'route_cache',
+            ];
 
-			$types = [
-				'app_cache',
-				'config_cache',
-				'view_cache',
-				'response_cache',
-				'route_cache',
-			];
+            session(['laracacheclear' => $types]);
 
-			session(['laracacheclear' => $types]);
+            return true;
 
-			return true;
+        } else {
 
-		} else {
+            if (count($types) == 0) {
 
-			if (count($types) == 0) {
+                return false;
 
-				return false;
+            } else {
 
-			} else {
+                session(['laracacheclear' => $types]);
 
-				session(['laracacheclear' => $types]);
+                return true;
 
-				return true;
+            }
 
-			}
+        }
 
-		}
-
-	}
-
+    }
 }

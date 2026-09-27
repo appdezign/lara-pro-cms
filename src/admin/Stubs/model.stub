@@ -8,22 +8,22 @@ use Lara\App\Database\Factories\{{ FACTORY }};
 
 class {{ CLASS }} extends BaseModel
 {
-	use HasLanguage;
+    use HasLanguage;
 
-	protected $table = '{{ TABLE }}';
+    protected $table = '{{ TABLE }}';
 
-	protected static function newFactory()
-	{
-		return {{ FACTORY }}::new();
-	}
+    protected static function newFactory()
+    {
+        return {{ FACTORY }}::new();
+    }
 
-	/*
-	protected function casts(): array
-	{
-		return array_merge(parent::casts(), [
-			// add model specific casts here
-		]);
-	}
-	*/
+    /*
+    protected function casts(): array
+    {
+        return array_merge(parent::casts(), [
+            // add model specific casts here
+        ]);
+    }
+    */
 
 }

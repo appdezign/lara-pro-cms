@@ -4,15 +4,7 @@ namespace Lara\Common\Entities;
 
 class SearchEntity extends LaraTool
 {
+    protected ?string $module = 'front';
 
-	/**
-	 * @var string
-	 */
-	protected ?string $module = 'front';
-
-	/**
-	 * @var string
-	 */
-	public ?string $resource_slug = 'search';
-
+    public ?string $resource_slug = 'search';
 }

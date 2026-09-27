@@ -12,18 +12,18 @@ use Lara\App\Models\{{ MODEL }};
 class {{ CLASS }} extends Factory
 {
 
-	protected ?string $resourceSlug = '{{ RESOURCESLUG }}';
+    protected ?string $resourceSlug = '{{ RESOURCESLUG }}';
 
-	use HasLaraFactory;
+    use HasLaraFactory;
 
-	protected $model = {{ MODEL }}::class;
+    protected $model = {{ MODEL }}::class;
 
-	/**
-	 * @return array
-	 * @throws Exception
-	 */
-	public function definition(): array
-	{
-		return $this->generateContent($this->resourceSlug);
-	}
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function definition(): array
+    {
+        return $this->generateContent($this->resourceSlug);
+    }
 }

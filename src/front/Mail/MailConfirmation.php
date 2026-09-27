@@ -5,63 +5,60 @@ namespace Lara\Front\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-
 use Lara\Front\Http\Concerns\HasTheme;
-
 // use Theme;
 use Lara\Front\LaraTheme\Theme;
 
-class MailConfirmation extends Mailable {
+class MailConfirmation extends Mailable
+{
+    use HasTheme;
+    use Queueable, SerializesModels;
 
-	use Queueable, SerializesModels;
+    /**
+     * @var object
+     */
+    public $maildata;
 
-	use HasTheme;
+    /**
+     * MailConfirmation constructor.
+     *
+     * @return void
+     */
+    public function __construct(object $maildata)
+    {
 
-	/**
-	 * @var object
-	 */
-	public $maildata;
+        $this->maildata = $maildata;
 
-	/**
-	 * MailConfirmation constructor.
-	 *
-	 * @param object $maildata
-	 * @return void
-	 */
-	public function __construct(object $maildata) {
+    }
 
-		$this->maildata = $maildata;
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
 
-	}
+        $theme = $this->getFrontTheme();
+        $parent = $this->getParentTheme();
+        Theme::set($theme, $parent);
 
-	/**
-	 * Build the message.
-	 *
-	 * @return $this
-	 */
-	public function build() {
+        if (property_exists($this->maildata, 'attachment') & ! empty($this->maildata->attachment)) {
 
-		$theme = $this->getFrontTheme();
-		$parent = $this->getParentTheme();
-		Theme::set($theme, $parent);
+            $attach = $this->maildata->attachment;
 
-		if(property_exists($this->maildata, 'attachment') & !empty($this->maildata->attachment)) {
+            return $this->from($this->maildata->from->email, $this->maildata->from->name)
+                ->subject($this->maildata->subject)
+                ->view($this->maildata->view)->attach($attach->filepath, [
+                    'as' => $attach->filename,
+                    'mime' => $attach->mimetype,
+                ]);
 
-			$attach = $this->maildata->attachment;
+        } else {
+            return $this->from($this->maildata->from->email, $this->maildata->from->name)
+                ->subject($this->maildata->subject)
+                ->view($this->maildata->view);
+        }
 
-			return $this->from($this->maildata->from->email, $this->maildata->from->name)
-				->subject($this->maildata->subject)
-				->view($this->maildata->view)->attach($attach->filepath, [
-					'as' => $attach->filename,
-					'mime' => $attach->mimetype,
-				]);
-
-		} else {
-			return $this->from($this->maildata->from->email, $this->maildata->from->name)
-				->subject($this->maildata->subject)
-				->view($this->maildata->view);
-		}
-
-	}
+    }
 }

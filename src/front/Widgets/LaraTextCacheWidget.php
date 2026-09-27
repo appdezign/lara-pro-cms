@@ -13,62 +13,62 @@ use LaravelLocalization;
 
 class LaraTextCacheWidget extends AbstractWidget
 {
-	use HasFrontend;
-	use HasFrontMenu;
+    use HasFrontend;
+    use HasFrontMenu;
 
-	protected $config = [
-		'widget_id' => null,
-		'grid' => null,
-	];
+    protected $config = [
+        'widget_id' => null,
+        'grid' => null,
+    ];
 
-	public $cacheTime = false;
+    public $cacheTime = false;
 
-	public function __construct(array $config = [])
-	{
-		$this->cacheTime = config('lara-front.widget_cache_time');
-		parent::__construct($config);
-	}
+    public function __construct(array $config = [])
+    {
+        $this->cacheTime = config('lara-front.widget_cache_time');
+        parent::__construct($config);
+    }
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.textWidget.'.$this->config['widget_id'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.textWidget.'.$this->config['widget_id'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
-		$language = LaravelLocalization::getCurrentLocale();
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$larawidget = LaraWidget::find($this->config['widget_id']);
+        $larawidget = LaraWidget::find($this->config['widget_id']);
 
-		$eroutes = $this->getMenuEntityRoutes($language);
+        $eroutes = $this->getMenuEntityRoutes($language);
 
-		if ($larawidget->template) {
-			$templateFileName = $larawidget->type.'_'.$larawidget->template;
-		} else {
-			$templateFileName = $larawidget->type.'_default';
-		}
+        if ($larawidget->template) {
+            $templateFileName = $larawidget->type.'_'.$larawidget->template;
+        } else {
+            $templateFileName = $larawidget->type.'_default';
+        }
 
-		$widgetview = '_widgets.lara.text.'.$templateFileName;
+        $widgetview = '_widgets.lara.text.'.$templateFileName;
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'eroutes' => $eroutes,
-				'larawidget' => $larawidget,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'eroutes' => $eroutes,
+                'larawidget' => $larawidget,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }

@@ -21,99 +21,99 @@ use Njxqlus\Filament\Components\Forms\RelationManager;
 
 class FormForm
 {
-	use HasEntityLabelValidation;
+    use HasEntityLabelValidation;
 
-	private static function rs(): FormResource
-	{
-		$class = FormResource::class;
+    private static function rs(): FormResource
+    {
+        $class = FormResource::class;
 
-		return new $class;
-	}
+        return new $class;
+    }
 
-	public static function configure(Schema $schema): Schema
-	{
+    public static function configure(Schema $schema): Schema
+    {
 
-		return $schema
-			->components([
-				Tabs::make('Tabs')
-					->columnSpanFull()
-					->tabs([
-						Tab::make(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.tabs.info', true))
-							->schema([
-								Section::make('info')
-									->collapsible()
-									->schema(static::getInfoSection())
-									->extraAttributes(['class' => 'first-entity-section']),
-							]),
-						Tab::make(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.tabs.custom_fields', true))
-							->schema([
-								RelationManager::make()->manager(CustomFieldsRelationManager::class),
-								Livewire::make(BackupColumns::class, fn (Entity $record): array => ['entity' => $record])
-									->key('backup-columns'),
-							])
-							->visible(fn (string $operation) => $operation == 'edit'),
+        return $schema
+            ->components([
+                Tabs::make('Tabs')
+                    ->columnSpanFull()
+                    ->tabs([
+                        Tab::make(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.tabs.info', true))
+                            ->schema([
+                                Section::make('info')
+                                    ->collapsible()
+                                    ->schema(static::getInfoSection())
+                                    ->extraAttributes(['class' => 'first-entity-section']),
+                            ]),
+                        Tab::make(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.tabs.custom_fields', true))
+                            ->schema([
+                                RelationManager::make()->manager(CustomFieldsRelationManager::class),
+                                Livewire::make(BackupColumns::class, fn (Entity $record): array => ['entity' => $record])
+                                    ->key('backup-columns'),
+                            ])
+                            ->visible(fn (string $operation) => $operation == 'edit'),
 
-						Tab::make(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.tabs.entity_views', true))
-							->schema([
-								RelationManager::make()->manager(EntityViewsRelationManager::class),
-							])
-							->visible(fn (string $operation) => $operation == 'edit'),
+                        Tab::make(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.tabs.entity_views', true))
+                            ->schema([
+                                RelationManager::make()->manager(EntityViewsRelationManager::class),
+                            ])
+                            ->visible(fn (string $operation) => $operation == 'edit'),
 
-					])
-					->persistTab()
-					->id('entity-form-tab'),
-			]);
-	}
+                    ])
+                    ->persistTab()
+                    ->id('entity-form-tab'),
+            ]);
+    }
 
-	public static function getInfoSection(): array
-	{
+    public static function getInfoSection(): array
+    {
 
-		$rows = [];
+        $rows = [];
 
-		$rows[] = TextInput::make('title')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.title'))
-			->maxLength(255)
-			->required(fn (string $operation): bool => $operation === 'edit')
-			->visible(fn (string $operation): bool => $operation === 'edit');
-		$rows[] = TextInput::make('resource_slug')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.resource_slug'))
-			->unique()
-			->visible(fn (string $operation): bool => $operation === 'edit')
-			->disabled();
-		$rows[] = TextInput::make('label_single')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.label_single'))
-			->required()
-			->maxLength(64)
-			->rules(static::getEntityLabelRules(), static::getEntityLabelRuleCondition())
-			->helperText(static::getEntityLabelHelperText())
-			->disabled(fn (string $operation): bool => $operation === 'edit');
-		$rows[] = TextInput::make('resource')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.resource'))
-			->visible(fn (string $operation): bool => $operation === 'edit')
-			->disabled();
-		$rows[] = TextInput::make('model_class')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.model_class'))
-			->visible(fn (string $operation): bool => $operation === 'edit')
-			->disabled();
-		$rows[] = TextInput::make('controller')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.controller'))
-			->visible(fn (string $operation): bool => $operation === 'edit')
-			->disabled();
-		$rows[] = Select::make('nav_group')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.nav_group'))
-			->options(NavGroup::toArray())
-			->default('forms');
-		$rows[] = TextInput::make('position')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.position'))
-			->numeric();
-		$rows[] = Select::make('cgroup')
-			->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.cgroup'))
-			->options(FormGroup::toArray())
-			->native(false)
-			->required()
-			->disabled(fn (string $operation): bool => $operation === 'edit');
+        $rows[] = TextInput::make('title')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.title'))
+            ->maxLength(255)
+            ->required(fn (string $operation): bool => $operation === 'edit')
+            ->visible(fn (string $operation): bool => $operation === 'edit');
+        $rows[] = TextInput::make('resource_slug')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.resource_slug'))
+            ->unique()
+            ->visible(fn (string $operation): bool => $operation === 'edit')
+            ->disabled();
+        $rows[] = TextInput::make('label_single')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.label_single'))
+            ->required()
+            ->maxLength(64)
+            ->rules(static::getEntityLabelRules(), static::getEntityLabelRuleCondition())
+            ->helperText(static::getEntityLabelHelperText())
+            ->disabled(fn (string $operation): bool => $operation === 'edit');
+        $rows[] = TextInput::make('resource')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.resource'))
+            ->visible(fn (string $operation): bool => $operation === 'edit')
+            ->disabled();
+        $rows[] = TextInput::make('model_class')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.model_class'))
+            ->visible(fn (string $operation): bool => $operation === 'edit')
+            ->disabled();
+        $rows[] = TextInput::make('controller')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.controller'))
+            ->visible(fn (string $operation): bool => $operation === 'edit')
+            ->disabled();
+        $rows[] = Select::make('nav_group')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.nav_group'))
+            ->options(NavGroup::toArray())
+            ->default('forms');
+        $rows[] = TextInput::make('position')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.position'))
+            ->numeric();
+        $rows[] = Select::make('cgroup')
+            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.cgroup'))
+            ->options(FormGroup::toArray())
+            ->native(false)
+            ->required()
+            ->disabled(fn (string $operation): bool => $operation === 'edit');
 
-		return $rows;
+        return $rows;
 
-	}
+    }
 }

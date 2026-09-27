@@ -8,43 +8,42 @@ use Lara\Common\Models\Taxonomy;
 
 trait HasReorder
 {
+    private static function getDefaultTxonomyId(): ?int
+    {
+        $taxonomy = Taxonomy::where('is_default', 1)->first();
+        if ($taxonomy) {
+            return $taxonomy->id;
+        } else {
+            return null;
+        }
+    }
 
+    private static function getDefaultResourceSlug(): ?string
+    {
+        $entity = Entity::where('cgroup', 'entity')->orderBy('position')->first();
+        if ($entity) {
+            return $entity->resource_slug;
+        } else {
+            return null;
+        }
+    }
 
-	private static function getDefaultTxonomyId() : ?int {
-		$taxonomy = Taxonomy::where('is_default', 1)->first();
-		if ($taxonomy) {
-			return $taxonomy->id;
-		} else {
-			return null;
-		}
-	}
+    private static function saveEntityOrder($language, $modelClass, $data): void
+    {
 
-	private static function getDefaultResourceSlug() : ?string {
-		$entity = Entity::where('cgroup', 'entity')->orderBy('position')->first();
-		if($entity) {
-			return $entity->resource_slug;
-		} else {
-			return null;
-		}
-	}
+        $languageId = Language::where('code', $language)->first()->value('id');
 
-	private static function saveEntityOrder($language, $modelClass, $data): void
-	{
+        $position = $languageId * 1000 + 1;
+        foreach ($data as $objectId) {
 
-		$languageId = Language::where('code', $language)->first()->value('id');
+            $object = $modelClass::find($objectId);
 
-		$position = $languageId * 1000 + 1;
-		foreach($data as $objectId) {
+            $object->position = $position;
+            $object->save();
 
-			$object = $modelClass::find($objectId);
+            $position++;
 
-			$object->position = $position;
-			$object->save();
+        }
 
-			$position++;
-
-		}
-
-
-	}
+    }
 }

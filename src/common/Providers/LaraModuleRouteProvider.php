@@ -4,7 +4,6 @@ namespace Lara\Common\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
-
 use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
 
 /**
@@ -24,71 +23,69 @@ use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
  */
 abstract class LaraModuleRouteProvider extends RouteServiceProvider
 {
+    use LoadsTranslatedCachedRoutes;
 
-	use LoadsTranslatedCachedRoutes;
+    /**
+     * Controller namespace applied to this module's routes, and used as the
+     * URL generator's root namespace.
+     *
+     * @var string|null
+     */
+    protected $namespace;
 
-	/**
-	 * Controller namespace applied to this module's routes, and used as the
-	 * URL generator's root namespace.
-	 *
-	 * @var string|null
-	 */
-	protected $namespace;
+    /**
+     * Absolute path to the directory holding this module's route files.
+     *
+     * Implemented per module so that __DIR__ resolves to the module, not to
+     * this base class.
+     */
+    abstract protected function routesPath(): string;
 
-	/**
-	 * Absolute path to the directory holding this module's route files.
-	 *
-	 * Implemented per module so that __DIR__ resolves to the module, not to
-	 * this base class.
-	 */
-	abstract protected function routesPath(): string;
+    /**
+     * Called by RouteServiceProvider::loadRoutes() when routes are not cached.
+     */
+    public function map(): void
+    {
+        $this->mapWebRoutes();
+        $this->mapApiRoutes();
+    }
 
-	/**
-	 * Called by RouteServiceProvider::loadRoutes() when routes are not cached.
-	 */
-	public function map(): void
-	{
-		$this->mapWebRoutes();
-		$this->mapApiRoutes();
-	}
+    /**
+     * Web routes: session state, CSRF protection, etc.
+     */
+    protected function mapWebRoutes(): void
+    {
+        $path = $this->routesPath().'/web.php';
 
-	/**
-	 * Web routes: session state, CSRF protection, etc.
-	 */
-	protected function mapWebRoutes(): void
-	{
-		$path = $this->routesPath() . '/web.php';
+        if (! file_exists($path)) {
+            return;
+        }
 
-		if (!file_exists($path)) {
-			return;
-		}
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace,
+        ], function () use ($path) {
+            require $path;
+        });
+    }
 
-		Route::group([
-			'middleware' => 'web',
-			'namespace'  => $this->namespace,
-		], function () use ($path) {
-			require $path;
-		});
-	}
+    /**
+     * API routes: stateless.
+     */
+    protected function mapApiRoutes(): void
+    {
+        $path = $this->routesPath().'/api.php';
 
-	/**
-	 * API routes: stateless.
-	 */
-	protected function mapApiRoutes(): void
-	{
-		$path = $this->routesPath() . '/api.php';
+        if (! file_exists($path)) {
+            return;
+        }
 
-		if (!file_exists($path)) {
-			return;
-		}
-
-		Route::group([
-			'middleware' => 'api',
-			'namespace'  => $this->namespace,
-			'prefix'     => 'api',
-		], function () use ($path) {
-			require $path;
-		});
-	}
-
+        Route::group([
+            'middleware' => 'api',
+            'namespace' => $this->namespace,
+            'prefix' => 'api',
+        ], function () use ($path) {
+            require $path;
+        });
+    }
 }

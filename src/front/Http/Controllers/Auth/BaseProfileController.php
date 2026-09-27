@@ -20,148 +20,148 @@ use stdClass;
 
 class BaseProfileController extends Controller
 {
-	use HasFrontend;
-	use HasFrontEntity;
-	use HasFrontList;
-	use HasFrontMenu;
-	use HasFrontObject;
-	use HasFrontView;
-	use HasTheme;
+    use HasFrontend;
+    use HasFrontEntity;
+    use HasFrontList;
+    use HasFrontMenu;
+    use HasFrontObject;
+    use HasFrontView;
+    use HasTheme;
 
-	protected ?string $modelClass = User::class;
+    protected ?string $modelClass = User::class;
 
-	protected ?string $routename = null;
+    protected ?string $routename = null;
 
-	protected ?object $entity = null;
+    protected ?object $entity = null;
 
-	protected ?object $activeroute = null;
+    protected ?object $activeroute = null;
 
-	protected ?string $language = null;
+    protected ?string $language = null;
 
-	protected ?object $data = null;
+    protected ?object $data = null;
 
-	protected ?object $globalwidgets = null;
+    protected ?object $globalwidgets = null;
 
-	protected ?object $globalsettings = null;
+    protected ?object $globalsettings = null;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
 
-		// get language
-		$this->language = LaravelLocalization::getCurrentLocale();
+        // get language
+        $this->language = LaravelLocalization::getCurrentLocale();
 
-		// create an empty Laravel object to hold all the data (see: https://goo.gl/ufmFHe)
-		$this->data = new stdClass;
+        // create an empty Laravel object to hold all the data (see: https://goo.gl/ufmFHe)
+        $this->data = new stdClass;
 
-		// only when handling a matched HTTP request: there is no route to read
-		// in console, queue or test-bootstrap contexts
-		if (Route::current() !== null) {
+        // only when handling a matched HTTP request: there is no route to read
+        // in console, queue or test-bootstrap contexts
+        if (Route::current() !== null) {
 
-			// get route name
-			$this->routename = Route::current()->getName();
+            // get route name
+            $this->routename = Route::current()->getName();
 
-			// preview
-			$this->ispreview = $this->isPreview($this->routename);
+            // preview
+            $this->ispreview = $this->isPreview($this->routename);
 
-			// get active route
-			$this->activeroute = $this->getLaraActiveRoute($this->routename);
+            // get active route
+            $this->activeroute = $this->getLaraActiveRoute($this->routename);
 
-			// get entity
-			$this->entity = $this->getFrontEntity($this->routename);
+            // get entity
+            $this->entity = $this->getFrontEntity($this->routename);
 
-			// get default seo
-			$this->data->seo = $this->getDefaultSeo($this->language);
+            // get default seo
+            $this->data->seo = $this->getDefaultSeo($this->language);
 
-			// get default layout
-			$this->data->layout = $this->getDefaultThemeLayout();
+            // get default layout
+            $this->data->layout = $this->getDefaultThemeLayout();
 
-			// get entity routes from menu
-			$this->data->eroutes = $this->getMenuEntityRoutes($this->language);
+            // get entity routes from menu
+            $this->data->eroutes = $this->getMenuEntityRoutes($this->language);
 
-			// get global widgets
-			$this->globalwidgets = $this->getGlobalWidgets($this->language);
+            // get global widgets
+            $this->globalwidgets = $this->getGlobalWidgets($this->language);
 
-			$this->globalsettings = $this->getGlobalSettings();
+            $this->globalsettings = $this->getGlobalSettings();
 
-			// share data with all views, see: https://goo.gl/Aqxquw
-			$this->middleware(function ($request, $next) {
-				view()->share('entity', $this->entity);
-				view()->share('activeroute', $this->activeroute);
-				view()->share('language', $this->language);
-				view()->share('ispreview', $this->ispreview);
-				view()->share('globalwidgets', $this->globalwidgets);
-				view()->share('globalsettings', $this->globalsettings);
+            // share data with all views, see: https://goo.gl/Aqxquw
+            $this->middleware(function ($request, $next) {
+                view()->share('entity', $this->entity);
+                view()->share('activeroute', $this->activeroute);
+                view()->share('language', $this->language);
+                view()->share('ispreview', $this->ispreview);
+                view()->share('globalwidgets', $this->globalwidgets);
+                view()->share('globalsettings', $this->globalsettings);
 
-				return $next($request);
-			});
-		}
+                return $next($request);
+            });
+        }
 
-	}
+    }
 
-	public function form(Request $request)
-	{
+    public function form(Request $request)
+    {
 
-		if (! config('lara.auth.has_front_profile')) {
-			return redirect()->route('special.home.show');
-		}
+        if (! config('lara.auth.has_front_profile')) {
+            return redirect()->route('special.home.show');
+        }
 
-		$this->data->object = $this->modelClass::find(Auth::user()->id);
+        $this->data->object = $this->modelClass::find(Auth::user()->id);
 
-		// get params
-		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
-		if ($this->data->params instanceof RedirectResponse) {
-			return $this->data->params;
-		}
+        // get params
+        $this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+        if ($this->data->params instanceof RedirectResponse) {
+            return $this->data->params;
+        }
 
-		// get related module page for SEO and Intro
-		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'form');
+        // get related module page for SEO and Intro
+        $this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'form');
 
-		// Use module page for Intro
-		$this->data->page = $this->data->modulepage;
+        // Use module page for Intro
+        $this->data->page = $this->data->modulepage;
 
-		// seo
-		$this->data->seo = $this->getSeo($this->data->modulepage);
+        // seo
+        $this->data->seo = $this->getSeo($this->data->modulepage);
 
-		// get language versions
-		$this->data->langversions = [];
+        // get language versions
+        $this->data->langversions = [];
 
-		// override default layout with custom module page layout
-		$this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
-		$this->data->grid = $this->getGrid($this->data->layout);
+        // override default layout with custom module page layout
+        $this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
+        $this->data->grid = $this->getGrid($this->data->layout);
 
-		// template vars & override
-		$this->data->gridvars = $this->getGridVars($this->entity);
-		$this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
+        // template vars & override
+        $this->data->gridvars = $this->getGridVars($this->entity);
+        $this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
 
-		$viewfile = '_user.profile.form';
+        $viewfile = '_user.profile.form';
 
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
+        return view($viewfile, [
+            'data' => $this->data,
+        ]);
 
-	}
+    }
 
-	public function process(Request $request)
-	{
+    public function process(Request $request)
+    {
 
-		if (! config('lara.auth.has_front_profile')) {
-			return redirect()->route('special.home.show');
-		}
+        if (! config('lara.auth.has_front_profile')) {
+            return redirect()->route('special.home.show');
+        }
 
-		$id = Auth::user()->id;
+        $id = Auth::user()->id;
 
-		$object = $this->modelClass::findOrFail($id);
+        $object = $this->modelClass::findOrFail($id);
 
-		if ($request->input('_password') != '') {
-			$object->password = $request->input('_password');
-		}
+        if ($request->input('_password') != '') {
+            $object->password = $request->input('_password');
+        }
 
-		// save object
-		$object->update($request->all());
+        // save object
+        $object->update($request->all());
 
-		flash(_q('lara-front::user.message.profile_saved_successfully'))->success();
+        flash(_q('lara-front::user.message.profile_saved_successfully'))->success();
 
-		return redirect()->route('special.user.profile');
+        return redirect()->route('special.user.profile');
 
-	}
+    }
 }

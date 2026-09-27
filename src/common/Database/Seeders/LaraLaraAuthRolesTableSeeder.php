@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class LaraLaraAuthRolesTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,13 +13,11 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_auth_roles')->delete();
-        
-        \DB::table('lara_auth_roles')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_auth_roles')->insert([
+            0 => [
                 'id' => 1,
                 'name' => 'superadmin',
                 'guard_name' => 'web',
@@ -28,9 +25,8 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'level' => 100,
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2025-06-17 19:21:45',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 2,
                 'name' => 'administrator',
                 'guard_name' => 'web',
@@ -38,9 +34,8 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'level' => 95,
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2026-09-26 17:55:58',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 3,
                 'name' => 'webmaster',
                 'guard_name' => 'web',
@@ -48,9 +43,8 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'level' => 90,
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2025-12-19 14:07:13',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 4,
                 'name' => 'member',
                 'guard_name' => 'web',
@@ -58,9 +52,8 @@ class LaraLaraAuthRolesTableSeeder extends Seeder
                 'level' => 10,
                 'created_at' => '2026-03-17 20:22:33',
                 'updated_at' => '2026-03-17 20:22:33',
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

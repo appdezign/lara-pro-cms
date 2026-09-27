@@ -15,99 +15,99 @@ use LaravelLocalization;
 
 class SliderWidget extends AbstractWidget
 {
-	use HasFrontend;
-	use HasFrontEntity;
-	use HasFrontMenu;
-	use HasFrontTerms;
+    use HasFrontend;
+    use HasFrontEntity;
+    use HasFrontMenu;
+    use HasFrontTerms;
 
-	protected $config = [
-		'term' => 'home',
-		'grid' => null,
-		'sliderclass' => null,
-	];
+    protected $config = [
+        'term' => 'home',
+        'grid' => null,
+        'sliderclass' => null,
+    ];
 
-	public $cacheTime = false;
+    public $cacheTime = false;
 
-	public function __construct(array $config = [])
-	{
-		$this->cacheTime = config('lara-front.widget_cache_time');
-		parent::__construct($config);
-	}
+    public function __construct(array $config = [])
+    {
+        $this->cacheTime = config('lara-front.widget_cache_time');
+        parent::__construct($config);
+    }
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.sliderWidget.'.$this->config['term'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.sliderWidget.'.$this->config['term'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
 
-		$language = LaravelLocalization::getCurrentLocale();
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$isMultiLanguage = config('lara.is_multi_language');
+        $isMultiLanguage = config('lara.is_multi_language');
 
-		$term = $this->config['term'];
+        $term = $this->config['term'];
 
-		if ($isMultiLanguage) {
-			$activeTerm = $term.'-'.$language;
-		} else {
-			$activeTerm = $term;
-		}
+        if ($isMultiLanguage) {
+            $activeTerm = $term.'-'.$language;
+        } else {
+            $activeTerm = $term;
+        }
 
-		$taxonomy = $this->getFrontDefaultTaxonomy();
-		$tag = Tag::langIs($language)
-			->resourceIs('sliders')
-			->taxonomyIs($taxonomy->id)
-			->where('slug', $activeTerm)->first();
+        $taxonomy = $this->getFrontDefaultTaxonomy();
+        $tag = Tag::langIs($language)
+            ->resourceIs('sliders')
+            ->taxonomyIs($taxonomy->id)
+            ->where('slug', $activeTerm)->first();
 
-		if ($tag) {
+        if ($tag) {
 
-			$entity = $this->getResourceBySlug('sliders');
-			$modelClass = $entity->getEntityModelClass();
+            $entity = $this->getResourceBySlug('sliders');
+            $modelClass = $entity->getEntityModelClass();
 
-			// get sliders
-			$widgetsliders = $modelClass::langIs($language)
-				->isPublished()
-				->has('images')
-				->whereHas('terms', function ($query) use ($activeTerm) {
-					$query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
-				})
-				->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder())
-				->get();
+            // get sliders
+            $widgetsliders = $modelClass::langIs($language)
+                ->isPublished()
+                ->has('images')
+                ->whereHas('terms', function ($query) use ($activeTerm) {
+                    $query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
+                })
+                ->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder())
+                ->get();
 
-		} else {
+        } else {
 
-			$widgetsliders = null;
+            $widgetsliders = null;
 
-		}
+        }
 
-		$eroutes = $this->getMenuEntityRoutes($language);
+        $eroutes = $this->getMenuEntityRoutes($language);
 
-		// identifier
-		$templateFileName = $this->config['term'];
+        // identifier
+        $templateFileName = $this->config['term'];
 
-		$widgetview = '_widgets.slider.'.$templateFileName;
+        $widgetview = '_widgets.slider.'.$templateFileName;
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'eroutes' => $eroutes,
-				'sliderclass' => $this->config['sliderclass'],
-				'widgetsliders' => $widgetsliders,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'eroutes' => $eroutes,
+                'sliderclass' => $this->config['sliderclass'],
+                'widgetsliders' => $widgetsliders,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }

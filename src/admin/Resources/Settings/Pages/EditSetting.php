@@ -4,22 +4,21 @@ namespace Lara\Admin\Resources\Settings\Pages;
 
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
-use Lara\Admin\Resources\Settings\SettingResource;
 use Lara\Admin\Concerns\HasLocks;
+use Lara\Admin\Resources\Settings\SettingResource;
 
 class EditSetting extends EditRecord
 {
-
-	use HasLocks;
+    use HasLocks;
 
     protected static string $resource = SettingResource::class;
 
-	public function mount(int|string $record): void
-	{
-		parent::mount($record);
-		static::checkRecordLock($this->record);
-		static::lockRecord($this->record);
-	}
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+        static::checkRecordLock($this->record);
+        static::lockRecord($this->record);
+    }
 
     public function getFormActions(): array
     {
@@ -29,27 +28,25 @@ class EditSetting extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-	        Action::make('unlockrecord')
-		        ->icon('bi-chevron-left')
-		        ->iconButton()
-		        ->color('gray')
-		        ->action(function () {
-			        static::unlockRecord($this->record);
-			        if($this->previousUrl) {
-				        return redirect($this->previousUrl);
-			        } else {
-				        return redirect($this->getResource()::getUrl('index'));
-			        }
-		        }),
-	        Action::make('save')
-		        ->label('save')
-		        ->color('danger')
-		        ->submit(null)
-		        ->action(function() {
-			        $this->save();
-		        }),
+            Action::make('unlockrecord')
+                ->icon('bi-chevron-left')
+                ->iconButton()
+                ->color('gray')
+                ->action(function () {
+                    static::unlockRecord($this->record);
+                    if ($this->previousUrl) {
+                        return redirect($this->previousUrl);
+                    } else {
+                        return redirect($this->getResource()::getUrl('index'));
+                    }
+                }),
+            Action::make('save')
+                ->label('save')
+                ->color('danger')
+                ->submit(null)
+                ->action(function () {
+                    $this->save();
+                }),
         ];
     }
-
-
 }

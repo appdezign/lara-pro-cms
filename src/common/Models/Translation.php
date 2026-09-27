@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Translation extends Model
 {
-
-
     protected $table = 'lara_sys_translations';
 
     /**
@@ -20,18 +18,14 @@ class Translation extends Model
         'updated_at',
     ];
 
-	protected $casts = [
-		'created_at' => 'datetime',
-		'updated_at' => 'datetime',
-		'deleted_at' => 'datetime',
-	];
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
 
-	/**
+    /**
      * Language scope.
-     *
-     * @param Builder $query
-     * @param string $language
-     * @return Builder
      */
     public function scopeLangIs(Builder $query, string $language): Builder
     {

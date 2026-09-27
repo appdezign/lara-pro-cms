@@ -4,15 +4,7 @@ namespace Lara\Common\Entities;
 
 class SlidersEntity extends LaraEntity
 {
+    protected ?string $module = 'admin';
 
-	/**
-	 * @var string
-	 */
-	protected ?string $module = 'admin';
-
-	/**
-	 * @var string
-	 */
-	public ?string $resource_slug = 'sliders';
-
+    public ?string $resource_slug = 'sliders';
 }

@@ -13,22 +13,22 @@ class CustomFieldsRelationManager extends RelationManager
 {
     protected static string $relationship = 'customfields';
 
-	public function form(Schema $schema): Schema
-	{
-		return CustomFieldForm::configure($schema);
-	}
+    public function form(Schema $schema): Schema
+    {
+        return CustomFieldForm::configure($schema);
+    }
 
-	public function table(Table $table): Table
-	{
-		return CustomFieldsTable::configure($table);
-	}
+    public function table(Table $table): Table
+    {
+        return CustomFieldsTable::configure($table);
+    }
 
-	/**
-	 * A backup column was restored as a field.
-	 */
-	#[On('lara-custom-fields-changed')]
-	public function refreshCustomFields(): void
-	{
-		$this->resetTable();
-	}
+    /**
+     * A backup column was restored as a field.
+     */
+    #[On('lara-custom-fields-changed')]
+    public function refreshCustomFields(): void
+    {
+        $this->resetTable();
+    }
 }

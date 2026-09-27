@@ -13,10 +13,9 @@ class ListRoles extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-	        CreateAction::make()
-		        ->icon('bi-plus-lg')
-		        ->iconButton(),
+            CreateAction::make()
+                ->icon('bi-plus-lg')
+                ->iconButton(),
         ];
     }
-
 }

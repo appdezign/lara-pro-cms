@@ -14,30 +14,28 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EntityConfigObserver
 {
+    public function saved(Model $model): void
+    {
+        $this->flush();
+    }
 
-	public function saved(Model $model): void
-	{
-		$this->flush();
-	}
+    public function deleted(Model $model): void
+    {
+        $this->flush();
+    }
 
-	public function deleted(Model $model): void
-	{
-		$this->flush();
-	}
+    public function restored(Model $model): void
+    {
+        $this->flush();
+    }
 
-	public function restored(Model $model): void
-	{
-		$this->flush();
-	}
+    public function forceDeleted(Model $model): void
+    {
+        $this->flush();
+    }
 
-	public function forceDeleted(Model $model): void
-	{
-		$this->flush();
-	}
-
-	private function flush(): void
-	{
-		app(EntityRegistry::class)->flush();
-	}
-
+    private function flush(): void
+    {
+        app(EntityRegistry::class)->flush();
+    }
 }

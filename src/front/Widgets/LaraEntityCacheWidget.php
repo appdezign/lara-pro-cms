@@ -17,175 +17,175 @@ use LaravelLocalization;
 
 class LaraEntityCacheWidget extends AbstractWidget
 {
-	use HasFrontend;
-	use HasFrontEntity;
-	use HasFrontMenu;
-	use HasFrontRoutes;
-	use HasFrontTerms;
+    use HasFrontend;
+    use HasFrontEntity;
+    use HasFrontMenu;
+    use HasFrontRoutes;
+    use HasFrontTerms;
 
-	protected $config = [
-		'widget_id' => null,
-		'grid' => null,
-	];
+    protected $config = [
+        'widget_id' => null,
+        'grid' => null,
+    ];
 
-	public $cacheTime = false;
+    public $cacheTime = false;
 
-	public function __construct(array $config = [])
-	{
-		$this->cacheTime = config('lara-front.widget_cache_time');
-		parent::__construct($config);
-	}
+    public function __construct(array $config = [])
+    {
+        $this->cacheTime = config('lara-front.widget_cache_time');
+        parent::__construct($config);
+    }
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.entity.'.$this->config['widget_id'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.entity.'.$this->config['widget_id'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
 
-		$language = LaravelLocalization::getCurrentLocale();
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$larawidget = LaraWidget::find($this->config['widget_id']);
+        $larawidget = LaraWidget::find($this->config['widget_id']);
 
-		$resourceSlug = $larawidget->resource_slug;
-		$entity = $this->getResourceBySlug($resourceSlug);
+        $resourceSlug = $larawidget->resource_slug;
+        $entity = $this->getResourceBySlug($resourceSlug);
 
-		if ($entity) {
+        if ($entity) {
 
-			$term = ($larawidget->term != 'none') ? $larawidget->term : null;
+            $term = ($larawidget->term != 'none') ? $larawidget->term : null;
 
-			if ($term) {
-				// get the full Tag object
-				$taxonomy = $this->getFrontDefaultTaxonomy();
-				$widgetTaxonomy = Tag::langIs($language)
-					->resourceIs($entity->getResourceSlug())
-					->taxonomyIs($taxonomy->id)
-					->where('slug', $term)->first();
-				if (empty($widgetTaxonomy)) {
-					$term = null;
-				}
-			} else {
-				$widgetTaxonomy = null;
-			}
+            if ($term) {
+                // get the full Tag object
+                $taxonomy = $this->getFrontDefaultTaxonomy();
+                $widgetTaxonomy = Tag::langIs($language)
+                    ->resourceIs($entity->getResourceSlug())
+                    ->taxonomyIs($taxonomy->id)
+                    ->where('slug', $term)->first();
+                if (empty($widgetTaxonomy)) {
+                    $term = null;
+                }
+            } else {
+                $widgetTaxonomy = null;
+            }
 
-			// start collection
-			$modelClass = $entity->getEntityModelClass();
-			$collection = new $modelClass;
+            // start collection
+            $modelClass = $entity->getEntityModelClass();
+            $collection = new $modelClass;
 
-			$collection = $collection->langIs($language);
+            $collection = $collection->langIs($language);
 
-			if ($entity->hasStatus()) {
-				$collection = $collection->isPublished();
-			}
+            if ($entity->hasStatus()) {
+                $collection = $collection->isPublished();
+            }
 
-			if ($entity->hasHideinlist()) {
-				$collection = $collection->where('publish_hide', 0);
-			}
+            if ($entity->hasHideinlist()) {
+                $collection = $collection->where('publish_hide', 0);
+            }
 
-			if ($entity->hasExpiration()) {
-				$collection = $collection->isNotExpired();
-			}
+            if ($entity->hasExpiration()) {
+                $collection = $collection->isNotExpired();
+            }
 
-			if (method_exists($modelClass, 'scopeFront')) {
-				$collection = $collection->front();
-			}
+            if (method_exists($modelClass, 'scopeFront')) {
+                $collection = $collection->front();
+            }
 
-			if ($larawidget->imgreq) {
-				$collection = $collection->has('images');
-			}
+            if ($larawidget->imgreq) {
+                $collection = $collection->has('images');
+            }
 
-			if ($entity->hasImages()) {
-				$collection = $collection->with('images');
-			}
+            if ($entity->hasImages()) {
+                $collection = $collection->with('images');
+            }
 
-			if ($term) {
-				$collection = $collection->whereHas('terms', function ($query) use ($term) {
-					$query->where(config('lara-common.database.object.terms').'.slug', $term);
-				});
+            if ($term) {
+                $collection = $collection->whereHas('terms', function ($query) use ($term) {
+                    $query->where(config('lara-common.database.object.terms').'.slug', $term);
+                });
 
-			} else {
-				$collection = $collection->with([
-					'tags' => function ($query) use ($entity) {
-						$query->where(config('lara-common.database.object.terms').'.resource_slug', $entity->getResourceSlug());
-					},
-				]);
-			}
+            } else {
+                $collection = $collection->with([
+                    'tags' => function ($query) use ($entity) {
+                        $query->where(config('lara-common.database.object.terms').'.resource_slug', $entity->getResourceSlug());
+                    },
+                ]);
+            }
 
-			foreach ($entity->getCustomColumns() as $field) {
-				if ($field->fieldname == 'sticky') {
-					$collection = $collection->orderBy('sticky', 'desc');
-				}
-			}
-			if ($entity->getPrimarySortField()) {
-				$collection = $collection->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder());
-			}
-			if ($entity->getSecondarySortField()) {
-				$collection = $collection->orderBy($entity->getSecondarySortField(), $entity->getSecondarySortOrder());
-			}
+            foreach ($entity->getCustomColumns() as $field) {
+                if ($field->fieldname == 'sticky') {
+                    $collection = $collection->orderBy('sticky', 'desc');
+                }
+            }
+            if ($entity->getPrimarySortField()) {
+                $collection = $collection->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder());
+            }
+            if ($entity->getSecondarySortField()) {
+                $collection = $collection->orderBy($entity->getSecondarySortField(), $entity->getSecondarySortOrder());
+            }
 
-			if (is_numeric($larawidget->max_items) && $larawidget->max_items > 0) {
-				$collection = $collection->limit($larawidget->max_items);
-			}
+            if (is_numeric($larawidget->max_items) && $larawidget->max_items > 0) {
+                $collection = $collection->limit($larawidget->max_items);
+            }
 
-			// get collection
-			$widgetObjects = $collection->get();
+            // get collection
+            $widgetObjects = $collection->get();
 
-			// get all tags
-			if ($entity->hasTags()) {
-				$widgetTaxonomies = $this->getTagsFromCollection($language, $entity, $widgetObjects);
-			} else {
-				$widgetTaxonomies = null;
-			}
+            // get all tags
+            if ($entity->hasTags()) {
+                $widgetTaxonomies = $this->getTagsFromCollection($language, $entity, $widgetObjects);
+            } else {
+                $widgetTaxonomies = null;
+            }
 
-			$widgetEntityRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index');
-			$widgetEntitySingleRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index', true);
+            $widgetEntityRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index');
+            $widgetEntitySingleRoute = $this->getFrontSeoRoute($entity->getResourceSlug(), 'index', true);
 
-		} else {
+        } else {
 
-			$widgetObjects = null;
-			$widgetTaxonomy = null;
-			$widgetTaxonomies = null;
-			$widgetEntityRoute = null;
-			$widgetEntitySingleRoute = null;
+            $widgetObjects = null;
+            $widgetTaxonomy = null;
+            $widgetTaxonomies = null;
+            $widgetEntityRoute = null;
+            $widgetEntitySingleRoute = null;
 
-		}
+        }
 
-		$eroutes = $this->getMenuEntityRoutes($language);
+        $eroutes = $this->getMenuEntityRoutes($language);
 
-		// identifier
-		if ($larawidget->template) {
-			$templateFileName = $larawidget->template;
-		} else {
-			$templateFileName = 'default_'.$resourceSlug;
-		}
+        // identifier
+        if ($larawidget->template) {
+            $templateFileName = $larawidget->template;
+        } else {
+            $templateFileName = 'default_'.$resourceSlug;
+        }
 
-		$widgetview = '_widgets.lara.entity.'.$templateFileName;
+        $widgetview = '_widgets.lara.entity.'.$templateFileName;
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'eroutes' => $eroutes,
-				'widgetObjects' => $widgetObjects,
-				'widgetTaxonomy' => $widgetTaxonomy,
-				'widgetTaxonomies' => $widgetTaxonomies,
-				'widgetEntityRoute' => $widgetEntityRoute,
-				'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
-				'larawidget' => $larawidget,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'eroutes' => $eroutes,
+                'widgetObjects' => $widgetObjects,
+                'widgetTaxonomy' => $widgetTaxonomy,
+                'widgetTaxonomies' => $widgetTaxonomies,
+                'widgetEntityRoute' => $widgetEntityRoute,
+                'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
+                'larawidget' => $larawidget,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }

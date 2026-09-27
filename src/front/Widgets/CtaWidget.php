@@ -13,60 +13,60 @@ use LaravelLocalization;
 
 class CtaWidget extends AbstractWidget
 {
-	use HasFrontend;
-	use HasFrontMenu;
+    use HasFrontend;
+    use HasFrontMenu;
 
-	protected $config = [
-		'hook' => null,
-		'template' => 'default',
-		'grid' => null,
-	];
+    protected $config = [
+        'hook' => null,
+        'template' => 'default',
+        'grid' => null,
+    ];
 
-	public $cacheTime = false;
+    public $cacheTime = false;
 
-	public function __construct(array $config = [])
-	{
-		parent::__construct($config);
-	}
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+    }
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.ctaWidget.'.$this->config['hook'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.ctaWidget.'.$this->config['hook'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
 
-		$language = LaravelLocalization::getCurrentLocale();
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$widgetcta = Cta::langIs($language)->where('hook', $this->config['hook'])->first();
+        $widgetcta = Cta::langIs($language)->where('hook', $this->config['hook'])->first();
 
-		$eroutes = $this->getMenuEntityRoutes($language);
+        $eroutes = $this->getMenuEntityRoutes($language);
 
-		// identifier
-		$templateFileName = $this->config['template'];
+        // identifier
+        $templateFileName = $this->config['template'];
 
-		$widgetview = '_widgets.cta.'.$templateFileName;
+        $widgetview = '_widgets.cta.'.$templateFileName;
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'eroutes' => $eroutes,
-				'widgetcta' => $widgetcta,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'eroutes' => $eroutes,
+                'widgetcta' => $widgetcta,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }

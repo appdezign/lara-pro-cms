@@ -13,66 +13,66 @@ use LaravelLocalization;
 
 class BreadcrumbWidget extends AbstractWidget
 {
-	use HasFrontMenu;
-	use HasFrontRoutes;
+    use HasFrontMenu;
+    use HasFrontRoutes;
 
-	protected $config = [
-		'lang' => 'nl',
-		'grid' => null,
-	];
+    protected $config = [
+        'lang' => 'nl',
+        'grid' => null,
+    ];
 
-	public $cacheTime = false;
+    public $cacheTime = false;
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.breadcrumbWidget.'.$this->config['lang'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.breadcrumbWidget.'.$this->config['lang'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
 
-		$language = LaravelLocalization::getCurrentLocale();
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$activemenu = $this->getActiveMenuArray(true);
+        $activemenu = $this->getActiveMenuArray(true);
 
-		$breadcrumb = [];
+        $breadcrumb = [];
 
-		foreach ($activemenu as $activeitem) {
+        foreach ($activemenu as $activeitem) {
 
-			$menuitem = MenuItem::find($activeitem);
+            $menuitem = MenuItem::find($activeitem);
 
-			$menuroute = url($this->config['lang'].'/'.$menuitem->route);
+            $menuroute = url($this->config['lang'].'/'.$menuitem->route);
 
-			$breadcrumb[$menuitem->id]['title'] = $menuitem->title;
-			$breadcrumb[$menuitem->id]['route'] = $menuroute;
+            $breadcrumb[$menuitem->id]['title'] = $menuitem->title;
+            $breadcrumb[$menuitem->id]['route'] = $menuroute;
 
-		}
+        }
 
-		$breadcrumb = array_reverse($breadcrumb);
+        $breadcrumb = array_reverse($breadcrumb);
 
-		$eroutes = $this->getMenuEntityRoutes($language);
+        $eroutes = $this->getMenuEntityRoutes($language);
 
-		$widgetview = '_widgets.menu.breadcrumb';
+        $widgetview = '_widgets.menu.breadcrumb';
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'eroutes' => $eroutes,
-				'breadcrumb' => $breadcrumb,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'eroutes' => $eroutes,
+                'breadcrumb' => $breadcrumb,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }

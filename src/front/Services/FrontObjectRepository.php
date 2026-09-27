@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -27,568 +26,565 @@ use Usamamuneerchaudhary\FilaRank\Schema\JsonLd;
  */
 final class FrontObjectRepository
 {
-	public function __construct(
-		private readonly FrontRouteResolver $routeResolver,
-	) {}
-
-	/**
-	 * @param string $language
-	 * @param object $entity
-	 * @param string $slug
-	 * @return RedirectResponse|Redirector|mixed
-	 */
-	public function getSingleFrontObject(string $language, object $entity, string $slug)
-	{
-
-		$modelClass = $entity->getEntityModelClass();
-		$collection = new $modelClass;
-
-		// eager loading
-		if ($entity->hasImages()) {
-			$collection = $collection->with('images');
-		}
-		if ($entity->hasVideos()) {
-			$collection = $collection->with('videos');
-		}
-		if ($entity->hasVideoFiles()) {
-			$collection = $collection->with('videofiles');
-		}
-		if ($entity->hasFiles()) {
-			$collection = $collection->with('files');
-		}
-
-		if (is_numeric($slug)) {
-			$collection->where('id', $slug);
-		} else {
-			$collection->where('language', $language);
-			$collection->where('slug', $slug);
-		}
-
-		$object = $collection->first();
-
-		if ($object) {
-			return $object;
-		} else {
-			return redirect()->route('error.show.404', '404');
-		}
-
-	}
-
-	/**
-	 * @return Application|RedirectResponse|Redirector|int|object|null
-	 */
-	public function getPageObjectId(?int $id, FrontActiveRoute $activeroute)
-	{
-
-		// first check the ID from the request (preview page)
-		if ($id) {
-			return $id;
-		} else {
-			// assume it is a page with a named route, inluding the ID !
-			if (! empty($activeroute->getObjectId())) {
-				return $activeroute->getObjectId();
-			} else {
-				return redirect(route('error.show.404', '404'))->send();
-			}
-		}
-	}
-
-	/**
-	 * @return object
-	 */
-	public function getHeroPage(object $object, ?object $menuTag, object $modulePage)
-	{
-		if ($object->hasHero()) {
-			return $object;
-		} else {
-			if ($menuTag) {
-				return $menuTag;
-			} else {
-				return $modulePage;
-			}
-		}
-	}
-
-	/**
-	 * Get related objects from other entities
-	 *
-	 * @return array|null
-	 */
-	public function getFrontRelated($entity, int $id)
-	{
-
-		if ($entity->hasRelated()) {
-
-			$relatedItems = ObjectRelated::where('entity_type', $entity->getEntityModelClass())
-				->where('entity_id', $id)
-				->first();
-
-			$related = [];
-
-			if ($relatedItems) {
-				// Related Pages
-				$relatedPages = $relatedItems->related_page_objects;
-				foreach ($relatedPages as $rel) {
-
-					$item = new stdClass;
-					$object_id = $rel['page_object_id'];
-
-					// get related object
-					$object = Page::find($object_id);
-					if ($object) {
-						$item->title = $object->title;
-						$item->route = 'content.pages.show';
-						$item->params = $item->params = [
-							'id' => $object->id,
-						];
-						$item->url = null;
-						$item->target = '_self';
-						$related[] = $item;
-					}
-
-				}
-
-				// Related Entity Objects
-				$relatedEntityObjects = $relatedItems->related_entity_objects;
-
-				foreach ($relatedEntityObjects as $rel) {
-
-					$item = new stdClass;
-
-					$object_id = $rel['object_id'];
-					$resource_slug = $rel['resource_slug'];
-
-					// get related object
-					$entity = Entity::where('resource_slug', $resource_slug)->first();
-					if ($entity) {
-						$modelClass = $entity->model_class;
-						$object = $modelClass::find($object_id);
-						if ($object) {
+    public function __construct(
+        private readonly FrontRouteResolver $routeResolver,
+    ) {}
+
+    /**
+     * @return RedirectResponse|Redirector|mixed
+     */
+    public function getSingleFrontObject(string $language, object $entity, string $slug)
+    {
+
+        $modelClass = $entity->getEntityModelClass();
+        $collection = new $modelClass;
+
+        // eager loading
+        if ($entity->hasImages()) {
+            $collection = $collection->with('images');
+        }
+        if ($entity->hasVideos()) {
+            $collection = $collection->with('videos');
+        }
+        if ($entity->hasVideoFiles()) {
+            $collection = $collection->with('videofiles');
+        }
+        if ($entity->hasFiles()) {
+            $collection = $collection->with('files');
+        }
+
+        if (is_numeric($slug)) {
+            $collection->where('id', $slug);
+        } else {
+            $collection->where('language', $language);
+            $collection->where('slug', $slug);
+        }
+
+        $object = $collection->first();
+
+        if ($object) {
+            return $object;
+        } else {
+            return redirect()->route('error.show.404', '404');
+        }
+
+    }
+
+    /**
+     * @return Application|RedirectResponse|Redirector|int|object|null
+     */
+    public function getPageObjectId(?int $id, FrontActiveRoute $activeroute)
+    {
+
+        // first check the ID from the request (preview page)
+        if ($id) {
+            return $id;
+        } else {
+            // assume it is a page with a named route, inluding the ID !
+            if (! empty($activeroute->getObjectId())) {
+                return $activeroute->getObjectId();
+            } else {
+                return redirect(route('error.show.404', '404'))->send();
+            }
+        }
+    }
+
+    /**
+     * @return object
+     */
+    public function getHeroPage(object $object, ?object $menuTag, object $modulePage)
+    {
+        if ($object->hasHero()) {
+            return $object;
+        } else {
+            if ($menuTag) {
+                return $menuTag;
+            } else {
+                return $modulePage;
+            }
+        }
+    }
+
+    /**
+     * Get related objects from other entities
+     *
+     * @return array|null
+     */
+    public function getFrontRelated($entity, int $id)
+    {
+
+        if ($entity->hasRelated()) {
+
+            $relatedItems = ObjectRelated::where('entity_type', $entity->getEntityModelClass())
+                ->where('entity_id', $id)
+                ->first();
+
+            $related = [];
+
+            if ($relatedItems) {
+                // Related Pages
+                $relatedPages = $relatedItems->related_page_objects;
+                foreach ($relatedPages as $rel) {
+
+                    $item = new stdClass;
+                    $object_id = $rel['page_object_id'];
+
+                    // get related object
+                    $object = Page::find($object_id);
+                    if ($object) {
+                        $item->title = $object->title;
+                        $item->route = 'content.pages.show';
+                        $item->params = $item->params = [
+                            'id' => $object->id,
+                        ];
+                        $item->url = null;
+                        $item->target = '_self';
+                        $related[] = $item;
+                    }
+
+                }
+
+                // Related Entity Objects
+                $relatedEntityObjects = $relatedItems->related_entity_objects;
+
+                foreach ($relatedEntityObjects as $rel) {
+
+                    $item = new stdClass;
+
+                    $object_id = $rel['object_id'];
+                    $resource_slug = $rel['resource_slug'];
+
+                    // get related object
+                    $entity = Entity::where('resource_slug', $resource_slug)->first();
+                    if ($entity) {
+                        $modelClass = $entity->model_class;
+                        $object = $modelClass::find($object_id);
+                        if ($object) {
 
-							$item->title = $object->title;
-							$item->route = $this->routeResolver->getFrontSeoRoute($resource_slug, 'index').'.show';
-							$item->params = [
-								'slug' => $object->slug,
-							];
-							$item->url = null;
-							$item->target = '_self';
+                            $item->title = $object->title;
+                            $item->route = $this->routeResolver->getFrontSeoRoute($resource_slug, 'index').'.show';
+                            $item->params = [
+                                'slug' => $object->slug,
+                            ];
+                            $item->url = null;
+                            $item->target = '_self';
 
-							// If the related object is a document, we need to get the document URL
-							if ($resource_slug == 'docs') {
-								$filename = $object->files->entity_files[0]['doc_filename'];
-								$filepath = Storage::disk($entity->media_disk_files)->url($filename);
-								$item->route = null;
-								$item->params = null;
-								$item->url = $filepath;
-								$item->target = '_blank';
-							}
+                            // If the related object is a document, we need to get the document URL
+                            if ($resource_slug == 'docs') {
+                                $filename = $object->files->entity_files[0]['doc_filename'];
+                                $filepath = Storage::disk($entity->media_disk_files)->url($filename);
+                                $item->route = null;
+                                $item->params = null;
+                                $item->url = $filepath;
+                                $item->target = '_blank';
+                            }
 
-							$related[] = $item;
-						}
-					}
+                            $related[] = $item;
+                        }
+                    }
 
-				}
+                }
 
-				// Related Entities
-				$relatedEntities = $relatedItems->related_entities;
-				foreach ($relatedEntities as $rel) {
+                // Related Entities
+                $relatedEntities = $relatedItems->related_entities;
+                foreach ($relatedEntities as $rel) {
 
-					$item = new stdClass;
+                    $item = new stdClass;
 
-					$object_id = $rel['module_page_menu_id'];
+                    $object_id = $rel['module_page_menu_id'];
 
-					// get related object
-					$object = MenuItem::find($object_id);
-					if ($object) {
-						$item->title = $object->title;
-						$item->route = $object->routename;
-						$item->params = null;
-						$item->url = null;
-						$item->target = '_self';
+                    // get related object
+                    $object = MenuItem::find($object_id);
+                    if ($object) {
+                        $item->title = $object->title;
+                        $item->route = $object->routename;
+                        $item->params = null;
+                        $item->url = null;
+                        $item->target = '_self';
 
-						$related[] = $item;
-					}
+                        $related[] = $item;
+                    }
 
-				}
-			}
+                }
+            }
 
-			return $related;
+            return $related;
 
-		} else {
-			return null;
-		}
+        } else {
+            return null;
+        }
 
-	}
+    }
 
-	/**
-	 * Get the Lara Entity Class by key
-	 *
-	 * @return mixed|null
-	 */
-	private function getFrontResourceBySlug(string $resourceSlug)
-	{
+    /**
+     * Get the Lara Entity Class by key
+     *
+     * @return mixed|null
+     */
+    private function getFrontResourceBySlug(string $resourceSlug)
+    {
 
-		$lara = $this->getFrontLaraClass($resourceSlug);
+        $lara = $this->getFrontLaraClass($resourceSlug);
 
-		if ($lara) {
-			$entity = new $lara;
-		} else {
-			$entity = null;
-		}
+        if ($lara) {
+            $entity = new $lara;
+        } else {
+            $entity = null;
+        }
 
-		return $entity;
+        return $entity;
 
-	}
+    }
 
-	/**
-	 * Translate entity key to a full Lara Entity class name
-	 *
-	 * @return string
-	 */
-	private function getFrontLaraClass(string $resourceSlug)
-	{
-
-		$laraClass = '\Lara\Common\Entities\\'.ucfirst($resourceSlug).'Entity';
-
-		if (! class_exists($laraClass)) {
-
-			$laraClass = '\Eve\Lara\\'.ucfirst($resourceSlug).'Entity';
-
-			if (! class_exists($laraClass)) {
-
-				$laraClass = null;
-
-			}
-
-		}
-
-		return $laraClass;
-
-	}
-
-	/**
-	 * Get Page Block for Email
-	 *
-	 * @return mixed
-	 */
-	public function getEmailPageContent(string $language, string $resourceSlug)
-	{
-
-		$slug = $resourceSlug.'-email-'.$language;
-
-		$object = Page::langIs($language)
-			->where('cgroup', 'email')
-			->where('slug', $slug)->first();
-
-		if (empty($object)) {
-
-			$title = ucfirst($resourceSlug).' Email Title';
-
-			// get default backend user
-			$user = User::where('name', 'admin')->first();
-
-			$object = $this->createNewModulePage($language, $title, 'email', $slug);
-
-		}
-
-		return $object;
-
-	}
-
-	/**
-	 * Create a specific module page
-	 *
-	 * @return mixed
-	 */
-	private function createNewModulePage(string $language, string $title, string $cgroup, string $slug)
-	{
-
-		$superAdminId = User::role('superadmin')->value('id');
-
-		$entity = Entity::where('resource_slug', 'pages')->first();
-		$lara = $this->getFrontResourceBySlug($entity->resource_slug);
-		$pageEntity = new $lara;
-
-		$data = [
-			'title' => $title,
-			'menuroute' => '',
-		];
-
-		$data = array_merge($data, ['user_id' => $superAdminId]);
-		$data = array_merge($data, ['language' => $language]);
-		$data = array_merge($data, ['slug' => $slug, 'slug_lock' => 1]);
-
-		if ($pageEntity->hasBody()) {
-			$data = array_merge($data, ['body' => '']);
-		}
-		if ($pageEntity->hasLead()) {
-			$data = array_merge($data, ['lead' => '']);
-		}
-		if ($pageEntity->hasGroups()) {
-			$data = array_merge($data, ['cgroup' => $cgroup]);
-		}
-		if ($pageEntity->hasStatus()) {
-			$data = array_merge($data, ['publish' => 1, 'publish_from' => Carbon::now()]);
-		}
-
-		$newModulePage = Page::create($data);
-
-		return $newModulePage;
-	}
-
-	/**
-	 * Find special Module Page by their Slug
-	 *
-	 * Most content entities, other that Pages, are often displayed as lists,
-	 * either with or without a master/detail structure.
-	 * Well known examples are blogs, team pages, events, etc.
-	 *
-	 * When a specific index method (!Page) is attached to a frontend menu item,
-	 * we automatically attach a special kind of page (called a 'module page') to this menu item.
-	 * A 'module page' is technically a Page object with a group value of 'module'.
-	 *
-	 * This so-called 'module page' can be seen as a 'container' in which the list is displayed.
-	 * Think of it as a Wordpress page, with a shortcode to a special plugin in it.
-	 *
-	 * This module page gives us the following advantages:
-	 * - we can add a custom intro (title, text, images, hooks) to the list
-	 * - we can assign custom layout to the module page
-	 * - we can add seo to the module page
-	 *
-	 * Because module page are fetched by their unique slugs ('team-index-module-[lang]'),
-	 * the slugs are always locked, and cannot be modified by webmasters.
-	 *
-	 * @return mixed
-	 */
-	public function getModulePageBySlug(string $language, object $entity, string $method)
-	{
-
-		$modulePageSlug = $entity->getResourceSlug().'-'.$method.'-module-'.$language;
-		$modulePage = Page::langIs($language)->where('cgroup', 'module')->where('slug', $modulePageSlug)->first();
-		if (empty($modulePage)) {
-			$modulePageTitle = ucfirst($entity->getResourceSlug()).' '.ucfirst($method).' Module Page';
-
-			return $this->createNewModulePage($language, $modulePageTitle, 'module', $modulePageSlug);
-		} else {
-			return $modulePage;
-		}
-	}
-
-	/**
-	 * Get SEO values for a specific object
-	 *
-	 * Fallback: default values
-	 *
-	 * @return stdClass
-	 */
-	public function getSeo(object $object, ?object $fallback = null)
-	{
-
-		$data = new stdClass;
-
-		$config = config('filarank');
-		$data->config = $config;
-
-		$fallbackTitle = $object && method_exists($object, 'getSeoTitleFallback')
-			? $object->getSeoTitleFallback()
-			: null;
-
-		$data->title = $object->seo->title ?? $fallbackTitle ?? $config['site']['name'];
-		$data->fullTitle = $data->title === $config['site']['name']
-			? $data->title
-			: $data->title.$config['site']['title_separator'].$config['site']['name'];
-
-		$data->description = $object->seo->description ?? $config['site']['description'];
-		$data->url = $object->seo->canonical_url ?? url()->current();
-
-		if ($object->hasFeatured()) {
-			$data->image = glideUrl($object->featured()->path, 1200, 630);
-		} else {
-			$data->image = $object->seo->og_image ?? $config['site']['og_image'];
-		}
-
-		$data->robots = array_filter([
-			($object->seo->noindex ?? false) ? 'noindex' : null,
-			($object->seo->nofollow ?? false) ? 'nofollow' : null,
-		]);
-
-		$data->jsonLd = $config['render']['json_ld']
-			? JsonLd::for($object, $object->seo, $data->title, $data->description, $data->url, $data->image)
-			: null;
-
-		return $data;
-
-	}
-
-	/**
-	 * Get all the default SEO values
-	 *
-	 * The default SEO values are set on the home page
-	 *
-	 * @return stdClass
-	 */
-	public function getDefaultSeo(string $language)
-	{
-
-		$object = $this->getHomePageObject($language);
-
-		$data = new stdClass;
-
-		$config = config('filarank');
-		$data->config = $config;
-
-		$data->title = $object->seo->title ?? $config['site']['name'];
-		$data->fullTitle = $data->title === $config['site']['name']
-			? $data->title
-			: $data->title.$config['site']['title_separator'].$config['site']['name'];
-
-		$data->description = $object->seo->description ?? $config['site']['description'];
-		$data->url = $object->seo->canonical_url ?? url()->current();
-
-		if ($object->hasFeatured()) {
-			$data->image = glideUrl($object->featured()->path, 1200, 630);
-		} else {
-			$data->image = $object->seo->og_image ?? $config['site']['og_image'];
-		}
-
-		$data->robots = array_filter([
-			($object->seo->noindex ?? false) ? 'noindex' : null,
-			($object->seo->nofollow ?? false) ? 'nofollow' : null,
-		]);
-
-		$data->jsonLd = $config['render']['json_ld']
-			? JsonLd::for($object, $object->seo, $data->title, $data->description, $data->url, $data->image)
-			: null;
-
-		return $data;
-
-	}
-
-	/**
-	 * Get the default SEO value for a specific key
-	 *
-	 * The default SEO values are set  on the home page
-	 *
-	 * @return string|null
-	 */
-	private function getDefaultSeoByKey(string $language, string $key)
-	{
-
-		$object = $this->getHomePageObject($language);
-
-		if ($object && isset($object->seo)) {
-			$value = $object->seo->$key;
-		} else {
-			$value = null;
-		}
-
-		return $value;
-
-	}
-
-	/**
-	 * Get the HomePage
-	 *
-	 * If the Mainmenu is synced to the Pages,
-	 * get it from pages table directly (faster)
-	 *
-	 * If not, get the page ID from the menu table
-	 *
-	 * @return object|null
-	 */
-	private function getHomePageObject(string $language)
-	{
-
-		$mainMenuID = $this->getFrontMainMnuId();
-
-		if (! $mainMenuID) {
-			return null;
-		}
-
-		// a language without any menu items has no root item, so there is
-		// no home page to resolve
-		$home = MenuItem::langIs($language)
-			->menuIs($mainMenuID)
-			->whereNull('parent_id')
-			->first();
-
-		if (! $home || ! $home->object_id) {
-			return null;
-		}
-
-		return Page::find($home->object_id);
-
-	}
-
-	/**
-	 * Check if the main menu exists
-	 * If not, create it
-	 *
-	 * @return int
-	 */
-	private function getFrontMainMnuId()
-	{
-
-		$mainMenu = Menu::where('slug', 'main')->first();
-
-		if (empty($mainMenu)) {
-
-			// create main menu
-			$newMainMenu = Menu::create([
-				'title' => 'Main',
-				'slug' => 'main',
-			]);
-
-			return $newMainMenu->id;
-
-		} else {
-
-			return $mainMenu->id;
-		}
-
-	}
-
-	public function getEntityListUrl($language, $entity, FrontActiveRoute $activeroute, $object, $menuTag, $ispreview): ?string
-	{
-		if ($ispreview) {
-			return null;
-		} else {
-			if ($menuTag) {
-				$node = MenuItem::where('language', $language)
-					->where('entity_id', $entity->getEntityId())
-					->where('tag_id', $menuTag->id)
-					->first();
-				if ($node) {
-					$url = url($language.'/'.$node->route);
-				} else {
-					$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
-				}
-			} else {
-				$url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
-			}
-
-			return $url;
-		}
-	}
-
-	private function getDefaultEntityListUrl($language, $entity, FrontActiveRoute $activeroute): string
-	{
-		$node = MenuItem::where('language', $language)
-			->where('entity_id', $entity->getEntityId())
-			->whereNull('tag_id')
-			->first();
-
-		if ($node) {
-			$url = url($language.'/'.$node->route);
-		} else {
-			$url = route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
-		}
-
-		return $url;
-	}
-
-	public function isPreview($routename)
-	{
-		return Str::startsWith($routename, 'content.') || Str::startsWith($routename, 'contenttag.');
-	}
+    /**
+     * Translate entity key to a full Lara Entity class name
+     *
+     * @return string
+     */
+    private function getFrontLaraClass(string $resourceSlug)
+    {
+
+        $laraClass = '\Lara\Common\Entities\\'.ucfirst($resourceSlug).'Entity';
+
+        if (! class_exists($laraClass)) {
+
+            $laraClass = '\Eve\Lara\\'.ucfirst($resourceSlug).'Entity';
+
+            if (! class_exists($laraClass)) {
+
+                $laraClass = null;
+
+            }
+
+        }
+
+        return $laraClass;
+
+    }
+
+    /**
+     * Get Page Block for Email
+     *
+     * @return mixed
+     */
+    public function getEmailPageContent(string $language, string $resourceSlug)
+    {
+
+        $slug = $resourceSlug.'-email-'.$language;
+
+        $object = Page::langIs($language)
+            ->where('cgroup', 'email')
+            ->where('slug', $slug)->first();
+
+        if (empty($object)) {
+
+            $title = ucfirst($resourceSlug).' Email Title';
+
+            // get default backend user
+            $user = User::where('name', 'admin')->first();
+
+            $object = $this->createNewModulePage($language, $title, 'email', $slug);
+
+        }
+
+        return $object;
+
+    }
+
+    /**
+     * Create a specific module page
+     *
+     * @return mixed
+     */
+    private function createNewModulePage(string $language, string $title, string $cgroup, string $slug)
+    {
+
+        $superAdminId = User::role('superadmin')->value('id');
+
+        $entity = Entity::where('resource_slug', 'pages')->first();
+        $lara = $this->getFrontResourceBySlug($entity->resource_slug);
+        $pageEntity = new $lara;
+
+        $data = [
+            'title' => $title,
+            'menuroute' => '',
+        ];
+
+        $data = array_merge($data, ['user_id' => $superAdminId]);
+        $data = array_merge($data, ['language' => $language]);
+        $data = array_merge($data, ['slug' => $slug, 'slug_lock' => 1]);
+
+        if ($pageEntity->hasBody()) {
+            $data = array_merge($data, ['body' => '']);
+        }
+        if ($pageEntity->hasLead()) {
+            $data = array_merge($data, ['lead' => '']);
+        }
+        if ($pageEntity->hasGroups()) {
+            $data = array_merge($data, ['cgroup' => $cgroup]);
+        }
+        if ($pageEntity->hasStatus()) {
+            $data = array_merge($data, ['publish' => 1, 'publish_from' => Carbon::now()]);
+        }
+
+        $newModulePage = Page::create($data);
+
+        return $newModulePage;
+    }
+
+    /**
+     * Find special Module Page by their Slug
+     *
+     * Most content entities, other that Pages, are often displayed as lists,
+     * either with or without a master/detail structure.
+     * Well known examples are blogs, team pages, events, etc.
+     *
+     * When a specific index method (!Page) is attached to a frontend menu item,
+     * we automatically attach a special kind of page (called a 'module page') to this menu item.
+     * A 'module page' is technically a Page object with a group value of 'module'.
+     *
+     * This so-called 'module page' can be seen as a 'container' in which the list is displayed.
+     * Think of it as a Wordpress page, with a shortcode to a special plugin in it.
+     *
+     * This module page gives us the following advantages:
+     * - we can add a custom intro (title, text, images, hooks) to the list
+     * - we can assign custom layout to the module page
+     * - we can add seo to the module page
+     *
+     * Because module page are fetched by their unique slugs ('team-index-module-[lang]'),
+     * the slugs are always locked, and cannot be modified by webmasters.
+     *
+     * @return mixed
+     */
+    public function getModulePageBySlug(string $language, object $entity, string $method)
+    {
+
+        $modulePageSlug = $entity->getResourceSlug().'-'.$method.'-module-'.$language;
+        $modulePage = Page::langIs($language)->where('cgroup', 'module')->where('slug', $modulePageSlug)->first();
+        if (empty($modulePage)) {
+            $modulePageTitle = ucfirst($entity->getResourceSlug()).' '.ucfirst($method).' Module Page';
+
+            return $this->createNewModulePage($language, $modulePageTitle, 'module', $modulePageSlug);
+        } else {
+            return $modulePage;
+        }
+    }
+
+    /**
+     * Get SEO values for a specific object
+     *
+     * Fallback: default values
+     *
+     * @return stdClass
+     */
+    public function getSeo(object $object, ?object $fallback = null)
+    {
+
+        $data = new stdClass;
+
+        $config = config('filarank');
+        $data->config = $config;
+
+        $fallbackTitle = $object && method_exists($object, 'getSeoTitleFallback')
+            ? $object->getSeoTitleFallback()
+            : null;
+
+        $data->title = $object->seo->title ?? $fallbackTitle ?? $config['site']['name'];
+        $data->fullTitle = $data->title === $config['site']['name']
+            ? $data->title
+            : $data->title.$config['site']['title_separator'].$config['site']['name'];
+
+        $data->description = $object->seo->description ?? $config['site']['description'];
+        $data->url = $object->seo->canonical_url ?? url()->current();
+
+        if ($object->hasFeatured()) {
+            $data->image = glideUrl($object->featured()->path, 1200, 630);
+        } else {
+            $data->image = $object->seo->og_image ?? $config['site']['og_image'];
+        }
+
+        $data->robots = array_filter([
+            ($object->seo->noindex ?? false) ? 'noindex' : null,
+            ($object->seo->nofollow ?? false) ? 'nofollow' : null,
+        ]);
+
+        $data->jsonLd = $config['render']['json_ld']
+            ? JsonLd::for($object, $object->seo, $data->title, $data->description, $data->url, $data->image)
+            : null;
+
+        return $data;
+
+    }
+
+    /**
+     * Get all the default SEO values
+     *
+     * The default SEO values are set on the home page
+     *
+     * @return stdClass
+     */
+    public function getDefaultSeo(string $language)
+    {
+
+        $object = $this->getHomePageObject($language);
+
+        $data = new stdClass;
+
+        $config = config('filarank');
+        $data->config = $config;
+
+        $data->title = $object->seo->title ?? $config['site']['name'];
+        $data->fullTitle = $data->title === $config['site']['name']
+            ? $data->title
+            : $data->title.$config['site']['title_separator'].$config['site']['name'];
+
+        $data->description = $object->seo->description ?? $config['site']['description'];
+        $data->url = $object->seo->canonical_url ?? url()->current();
+
+        if ($object->hasFeatured()) {
+            $data->image = glideUrl($object->featured()->path, 1200, 630);
+        } else {
+            $data->image = $object->seo->og_image ?? $config['site']['og_image'];
+        }
+
+        $data->robots = array_filter([
+            ($object->seo->noindex ?? false) ? 'noindex' : null,
+            ($object->seo->nofollow ?? false) ? 'nofollow' : null,
+        ]);
+
+        $data->jsonLd = $config['render']['json_ld']
+            ? JsonLd::for($object, $object->seo, $data->title, $data->description, $data->url, $data->image)
+            : null;
+
+        return $data;
+
+    }
+
+    /**
+     * Get the default SEO value for a specific key
+     *
+     * The default SEO values are set  on the home page
+     *
+     * @return string|null
+     */
+    private function getDefaultSeoByKey(string $language, string $key)
+    {
+
+        $object = $this->getHomePageObject($language);
+
+        if ($object && isset($object->seo)) {
+            $value = $object->seo->$key;
+        } else {
+            $value = null;
+        }
+
+        return $value;
+
+    }
+
+    /**
+     * Get the HomePage
+     *
+     * If the Mainmenu is synced to the Pages,
+     * get it from pages table directly (faster)
+     *
+     * If not, get the page ID from the menu table
+     *
+     * @return object|null
+     */
+    private function getHomePageObject(string $language)
+    {
+
+        $mainMenuID = $this->getFrontMainMnuId();
+
+        if (! $mainMenuID) {
+            return null;
+        }
+
+        // a language without any menu items has no root item, so there is
+        // no home page to resolve
+        $home = MenuItem::langIs($language)
+            ->menuIs($mainMenuID)
+            ->whereNull('parent_id')
+            ->first();
+
+        if (! $home || ! $home->object_id) {
+            return null;
+        }
+
+        return Page::find($home->object_id);
+
+    }
+
+    /**
+     * Check if the main menu exists
+     * If not, create it
+     *
+     * @return int
+     */
+    private function getFrontMainMnuId()
+    {
+
+        $mainMenu = Menu::where('slug', 'main')->first();
+
+        if (empty($mainMenu)) {
+
+            // create main menu
+            $newMainMenu = Menu::create([
+                'title' => 'Main',
+                'slug' => 'main',
+            ]);
+
+            return $newMainMenu->id;
+
+        } else {
+
+            return $mainMenu->id;
+        }
+
+    }
+
+    public function getEntityListUrl($language, $entity, FrontActiveRoute $activeroute, $object, $menuTag, $ispreview): ?string
+    {
+        if ($ispreview) {
+            return null;
+        } else {
+            if ($menuTag) {
+                $node = MenuItem::where('language', $language)
+                    ->where('entity_id', $entity->getEntityId())
+                    ->where('tag_id', $menuTag->id)
+                    ->first();
+                if ($node) {
+                    $url = url($language.'/'.$node->route);
+                } else {
+                    $url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
+                }
+            } else {
+                $url = $this->getDefaultEntityListUrl($language, $entity, $activeroute);
+            }
+
+            return $url;
+        }
+    }
+
+    private function getDefaultEntityListUrl($language, $entity, FrontActiveRoute $activeroute): string
+    {
+        $node = MenuItem::where('language', $language)
+            ->where('entity_id', $entity->getEntityId())
+            ->whereNull('tag_id')
+            ->first();
+
+        if ($node) {
+            $url = url($language.'/'.$node->route);
+        } else {
+            $url = route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
+        }
+
+        return $url;
+    }
+
+    public function isPreview($routename)
+    {
+        return Str::startsWith($routename, 'content.') || Str::startsWith($routename, 'contenttag.');
+    }
 }

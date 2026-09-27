@@ -87,14 +87,14 @@
                 @endif
 
                 @if ($passed->isNotEmpty())
-		            <ul class="filarank-check-list" style="margin-top: 1.5rem">
-			            @foreach ($passed as $result)
-				            <li class="filarank-check-item filarank-check-item--muted">
-					            <span class="filarank-dot filarank-dot--success"></span>
-					            <span>{{ $result->message }}</span>
-				            </li>
-			            @endforeach
-		            </ul>
+                    <ul class="filarank-check-list" style="margin-top: 1.5rem">
+                        @foreach ($passed as $result)
+                            <li class="filarank-check-item filarank-check-item--muted">
+                                <span class="filarank-dot filarank-dot--success"></span>
+                                <span>{{ $result->message }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
                 @endif
             </div>
         @endforeach

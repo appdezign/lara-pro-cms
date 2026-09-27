@@ -12,50 +12,48 @@ namespace Lara\Common\Entities;
  */
 class LaraTool
 {
+    public ?string $resource_slug = null;
 
-	public ?string $resource_slug = null;
+    protected ?string $module = null;
 
-	protected ?string $module = null;
+    protected ?string $prefix = null;
 
-	protected ?string $prefix = null;
+    protected ?string $method = null;
 
-	protected ?string $method = null;
+    protected ?string $cgroup = null;
 
-	protected ?string $cgroup = null;
+    public function getModule(): ?string
+    {
+        return $this->module;
+    }
 
-	public function getModule(): ?string
-	{
-		return $this->module;
-	}
+    public function getResourceSlug(): ?string
+    {
+        return $this->resource_slug;
+    }
 
-	public function getResourceSlug(): ?string
-	{
-		return $this->resource_slug;
-	}
+    public function getCgroup(): ?string
+    {
+        return $this->cgroup;
+    }
 
-	public function getCgroup(): ?string
-	{
-		return $this->cgroup;
-	}
+    public function getMethod(): ?string
+    {
+        return $this->method;
+    }
 
-	public function getMethod(): ?string
-	{
-		return $this->method;
-	}
+    public function setMethod(?string $method = null): void
+    {
+        $this->method = $method;
+    }
 
-	public function setMethod(?string $method = null): void
-	{
-		$this->method = $method;
-	}
+    public function getPrefix(): ?string
+    {
+        return $this->prefix;
+    }
 
-	public function getPrefix(): ?string
-	{
-		return $this->prefix;
-	}
-
-	public function setPrefix(?string $prefix = null): void
-	{
-		$this->prefix = $prefix;
-	}
-
+    public function setPrefix(?string $prefix = null): void
+    {
+        $this->prefix = $prefix;
+    }
 }

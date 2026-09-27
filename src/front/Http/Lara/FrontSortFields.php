@@ -8,103 +8,99 @@ namespace Lara\Front\Http\Lara;
  */
 class FrontSortFields
 {
-	protected ?string $primaryField = null;
-	protected ?string $primaryOrder = null;
-	protected ?string $secondaryField = null;
-	protected ?string $secondaryOrder = null;
+    protected ?string $primaryField = null;
 
-	/**
-	 * Constructor for SortFields class
-	 */
-	public function __construct()
-	{
-		//
-	}
+    protected ?string $primaryOrder = null;
 
-	/**
-	 * Get the primary sorting field
-	 *
-	 * @return string|null
-	 */
-	public function getPrimaryField()
-	{
-		return $this->primaryField;
-	}
+    protected ?string $secondaryField = null;
 
-	/**
-	 * Set the primary sorting field
-	 *
-	 * @param string $primaryField
-	 * @return void
-	 */
-	public function setPrimaryField(string $primaryField)
-	{
-		$this->primaryField = $primaryField;
-	}
+    protected ?string $secondaryOrder = null;
 
-	/**
-	 * Get the primary sort order
-	 *
-	 * @return string|null
-	 */
-	public function getPrimaryOrder()
-	{
-		return $this->primaryOrder;
-	}
+    /**
+     * Constructor for SortFields class
+     */
+    public function __construct()
+    {
+        //
+    }
 
-	/**
-	 * Set the primary sort order
-	 *
-	 * @param string $primaryOrder
-	 * @return void
-	 */
-	public function setPrimaryOrder(string $primaryOrder)
-	{
-		$this->primaryOrder = $primaryOrder;
-	}
+    /**
+     * Get the primary sorting field
+     *
+     * @return string|null
+     */
+    public function getPrimaryField()
+    {
+        return $this->primaryField;
+    }
 
-	/**
-	 * Get the secondary sorting field
-	 *
-	 * @return string|null
-	 */
-	public function getSecondaryField()
-	{
-		return $this->secondaryField;
-	}
+    /**
+     * Set the primary sorting field
+     *
+     * @return void
+     */
+    public function setPrimaryField(string $primaryField)
+    {
+        $this->primaryField = $primaryField;
+    }
 
-	/**
-	 * Set the secondary sorting field
-	 *
-	 * @param string $secondaryField
-	 * @return void
-	 */
-	public function setSecondaryField(string $secondaryField)
-	{
-		$this->secondaryField = $secondaryField;
-	}
+    /**
+     * Get the primary sort order
+     *
+     * @return string|null
+     */
+    public function getPrimaryOrder()
+    {
+        return $this->primaryOrder;
+    }
 
-	/**
-	 * Get the secondary sort order
-	 *
-	 * @return string|null
-	 */
-	public function getSecondaryOrder()
-	{
-		return $this->secondaryOrder;
-	}
+    /**
+     * Set the primary sort order
+     *
+     * @return void
+     */
+    public function setPrimaryOrder(string $primaryOrder)
+    {
+        $this->primaryOrder = $primaryOrder;
+    }
 
-	/**
-	 * Set the secondary sort order
-	 *
-	 * @param string $secondaryOrder
-	 * @return void
-	 */
-	public function setSecondaryOrder(string $secondaryOrder)
-	{
-		$this->secondaryOrder = $secondaryOrder;
-	}
+    /**
+     * Get the secondary sorting field
+     *
+     * @return string|null
+     */
+    public function getSecondaryField()
+    {
+        return $this->secondaryField;
+    }
 
+    /**
+     * Set the secondary sorting field
+     *
+     * @return void
+     */
+    public function setSecondaryField(string $secondaryField)
+    {
+        $this->secondaryField = $secondaryField;
+    }
 
+    /**
+     * Get the secondary sort order
+     *
+     * @return string|null
+     */
+    public function getSecondaryOrder()
+    {
+        return $this->secondaryOrder;
+    }
 
+    /**
+     * Set the secondary sort order
+     *
+     * @return void
+     */
+    public function setSecondaryOrder(string $secondaryOrder)
+    {
+        $this->secondaryOrder = $secondaryOrder;
+    }
 }
