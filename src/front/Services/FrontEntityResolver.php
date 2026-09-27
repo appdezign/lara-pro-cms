@@ -2,9 +2,8 @@
 
 namespace Lara\Front\Services;
 
-use Illuminate\Support\Facades\Log;
 use Lara\Common\Entities\LaraEntity;
-use Lara\Common\Models\MenuItem;
+use Lara\Common\Routes\FrontRouteContext;
 use Lara\Front\Http\Lara\FrontActiveRoute;
 use stdClass;
 
@@ -57,18 +56,11 @@ final class FrontEntityResolver
 
         $entityRoute->setActiveRoute($routename);
 
-        if (isset($route->tagless_menu_id)) {
+        // menu routes know their single route; for the others it is the list route plus ".show"
+        $entityRoute->setSingleRoute($route->single_route ?? $routename.'.show');
 
-            $singleRoute = $route->prefix.'.'.$route->resource_slug.'.'.$route->tagless_menu_id;
-            foreach ($route->activetags as $activeTag) {
-                $singleRoute .= '.'.$activeTag;
-            }
-            $singleRoute .= '.index.show';
-            $entityRoute->setSingleRoute($singleRoute);
-
-        } else {
-            $entityRoute->setSingleRoute($routename.'.show');
-        }
+        $entityRoute->setMenuRoute($route->menu_route ?? null);
+        $entityRoute->setTagRoutePattern($route->tag_route_pattern ?? null);
 
         if (isset($route->activetags)) {
             $entityRoute->setActiveTags($route->activetags);
@@ -136,6 +128,11 @@ final class FrontEntityResolver
 
             $route = $this->getDefaultRoute();
 
+        } elseif ($context = FrontRouteContext::forRouteName($routename)) {
+
+            // menu routes carry their context; see FrontRouteContext
+            $route = $this->getMenuRoute($context);
+
         } else {
 
             $parts = explode('.', $routename);
@@ -154,12 +151,6 @@ final class FrontEntityResolver
                     $route = $this->getContentRoute($routename, $parts);
                 } elseif ($parts[0] == 'contenttag') {
                     $route = $this->getContentTagRoute($routename, $parts);
-                } elseif ($parts[0] == 'entity') {
-                    $route = $this->getEntityRoute($routename, $parts);
-                } elseif ($parts[0] == 'entitytag') {
-                    $route = $this->getEntityTagRoute($routename, $parts);
-                } elseif ($parts[0] == 'form') {
-                    $route = $this->getFormRoute($routename, $parts);
                 } elseif ($parts[0] == 'ajax') {
                     $route = $this->getAjaxFormRoute($routename, $parts);
                 }
@@ -196,46 +187,25 @@ final class FrontEntityResolver
         return $route;
     }
 
-    private function getEntityTagRoute($routename, $parts)
+    /**
+     * @return stdClass
+     */
+    private function getMenuRoute(FrontRouteContext $context)
     {
 
         $route = new stdClass;
 
-        $route->prefix = $parts[0];
-        $route->resource_slug = $parts[1];
-        $route->menu_id = $parts[2];
-        $route->method = end($parts);
-        $route->activetags = [];
+        $route->prefix = $context->prefix;
+        $route->resource_slug = $context->resourceSlug;
+        $route->menu_id = $context->menuItemId;
+        $route->method = $context->method;
+        $route->activetags = $context->tags;
+        $route->single_route = $context->singleRoute;
+        $route->menu_route = $context->menuRoute;
+        $route->tag_route_pattern = $context->tagRoutePattern;
 
-        if (end($parts) == 'show') {
-            for ($i = 3; $i < (count($parts) - 2); $i++) {
-                $route->activetags[] = $parts[$i];
-            }
-        } else {
-            for ($i = 3; $i < (count($parts) - 1); $i++) {
-                $route->activetags[] = $parts[$i];
-            }
-        }
-
-        $menuItem = MenuItem::find($route->menu_id);
-        if ($menuItem && $menuItem->tag_id) {
-            // find parent menu id
-            $parentMenuItem = MenuItem::where('entity_id', $menuItem->entity_id)
-                ->where('entity_view_id', $menuItem->entity_view_id)
-                ->whereNull('tag_id')
-                ->first();
-            if ($parentMenuItem) {
-                $route->tagless_menu_id = $parentMenuItem->id;
-            } else {
-                // without a tagless parent we cannot build the single-object route;
-                // getLaraActiveRoute() falls back to "<routename>.show"
-                Log::warning('lara route: tagged menu item has no tagless parent', [
-                    'routename' => $routename,
-                    'menu_item_id' => $menuItem->id,
-                    'entity_id' => $menuItem->entity_id,
-                    'entity_view_id' => $menuItem->entity_view_id,
-                ]);
-            }
+        if ($context->objectId !== null) {
+            $route->object_id = $context->objectId;
         }
 
         return $route;
@@ -268,50 +238,6 @@ final class FrontEntityResolver
 
             }
 
-        }
-
-        return $route;
-    }
-
-    private function getEntityRoute($routename, $parts)
-    {
-
-        $route = new stdClass;
-
-        if (count($parts) == 4) {
-
-            // get prefix, model and method from route
-            [$route->prefix, $route->resource_slug, $route->menu_id, $route->method] = explode('.', $routename);
-
-        }
-
-        if (count($parts) == 5) {
-
-            if (end($parts) == 'show') {
-
-                // get prefix, model, parent-method, and method from route
-                [$route->prefix, $route->resource_slug, $route->menu_id, $route->parent_method, $route->method] = explode('.', $routename);
-                // $route->parent_route = $route->prefix . '.' . $route->resource_slug . '.' . $route->parent_method;
-
-            } else {
-
-                // get prefix, model, method and id from route
-                [$route->prefix, $route->resource_slug, $route->menu_id, $route->method, $route->object_id] = explode('.', $routename);
-
-            }
-
-        }
-
-        return $route;
-    }
-
-    private function getFormRoute($routename, $parts)
-    {
-
-        $route = new stdClass;
-
-        if (count($parts) == 4) {
-            [$route->prefix, $route->resource_slug, $route->menu_id, $route->method] = explode('.', $routename);
         }
 
         return $route;
