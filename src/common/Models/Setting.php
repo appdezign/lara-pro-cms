@@ -8,9 +8,8 @@ use Lara\Common\Models\Concerns\HasLaraLocks;
 
 class Setting extends Model
 {
-
+    use HasLaraLocks;
     use SoftDeletes;
-	use HasLaraLocks;
 
     protected $table = 'lara_sys_settings';
 
@@ -24,15 +23,14 @@ class Setting extends Model
         'deleted_at',
     ];
 
-	protected $casts = [
-		'created_at'   => 'datetime',
-		'updated_at'   => 'datetime',
-		'deleted_at'   => 'datetime',
-	];
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
 
-	public static function getTableName()
-	{
-		return with(new static)->getTable();
-	}
-
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
+    }
 }

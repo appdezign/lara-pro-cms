@@ -10,7 +10,7 @@ use Lara\Admin\Resources\Forms\FormResource;
 
 class CreateForm extends CreateRecord
 {
-	use HasLaraBuilder;
+    use HasLaraBuilder;
 
     protected static string $resource = FormResource::class;
 
@@ -38,23 +38,23 @@ class CreateForm extends CreateRecord
     {
         $entity = $this->getRecord();
 
-	    // on failure the entity row is removed again, so stay on the form to correct it
-	    if (! static::buildEntity($entity)) {
-		    $this->halt();
-	    }
+        // on failure the entity row is removed again, so stay on the form to correct it
+        if (! static::buildEntity($entity)) {
+            $this->halt();
+        }
 
-	    // refresh route cache
-	    session(['laracacheclear' => ['response_cache', 'route_cache']]);
+        // refresh route cache
+        session(['laracacheclear' => ['response_cache', 'route_cache']]);
 
     }
 
-	public function render(): View
-	{
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire' => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
+    public function render(): View
+    {
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 }

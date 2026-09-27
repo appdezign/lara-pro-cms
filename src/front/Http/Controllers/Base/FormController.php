@@ -30,304 +30,304 @@ use stdClass;
 
 class FormController extends Controller
 {
-	use HasFrontAuth;
-	use HasFrontend;
-	use HasFrontEntity;
-	use HasFrontList;
-	use HasFrontMenu;
-	use HasFrontObject;
-	use HasFrontRoutes;
-	use HasFrontSecurity;
-	use HasFrontTerms;
-	use HasFrontView;
-	use HasModelClass;
-	use HasTheme;
+    use HasFrontAuth;
+    use HasFrontend;
+    use HasFrontEntity;
+    use HasFrontList;
+    use HasFrontMenu;
+    use HasFrontObject;
+    use HasFrontRoutes;
+    use HasFrontSecurity;
+    use HasFrontTerms;
+    use HasFrontView;
+    use HasModelClass;
+    use HasTheme;
 
-	protected ?string $modelClass = null;
+    protected ?string $modelClass = null;
 
-	protected ?string $routename = null;
+    protected ?string $routename = null;
 
-	protected ?object $entity = null;
+    protected ?object $entity = null;
 
-	protected ?object $activeroute = null;
+    protected ?object $activeroute = null;
 
-	protected ?string $language = null;
+    protected ?string $language = null;
 
-	protected ?object $data = null;
+    protected ?object $data = null;
 
-	protected ?object $globalwidgets = null;
+    protected ?object $globalwidgets = null;
 
-	protected ?object $globalsettings = null;
+    protected ?object $globalsettings = null;
 
-	protected bool $ispreview = false;
+    protected bool $ispreview = false;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
 
-		// get model class from child controller
-		$this->modelClass = $this->determineModelClass();
+        // get model class from child controller
+        $this->modelClass = $this->determineModelClass();
 
-		// get language
-		$this->language = LaravelLocalization::getCurrentLocale();
+        // get language
+        $this->language = LaravelLocalization::getCurrentLocale();
 
-		$this->data = new stdClass;
+        $this->data = new stdClass;
 
-		// only when handling a matched HTTP request: there is no route to read
-		// in console, queue or test-bootstrap contexts
-		if (Route::current() !== null) {
+        // only when handling a matched HTTP request: there is no route to read
+        // in console, queue or test-bootstrap contexts
+        if (Route::current() !== null) {
 
-			// get route name
-			$this->routename = Route::current()->getName();
+            // get route name
+            $this->routename = Route::current()->getName();
 
-			// preview
-			$this->ispreview = $this->isPreview($this->routename);
+            // preview
+            $this->ispreview = $this->isPreview($this->routename);
 
-			// get entity
-			$this->entity = $this->getFrontEntity($this->routename);
+            // get entity
+            $this->entity = $this->getFrontEntity($this->routename);
 
-			// get active route
-			$this->activeroute = $this->getLaraActiveRoute($this->routename);
+            // get active route
+            $this->activeroute = $this->getLaraActiveRoute($this->routename);
 
-			// get default seo
-			$this->data->seo = $this->getDefaultSeo($this->language);
+            // get default seo
+            $this->data->seo = $this->getDefaultSeo($this->language);
 
-			// get default layout
-			$this->data->layout = $this->getDefaultThemeLayout();
+            // get default layout
+            $this->data->layout = $this->getDefaultThemeLayout();
 
-			// get entity routes from menu
-			$this->data->eroutes = $this->getMenuEntityRoutes($this->language);
-
-			// get global widgets
-			$this->globalwidgets = $this->getGlobalWidgets($this->language);
-
-			// get global settings
-			$this->globalsettings = $this->getGlobalSettings();
-
-			// share data with all views, see: https://goo.gl/Aqxquw
-			$this->middleware(function ($request, $next) {
-				view()->share('entity', $this->entity);
-				view()->share('activeroute', $this->activeroute);
-				view()->share('language', $this->language);
-				view()->share('ispreview', $this->ispreview);
-				view()->share('globalwidgets', $this->globalwidgets);
-				view()->share('globalsettings', $this->globalsettings);
-				view()->share('activemenu', $this->getActiveMenuArray());
-				view()->share('firstpageload', $this->getFirstPageLoad());
-
-				return $next($request);
-			});
-
-		}
-
-	}
-
-	/**
-	 * Show the form
-	 *
-	 * @return Application|Factory|View
-	 */
-	public function form(Request $request)
-	{
-
-		// get params
-		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
-		if ($this->data->params instanceof RedirectResponse) {
-			return $this->data->params;
-		}
-
-		// get related module page for SEO and Intro
-		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'form');
-
-		// Use module page for Intro
-		$this->data->page = $this->data->modulepage;
-
-		// seo
-		$this->data->seo = $this->getSeo($this->data->modulepage);
-
-		// get language versions
-		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
-
-		// override default layout with custom module page layout
-		$this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
-		$this->data->grid = $this->getGrid($this->data->layout);
-
-		// template vars & override
-		$this->data->gridvars = $this->getGridVars($this->entity);
-		$this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
-
-		$viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);
-
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
-
-	}
-
-	/**
-	 * Process form
-	 *
-	 * @return false|string
-	 *
-	 * @throws BindingResolutionException
-	 */
-	public function process(Request $request)
-	{
-
-		$validationRules = $this->getValidationRules($this->entity);
-		if (config('app.env') == 'production' && config('lara.google_recaptcha_site_key')) {
-			$validationRules['g-recaptcha-response'] = [new ReCaptcha];
-		}
-		$request->validate($validationRules);
-
-		// save data
-		$formfields = [];
-		$formfields[] = 'title';
-		foreach ($this->entity->getCustomColumns() as $field) {
-			// fix empty strings
-			if ($field->required == 0) {
-				if ($field->fieldtype == 'text' || $field->fieldtype == 'string') {
-					$fieldname = $field->fieldname;
-					if (empty($request->input($fieldname))) {
-						$request->merge([$fieldname => '']);
-					}
-				}
-			}
-			// add field to array
-			$formfields[] = $field->fieldname;
-		}
-		if ($request->has('name')) {
-			$request->merge(['title' => $request->input('name')]);
-		}
-
-		// patch 6.2.23 - start
-		if ($request->has('_ipaddress')) {
-			$this->checkBlackListColumn($this->entity);
-			$formfields[] = 'ipaddress';
-			$request->merge(['ipaddress' => $request->input('_ipaddress')]);
-		}
-		// patch 6.2.23 - end
-
-		$newObject = $this->modelClass::create($request->only($formfields));
-
-		$isSpam = $this->detectSpam($this->entity, $newObject, ['text']);
-
-		if ($isSpam->result) {
-			// Soft delete because it is suspicious (spam)
-			$newObject->delete();
-			$result = [
-				'message' => $isSpam->message,
-				'sendstatus' => 1,
-			];
-		} else {
-			// SEND MAIL
-			$this->sendMail($request);
-			$result = [
-				'message' => _q('lara-front::default.form.mail_sent_successfully'),
-				'sendstatus' => 1,
-			];
-		}
-
-		return json_encode($result);
-
-	}
-
-	/**
-	 * @return void
-	 *
-	 * @throws BindingResolutionException
-	 */
-	private function sendMail(Request $request)
-	{
-
-		$maildata = new stdClass;
-
-		// company
-		$company = $this->getSettingsByGroup('company');
-		$maildata->company = $company;
-
-		// visitor
-		if ($request->has('email')) {
-			$user = new stdClass;
-			$user->email = $request->input('email');
-			if ($request->has('name')) {
-				$user->name = $request->input('name');
-			}
-		} else {
-			$user = null;
-		}
-
-		// webmaster
-		$webmaster = new stdClass;
-		if (config('app.env') == 'production') {
-			$webmaster->email = $company->company_email;
-			$webmaster->name = $company->company_name;
-		} else {
-			$webmaster->email = config('lara.admin_company_email');
-			$webmaster->name = config('lara.admin_company_name');
-		}
-
-		// from
-		$maildata->from = new stdClass;
-		$maildata->from->email = $company->company_email;
-		$maildata->from->name = $company->company_name;
-
-		// subject
-		$maildata->subject = _q('lara-app::'.$this->entity->getResourceSlug().'.email.subject');
-
-		// style
-		$maildata->style = json_decode(json_encode(config('lara-front.mail')), false);
-
-		// Content
-		$intro = $this->getEmailPageContent($this->language, $this->entity->getResourceSlug());
-		$maildata->content = new stdClass;
-		$maildata->content->title = $intro->title;
-		$maildata->content->lead = $intro->lead;
-		$maildata->content->body = strip_tags($intro->body);
-
-		// dynamic content
-		$maildata->content->data = new stdClass;
-		foreach ($this->entity->getCustomColumns() as $field) {
-			$fieldname = $field->field_name;
-			if ($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
-				if ($request->input($fieldname) == 1) {
-					$fieldvalue = _q('lara-admin::default.value.yes');
-				} else {
-					$fieldvalue = _q('lara-admin::default.value.no');
-				}
-			} else {
-				$fieldvalue = $request->input($fieldname);
-				if (is_array($fieldvalue)) {
-					$fieldvalue = implode(', ', $fieldvalue);
-				}
-			}
-			$maildata->content->data->$fieldname = [
-				'colname' => _q('lara-app::'.$this->entity->getResourceSlug().'.column.'.$fieldname),
-				'colval' => $fieldvalue,
-			];
-		}
-
-		// mail to visitor
-		if ($user) {
-			$maildata->view = 'email.'.$this->entity->getResourceSlug().'.confirm';
-			Mail::to($user)->queue(new MailConfirmation($maildata));
-		}
-
-		// mail to webmaster
-		$maildata->view = 'email.'.$this->entity->getResourceSlug().'.webmaster';
-		$mlr = (config('app.env') == 'production') ? 'smtp' : 'dev';
-		Mail::mailer($mlr)->to($webmaster)->queue(new MailConfirmation($maildata));
-
-	}
-
-	/**
-	 * @return RedirectResponse
-	 */
-	public function redirect()
-	{
-
-		// redirect GET requests
-
-		return redirect()->route('special.home.show');
-
-	}
+            // get entity routes from menu
+            $this->data->eroutes = $this->getMenuEntityRoutes($this->language);
+
+            // get global widgets
+            $this->globalwidgets = $this->getGlobalWidgets($this->language);
+
+            // get global settings
+            $this->globalsettings = $this->getGlobalSettings();
+
+            // share data with all views, see: https://goo.gl/Aqxquw
+            $this->middleware(function ($request, $next) {
+                view()->share('entity', $this->entity);
+                view()->share('activeroute', $this->activeroute);
+                view()->share('language', $this->language);
+                view()->share('ispreview', $this->ispreview);
+                view()->share('globalwidgets', $this->globalwidgets);
+                view()->share('globalsettings', $this->globalsettings);
+                view()->share('activemenu', $this->getActiveMenuArray());
+                view()->share('firstpageload', $this->getFirstPageLoad());
+
+                return $next($request);
+            });
+
+        }
+
+    }
+
+    /**
+     * Show the form
+     *
+     * @return Application|Factory|View
+     */
+    public function form(Request $request)
+    {
+
+        // get params
+        $this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+        if ($this->data->params instanceof RedirectResponse) {
+            return $this->data->params;
+        }
+
+        // get related module page for SEO and Intro
+        $this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'form');
+
+        // Use module page for Intro
+        $this->data->page = $this->data->modulepage;
+
+        // seo
+        $this->data->seo = $this->getSeo($this->data->modulepage);
+
+        // get language versions
+        $this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
+
+        // override default layout with custom module page layout
+        $this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
+        $this->data->grid = $this->getGrid($this->data->layout);
+
+        // template vars & override
+        $this->data->gridvars = $this->getGridVars($this->entity);
+        $this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
+
+        $viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);
+
+        return view($viewfile, [
+            'data' => $this->data,
+        ]);
+
+    }
+
+    /**
+     * Process form
+     *
+     * @return false|string
+     *
+     * @throws BindingResolutionException
+     */
+    public function process(Request $request)
+    {
+
+        $validationRules = $this->getValidationRules($this->entity);
+        if (config('app.env') == 'production' && config('lara.google_recaptcha_site_key')) {
+            $validationRules['g-recaptcha-response'] = [new ReCaptcha];
+        }
+        $request->validate($validationRules);
+
+        // save data
+        $formfields = [];
+        $formfields[] = 'title';
+        foreach ($this->entity->getCustomColumns() as $field) {
+            // fix empty strings
+            if ($field->required == 0) {
+                if ($field->fieldtype == 'text' || $field->fieldtype == 'string') {
+                    $fieldname = $field->fieldname;
+                    if (empty($request->input($fieldname))) {
+                        $request->merge([$fieldname => '']);
+                    }
+                }
+            }
+            // add field to array
+            $formfields[] = $field->fieldname;
+        }
+        if ($request->has('name')) {
+            $request->merge(['title' => $request->input('name')]);
+        }
+
+        // patch 6.2.23 - start
+        if ($request->has('_ipaddress')) {
+            $this->checkBlackListColumn($this->entity);
+            $formfields[] = 'ipaddress';
+            $request->merge(['ipaddress' => $request->input('_ipaddress')]);
+        }
+        // patch 6.2.23 - end
+
+        $newObject = $this->modelClass::create($request->only($formfields));
+
+        $isSpam = $this->detectSpam($this->entity, $newObject, ['text']);
+
+        if ($isSpam->result) {
+            // Soft delete because it is suspicious (spam)
+            $newObject->delete();
+            $result = [
+                'message' => $isSpam->message,
+                'sendstatus' => 1,
+            ];
+        } else {
+            // SEND MAIL
+            $this->sendMail($request);
+            $result = [
+                'message' => _q('lara-front::default.form.mail_sent_successfully'),
+                'sendstatus' => 1,
+            ];
+        }
+
+        return json_encode($result);
+
+    }
+
+    /**
+     * @return void
+     *
+     * @throws BindingResolutionException
+     */
+    private function sendMail(Request $request)
+    {
+
+        $maildata = new stdClass;
+
+        // company
+        $company = $this->getSettingsByGroup('company');
+        $maildata->company = $company;
+
+        // visitor
+        if ($request->has('email')) {
+            $user = new stdClass;
+            $user->email = $request->input('email');
+            if ($request->has('name')) {
+                $user->name = $request->input('name');
+            }
+        } else {
+            $user = null;
+        }
+
+        // webmaster
+        $webmaster = new stdClass;
+        if (config('app.env') == 'production') {
+            $webmaster->email = $company->company_email;
+            $webmaster->name = $company->company_name;
+        } else {
+            $webmaster->email = config('lara.admin_company_email');
+            $webmaster->name = config('lara.admin_company_name');
+        }
+
+        // from
+        $maildata->from = new stdClass;
+        $maildata->from->email = $company->company_email;
+        $maildata->from->name = $company->company_name;
+
+        // subject
+        $maildata->subject = _q('lara-app::'.$this->entity->getResourceSlug().'.email.subject');
+
+        // style
+        $maildata->style = json_decode(json_encode(config('lara-front.mail')), false);
+
+        // Content
+        $intro = $this->getEmailPageContent($this->language, $this->entity->getResourceSlug());
+        $maildata->content = new stdClass;
+        $maildata->content->title = $intro->title;
+        $maildata->content->lead = $intro->lead;
+        $maildata->content->body = strip_tags($intro->body);
+
+        // dynamic content
+        $maildata->content->data = new stdClass;
+        foreach ($this->entity->getCustomColumns() as $field) {
+            $fieldname = $field->field_name;
+            if ($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
+                if ($request->input($fieldname) == 1) {
+                    $fieldvalue = _q('lara-admin::default.value.yes');
+                } else {
+                    $fieldvalue = _q('lara-admin::default.value.no');
+                }
+            } else {
+                $fieldvalue = $request->input($fieldname);
+                if (is_array($fieldvalue)) {
+                    $fieldvalue = implode(', ', $fieldvalue);
+                }
+            }
+            $maildata->content->data->$fieldname = [
+                'colname' => _q('lara-app::'.$this->entity->getResourceSlug().'.column.'.$fieldname),
+                'colval' => $fieldvalue,
+            ];
+        }
+
+        // mail to visitor
+        if ($user) {
+            $maildata->view = 'email.'.$this->entity->getResourceSlug().'.confirm';
+            Mail::to($user)->queue(new MailConfirmation($maildata));
+        }
+
+        // mail to webmaster
+        $maildata->view = 'email.'.$this->entity->getResourceSlug().'.webmaster';
+        $mlr = (config('app.env') == 'production') ? 'smtp' : 'dev';
+        Mail::mailer($mlr)->to($webmaster)->queue(new MailConfirmation($maildata));
+
+    }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function redirect()
+    {
+
+        // redirect GET requests
+
+        return redirect()->route('special.home.show');
+
+    }
 }

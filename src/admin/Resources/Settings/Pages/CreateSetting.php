@@ -8,7 +8,6 @@ use Lara\Admin\Resources\Settings\SettingResource;
 
 class CreateSetting extends CreateRecord
 {
-
     protected static string $resource = SettingResource::class;
 
     public function getFormActions(): array
@@ -27,8 +26,7 @@ class CreateSetting extends CreateRecord
             $this->getCreateFormAction()
                 ->label(_q('lara-admin::default.action.save'))
                 ->submit(null)
-                ->action(fn() => $this->create()),
+                ->action(fn () => $this->create()),
         ];
     }
-
 }

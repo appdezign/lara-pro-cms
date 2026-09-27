@@ -15,30 +15,28 @@ use Lara\Common\Models\MenuItem;
  */
 final class FrontRouteMiddleware
 {
+    /**
+     * @param  bool  $allowResponseCache  The /content/ fallback routes are
+     *                                    deliberately not response-cached.
+     * @return list<string>
+     */
+    public static function build(
+        ?Entity $entity,
+        ?MenuItem $menuItem = null,
+        bool $allowResponseCache = true,
+    ): array {
 
-	/**
-	 * @param bool $allowResponseCache The /content/ fallback routes are
-	 *                                 deliberately not response-cached.
-	 * @return list<string>
-	 */
-	public static function build(
-		?Entity $entity,
-		?MenuItem $menuItem = null,
-		bool $allowResponseCache = true,
-	): array {
+        $middleware = [];
 
-		$middleware = [];
+        if (($entity && $entity->has_front_auth == 1) || ($menuItem && $menuItem->route_has_auth)) {
+            $middleware[] = 'auth';
+        }
 
-		if (($entity && $entity->has_front_auth == 1) || ($menuItem && $menuItem->route_has_auth)) {
-			$middleware[] = 'auth';
-		}
+        if ($allowResponseCache && config('app.env') === 'production' && config('responsecache.enabled')) {
+            $middleware[] = 'cacheResponse';
+        }
 
-		if ($allowResponseCache && config('app.env') === 'production' && config('responsecache.enabled')) {
-			$middleware[] = 'cacheResponse';
-		}
+        return $middleware;
 
-		return $middleware;
-
-	}
-
+    }
 }

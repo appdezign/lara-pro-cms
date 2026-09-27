@@ -7,70 +7,69 @@ use Lara\Front\LaraTheme\Theme;
 
 trait HasLayout
 {
+    private static function getFullLayout()
+    {
 
-	private static function getFullLayout()
-	{
+        $layoutPath = Theme::path('views').'/_layout/_layout.xml';
+        $partials = simplexml_load_file($layoutPath);
 
-		$layoutPath = Theme::path('views') . '/_layout/_layout.xml';
-		$partials = simplexml_load_file($layoutPath);
+        $app = app();
+        $layout = $app->make('stdClass');
 
-		$app = app();
-		$layout = $app->make('stdClass');
+        foreach ($partials as $partial) {
 
-		foreach ($partials as $partial) {
+            $partial_key = $partial->key;
 
-			$partial_key = $partial->key;
+            $layout->$partial_key = $app->make('stdClass');
 
-			$layout->$partial_key = $app->make('stdClass');
+            foreach ($partial->items->item as $item) {
 
-			foreach ($partial->items->item as $item) {
+                $item_key = (string) $item->itemKey;
 
-				$item_key = (string)$item->itemKey;
+                $layout->$partial_key->$item_key = $app->make('stdClass');
 
-				$layout->$partial_key->$item_key = $app->make('stdClass');
+                $layout->$partial_key->$item_key->friendlyName = (string) $item->friendlyName;
+                $layout->$partial_key->$item_key->partialFile = (string) $item->partialFile;
+                $layout->$partial_key->$item_key->isDefault = (string) $item->isDefault;
+            }
 
-				$layout->$partial_key->$item_key->friendlyName = (string)$item->friendlyName;
-				$layout->$partial_key->$item_key->partialFile = (string)$item->partialFile;
-				$layout->$partial_key->$item_key->isDefault = (string)$item->isDefault;
-			}
+        }
 
-		}
+        return $layout;
 
-		return $layout;
+    }
 
-	}
+    /**
+     * @return mixed An object containing the default layout values for each section.
+     */
+    private static function getDefaultLayoutValues()
+    {
+        $layout = static::getFullLayout();
+        $sections = LayoutSections::toArray();
+        $defaultValues = [];
+        foreach ($sections as $section) {
+            foreach ($layout->$section as $options) {
+                $optionValue = $options->partialFile;
+                if ($options->isDefault == 'true') {
+                    $defaultValues[$section] = $optionValue;
+                }
+            }
+        }
 
-	/**
-	 * @return mixed An object containing the default layout values for each section.
-	 */
-	private static function getDefaultLayoutValues()
-	{
-		$layout = static::getFullLayout();
-		$sections = LayoutSections::toArray();
-		$defaultValues = [];
-		foreach ($sections as $section) {
-			foreach ($layout->$section as $options) {
-				$optionValue = $options->partialFile;
-				if ($options->isDefault == 'true') {
-					$defaultValues[$section] = $optionValue;
-				}
-			}
-		}
+        return json_decode(json_encode($defaultValues), false);
+    }
 
-		return json_decode(json_encode($defaultValues), false);
-	}
-
-	private static function replaceDefaultLayoutValues($record): void
-	{
-		$layoutDefaults = static::getDefaultLayoutValues();
-		$layout = $record->layout;
-		if($layout) {
-			foreach ($layoutDefaults as $section => $defaultValue) {
-				if($layout->$section == $defaultValue) {
-					$layout->$section = null;
-				}
-			}
-			$layout->save();
-		}
-	}
+    private static function replaceDefaultLayoutValues($record): void
+    {
+        $layoutDefaults = static::getDefaultLayoutValues();
+        $layout = $record->layout;
+        if ($layout) {
+            foreach ($layoutDefaults as $section => $defaultValue) {
+                if ($defaultValue == $layout->$section) {
+                    $layout->$section = null;
+                }
+            }
+            $layout->save();
+        }
+    }
 }

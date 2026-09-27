@@ -6,9 +6,9 @@ use Closure;
 
 trait HasCharacterLimit
 {
-    protected int | Closure | null $characterLimit = 0;
+    protected int|Closure|null $characterLimit = 0;
 
-    public function characterLimit(int | Closure | null $value = null): self
+    public function characterLimit(int|Closure|null $value = null): self
     {
         $this->characterLimit = $value;
 

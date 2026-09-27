@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class LaraLaraResourceEntitiesTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,13 +13,11 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_resource_entities')->delete();
-        
-        \DB::table('lara_resource_entities')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_resource_entities')->insert([
+            0 => [
                 'id' => 1,
                 'title' => 'Page',
                 'resource_slug' => 'pages',
@@ -44,8 +41,8 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'position',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => NULL,
-                'sort_secondary_order' => NULL,
+                'sort_secondary_field' => null,
+                'sort_secondary_order' => null,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -87,23 +84,22 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_group_values' => '["page", "module", "email"]',
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 5,
                 'title' => 'Tag',
                 'resource_slug' => 'tags',
                 'label_single' => 'tag',
                 'resource' => 'Lara\\Admin\\Resources\\Tags\\TagResource',
-                'policy' => NULL,
+                'policy' => null,
                 'model_class' => 'Lara\\Common\\Models\\Tag',
                 'controller' => 'TagsController',
-                'nav_group' => NULL,
+                'nav_group' => null,
                 'has_front_auth' => 0,
                 'created_at' => '2025-05-02 11:55:49',
                 'updated_at' => '2026-03-16 14:00:40',
                 'cgroup' => 'taxonomy',
-                'position' => NULL,
+                'position' => null,
                 'col_has_lead' => 0,
                 'col_has_body' => 0,
                 'col_extra_body_fields' => 0,
@@ -113,8 +109,8 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => NULL,
-                'sort_secondary_order' => NULL,
+                'sort_secondary_field' => null,
+                'sort_secondary_order' => null,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 0,
@@ -153,26 +149,25 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => NULL,
+                'objrel_group_values' => null,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 6,
                 'title' => 'Base',
                 'resource_slug' => 'bases',
                 'label_single' => 'base',
-                'resource' => NULL,
-                'policy' => NULL,
-                'model_class' => NULL,
-                'controller' => NULL,
-                'nav_group' => NULL,
+                'resource' => null,
+                'policy' => null,
+                'model_class' => null,
+                'controller' => null,
+                'nav_group' => null,
                 'has_front_auth' => 0,
                 'created_at' => '2025-05-02 15:10:38',
                 'updated_at' => '2025-05-02 15:10:38',
                 'cgroup' => 'base',
-                'position' => NULL,
+                'position' => null,
                 'col_has_lead' => 0,
                 'col_has_body' => 0,
                 'col_extra_body_fields' => 0,
@@ -180,10 +175,10 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'col_has_expiration' => 0,
                 'col_has_hideinlist' => 0,
                 'sort_is_sortable' => 0,
-                'sort_primary_field' => NULL,
-                'sort_primary_order' => NULL,
-                'sort_secondary_field' => NULL,
-                'sort_secondary_order' => NULL,
+                'sort_primary_field' => null,
+                'sort_primary_order' => null,
+                'sort_secondary_field' => null,
+                'sort_secondary_order' => null,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 0,
@@ -222,12 +217,11 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => NULL,
+                'objrel_group_values' => null,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 42,
                 'title' => 'Sliders',
                 'resource_slug' => 'sliders',
@@ -251,8 +245,8 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 1,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => NULL,
-                'sort_secondary_order' => NULL,
+                'sort_secondary_field' => null,
+                'sort_secondary_order' => null,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -291,12 +285,11 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => NULL,
+                'objrel_group_values' => null,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 52,
                 'title' => 'Widgets',
                 'resource_slug' => 'widgets',
@@ -360,12 +353,11 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => NULL,
+                'objrel_group_values' => null,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 59,
                 'title' => 'Call-to-action',
                 'resource_slug' => 'ctas',
@@ -389,8 +381,8 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => NULL,
-                'sort_secondary_order' => NULL,
+                'sort_secondary_field' => null,
+                'sort_secondary_order' => null,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 0,
@@ -429,12 +421,11 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => NULL,
+                'objrel_group_values' => null,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

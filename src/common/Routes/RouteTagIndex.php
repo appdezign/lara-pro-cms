@@ -19,41 +19,41 @@ use Lara\Common\Models\Tag;
  */
 final class RouteTagIndex
 {
-	/**
-	 * @var Collection<string, Collection<int, Tag>>|null
-	 */
-	private ?Collection $index = null;
+    /**
+     * @var Collection<string, Collection<int, Tag>>|null
+     */
+    private ?Collection $index = null;
 
-	/**
-	 * Routable tags for one resource, in the same order as the per-slug query.
-	 *
-	 * @return Collection<int, Tag>
-	 */
-	public function forResource(?string $resourceSlug): Collection
-	{
-		if ($resourceSlug === null || $resourceSlug === '') {
-			return new Collection;
-		}
+    /**
+     * Routable tags for one resource, in the same order as the per-slug query.
+     *
+     * @return Collection<int, Tag>
+     */
+    public function forResource(?string $resourceSlug): Collection
+    {
+        if ($resourceSlug === null || $resourceSlug === '') {
+            return new Collection;
+        }
 
-		return $this->index()->get($resourceSlug, new Collection);
-	}
+        return $this->index()->get($resourceSlug, new Collection);
+    }
 
-	/**
-	 * Drop the cached index. Only needed when tags change within one process,
-	 * which in practice means tests.
-	 */
-	public function flush(): void
-	{
-		$this->index = null;
-	}
+    /**
+     * Drop the cached index. Only needed when tags change within one process,
+     * which in practice means tests.
+     */
+    public function flush(): void
+    {
+        $this->index = null;
+    }
 
-	/**
-	 * @return Collection<string, Collection<int, Tag>>
-	 */
-	private function index(): Collection
-	{
-		return $this->index ??= Tag::whereNotNull('route')
-			->get()
-			->groupBy('resource_slug');
-	}
+    /**
+     * @return Collection<string, Collection<int, Tag>>
+     */
+    private function index(): Collection
+    {
+        return $this->index ??= Tag::whereNotNull('route')
+            ->get()
+            ->groupBy('resource_slug');
+    }
 }

@@ -12,11 +12,11 @@ class LaraViewRecord extends ViewRecord
     public function getTitle(): string
     {
         $record = $this->getRecord();
-		if(property_exists($record, 'title')) {
-			return $record->title;
-		} else {
-			return parent::getTitle();
-		}
+        if (property_exists($record, 'title')) {
+            return $record->title;
+        } else {
+            return parent::getTitle();
+        }
     }
 
     protected function getHeaderActions(): array
@@ -28,18 +28,18 @@ class LaraViewRecord extends ViewRecord
                 ->iconButton()
                 ->color('gray'),
             EditAction::make()
-	        ->visible(static::$resource::getEntity()->cgroup != 'form'),
+                ->visible(static::$resource::getEntity()->cgroup != 'form'),
         ];
     }
 
-	public function render(): View
-	{
+    public function render(): View
+    {
 
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire' => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 }

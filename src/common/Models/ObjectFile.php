@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ObjectFile extends Model
 {
-
     protected $table = 'lara_object_files';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -18,8 +17,7 @@ class ObjectFile extends Model
         'id',
     ];
 
-	protected $casts = [
-		'entity_files' => 'array',
-	];
-
+    protected $casts = [
+        'entity_files' => 'array',
+    ];
 }

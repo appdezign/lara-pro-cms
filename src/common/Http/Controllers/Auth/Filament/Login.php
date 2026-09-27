@@ -3,7 +3,6 @@
 namespace Lara\Common\Http\Controllers\Auth\Filament;
 
 use Filament\Auth\Pages\Login as BaseAuth;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Panel\Concerns\HasRenderHooks;
@@ -17,7 +16,6 @@ use Illuminate\Validation\ValidationException;
  */
 class Login extends BaseAuth
 {
-
     use HasRenderHooks;
 
     public function mount(): void
@@ -36,15 +34,15 @@ class Login extends BaseAuth
         ]);
     }
 
-	public function form(Schema $schema): Schema
-	{
-		return $schema
-			->components([
-				$this->getLoginFormComponent(),
-				$this->getPasswordFormComponent(),
-				$this->getRememberFormComponent(),
-			]);
-	}
+    public function form(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                $this->getLoginFormComponent(),
+                $this->getPasswordFormComponent(),
+                $this->getRememberFormComponent(),
+            ]);
+    }
 
     protected function getLoginFormComponent()
     {
@@ -57,17 +55,16 @@ class Login extends BaseAuth
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
      */
     protected function getCredentialsFromFormData(array $data): array
     {
-        $login_type = filter_var($data['login'], FILTER_VALIDATE_EMAIL ) ? 'email' : 'name';
+        $login_type = filter_var($data['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
 
         return [
             $login_type => $data['login'],
-            'password'  => $data['password'],
+            'password' => $data['password'],
         ];
     }
-
 }

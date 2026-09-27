@@ -2,10 +2,9 @@
 
 namespace Lara\Common\Casts;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
-
-use Carbon\Carbon;
 
 class TimeCast implements CastsAttributes
 {
@@ -16,7 +15,7 @@ class TimeCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes)
     {
-	    return Carbon::parse($value);
+        return Carbon::parse($value);
     }
 
     /**

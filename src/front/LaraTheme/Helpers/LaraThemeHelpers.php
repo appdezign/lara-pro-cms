@@ -9,7 +9,7 @@ class LaraThemeHelpers
     public function url($str = null)
     {
 
-		list($cleanStr) = explode('?', $str);
+        [$cleanStr] = explode('?', $str);
 
         $themePath = config('lara-front.asset_theme_path');
 
@@ -17,17 +17,16 @@ class LaraThemeHelpers
         $parent = Theme::parent();
 
         // active
-        $activeUrl =  $themePath . $active . '/' . $str;
-        $activePath = (public_path($themePath . $active . '/' . $cleanStr));
+        $activeUrl = $themePath.$active.'/'.$str;
+        $activePath = (public_path($themePath.$active.'/'.$cleanStr));
 
         // parent
-        $parentUrl =  $themePath . $parent . '/' . $str;
-        $parentPath = (public_path($themePath . $parent . '/' . $cleanStr));
+        $parentUrl = $themePath.$parent.'/'.$str;
+        $parentPath = (public_path($themePath.$parent.'/'.$cleanStr));
 
-
-        if(file_exists($activePath)) {
+        if (file_exists($activePath)) {
             return asset($activeUrl);
-        } elseif(file_exists($parentPath)) {
+        } elseif (file_exists($parentPath)) {
             return asset($parentUrl);
         } else {
             return null;
@@ -38,7 +37,7 @@ class LaraThemeHelpers
     /**
      * Return css link for $href
      *
-     * @param  string $href
+     * @param  string  $href
      * @return string
      */
     public function css($href)
@@ -49,7 +48,7 @@ class LaraThemeHelpers
     /**
      * Return script link for $href
      *
-     * @param  string $href
+     * @param  string  $href
      * @return string
      */
     public function js($href)
@@ -57,41 +56,41 @@ class LaraThemeHelpers
         return sprintf('<script src="%s"></script>', $this->url($href));
     }
 
-	/**
-	 * Return img tag
-	 *
-	 * @param  string $src
-	 * @param  string $alt
-	 * @param  string $Class
-	 * @param  array $attributes
-	 * @return string
-	 */
-	public function img($src, $alt = '', $class = '', $attributes = [])
-	{
-		return sprintf('<img src="%s" alt="%s" class="%s" %s>',
-			$this->url($src),
-			$alt,
-			$class,
-			$this->HtmlAttributes($attributes)
-		);
-	}
+    /**
+     * Return img tag
+     *
+     * @param  string  $src
+     * @param  string  $alt
+     * @param  string  $Class
+     * @param  array  $attributes
+     * @return string
+     */
+    public function img($src, $alt = '', $class = '', $attributes = [])
+    {
+        return sprintf('<img src="%s" alt="%s" class="%s" %s>',
+            $this->url($src),
+            $alt,
+            $class,
+            $this->HtmlAttributes($attributes)
+        );
+    }
 
-	/**
-	 * Return attributes in html format
-	 *
-	 * @param  array $attributes
-	 * @return string
-	 */
-	private function HtmlAttributes($attributes)
-	{
-		$formatted = join(' ', array_map(function ($key) use ($attributes) {
-			if (is_bool($attributes[$key])) {
-				return $attributes[$key] ? $key : '';
-			}
-			return $key . '="' . $attributes[$key] . '"';
-		}, array_keys($attributes)));
-		return $formatted;
-	}
+    /**
+     * Return attributes in html format
+     *
+     * @param  array  $attributes
+     * @return string
+     */
+    private function HtmlAttributes($attributes)
+    {
+        $formatted = implode(' ', array_map(function ($key) use ($attributes) {
+            if (is_bool($attributes[$key])) {
+                return $attributes[$key] ? $key : '';
+            }
 
+            return $key.'="'.$attributes[$key].'"';
+        }, array_keys($attributes)));
 
+        return $formatted;
+    }
 }

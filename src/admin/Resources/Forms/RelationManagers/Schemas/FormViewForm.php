@@ -10,40 +10,40 @@ use Filament\Schemas\Schema;
 
 class FormViewForm
 {
-	protected static ?string $slug = 'entityviews';
-	protected static ?string $module = 'lara-admin';
+    protected static ?string $slug = 'entityviews';
 
-	public static function configure(Schema $schema): Schema
-	{
-		return $schema
-			->components([
-				Section::make('Content')
-					->columnSpanFull()
-					->collapsible()
-					->schema([
-						Hidden::make('is_single')->default(1),
-						TextInput::make('title')
-							->label(_q(static::module() . '::' . static::slug() . '.column.title'))
-							->maxLength(255)
-							->required(),
-						TextInput::make('method')
-							->label(_q(static::module() . '::' . static::slug() . '.column.method')),
-						TextInput::make('filename')
-							->label(_q(static::module() . '::' . static::slug() . '.column.filename')),
-						Toggle::make('publish')
-							->label(_q(static::module() . '::' . static::slug() . '.column.publish')),
-					]),
-			]);
-	}
+    protected static ?string $module = 'lara-admin';
 
-	private static function slug(): string
-	{
-		return static::$slug;
-	}
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Section::make('Content')
+                    ->columnSpanFull()
+                    ->collapsible()
+                    ->schema([
+                        Hidden::make('is_single')->default(1),
+                        TextInput::make('title')
+                            ->label(_q(static::module().'::'.static::slug().'.column.title'))
+                            ->maxLength(255)
+                            ->required(),
+                        TextInput::make('method')
+                            ->label(_q(static::module().'::'.static::slug().'.column.method')),
+                        TextInput::make('filename')
+                            ->label(_q(static::module().'::'.static::slug().'.column.filename')),
+                        Toggle::make('publish')
+                            ->label(_q(static::module().'::'.static::slug().'.column.publish')),
+                    ]),
+            ]);
+    }
 
-	private static function module(): string
-	{
-		return static::$module;
-	}
+    private static function slug(): string
+    {
+        return static::$slug;
+    }
 
+    private static function module(): string
+    {
+        return static::$module;
+    }
 }

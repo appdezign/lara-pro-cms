@@ -4,25 +4,22 @@ namespace Lara\Front\Http\Concerns;
 
 trait HasTheme
 {
+    private function getFrontTheme()
+    {
 
-	private function getFrontTheme()
-	{
+        if (config('theme.active')) {
+            $theme = config('theme.active');
+        } else {
+            // Fallback
+            $theme = 'demo';
+        }
 
-		if (config('theme.active')) {
-			$theme = config('theme.active');
-		} else {
-			// Fallback
-			$theme = 'demo';
-		}
+        return $theme;
 
-		return $theme;
+    }
 
-	}
-
-	function getParentTheme()
-	{
-		return config('theme.parent');
-	}
-
-
+    public function getParentTheme()
+    {
+        return config('theme.parent');
+    }
 }

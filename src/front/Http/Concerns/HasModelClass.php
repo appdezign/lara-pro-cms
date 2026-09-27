@@ -22,31 +22,29 @@ use RuntimeException;
  */
 trait HasModelClass
 {
+    /**
+     * The fully qualified model class for this controller.
+     *
+     * @throws RuntimeException when the controller does not follow the convention
+     */
+    protected function determineModelClass(): string
+    {
+        $controller = new ReflectionClass($this);
 
-	/**
-	 * The fully qualified model class for this controller.
-	 *
-	 * @throws RuntimeException when the controller does not follow the convention
-	 */
-	protected function determineModelClass(): string
-	{
-		$controller = new ReflectionClass($this);
+        if (! $controller->hasMethod('make')) {
+            throw new RuntimeException(
+                $controller->getName().' must declare a make() method whose return type names its model.'
+            );
+        }
 
-		if (!$controller->hasMethod('make')) {
-			throw new RuntimeException(
-				$controller->getName() . ' must declare a make() method whose return type names its model.'
-			);
-		}
+        $returnType = $controller->getMethod('make')->getReturnType();
 
-		$returnType = $controller->getMethod('make')->getReturnType();
+        if (! $returnType instanceof ReflectionNamedType || $returnType->isBuiltin()) {
+            throw new RuntimeException(
+                $controller->getName().'::make() must declare a model class as its return type.'
+            );
+        }
 
-		if (!$returnType instanceof ReflectionNamedType || $returnType->isBuiltin()) {
-			throw new RuntimeException(
-				$controller->getName() . '::make() must declare a model class as its return type.'
-			);
-		}
-
-		return $returnType->getName();
-	}
-
+        return $returnType->getName();
+    }
 }

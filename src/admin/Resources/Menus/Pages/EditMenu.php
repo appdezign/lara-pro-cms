@@ -5,59 +5,59 @@ namespace Lara\Admin\Resources\Menus\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
-use Lara\Admin\Resources\Menus\MenuResource;
 use Lara\Admin\Concerns\HasLocks;
+use Lara\Admin\Resources\Menus\MenuResource;
 
 class EditMenu extends EditRecord
 {
-	use HasLocks;
+    use HasLocks;
 
     protected static string $resource = MenuResource::class;
 
-	public function mount(int|string $record): void
-	{
-		parent::mount($record);
-		static::checkRecordLock($this->record);
-		static::lockRecord($this->record);
-	}
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+        static::checkRecordLock($this->record);
+        static::lockRecord($this->record);
+    }
 
-	public function getFormActions(): array
-	{
-		return [];
-	}
+    public function getFormActions(): array
+    {
+        return [];
+    }
 
-	protected function getHeaderActions(): array
-	{
-		return [
-			Action::make('unlockrecord')
-				->icon('bi-chevron-left')
-				->iconButton()
-				->color('gray')
-				->action(function () {
-					static::unlockRecord($this->record);
-					if($this->previousUrl) {
-						return redirect($this->previousUrl);
-					} else {
-						return redirect($this->getResource()::getUrl('index'));
-					}
-				}),
-			Action::make('save')
-				->label(_q('lara-admin::default.action.save'))
-				->color('danger')
-				->submit(null)
-				->action('save'),
-		];
-	}
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('unlockrecord')
+                ->icon('bi-chevron-left')
+                ->iconButton()
+                ->color('gray')
+                ->action(function () {
+                    static::unlockRecord($this->record);
+                    if ($this->previousUrl) {
+                        return redirect($this->previousUrl);
+                    } else {
+                        return redirect($this->getResource()::getUrl('index'));
+                    }
+                }),
+            Action::make('save')
+                ->label(_q('lara-admin::default.action.save'))
+                ->color('danger')
+                ->submit(null)
+                ->action('save'),
+        ];
+    }
 
-	public function render(): View
-	{
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire' => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-		return view();
-	}
+    public function render(): View
+    {
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
 
+        return view();
+    }
 }

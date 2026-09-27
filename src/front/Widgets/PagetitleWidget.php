@@ -16,105 +16,105 @@ use LaravelLocalization;
 
 class PagetitleWidget extends AbstractWidget
 {
-	use HasFrontend;
-	use HasFrontMenu;
-	use HasFrontRoutes;
-	use HasFrontTerms;
+    use HasFrontend;
+    use HasFrontMenu;
+    use HasFrontRoutes;
+    use HasFrontTerms;
 
-	protected $config = [
-		'term' => 'pagetitle',
-		'grid' => null,
-	];
+    protected $config = [
+        'term' => 'pagetitle',
+        'grid' => null,
+    ];
 
-	public $cacheTime = false;  // DO NOT CACHE THE PAGE TITLE !!!
+    public $cacheTime = false;  // DO NOT CACHE THE PAGE TITLE !!!
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.pageWidget.'.$this->config['term'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.pageWidget.'.$this->config['term'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
 
-		$language = LaravelLocalization::getCurrentLocale();
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$isMultiLanguage = config('lara.is_multi_language');
+        $isMultiLanguage = config('lara.is_multi_language');
 
-		// Pass the active menu (current and level ) array to the widget view
-		$activemenu = $this->getActiveMenuArray(false);
+        // Pass the active menu (current and level ) array to the widget view
+        $activemenu = $this->getActiveMenuArray(false);
 
-		if (! empty($activemenu)) {
-			if (count($activemenu) > 1) {
-				// get second to last item (= level one)
-				$menulevelone = $activemenu[count($activemenu) - 2];
-			} else {
-				// home
-				$menulevelone = $activemenu[0];
-			}
-			$menucurrent = $activemenu[0];
-		} else {
-			$menulevelone = null;
-			$menucurrent = null;
-		}
+        if (! empty($activemenu)) {
+            if (count($activemenu) > 1) {
+                // get second to last item (= level one)
+                $menulevelone = $activemenu[count($activemenu) - 2];
+            } else {
+                // home
+                $menulevelone = $activemenu[0];
+            }
+            $menucurrent = $activemenu[0];
+        } else {
+            $menulevelone = null;
+            $menucurrent = null;
+        }
 
-		$term = $this->config['term'];
+        $term = $this->config['term'];
 
-		if ($isMultiLanguage) {
-			$activeTerm = $term.'-'.$language;
-		} else {
-			$activeTerm = $term;
-		}
+        if ($isMultiLanguage) {
+            $activeTerm = $term.'-'.$language;
+        } else {
+            $activeTerm = $term;
+        }
 
-		$taxonomy = $this->getFrontDefaultTaxonomy();
-		$tag = Tag::langIs($language)
-			->resourceIs('sliders')
-			->taxonomyIs($taxonomy->id)
-			->where('slug', $activeTerm)->first();
+        $taxonomy = $this->getFrontDefaultTaxonomy();
+        $tag = Tag::langIs($language)
+            ->resourceIs('sliders')
+            ->taxonomyIs($taxonomy->id)
+            ->where('slug', $activeTerm)->first();
 
-		if ($tag) {
+        if ($tag) {
 
-			$widgetpagetitle = Slider::langIs($language)
-				->isPublished()
-				->has('images')
-				->whereHas('terms', function ($query) use ($activeTerm) {
-					$query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
-				})
-				->inRandomOrder()->first();
+            $widgetpagetitle = Slider::langIs($language)
+                ->isPublished()
+                ->has('images')
+                ->whereHas('terms', function ($query) use ($activeTerm) {
+                    $query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
+                })
+                ->inRandomOrder()->first();
 
-		} else {
+        } else {
 
-			$widgetpagetitle = null;
+            $widgetpagetitle = null;
 
-		}
+        }
 
-		$eroutes = $this->getMenuEntityRoutes($language);
+        $eroutes = $this->getMenuEntityRoutes($language);
 
-		// identifier
-		$templateFileName = $this->config['term'];
+        // identifier
+        $templateFileName = $this->config['term'];
 
-		$widgetview = '_widgets.pagetitle.'.$templateFileName;
+        $widgetview = '_widgets.pagetitle.'.$templateFileName;
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'eroutes' => $eroutes,
-				'widgetpagetitle' => $widgetpagetitle,
-				'menulevelone' => $menulevelone,
-				'menucurrent' => $menucurrent,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'eroutes' => $eroutes,
+                'widgetpagetitle' => $widgetpagetitle,
+                'menulevelone' => $menulevelone,
+                'menucurrent' => $menucurrent,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }

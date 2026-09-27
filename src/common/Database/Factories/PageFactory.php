@@ -2,28 +2,24 @@
 
 namespace Lara\Common\Database\Factories;
 
-use App\Models\Model;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
-use Exception;
-
 use Lara\Common\Models\Page;
 
 class PageFactory extends Factory
 {
+    protected ?string $resourceSlug = 'pages';
 
-	protected ?string $resourceSlug = 'pages';
+    use HasLaraFactory;
 
-	use HasLaraFactory;
+    protected $model = Page::class;
 
-	protected $model = Page::class;
-
-	/**
-	 * @return array
-	 * @throws Exception
-	 */
-	public function definition(): array
+    /**
+     * @throws Exception
+     */
+    public function definition(): array
     {
-	    return $this->generateContent($this->resourceSlug);
+        return $this->generateContent($this->resourceSlug);
     }
 }

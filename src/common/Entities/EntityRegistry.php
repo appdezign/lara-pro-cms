@@ -24,185 +24,185 @@ use RuntimeException;
  */
 class EntityRegistry
 {
-	private const CACHE_KEY = 'lara:entities:v1';
+    private const CACHE_KEY = 'lara:entities:v1';
 
-	private const VERSION_KEY = 'lara:entities:version';
+    private const VERSION_KEY = 'lara:entities:version';
 
-	/**
-	 * Eager loads for the relationships EntityConfig exposes.
-	 *
-	 * @var list<string>
-	 */
-	private const RELATIONS = ['customfields', 'views', 'relations'];
+    /**
+     * Eager loads for the relationships EntityConfig exposes.
+     *
+     * @var list<string>
+     */
+    private const RELATIONS = ['customfields', 'views', 'relations'];
 
-	/**
-	 * In-process memo, so repeated lookups in one request do not re-hit the store.
-	 *
-	 * @var array<string, Entity>|null
-	 */
-	private ?array $entities = null;
+    /**
+     * In-process memo, so repeated lookups in one request do not re-hit the store.
+     *
+     * @var array<string, Entity>|null
+     */
+    private ?array $entities = null;
 
-	/**
-	 * @var array<string, EntityConfig>
-	 */
-	private array $configs = [];
+    /**
+     * @var array<string, EntityConfig>
+     */
+    private array $configs = [];
 
-	private ?string $version = null;
+    private ?string $version = null;
 
-	/**
-	 * Config for a resource slug, or null when there is no such entity.
-	 */
-	public function find(string $resourceSlug): ?EntityConfig
-	{
-		if (array_key_exists($resourceSlug, $this->configs)) {
-			return $this->configs[$resourceSlug];
-		}
+    /**
+     * Config for a resource slug, or null when there is no such entity.
+     */
+    public function find(string $resourceSlug): ?EntityConfig
+    {
+        if (array_key_exists($resourceSlug, $this->configs)) {
+            return $this->configs[$resourceSlug];
+        }
 
-		$entity = $this->entities()[$resourceSlug] ?? null;
+        $entity = $this->entities()[$resourceSlug] ?? null;
 
-		if (! $entity) {
-			return null;
-		}
+        if (! $entity) {
+            return null;
+        }
 
-		return $this->configs[$resourceSlug] = EntityConfig::fromEntity($entity);
-	}
+        return $this->configs[$resourceSlug] = EntityConfig::fromEntity($entity);
+    }
 
-	/**
-	 * Config for a resource slug.
-	 *
-	 * @throws RuntimeException when the slug is not registered
-	 */
-	public function get(string $resourceSlug): EntityConfig
-	{
-		$config = $this->find($resourceSlug);
+    /**
+     * Config for a resource slug.
+     *
+     * @throws RuntimeException when the slug is not registered
+     */
+    public function get(string $resourceSlug): EntityConfig
+    {
+        $config = $this->find($resourceSlug);
 
-		if (! $config) {
-			throw new RuntimeException('No entity registered for resource slug "'.$resourceSlug.'".');
-		}
+        if (! $config) {
+            throw new RuntimeException('No entity registered for resource slug "'.$resourceSlug.'".');
+        }
 
-		return $config;
-	}
+        return $config;
+    }
 
-	/**
-	 * Config for the entity a model class belongs to, or null when there is none.
-	 */
-	public function findByModelClass(string $modelClass): ?EntityConfig
-	{
-		foreach ($this->entities() as $resourceSlug => $entity) {
-			if ($entity->model_class === $modelClass) {
-				return $this->find($resourceSlug);
-			}
-		}
+    /**
+     * Config for the entity a model class belongs to, or null when there is none.
+     */
+    public function findByModelClass(string $modelClass): ?EntityConfig
+    {
+        foreach ($this->entities() as $resourceSlug => $entity) {
+            if ($entity->model_class === $modelClass) {
+                return $this->find($resourceSlug);
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 * The Eloquent model for a resource slug, for call sites that still read
-	 * raw columns.
-	 */
-	public function model(string $resourceSlug): ?Entity
-	{
-		return $this->entities()[$resourceSlug] ?? null;
-	}
+    /**
+     * The Eloquent model for a resource slug, for call sites that still read
+     * raw columns.
+     */
+    public function model(string $resourceSlug): ?Entity
+    {
+        return $this->entities()[$resourceSlug] ?? null;
+    }
 
-	/**
-	 * @return array<string, EntityConfig> keyed by resource slug
-	 */
-	public function all(): array
-	{
-		foreach (array_keys($this->entities()) as $slug) {
-			$this->find($slug);
-		}
+    /**
+     * @return array<string, EntityConfig> keyed by resource slug
+     */
+    public function all(): array
+    {
+        foreach (array_keys($this->entities()) as $slug) {
+            $this->find($slug);
+        }
 
-		return $this->configs;
-	}
+        return $this->configs;
+    }
 
-	/**
-	 * Token that changes whenever entity configuration changes.
-	 *
-	 * Append this to any cache key holding a value derived from entity config.
-	 */
-	public function version(): string
-	{
-		if ($this->version !== null) {
-			return $this->version;
-		}
+    /**
+     * Token that changes whenever entity configuration changes.
+     *
+     * Append this to any cache key holding a value derived from entity config.
+     */
+    public function version(): string
+    {
+        if ($this->version !== null) {
+            return $this->version;
+        }
 
-		return $this->version = Cache::rememberForever(
-			self::VERSION_KEY,
-			static fn (): string => (string) time(),
-		);
-	}
+        return $this->version = Cache::rememberForever(
+            self::VERSION_KEY,
+            static fn (): string => (string) time(),
+        );
+    }
 
-	/**
-	 * Drop the cached configuration and invalidate everything derived from it.
-	 */
-	public function flush(): void
-	{
-		$this->entities = null;
-		$this->configs = [];
-		$this->version = null;
+    /**
+     * Drop the cached configuration and invalidate everything derived from it.
+     */
+    public function flush(): void
+    {
+        $this->entities = null;
+        $this->configs = [];
+        $this->version = null;
 
-		Cache::forget(self::CACHE_KEY);
-		Cache::forever(self::VERSION_KEY, (string) microtime(true));
-	}
+        Cache::forget(self::CACHE_KEY);
+        Cache::forever(self::VERSION_KEY, (string) microtime(true));
+    }
 
-	/**
-	 * @return array<string, Entity> keyed by resource slug
-	 */
-	private function entities(): array
-	{
-		if ($this->entities !== null) {
-			return $this->entities;
-		}
+    /**
+     * @return array<string, Entity> keyed by resource slug
+     */
+    private function entities(): array
+    {
+        if ($this->entities !== null) {
+            return $this->entities;
+        }
 
-		$cached = Cache::get(self::CACHE_KEY);
+        $cached = Cache::get(self::CACHE_KEY);
 
-		if (is_array($cached) && $cached !== []) {
-			return $this->entities = $cached;
-		}
+        if (is_array($cached) && $cached !== []) {
+            return $this->entities = $cached;
+        }
 
-		$loaded = $this->load();
+        $loaded = $this->load();
 
-		// An empty result means the table is missing or not seeded yet, i.e. the
-		// application still needs setup. Caching that forever would survive the
-		// setup run, and the seeders insert with the query builder so no model
-		// event fires to flush it. Only a non-empty result is worth caching.
-		if ($loaded === []) {
-			return [];
-		}
+        // An empty result means the table is missing or not seeded yet, i.e. the
+        // application still needs setup. Caching that forever would survive the
+        // setup run, and the seeders insert with the query builder so no model
+        // event fires to flush it. Only a non-empty result is worth caching.
+        if ($loaded === []) {
+            return [];
+        }
 
-		Cache::forever(self::CACHE_KEY, $loaded);
+        Cache::forever(self::CACHE_KEY, $loaded);
 
-		return $this->entities = $loaded;
-	}
+        return $this->entities = $loaded;
+    }
 
-	/**
-	 * Read every entity row from the database.
-	 *
-	 * Protected so a test can substitute the "nothing there yet" result without
-	 * having to drop or empty the table.
-	 *
-	 * @return array<string, Entity> keyed by resource slug
-	 */
-	protected function load(): array
-	{
-		try {
-			$entities = Entity::with(self::RELATIONS)->get();
-		} catch (QueryException) {
-			// the table does not exist yet
-			return [];
-		}
+    /**
+     * Read every entity row from the database.
+     *
+     * Protected so a test can substitute the "nothing there yet" result without
+     * having to drop or empty the table.
+     *
+     * @return array<string, Entity> keyed by resource slug
+     */
+    protected function load(): array
+    {
+        try {
+            $entities = Entity::with(self::RELATIONS)->get();
+        } catch (QueryException) {
+            // the table does not exist yet
+            return [];
+        }
 
-		$keyed = [];
+        $keyed = [];
 
-		foreach ($entities as $entity) {
-			if (! empty($entity->resource_slug)) {
-				$keyed[$entity->resource_slug] = $entity;
-			}
-		}
+        foreach ($entities as $entity) {
+            if (! empty($entity->resource_slug)) {
+                $keyed[$entity->resource_slug] = $entity;
+            }
+        }
 
-		return $keyed;
-	}
+        return $keyed;
+    }
 }

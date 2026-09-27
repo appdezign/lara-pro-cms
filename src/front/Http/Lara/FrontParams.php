@@ -4,299 +4,296 @@ namespace Lara\Front\Http\Lara;
 
 class FrontParams
 {
-	protected ?string $viewtype = null;
-	protected bool $isgrid = false;
-	protected ?string $listtype = null;
-	protected ?string $vtype = null;
-	protected ?string $showtags = null;
-	protected ?string $tagsview = null;
-	protected int $gridcols = 0;
-	protected int $gridcol = 0;
-	protected bool $paginate = false;
-	protected bool $infinite = false;
-	protected bool $prevnext = false;
-	protected bool $filter = false;
-	protected ?string $filterbytaxonomy = null;
-	protected ?string $taxonomy = null;
-	protected bool $isdefaultaxonomy = false;
-	protected array $xtratags = [];
+    protected ?string $viewtype = null;
 
-	public function __construct()
-	{
-		//
-	}
+    protected bool $isgrid = false;
 
-	/**
-	 * @return string|null
-	 */
-	public function getViewType()
-	{
-		return $this->viewtype;
-	}
+    protected ?string $listtype = null;
 
-	/**
-	 * @param string|null $viewtype
-	 * @return void
-	 */
-	public function setViewType(?string $viewtype)
-	{
-		$this->viewtype = $viewtype;
-	}
+    protected ?string $vtype = null;
 
-	/**
-	 * @return bool
-	 */
-	public function getIsGrid()
-	{
-		return $this->isgrid;
-	}
+    protected ?string $showtags = null;
 
-	/**
-	 * @param bool $isgrid
-	 * @return void
-	 */
-	public function setIsGrid(bool $isgrid)
-	{
-		$this->isgrid = $isgrid;
-	}
+    protected ?string $tagsview = null;
 
-	/**
-	 * @return string|null
-	 */
-	public function getListType()
-	{
-		return $this->listtype;
-	}
+    protected int $gridcols = 0;
 
-	/**
-	 * @param string|null $listtype
-	 * @return void
-	 */
-	public function setListType(?string $listtype)
-	{
-		$this->listtype = $listtype;
-	}
+    protected int $gridcol = 0;
 
-	/**
-	 * @return string|null
-	 */
-	public function getVType()
-	{
-		return $this->vtype;
-	}
+    protected bool $paginate = false;
 
-	/**
-	 * @param string|null $vtype
-	 * @return void
-	 */
-	public function setVType(?string $vtype)
-	{
-		$this->vtype = $vtype;
-	}
+    protected bool $infinite = false;
 
-	/**
-	 * @return string|null
-	 */
-	public function getShowTags()
-	{
-		return $this->showtags;
-	}
+    protected bool $prevnext = false;
 
-	/**
-	 * @param string|null $showtags
-	 * @return void
-	 */
-	public function setShowTags(?string $showtags)
-	{
-		$this->showtags = $showtags;
-	}
+    protected bool $filter = false;
 
-	/**
-	 * @return string|null
-	 */
-	public function getTagsView()
-	{
-		return $this->tagsview;
-	}
+    protected ?string $filterbytaxonomy = null;
 
-	/**
-	 * @param string|null $tagsview
-	 * @return void
-	 */
-	public function setTagsView(?string $tagsview)
-	{
-		$this->tagsview = $tagsview;
-	}
+    protected ?string $taxonomy = null;
 
-	/**
-	 * @return int
-	 */
-	public function getGridCols()
-	{
-		return $this->gridcols;
-	}
+    protected bool $isdefaultaxonomy = false;
 
-	/**
-	 * @param int $gridcols
-	 * @return void
-	 */
-	public function setGridCols(int $gridcols)
-	{
-		$this->gridcols = $gridcols;
-	}
+    protected array $xtratags = [];
 
-	/**
-	 * @return int
-	 */
-	public function getGridCol()
-	{
-		return $this->gridcol;
-	}
+    public function __construct()
+    {
+        //
+    }
 
-	/**
-	 * @param int $gridcol
-	 * @return void
-	 */
-	public function setGridCol(int $gridcol)
-	{
-		$this->gridcol = $gridcol;
-	}
+    /**
+     * @return string|null
+     */
+    public function getViewType()
+    {
+        return $this->viewtype;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function getPaginate()
-	{
-		return $this->paginate;
-	}
+    /**
+     * @return void
+     */
+    public function setViewType(?string $viewtype)
+    {
+        $this->viewtype = $viewtype;
+    }
 
-	/**
-	 * @param bool $paginate
-	 * @return void
-	 */
-	public function setPaginate(bool $paginate)
-	{
-		$this->paginate = $paginate;
-	}
+    /**
+     * @return bool
+     */
+    public function getIsGrid()
+    {
+        return $this->isgrid;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function getInfinite()
-	{
-		return $this->infinite;
-	}
+    /**
+     * @return void
+     */
+    public function setIsGrid(bool $isgrid)
+    {
+        $this->isgrid = $isgrid;
+    }
 
-	/**
-	 * @param bool $infinite
-	 * @return void
-	 */
-	public function setInfinite(bool $infinite)
-	{
-		$this->infinite = $infinite;
-	}
+    /**
+     * @return string|null
+     */
+    public function getListType()
+    {
+        return $this->listtype;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function getPrevNext()
-	{
-		return $this->prevnext;
-	}
+    /**
+     * @return void
+     */
+    public function setListType(?string $listtype)
+    {
+        $this->listtype = $listtype;
+    }
 
-	/**
-	 * @param bool $prevnext
-	 * @return void
-	 */
-	public function setPrevNext(bool $prevnext)
-	{
-		$this->prevnext = $prevnext;
-	}
+    /**
+     * @return string|null
+     */
+    public function getVType()
+    {
+        return $this->vtype;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function getFilter()
-	{
-		return $this->filter;
-	}
+    /**
+     * @return void
+     */
+    public function setVType(?string $vtype)
+    {
+        $this->vtype = $vtype;
+    }
 
-	/**
-	 * @param bool $filter
-	 * @return void
-	 */
-	public function setFilter(bool $filter)
-	{
-		$this->filter = $filter;
-	}
+    /**
+     * @return string|null
+     */
+    public function getShowTags()
+    {
+        return $this->showtags;
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getFilterByTaxonomy()
-	{
-		return $this->filterbytaxonomy;
-	}
+    /**
+     * @return void
+     */
+    public function setShowTags(?string $showtags)
+    {
+        $this->showtags = $showtags;
+    }
 
-	/**
-	 * @param string|null $filterbytaxonomy
-	 * @return void
-	 */
-	public function setFilterByTaxonomy(?string $filterbytaxonomy)
-	{
-		$this->filterbytaxonomy = $filterbytaxonomy;
-	}
+    /**
+     * @return string|null
+     */
+    public function getTagsView()
+    {
+        return $this->tagsview;
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getTaxonomy()
-	{
-		return $this->taxonomy;
-	}
+    /**
+     * @return void
+     */
+    public function setTagsView(?string $tagsview)
+    {
+        $this->tagsview = $tagsview;
+    }
 
-	/**
-	 * @param string|null $taxonomy
-	 * @return void
-	 */
-	public function setTaxonomy(?string $taxonomy)
-	{
-		$this->taxonomy = $taxonomy;
-	}
+    /**
+     * @return int
+     */
+    public function getGridCols()
+    {
+        return $this->gridcols;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function getIsDefaultTaxonomy()
-	{
-		return $this->isdefaultaxonomy;
-	}
+    /**
+     * @return void
+     */
+    public function setGridCols(int $gridcols)
+    {
+        $this->gridcols = $gridcols;
+    }
 
-	/**
-	 * @param bool $isdefaultaxonomy
-	 * @return void
-	 */
-	public function setIsDefaultTaxonomy(bool $isdefaultaxonomy)
-	{
-		$this->isdefaultaxonomy = $isdefaultaxonomy;
-	}
+    /**
+     * @return int
+     */
+    public function getGridCol()
+    {
+        return $this->gridcol;
+    }
 
-	/**
-	 * @return array|null
-	 */
-	public function getXtraTags()
-	{
-		return $this->xtratags;
-	}
+    /**
+     * @return void
+     */
+    public function setGridCol(int $gridcol)
+    {
+        $this->gridcol = $gridcol;
+    }
 
-	/**
-	 * @param string $taxonomySlug
-	 * @param array $xtratags
-	 * @return void
-	 */
-	public function setXtraTags(string $taxonomySlug, array $xtratags)
-	{
-		$this->xtratags[$taxonomySlug] = $xtratags;
-	}
+    /**
+     * @return bool
+     */
+    public function getPaginate()
+    {
+        return $this->paginate;
+    }
 
+    /**
+     * @return void
+     */
+    public function setPaginate(bool $paginate)
+    {
+        $this->paginate = $paginate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getInfinite()
+    {
+        return $this->infinite;
+    }
+
+    /**
+     * @return void
+     */
+    public function setInfinite(bool $infinite)
+    {
+        $this->infinite = $infinite;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getPrevNext()
+    {
+        return $this->prevnext;
+    }
+
+    /**
+     * @return void
+     */
+    public function setPrevNext(bool $prevnext)
+    {
+        $this->prevnext = $prevnext;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * @return void
+     */
+    public function setFilter(bool $filter)
+    {
+        $this->filter = $filter;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFilterByTaxonomy()
+    {
+        return $this->filterbytaxonomy;
+    }
+
+    /**
+     * @return void
+     */
+    public function setFilterByTaxonomy(?string $filterbytaxonomy)
+    {
+        $this->filterbytaxonomy = $filterbytaxonomy;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTaxonomy()
+    {
+        return $this->taxonomy;
+    }
+
+    /**
+     * @return void
+     */
+    public function setTaxonomy(?string $taxonomy)
+    {
+        $this->taxonomy = $taxonomy;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsDefaultTaxonomy()
+    {
+        return $this->isdefaultaxonomy;
+    }
+
+    /**
+     * @return void
+     */
+    public function setIsDefaultTaxonomy(bool $isdefaultaxonomy)
+    {
+        $this->isdefaultaxonomy = $isdefaultaxonomy;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getXtraTags()
+    {
+        return $this->xtratags;
+    }
+
+    /**
+     * @return void
+     */
+    public function setXtraTags(string $taxonomySlug, array $xtratags)
+    {
+        $this->xtratags[$taxonomySlug] = $xtratags;
+    }
 }

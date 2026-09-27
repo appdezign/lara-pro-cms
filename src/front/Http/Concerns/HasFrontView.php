@@ -14,48 +14,48 @@ use Lara\Front\Services\FrontViewResolver;
  */
 trait HasFrontView
 {
-	private function frontViewResolver(): FrontViewResolver
-	{
-		return app(FrontViewResolver::class);
-	}
+    private function frontViewResolver(): FrontViewResolver
+    {
+        return app(FrontViewResolver::class);
+    }
 
-	private function getEntityView(object $entity, FrontActiveRoute $activeroute)
-	{
-		return $this->frontViewResolver()->getEntityView($entity, $activeroute);
-	}
+    private function getEntityView(object $entity, FrontActiveRoute $activeroute)
+    {
+        return $this->frontViewResolver()->getEntityView($entity, $activeroute);
+    }
 
-	private function getFrontViewFile(object $entity, FrontActiveRoute $activeroute)
-	{
-		return $this->frontViewResolver()->getFrontViewFile($entity, $activeroute);
-	}
+    private function getFrontViewFile(object $entity, FrontActiveRoute $activeroute)
+    {
+        return $this->frontViewResolver()->getFrontViewFile($entity, $activeroute);
+    }
 
-	private function checkThemeViewFile(object $entity, string $viewpath): bool
-	{
-		return $this->frontViewResolver()->checkThemeViewFile($entity, $viewpath);
-	}
+    private function checkThemeViewFile(object $entity, string $viewpath): bool
+    {
+        return $this->frontViewResolver()->checkThemeViewFile($entity, $viewpath);
+    }
 
-	private function getDefaultThemeLayout()
-	{
-		return $this->frontViewResolver()->getDefaultThemeLayout();
-	}
+    private function getDefaultThemeLayout()
+    {
+        return $this->frontViewResolver()->getDefaultThemeLayout();
+    }
 
-	private function getGrid(object $layout)
-	{
-		return $this->frontViewResolver()->getGrid($layout);
-	}
+    private function getGrid(object $layout)
+    {
+        return $this->frontViewResolver()->getGrid($layout);
+    }
 
-	private function getGridVars($entity)
-	{
-		return $this->frontViewResolver()->getGridVars($entity);
-	}
+    private function getGridVars($entity)
+    {
+        return $this->frontViewResolver()->getGridVars($entity);
+    }
 
-	private function getGridOverride($entity, FrontActiveRoute $activeroute)
-	{
-		return $this->frontViewResolver()->getGridOverride($entity, $activeroute);
-	}
+    private function getGridOverride($entity, FrontActiveRoute $activeroute)
+    {
+        return $this->frontViewResolver()->getGridOverride($entity, $activeroute);
+    }
 
-	private function getObjectThemeLayout(object $object, ?object $params = null)
-	{
-		return $this->frontViewResolver()->getObjectThemeLayout($object, $params);
-	}
+    private function getObjectThemeLayout(object $object, ?object $params = null)
+    {
+        return $this->frontViewResolver()->getObjectThemeLayout($object, $params);
+    }
 }

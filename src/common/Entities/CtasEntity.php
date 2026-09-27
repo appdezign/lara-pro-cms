@@ -4,15 +4,7 @@ namespace Lara\Common\Entities;
 
 class CtasEntity extends LaraEntity
 {
+    protected ?string $module = 'admin';
 
-	/**
-	 * @var string
-	 */
-	protected ?string $module = 'admin';
-
-	/**
-	 * @var string
-	 */
-	public ?string $resource_slug = 'ctas';
-
+    public ?string $resource_slug = 'ctas';
 }

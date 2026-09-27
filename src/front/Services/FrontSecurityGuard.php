@@ -16,262 +16,262 @@ use stdClass;
  */
 final class FrontSecurityGuard
 {
-	/**
-	 * @return object
-	 */
-	public function detectSpam(object $entity, object $object, array $fieldtypes)
-	{
+    /**
+     * @return object
+     */
+    public function detectSpam(object $entity, object $object, array $fieldtypes)
+    {
 
-		$data = new stdClass;
+        $data = new stdClass;
 
-		// patch 6.2.23 - start
-		$isBlackListed = false;
-		if (isset($object->ipaddress)) {
-			$isBlackListed = $this->isBlacklisted($object->ipaddress);
-		}
+        // patch 6.2.23 - start
+        $isBlackListed = false;
+        if (isset($object->ipaddress)) {
+            $isBlackListed = $this->isBlacklisted($object->ipaddress);
+        }
 
-		if ($isBlackListed) {
+        if ($isBlackListed) {
 
-			// ip address is blacklisted
-			// no further checks necessary
-			$data->result = true;
-			$data->message = 'too many requests ...';
+            // ip address is blacklisted
+            // no further checks necessary
+            $data->result = true;
+            $data->message = 'too many requests ...';
 
-		} else {
-			// patch 6.2.23 - end
+        } else {
+            // patch 6.2.23 - end
 
-			$spamScore = 0;
+            $spamScore = 0;
 
-			// check for links
-			$detectLinks = $this->detectLinkInString($entity, $object, $fieldtypes);
-			if ($detectLinks) {
-				$spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_link');
-			}
+            // check for links
+            $detectLinks = $this->detectLinkInString($entity, $object, $fieldtypes);
+            if ($detectLinks) {
+                $spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_link');
+            }
 
-			// check for email addresses
-			$detectEmails = $this->detectEmailInString($entity, $object, $fieldtypes);
-			if ($detectEmails) {
-				$spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_email');
-			}
+            // check for email addresses
+            $detectEmails = $this->detectEmailInString($entity, $object, $fieldtypes);
+            if ($detectEmails) {
+                $spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_email');
+            }
 
-			// detect language
-			$matchLang = $this->matchLanguage($entity, $object);
-			if (! $matchLang) {
-				$spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_language');
-			}
+            // detect language
+            $matchLang = $this->matchLanguage($entity, $object);
+            if (! $matchLang) {
+                $spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_language');
+            }
 
-			// check total score
-			if ($spamScore >= config('lara.forms_anti_spam.threshold')) {
-				$data->result = true;
-				$data->message = 'spam detected';
+            // check total score
+            if ($spamScore >= config('lara.forms_anti_spam.threshold')) {
+                $data->result = true;
+                $data->message = 'spam detected';
 
-				// patch 6.2.23 - start
-				$this->addToBlacklist($object->ipaddress);
-				// patch 6.2.23 - end
+                // patch 6.2.23 - start
+                $this->addToBlacklist($object->ipaddress);
+                // patch 6.2.23 - end
 
-			} else {
-				$data->result = false;
-				$data->message = 'passed';
-			}
-		}
+            } else {
+                $data->result = false;
+                $data->message = 'passed';
+            }
+        }
 
-		return $data;
+        return $data;
 
-	}
+    }
 
-	/*
-	 * part of patch 6.2.23
-	 */
-	private function addToBlacklist($ipaddress)
-	{
+    /*
+     * part of patch 6.2.23
+     */
+    private function addToBlacklist($ipaddress)
+    {
 
-		return Blacklist::create(['ipaddress' => $ipaddress]);
+        return Blacklist::create(['ipaddress' => $ipaddress]);
 
-	}
+    }
 
-	/*
-	 * part of patch 6.2.23
-	 */
-	private function isBlacklisted($ipaddress)
-	{
+    /*
+     * part of patch 6.2.23
+     */
+    private function isBlacklisted($ipaddress)
+    {
 
-		// check blacklist table
-		$this->checkBlackListTable();
+        // check blacklist table
+        $this->checkBlackListTable();
 
-		$blackListCheck = Blacklist::where('ipaddress', $ipaddress)->first();
+        $blackListCheck = Blacklist::where('ipaddress', $ipaddress)->first();
 
-		if ($blackListCheck) {
-			return true;
-		} else {
-			return false;
-		}
+        if ($blackListCheck) {
+            return true;
+        } else {
+            return false;
+        }
 
-	}
+    }
 
-	/*
-	 * part of patch 6.2.23
-	 */
-	private function checkBlackListTable()
-	{
+    /*
+     * part of patch 6.2.23
+     */
+    private function checkBlackListTable()
+    {
 
-		// check blacklist table
-		$tablename = 'lara_sys_blacklist';
-		if (! Schema::hasTable($tablename)) {
-			Schema::create($tablename, function (Blueprint $table) {
-				$table->increments('id');
-				$table->string('ipaddress')->nullable();
-				$table->timestamps();
-			});
-		}
+        // check blacklist table
+        $tablename = 'lara_sys_blacklist';
+        if (! Schema::hasTable($tablename)) {
+            Schema::create($tablename, function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('ipaddress')->nullable();
+                $table->timestamps();
+            });
+        }
 
-		return true;
+        return true;
 
-	}
+    }
 
-	/*
-	 * part of patch 6.2.23
-	 */
-	public function checkBlackListColumn($entity)
-	{
+    /*
+     * part of patch 6.2.23
+     */
+    public function checkBlackListColumn($entity)
+    {
 
-		$column = 'ipaddress';
+        $column = 'ipaddress';
 
-		$modelClass = $entity->getEntityModelClass();
-		$model = new $modelClass;
-		$tablename = $model->getTable();
+        $modelClass = $entity->getEntityModelClass();
+        $model = new $modelClass;
+        $tablename = $model->getTable();
 
-		if (! Schema::hasColumn($tablename, $column)) {
-			Schema::table($tablename, function ($table) use ($column) {
-				$table->string($column)->nullable();
-			});
-		}
+        if (! Schema::hasColumn($tablename, $column)) {
+            Schema::table($tablename, function ($table) use ($column) {
+                $table->string($column)->nullable();
+            });
+        }
 
-	}
+    }
 
-	private function detectEmailInString(object $entity, object $object, array $fieldtypes): bool
-	{
-		// This regular expression extracts all emails from a string:
-		$regexp = '/([a-z0-9_\.\-])+(\@|\[at\])+(([a-z0-9\-])+\.)+([a-z0-9]{2,4})+/i';
+    private function detectEmailInString(object $entity, object $object, array $fieldtypes): bool
+    {
+        // This regular expression extracts all emails from a string:
+        $regexp = '/([a-z0-9_\.\-])+(\@|\[at\])+(([a-z0-9\-])+\.)+([a-z0-9]{2,4})+/i';
 
-		$stringHasEmail = false;
+        $stringHasEmail = false;
 
-		foreach ($entity->getCustomColumns() as $field) {
-			if (in_array($field->fieldtype, $fieldtypes)) {
-				$fieldname = $field->fieldname;
-				$fieldval = $object->$fieldname;
-				preg_match_all($regexp, $fieldval, $m);
-				if (count($m[0]) > 0) {
-					$stringHasEmail = true;
-					$object->$fieldname = '[SPAM] - '.$fieldval;
-					$object->save();
-				}
-			}
-		}
+        foreach ($entity->getCustomColumns() as $field) {
+            if (in_array($field->fieldtype, $fieldtypes)) {
+                $fieldname = $field->fieldname;
+                $fieldval = $object->$fieldname;
+                preg_match_all($regexp, $fieldval, $m);
+                if (count($m[0]) > 0) {
+                    $stringHasEmail = true;
+                    $object->$fieldname = '[SPAM] - '.$fieldval;
+                    $object->save();
+                }
+            }
+        }
 
-		return $stringHasEmail;
+        return $stringHasEmail;
 
-	}
+    }
 
-	private function detectLinkInString(object $entity, object $object, array $fieldtypes): bool
-	{
+    private function detectLinkInString(object $entity, object $object, array $fieldtypes): bool
+    {
 
-		$patterns = config('lara.detect_link_patterns');
+        $patterns = config('lara.detect_link_patterns');
 
-		$stringHasLinks = false;
+        $stringHasLinks = false;
 
-		foreach ($entity->getCustomColumns() as $field) {
-			if (in_array($field->fieldtype, $fieldtypes)) {
-				$fieldname = $field->fieldname;
-				$fieldval = $object->$fieldname;
-				foreach ($patterns as $pattern) {
-					if (Str::contains($fieldval, $pattern)) {
-						$stringHasLinks = true;
-						$object->$fieldname = '[SPAM] - '.$fieldval;
-						$object->save();
-					}
-				}
-			}
-		}
+        foreach ($entity->getCustomColumns() as $field) {
+            if (in_array($field->fieldtype, $fieldtypes)) {
+                $fieldname = $field->fieldname;
+                $fieldval = $object->$fieldname;
+                foreach ($patterns as $pattern) {
+                    if (Str::contains($fieldval, $pattern)) {
+                        $stringHasLinks = true;
+                        $object->$fieldname = '[SPAM] - '.$fieldval;
+                        $object->save();
+                    }
+                }
+            }
+        }
 
-		return $stringHasLinks;
-	}
+        return $stringHasLinks;
+    }
 
-	private function matchLanguage(object $entity, $object): bool
-	{
+    private function matchLanguage(object $entity, $object): bool
+    {
 
-		$matchLang = true;
+        $matchLang = true;
 
-		if (config('lara.detect_language.enabled')) {
+        if (config('lara.detect_language.enabled')) {
 
-			if (config('lara.google_translate_api_key')) {
+            if (config('lara.google_translate_api_key')) {
 
-				$translate = new TranslateClient([
-					'key' => config('lara.google_translate_api_key'),
-				]);
+                $translate = new TranslateClient([
+                    'key' => config('lara.google_translate_api_key'),
+                ]);
 
-				$allowedLanguages = config('lara.detect_language.languages_allowed');
-				$detectFields = config('lara.detect_language.entity_fields');
-				$wordThresholdMin = config('lara.detect_language.wordcount_threshold_min');
-				$wordThresholdMax = config('lara.detect_language.wordcount_threshold_max');
+                $allowedLanguages = config('lara.detect_language.languages_allowed');
+                $detectFields = config('lara.detect_language.entity_fields');
+                $wordThresholdMin = config('lara.detect_language.wordcount_threshold_min');
+                $wordThresholdMax = config('lara.detect_language.wordcount_threshold_max');
 
-				if (array_key_exists($entity->getResourceSlug(), $detectFields)) {
+                if (array_key_exists($entity->getResourceSlug(), $detectFields)) {
 
-					$entkey = $entity->getResourceSlug();
-					$detectEntityFields = $detectFields[$entkey];
+                    $entkey = $entity->getResourceSlug();
+                    $detectEntityFields = $detectFields[$entkey];
 
-					foreach ($entity->getCustomColumns() as $field) {
-						if (in_array($field->fieldname, $detectEntityFields)) {
-							$fieldname = $field->fieldname;
-							$fieldval = $object->$fieldname;
-							if (str_word_count($fieldval) > $wordThresholdMin) {
-								if (str_word_count($fieldval) < $wordThresholdMax) {
-									$result = $translate->detectLanguage($fieldval);
-									if (! in_array($result['languageCode'], $allowedLanguages)) {
-										// detected language is not allowed, mark as spam
-										$matchLang = false;
-									}
-								} else {
-									// too many words, mark as spam
-									$matchLang = false;
-								}
+                    foreach ($entity->getCustomColumns() as $field) {
+                        if (in_array($field->fieldname, $detectEntityFields)) {
+                            $fieldname = $field->fieldname;
+                            $fieldval = $object->$fieldname;
+                            if (str_word_count($fieldval) > $wordThresholdMin) {
+                                if (str_word_count($fieldval) < $wordThresholdMax) {
+                                    $result = $translate->detectLanguage($fieldval);
+                                    if (! in_array($result['languageCode'], $allowedLanguages)) {
+                                        // detected language is not allowed, mark as spam
+                                        $matchLang = false;
+                                    }
+                                } else {
+                                    // too many words, mark as spam
+                                    $matchLang = false;
+                                }
 
-							}
-						}
-					}
-				}
-			}
-		}
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-		return $matchLang;
+        return $matchLang;
 
-	}
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getValidationRules(object $entity)
-	{
+    /**
+     * @return array
+     */
+    public function getValidationRules(object $entity)
+    {
 
-		$requiredFields = [];
+        $requiredFields = [];
 
-		foreach ($entity->getCustomColumns() as $field) {
+        foreach ($entity->getCustomColumns() as $field) {
 
-			$fieldname = $field->fieldname;
+            $fieldname = $field->fieldname;
 
-			if ($field->fieldtype == 'email') {
-				if ($field->required) {
-					$requiredFields[$fieldname] = 'email:rfc,dns|required';
-				} else {
-					$requiredFields[$fieldname] = 'email:rfc,dns';
-				}
-			} else {
-				if ($field->required) {
-					$requiredFields[$fieldname] = 'required';
-				}
-			}
-		}
+            if ($field->fieldtype == 'email') {
+                if ($field->required) {
+                    $requiredFields[$fieldname] = 'email:rfc,dns|required';
+                } else {
+                    $requiredFields[$fieldname] = 'email:rfc,dns';
+                }
+            } else {
+                if ($field->required) {
+                    $requiredFields[$fieldname] = 'required';
+                }
+            }
+        }
 
-		return $requiredFields;
+        return $requiredFields;
 
-	}
+    }
 }

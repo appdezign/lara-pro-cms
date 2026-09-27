@@ -4,16 +4,10 @@ namespace Lara\Common\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
-
 use Illuminate\Support\Facades\Route;
-use Lara\Front\Http\Concerns\HasFrontend;
-
 use Lara\Common\Entities\UsersEntity;
-
+use Lara\Front\Http\Concerns\HasFrontend;
 use stdClass;
 
 class LoginController extends Controller
@@ -30,13 +24,13 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-	use HasFrontend;
+    use HasFrontend;
 
     protected string $redirectTo = '/';
 
-	protected ?object $globalsettings = null;
+    protected ?object $globalsettings = null;
 
-	/**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -46,46 +40,43 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
 
-	    $this->entity = new UsersEntity();
+        $this->entity = new UsersEntity;
 
-	    $this->data = new stdClass();
+        $this->data = new stdClass;
 
-	    if (Route::current() !== null) {
-		    $this->globalsettings = $this->getGlobalSettings();
-		    $this->middleware(function ($request, $next) {
-			    view()->share('globalsettings', $this->globalsettings);
-			    return $next($request);
-		    });
-	    }
+        if (Route::current() !== null) {
+            $this->globalsettings = $this->getGlobalSettings();
+            $this->middleware(function ($request, $next) {
+                view()->share('globalsettings', $this->globalsettings);
+
+                return $next($request);
+            });
+        }
     }
 
-	public function showLoginForm()
-	{
-		return view('_user.auth.login', [
-			'data' => $this->data,
-		]);
-	}
+    public function showLoginForm()
+    {
+        return view('_user.auth.login', [
+            'data' => $this->data,
+        ]);
+    }
 
-	/**
-	 *
-	 * Override credentials
-	 *
-	 * Get the needed authorization credentials from the request.
-	 *
-	 * @param \Illuminate\Http\Request $request
-	 * @return array
-	 */
-	protected function credentials(Request $request)
-	{
-		$field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
-			? $this->username()
-			: 'name';
+    /**
+     * Override credentials
+     *
+     * Get the needed authorization credentials from the request.
+     *
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
+            ? $this->username()
+            : 'name';
 
-		return [
-			$field     => $request->get($this->username()),
-			'password' => $request->password,
-		];
-	}
-
-
+        return [
+            $field => $request->get($this->username()),
+            'password' => $request->password,
+        ];
+    }
 }

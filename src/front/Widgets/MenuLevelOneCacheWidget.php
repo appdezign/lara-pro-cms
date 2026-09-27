@@ -12,66 +12,66 @@ use LaravelLocalization;
 
 class MenuLevelOneCacheWidget extends AbstractWidget
 {
-	protected $config = [
-		'mnu' => 'main',
-		'grid' => null,
-	];
+    protected $config = [
+        'mnu' => 'main',
+        'grid' => null,
+    ];
 
-	public $cacheTime = false;
+    public $cacheTime = false;
 
-	public function __construct(array $config = [])
-	{
-		$this->cacheTime = config('lara-front.widget_cache_time');
-		parent::__construct($config);
-	}
+    public function __construct(array $config = [])
+    {
+        $this->cacheTime = config('lara-front.widget_cache_time');
+        parent::__construct($config);
+    }
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.menuLevelOneWidget.'.$this->config['mnu'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.menuLevelOneWidget.'.$this->config['mnu'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
 
-		$language = LaravelLocalization::getCurrentLocale();
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$menu = Menu::where('slug', $this->config['mnu'])->first();
+        $menu = Menu::where('slug', $this->config['mnu'])->first();
 
-		if ($menu) {
+        if ($menu) {
 
-			$menulevelone = MenuItem::scoped(['menu_id' => $menu->id, 'language' => $language])
-				->defaultOrder()
-				->where('publish', 1)
-				->whereNull('parent_id')
-				->get()
-				->toTree();
+            $menulevelone = MenuItem::scoped(['menu_id' => $menu->id, 'language' => $language])
+                ->defaultOrder()
+                ->where('publish', 1)
+                ->whereNull('parent_id')
+                ->get()
+                ->toTree();
 
-		} else {
+        } else {
 
-			$menulevelone = null;
+            $menulevelone = null;
 
-		}
+        }
 
-		$widgetview = '_widgets.menu-level-one.'.$this->config['mnu'];
+        $widgetview = '_widgets.menu-level-one.'.$this->config['mnu'];
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'menulevelone' => $menulevelone,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'menulevelone' => $menulevelone,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }

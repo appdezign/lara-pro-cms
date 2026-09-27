@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class LaraLaraAuthPermissionsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,1221 +13,1068 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_auth_permissions')->delete();
-        
-        \DB::table('lara_auth_permissions')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_auth_permissions')->insert([
+            0 => [
                 'id' => 99,
                 'name' => 'view_any_blog',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 100,
                 'name' => 'view_blog',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 101,
                 'name' => 'create_blog',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 102,
                 'name' => 'update_blog',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 103,
                 'name' => 'delete_blog',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 104,
                 'name' => 'delete_any_blog',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 105,
                 'name' => 'view_any_team',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 106,
                 'name' => 'view_team',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 107,
                 'name' => 'create_team',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 108,
                 'name' => 'update_team',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 109,
                 'name' => 'delete_team',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 110,
                 'name' => 'delete_any_team',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 111,
                 'name' => 'view_any_location',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 112,
                 'name' => 'view_location',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 113,
                 'name' => 'create_location',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 114,
                 'name' => 'update_location',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 115,
                 'name' => 'delete_location',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 116,
                 'name' => 'delete_any_location',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 117,
                 'name' => 'view_any_slider',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 118,
                 'name' => 'view_slider',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 119,
                 'name' => 'create_slider',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 120,
                 'name' => 'update_slider',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 121,
                 'name' => 'delete_slider',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 122,
                 'name' => 'delete_any_slider',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 123,
                 'name' => 'view_any_contactform',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 124,
                 'name' => 'view_contactform',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            26 => 
-            array (
+            ],
+            26 => [
                 'id' => 125,
                 'name' => 'create_contactform',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            27 => 
-            array (
+            ],
+            27 => [
                 'id' => 126,
                 'name' => 'update_contactform',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            28 => 
-            array (
+            ],
+            28 => [
                 'id' => 127,
                 'name' => 'delete_contactform',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            29 => 
-            array (
+            ],
+            29 => [
                 'id' => 128,
                 'name' => 'delete_any_contactform',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            30 => 
-            array (
+            ],
+            30 => [
                 'id' => 129,
                 'name' => 'view_any_entity',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            31 => 
-            array (
+            ],
+            31 => [
                 'id' => 130,
                 'name' => 'view_entity',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            32 => 
-            array (
+            ],
+            32 => [
                 'id' => 131,
                 'name' => 'create_entity',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            33 => 
-            array (
+            ],
+            33 => [
                 'id' => 132,
                 'name' => 'update_entity',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            34 => 
-            array (
+            ],
+            34 => [
                 'id' => 133,
                 'name' => 'delete_entity',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            35 => 
-            array (
+            ],
+            35 => [
                 'id' => 134,
                 'name' => 'delete_any_entity',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            36 => 
-            array (
+            ],
+            36 => [
                 'id' => 135,
                 'name' => 'view_any_menu',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            37 => 
-            array (
+            ],
+            37 => [
                 'id' => 136,
                 'name' => 'view_menu',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            38 => 
-            array (
+            ],
+            38 => [
                 'id' => 137,
                 'name' => 'create_menu',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            39 => 
-            array (
+            ],
+            39 => [
                 'id' => 138,
                 'name' => 'update_menu',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            40 => 
-            array (
+            ],
+            40 => [
                 'id' => 139,
                 'name' => 'delete_menu',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            41 => 
-            array (
+            ],
+            41 => [
                 'id' => 140,
                 'name' => 'delete_any_menu',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            42 => 
-            array (
+            ],
+            42 => [
                 'id' => 141,
                 'name' => 'view_any_menuitem',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            43 => 
-            array (
+            ],
+            43 => [
                 'id' => 142,
                 'name' => 'view_menuitem',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            44 => 
-            array (
+            ],
+            44 => [
                 'id' => 143,
                 'name' => 'create_menuitem',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            45 => 
-            array (
+            ],
+            45 => [
                 'id' => 144,
                 'name' => 'update_menuitem',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            46 => 
-            array (
+            ],
+            46 => [
                 'id' => 145,
                 'name' => 'delete_menuitem',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            47 => 
-            array (
+            ],
+            47 => [
                 'id' => 146,
                 'name' => 'delete_any_menuitem',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            48 => 
-            array (
+            ],
+            48 => [
                 'id' => 147,
                 'name' => 'view_any_page',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            49 => 
-            array (
+            ],
+            49 => [
                 'id' => 148,
                 'name' => 'view_page',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            50 => 
-            array (
+            ],
+            50 => [
                 'id' => 149,
                 'name' => 'create_page',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            51 => 
-            array (
+            ],
+            51 => [
                 'id' => 150,
                 'name' => 'update_page',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            52 => 
-            array (
+            ],
+            52 => [
                 'id' => 151,
                 'name' => 'delete_page',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            53 => 
-            array (
+            ],
+            53 => [
                 'id' => 152,
                 'name' => 'delete_any_page',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            54 => 
-            array (
+            ],
+            54 => [
                 'id' => 153,
                 'name' => 'view_any_setting',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            55 => 
-            array (
+            ],
+            55 => [
                 'id' => 154,
                 'name' => 'view_setting',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            56 => 
-            array (
+            ],
+            56 => [
                 'id' => 155,
                 'name' => 'create_setting',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            57 => 
-            array (
+            ],
+            57 => [
                 'id' => 156,
                 'name' => 'update_setting',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            58 => 
-            array (
+            ],
+            58 => [
                 'id' => 157,
                 'name' => 'delete_setting',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            59 => 
-            array (
+            ],
+            59 => [
                 'id' => 158,
                 'name' => 'delete_any_setting',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            60 => 
-            array (
+            ],
+            60 => [
                 'id' => 159,
                 'name' => 'view_any_translation',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            61 => 
-            array (
+            ],
+            61 => [
                 'id' => 160,
                 'name' => 'view_translation',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            62 => 
-            array (
+            ],
+            62 => [
                 'id' => 161,
                 'name' => 'create_translation',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            63 => 
-            array (
+            ],
+            63 => [
                 'id' => 162,
                 'name' => 'update_translation',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            64 => 
-            array (
+            ],
+            64 => [
                 'id' => 163,
                 'name' => 'delete_translation',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            65 => 
-            array (
+            ],
+            65 => [
                 'id' => 164,
                 'name' => 'delete_any_translation',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            66 => 
-            array (
+            ],
+            66 => [
                 'id' => 165,
                 'name' => 'view_any_user',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            67 => 
-            array (
+            ],
+            67 => [
                 'id' => 166,
                 'name' => 'view_user',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            68 => 
-            array (
+            ],
+            68 => [
                 'id' => 167,
                 'name' => 'create_user',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            69 => 
-            array (
+            ],
+            69 => [
                 'id' => 168,
                 'name' => 'update_user',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            70 => 
-            array (
+            ],
+            70 => [
                 'id' => 169,
                 'name' => 'delete_user',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            71 => 
-            array (
+            ],
+            71 => [
                 'id' => 170,
                 'name' => 'delete_any_user',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            72 => 
-            array (
+            ],
+            72 => [
                 'id' => 171,
                 'name' => 'view_any_role',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            73 => 
-            array (
+            ],
+            73 => [
                 'id' => 172,
                 'name' => 'view_role',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            74 => 
-            array (
+            ],
+            74 => [
                 'id' => 173,
                 'name' => 'create_role',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            75 => 
-            array (
+            ],
+            75 => [
                 'id' => 174,
                 'name' => 'update_role',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            76 => 
-            array (
+            ],
+            76 => [
                 'id' => 175,
                 'name' => 'delete_role',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            77 => 
-            array (
+            ],
+            77 => [
                 'id' => 176,
                 'name' => 'delete_any_role',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            78 => 
-            array (
+            ],
+            78 => [
                 'id' => 177,
                 'name' => 'view_any_cache',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-08 14:47:20',
                 'updated_at' => '2025-07-08 14:47:20',
-            ),
-            79 => 
-            array (
+            ],
+            79 => [
                 'id' => 178,
                 'name' => 'view_any_event',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-11 09:41:16',
                 'updated_at' => '2025-07-11 09:41:16',
-            ),
-            80 => 
-            array (
+            ],
+            80 => [
                 'id' => 179,
                 'name' => 'view_event',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-11 09:41:16',
                 'updated_at' => '2025-07-11 09:41:16',
-            ),
-            81 => 
-            array (
+            ],
+            81 => [
                 'id' => 180,
                 'name' => 'create_event',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-11 09:41:16',
                 'updated_at' => '2025-07-11 09:41:16',
-            ),
-            82 => 
-            array (
+            ],
+            82 => [
                 'id' => 181,
                 'name' => 'update_event',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-11 09:41:16',
                 'updated_at' => '2025-07-11 09:41:16',
-            ),
-            83 => 
-            array (
+            ],
+            83 => [
                 'id' => 182,
                 'name' => 'delete_event',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-11 09:41:16',
                 'updated_at' => '2025-07-11 09:41:16',
-            ),
-            84 => 
-            array (
+            ],
+            84 => [
                 'id' => 183,
                 'name' => 'delete_any_event',
                 'guard_name' => 'web',
                 'created_at' => '2025-07-11 09:41:16',
                 'updated_at' => '2025-07-11 09:41:16',
-            ),
-            85 => 
-            array (
+            ],
+            85 => [
                 'id' => 190,
                 'name' => 'view_any_cta',
                 'guard_name' => 'web',
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
-            ),
-            86 => 
-            array (
+            ],
+            86 => [
                 'id' => 191,
                 'name' => 'view_cta',
                 'guard_name' => 'web',
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
-            ),
-            87 => 
-            array (
+            ],
+            87 => [
                 'id' => 192,
                 'name' => 'create_cta',
                 'guard_name' => 'web',
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
-            ),
-            88 => 
-            array (
+            ],
+            88 => [
                 'id' => 193,
                 'name' => 'update_cta',
                 'guard_name' => 'web',
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
-            ),
-            89 => 
-            array (
+            ],
+            89 => [
                 'id' => 194,
                 'name' => 'delete_cta',
                 'guard_name' => 'web',
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
-            ),
-            90 => 
-            array (
+            ],
+            90 => [
                 'id' => 195,
                 'name' => 'delete_any_cta',
                 'guard_name' => 'web',
                 'created_at' => '2025-08-14 14:23:42',
                 'updated_at' => '2025-08-14 14:23:42',
-            ),
-            91 => 
-            array (
+            ],
+            91 => [
                 'id' => 196,
                 'name' => 'view_any_larawidget',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            92 => 
-            array (
+            ],
+            92 => [
                 'id' => 197,
                 'name' => 'view_larawidget',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            93 => 
-            array (
+            ],
+            93 => [
                 'id' => 198,
                 'name' => 'create_larawidget',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            94 => 
-            array (
+            ],
+            94 => [
                 'id' => 199,
                 'name' => 'update_larawidget',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            95 => 
-            array (
+            ],
+            95 => [
                 'id' => 200,
                 'name' => 'delete_larawidget',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            96 => 
-            array (
+            ],
+            96 => [
                 'id' => 201,
                 'name' => 'delete_any_larawidget',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            97 => 
-            array (
+            ],
+            97 => [
                 'id' => 202,
                 'name' => 'view_any_service',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            98 => 
-            array (
+            ],
+            98 => [
                 'id' => 203,
                 'name' => 'view_service',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            99 => 
-            array (
+            ],
+            99 => [
                 'id' => 204,
                 'name' => 'create_service',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            100 => 
-            array (
+            ],
+            100 => [
                 'id' => 205,
                 'name' => 'update_service',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            101 => 
-            array (
+            ],
+            101 => [
                 'id' => 206,
                 'name' => 'delete_service',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            102 => 
-            array (
+            ],
+            102 => [
                 'id' => 207,
                 'name' => 'delete_any_service',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            103 => 
-            array (
+            ],
+            103 => [
                 'id' => 208,
                 'name' => 'view_any_testimonial',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            104 => 
-            array (
+            ],
+            104 => [
                 'id' => 209,
                 'name' => 'view_testimonial',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            105 => 
-            array (
+            ],
+            105 => [
                 'id' => 210,
                 'name' => 'create_testimonial',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            106 => 
-            array (
+            ],
+            106 => [
                 'id' => 211,
                 'name' => 'update_testimonial',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            107 => 
-            array (
+            ],
+            107 => [
                 'id' => 212,
                 'name' => 'delete_testimonial',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            108 => 
-            array (
+            ],
+            108 => [
                 'id' => 213,
                 'name' => 'delete_any_testimonial',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            109 => 
-            array (
+            ],
+            109 => [
                 'id' => 214,
                 'name' => 'view_any_portfolio',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            110 => 
-            array (
+            ],
+            110 => [
                 'id' => 215,
                 'name' => 'view_portfolio',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            111 => 
-            array (
+            ],
+            111 => [
                 'id' => 216,
                 'name' => 'create_portfolio',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            112 => 
-            array (
+            ],
+            112 => [
                 'id' => 217,
                 'name' => 'update_portfolio',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            113 => 
-            array (
+            ],
+            113 => [
                 'id' => 218,
                 'name' => 'delete_portfolio',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            114 => 
-            array (
+            ],
+            114 => [
                 'id' => 219,
                 'name' => 'delete_any_portfolio',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            115 => 
-            array (
+            ],
+            115 => [
                 'id' => 220,
                 'name' => 'view_any_gallery',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            116 => 
-            array (
+            ],
+            116 => [
                 'id' => 221,
                 'name' => 'view_gallery',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            117 => 
-            array (
+            ],
+            117 => [
                 'id' => 222,
                 'name' => 'create_gallery',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            118 => 
-            array (
+            ],
+            118 => [
                 'id' => 223,
                 'name' => 'update_gallery',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            119 => 
-            array (
+            ],
+            119 => [
                 'id' => 224,
                 'name' => 'delete_gallery',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            120 => 
-            array (
+            ],
+            120 => [
                 'id' => 225,
                 'name' => 'delete_any_gallery',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            121 => 
-            array (
+            ],
+            121 => [
                 'id' => 226,
                 'name' => 'view_any_doc',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            122 => 
-            array (
+            ],
+            122 => [
                 'id' => 227,
                 'name' => 'view_doc',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            123 => 
-            array (
+            ],
+            123 => [
                 'id' => 228,
                 'name' => 'create_doc',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            124 => 
-            array (
+            ],
+            124 => [
                 'id' => 229,
                 'name' => 'update_doc',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            125 => 
-            array (
+            ],
+            125 => [
                 'id' => 230,
                 'name' => 'delete_doc',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            126 => 
-            array (
+            ],
+            126 => [
                 'id' => 231,
                 'name' => 'delete_any_doc',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            127 => 
-            array (
+            ],
+            127 => [
                 'id' => 232,
                 'name' => 'view_any_video',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            128 => 
-            array (
+            ],
+            128 => [
                 'id' => 233,
                 'name' => 'view_video',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            129 => 
-            array (
+            ],
+            129 => [
                 'id' => 234,
                 'name' => 'create_video',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            130 => 
-            array (
+            ],
+            130 => [
                 'id' => 235,
                 'name' => 'update_video',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            131 => 
-            array (
+            ],
+            131 => [
                 'id' => 236,
                 'name' => 'delete_video',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            132 => 
-            array (
+            ],
+            132 => [
                 'id' => 237,
                 'name' => 'delete_any_video',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            133 => 
-            array (
+            ],
+            133 => [
                 'id' => 238,
                 'name' => 'view_any_classicform',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            134 => 
-            array (
+            ],
+            134 => [
                 'id' => 239,
                 'name' => 'view_classicform',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            135 => 
-            array (
+            ],
+            135 => [
                 'id' => 240,
                 'name' => 'create_classicform',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            136 => 
-            array (
+            ],
+            136 => [
                 'id' => 241,
                 'name' => 'update_classicform',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            137 => 
-            array (
+            ],
+            137 => [
                 'id' => 242,
                 'name' => 'delete_classicform',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            138 => 
-            array (
+            ],
+            138 => [
                 'id' => 243,
                 'name' => 'delete_any_classicform',
                 'guard_name' => 'web',
                 'created_at' => '2025-09-28 09:05:50',
                 'updated_at' => '2025-09-28 09:05:50',
-            ),
-            139 => 
-            array (
+            ],
+            139 => [
                 'id' => 244,
                 'name' => 'view_any_product',
                 'guard_name' => 'web',
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
-            ),
-            140 => 
-            array (
+            ],
+            140 => [
                 'id' => 245,
                 'name' => 'view_product',
                 'guard_name' => 'web',
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
-            ),
-            141 => 
-            array (
+            ],
+            141 => [
                 'id' => 246,
                 'name' => 'create_product',
                 'guard_name' => 'web',
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
-            ),
-            142 => 
-            array (
+            ],
+            142 => [
                 'id' => 247,
                 'name' => 'update_product',
                 'guard_name' => 'web',
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
-            ),
-            143 => 
-            array (
+            ],
+            143 => [
                 'id' => 248,
                 'name' => 'delete_product',
                 'guard_name' => 'web',
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
-            ),
-            144 => 
-            array (
+            ],
+            144 => [
                 'id' => 249,
                 'name' => 'delete_any_product',
                 'guard_name' => 'web',
                 'created_at' => '2025-10-22 13:55:53',
                 'updated_at' => '2025-10-22 13:55:53',
-            ),
-            145 => 
-            array (
+            ],
+            145 => [
                 'id' => 256,
                 'name' => 'view_any_media',
                 'guard_name' => 'web',
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
-            ),
-            146 => 
-            array (
+            ],
+            146 => [
                 'id' => 257,
                 'name' => 'view_media',
                 'guard_name' => 'web',
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
-            ),
-            147 => 
-            array (
+            ],
+            147 => [
                 'id' => 258,
                 'name' => 'create_media',
                 'guard_name' => 'web',
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
-            ),
-            148 => 
-            array (
+            ],
+            148 => [
                 'id' => 259,
                 'name' => 'update_media',
                 'guard_name' => 'web',
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
-            ),
-            149 => 
-            array (
+            ],
+            149 => [
                 'id' => 260,
                 'name' => 'delete_media',
                 'guard_name' => 'web',
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
-            ),
-            150 => 
-            array (
+            ],
+            150 => [
                 'id' => 261,
                 'name' => 'delete_any_media',
                 'guard_name' => 'web',
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

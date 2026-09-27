@@ -14,38 +14,38 @@ use Lara\Front\Services\FrontPageContext;
  */
 trait HasFrontend
 {
-	private function frontPageContext(): FrontPageContext
-	{
-		return app(FrontPageContext::class);
-	}
+    private function frontPageContext(): FrontPageContext
+    {
+        return app(FrontPageContext::class);
+    }
 
-	private function getGlobalSettings()
-	{
-		return $this->frontPageContext()->getGlobalSettings();
-	}
+    private function getGlobalSettings()
+    {
+        return $this->frontPageContext()->getGlobalSettings();
+    }
 
-	private function getSettingsByGroup(string $group)
-	{
-		return $this->frontPageContext()->getSettingsByGroup($group);
-	}
+    private function getSettingsByGroup(string $group)
+    {
+        return $this->frontPageContext()->getSettingsByGroup($group);
+    }
 
-	private function getFrontLanguageVersions(string $curlang, ?object $entity = null, ?object $object = null)
-	{
-		return $this->frontPageContext()->getFrontLanguageVersions($curlang, $entity, $object);
-	}
+    private function getFrontLanguageVersions(string $curlang, ?object $entity = null, ?object $object = null)
+    {
+        return $this->frontPageContext()->getFrontLanguageVersions($curlang, $entity, $object);
+    }
 
-	private function getGlobalWidgets($language)
-	{
-		return $this->frontPageContext()->getGlobalWidgets($language);
-	}
+    private function getGlobalWidgets($language)
+    {
+        return $this->frontPageContext()->getGlobalWidgets($language);
+    }
 
-	private function getFrontLaraVersion()
-	{
-		return $this->frontPageContext()->getFrontLaraVersion();
-	}
+    private function getFrontLaraVersion()
+    {
+        return $this->frontPageContext()->getFrontLaraVersion();
+    }
 
-	private function getFirstPageLoad()
-	{
-		return $this->frontPageContext()->getFirstPageLoad();
-	}
+    private function getFirstPageLoad()
+    {
+        return $this->frontPageContext()->getFirstPageLoad();
+    }
 }

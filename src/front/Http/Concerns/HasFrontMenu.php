@@ -15,43 +15,43 @@ use Lara\Front\Services\FrontMenuRepository;
  */
 trait HasFrontMenu
 {
-	private function frontMenuRepository(): FrontMenuRepository
-	{
-		return app(FrontMenuRepository::class);
-	}
+    private function frontMenuRepository(): FrontMenuRepository
+    {
+        return app(FrontMenuRepository::class);
+    }
 
-	private function getHomePage(string $language)
-	{
-		return $this->frontMenuRepository()->getHomePage($language);
-	}
+    private function getHomePage(string $language)
+    {
+        return $this->frontMenuRepository()->getHomePage($language);
+    }
 
-	private function getMainMenuId()
-	{
-		return $this->frontMenuRepository()->getMainMenuId();
-	}
+    private function getMainMenuId()
+    {
+        return $this->frontMenuRepository()->getMainMenuId();
+    }
 
-	private function getActiveMenuArray($getIdOnly = false)
-	{
-		return $this->frontMenuRepository()->getActiveMenuArray($getIdOnly);
-	}
+    private function getActiveMenuArray($getIdOnly = false)
+    {
+        return $this->frontMenuRepository()->getActiveMenuArray($getIdOnly);
+    }
 
-	private function getMenuTag(string $language, object $entity, Request $request)
-	{
-		return $this->frontMenuRepository()->getMenuTag($language, $entity, $request);
-	}
+    private function getMenuTag(string $language, object $entity, Request $request)
+    {
+        return $this->frontMenuRepository()->getMenuTag($language, $entity, $request);
+    }
 
-	private function getSingleMenuTag(string $language, object $entity, Request $request)
-	{
-		return $this->frontMenuRepository()->getSingleMenuTag($language, $entity, $request);
-	}
+    private function getSingleMenuTag(string $language, object $entity, Request $request)
+    {
+        return $this->frontMenuRepository()->getSingleMenuTag($language, $entity, $request);
+    }
 
-	private function getMenuEntityRoutes(string $language): mixed
-	{
-		return $this->frontMenuRepository()->getMenuEntityRoutes($language);
-	}
+    private function getMenuEntityRoutes(string $language): mixed
+    {
+        return $this->frontMenuRepository()->getMenuEntityRoutes($language);
+    }
 
-	private function getPageChildren($language)
-	{
-		return $this->frontMenuRepository()->getPageChildren($language);
-	}
+    private function getPageChildren($language)
+    {
+        return $this->frontMenuRepository()->getPageChildren($language);
+    }
 }

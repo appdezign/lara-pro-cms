@@ -17,85 +17,83 @@ use Mcamara\LaravelLocalization\Commands\RouteTranslationsCacheCommand;
  */
 class LaraRouteCacheCommand extends RouteTranslationsCacheCommand
 {
+    /**
+     * @var string
+     */
+    protected $name = 'lara:route:cache';
 
-	/**
-	 * @var string
-	 */
-	protected $name = 'lara:route:cache';
+    /**
+     * @var string
+     */
+    protected $description = 'Create a route cache file for all locales, without removing the current cache';
 
-	/**
-	 * @var string
-	 */
-	protected $description = 'Create a route cache file for all locales, without removing the current cache';
+    /**
+     * Execute the console command.
+     */
+    public function handle(): void
+    {
+        $this->cacheRoutesPerLocale();
+    }
 
-	/**
-	 * Execute the console command.
-	 */
-	public function handle(): void
-	{
-		$this->cacheRoutesPerLocale();
-	}
+    /**
+     * Build the route cache of every locale, then swap them in atomically.
+     */
+    protected function cacheRoutesPerLocale(): void
+    {
+        $allLocales = $this->getSupportedLocales();
 
-	/**
-	 * Build the route cache of every locale, then swap them in atomically.
-	 */
-	protected function cacheRoutesPerLocale(): void
-	{
-		$allLocales = $this->getSupportedLocales();
+        // a null locale builds the default cache, which is the file the
+        // Application checks to decide whether routes are cached at all
+        array_push($allLocales, null);
 
-		// a null locale builds the default cache, which is the file the
-		// Application checks to decide whether routes are cached at all
-		array_push($allLocales, null);
+        /**
+         * Temporary path => final path
+         *
+         * @var array<string, string> $pendingRouteCaches
+         */
+        $pendingRouteCaches = [];
 
-		/**
-		 * Temporary path => final path
-		 *
-		 * @var array<string, string> $pendingRouteCaches
-		 */
-		$pendingRouteCaches = [];
+        foreach ($allLocales as $locale) {
 
-		foreach ($allLocales as $locale) {
+            $routes = $this->getFreshApplicationRoutesForLocale($locale);
 
-			$routes = $this->getFreshApplicationRoutesForLocale($locale);
+            if (count($routes) == 0) {
+                $this->discardPendingRouteCaches($pendingRouteCaches);
+                $this->error("Your application doesn't have any routes.");
 
-			if (count($routes) == 0) {
-				$this->discardPendingRouteCaches($pendingRouteCaches);
-				$this->error("Your application doesn't have any routes.");
+                return;
+            }
 
-				return;
-			}
+            foreach ($routes as $route) {
+                $route->prepareForSerialization();
+            }
 
-			foreach ($routes as $route) {
-				$route->prepareForSerialization();
-			}
+            $path = $this->makeLocaleRoutesPath($locale);
+            $temporaryPath = $path.'.'.getmypid().'.tmp';
 
-			$path = $this->makeLocaleRoutesPath($locale);
-			$temporaryPath = $path . '.' . getmypid() . '.tmp';
+            $this->files->put($temporaryPath, $this->buildRouteCacheFile($routes));
 
-			$this->files->put($temporaryPath, $this->buildRouteCacheFile($routes));
+            $pendingRouteCaches[$temporaryPath] = $path;
 
-			$pendingRouteCaches[$temporaryPath] = $path;
+        }
 
-		}
+        foreach ($pendingRouteCaches as $temporaryPath => $path) {
+            // rename() is atomic within the same filesystem, so a booting request
+            // always sees either the previous cache or the new one, never nothing
+            $this->files->move($temporaryPath, $path);
+        }
 
-		foreach ($pendingRouteCaches as $temporaryPath => $path) {
-			// rename() is atomic within the same filesystem, so a booting request
-			// always sees either the previous cache or the new one, never nothing
-			$this->files->move($temporaryPath, $path);
-		}
+        $this->info('Routes cached successfully for all locales!');
 
-		$this->info('Routes cached successfully for all locales!');
+    }
 
-	}
-
-	/**
-	 * Remove the temporary route cache files left behind by an aborted run.
-	 *
-	 * @param array<string, string> $pendingRouteCaches
-	 */
-	protected function discardPendingRouteCaches(array $pendingRouteCaches): void
-	{
-		$this->files->delete(array_keys($pendingRouteCaches));
-	}
-
+    /**
+     * Remove the temporary route cache files left behind by an aborted run.
+     *
+     * @param  array<string, string>  $pendingRouteCaches
+     */
+    protected function discardPendingRouteCaches(array $pendingRouteCaches): void
+    {
+        $this->files->delete(array_keys($pendingRouteCaches));
+    }
 }

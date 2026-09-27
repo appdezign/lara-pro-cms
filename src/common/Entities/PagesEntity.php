@@ -4,15 +4,7 @@ namespace Lara\Common\Entities;
 
 class PagesEntity extends LaraEntity
 {
+    protected ?string $module = 'admin';
 
-	/**
-	 * @var string|null
-	 */
-	protected ?string $module = 'admin';
-
-	/**
-	 * @var string|null
-	 */
-	public ?string $resource_slug = 'pages';
-
+    public ?string $resource_slug = 'pages';
 }

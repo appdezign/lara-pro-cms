@@ -7,5 +7,5 @@ use Lara\Admin\Resources\Pages\PageResource;
 
 class CreatePage extends LaraCreateRecord
 {
-	protected static string $resource = PageResource::class;
+    protected static string $resource = PageResource::class;
 }

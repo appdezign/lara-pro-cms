@@ -6,16 +6,14 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 use Lara\Common\Entities\EntityConfigObserver;
 
 #[ObservedBy(EntityConfigObserver::class)]
 class EntityRelation extends Model
 {
-
     protected $table = 'lara_resource_entity_relations';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -26,25 +24,21 @@ class EntityRelation extends Model
         'updated_at',
     ];
 
-	public function scopeIsFilter(Builder $query)
-	{
-		return $query->where('is_filter', 1);
-	}
+    public function scopeIsFilter(Builder $query)
+    {
+        return $query->where('is_filter', 1);
+    }
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function entity()
-	{
-		return $this->belongsTo(\Lara\Common\Models\Entity::class, 'entity_id');
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function entity()
+    {
+        return $this->belongsTo(Entity::class, 'entity_id');
+    }
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function relatedEntity(): BelongsTo
-	{
-		return $this->belongsTo(\Lara\Common\Models\Entity::class, 'related_entity_id');
-	}
-
+    public function relatedEntity(): BelongsTo
+    {
+        return $this->belongsTo(Entity::class, 'related_entity_id');
+    }
 }

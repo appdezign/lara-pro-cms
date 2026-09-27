@@ -7,26 +7,26 @@ use Lara\Common\Models\User;
 
 trait HasAuthorSection
 {
-	private static function getAuthorSection(): array
-	{
-		$rows = array();
+    private static function getAuthorSection(): array
+    {
+        $rows = [];
 
-		$rows[] = Select::make('user_id')
-			->label(_q('lara-admin::default.column.user_id'))
-			->options(User::where('id', auth()->id())->pluck('name', 'id'))
-			->native(false)
-			->default(auth()->id())
-			->selectablePlaceholder(false)
-			->visible(fn(string $operation) => $operation == 'create');
+        $rows[] = Select::make('user_id')
+            ->label(_q('lara-admin::default.column.user_id'))
+            ->options(User::where('id', auth()->id())->pluck('name', 'id'))
+            ->native(false)
+            ->default(auth()->id())
+            ->selectablePlaceholder(false)
+            ->visible(fn (string $operation) => $operation == 'create');
 
-		$rows[] = Select::make('user_id')
-			->label(_q('lara-admin::default.column.user_id'))
-			->relationship('user', 'name')
-			->preload()
-			->selectablePlaceholder(false)
-			->visible(fn(string $operation) => $operation == 'edit');
+        $rows[] = Select::make('user_id')
+            ->label(_q('lara-admin::default.column.user_id'))
+            ->relationship('user', 'name')
+            ->preload()
+            ->selectablePlaceholder(false)
+            ->visible(fn (string $operation) => $operation == 'edit');
 
-		return $rows;
+        return $rows;
 
-	}
+    }
 }

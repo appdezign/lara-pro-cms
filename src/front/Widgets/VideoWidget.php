@@ -16,97 +16,97 @@ use LaravelLocalization;
 
 class VideoWidget extends AbstractWidget
 {
-	use HasFrontend;
-	use HasFrontEntity;
-	use HasFrontMenu;
-	use HasFrontRoutes;
-	use HasFrontTerms;
+    use HasFrontend;
+    use HasFrontEntity;
+    use HasFrontMenu;
+    use HasFrontRoutes;
+    use HasFrontTerms;
 
-	protected $config = [
-		'term' => 'home',
-		'grid' => null,
-	];
+    protected $config = [
+        'term' => 'home',
+        'grid' => null,
+    ];
 
-	public $cacheTime = false;
+    public $cacheTime = false;
 
-	public function __construct(array $config = [])
-	{
-		$this->cacheTime = config('lara-front.widget_cache_time');
-		parent::__construct($config);
-	}
+    public function __construct(array $config = [])
+    {
+        $this->cacheTime = config('lara-front.widget_cache_time');
+        parent::__construct($config);
+    }
 
-	public function cacheKey(array $params = [])
-	{
-		return 'lara.widgets.videoWidget.'.$this->config['term'];
-	}
+    public function cacheKey(array $params = [])
+    {
+        return 'lara.widgets.videoWidget.'.$this->config['term'];
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function run()
-	{
+    /**
+     * @return Application|Factory|View
+     */
+    public function run()
+    {
 
-		$language = LaravelLocalization::getCurrentLocale();
+        $language = LaravelLocalization::getCurrentLocale();
 
-		$isMultiLanguage = config('lara.is_multi_language');
+        $isMultiLanguage = config('lara.is_multi_language');
 
-		$term = $this->config['term'];
+        $term = $this->config['term'];
 
-		if ($isMultiLanguage) {
-			$activeTerm = $term.'-'.$language;
-		} else {
-			$activeTerm = $term;
-		}
+        if ($isMultiLanguage) {
+            $activeTerm = $term.'-'.$language;
+        } else {
+            $activeTerm = $term;
+        }
 
-		$taxonomy = $this->getFrontDefaultTaxonomy();
-		$tag = Tag::langIs($language)
-			->resourceIs('slider')
-			->taxonomyIs($taxonomy->id)
-			->where('slug', $activeTerm)->first();
+        $taxonomy = $this->getFrontDefaultTaxonomy();
+        $tag = Tag::langIs($language)
+            ->resourceIs('slider')
+            ->taxonomyIs($taxonomy->id)
+            ->where('slug', $activeTerm)->first();
 
-		if ($tag) {
+        if ($tag) {
 
-			$entity = $this->getResourceBySlug('video');
+            $entity = $this->getResourceBySlug('video');
 
-			$modelClass = $entity->getEntityModelClass();
+            $modelClass = $entity->getEntityModelClass();
 
-			$widgetvideo = $modelClass::langIs($language)
-				->isPublished()
-				->whereHas('terms', function ($query) use ($activeTerm) {
-					$query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
-				})
-				->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder())
-				->first();
+            $widgetvideo = $modelClass::langIs($language)
+                ->isPublished()
+                ->whereHas('terms', function ($query) use ($activeTerm) {
+                    $query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
+                })
+                ->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder())
+                ->first();
 
-		} else {
+        } else {
 
-			$widgetvideo = null;
+            $widgetvideo = null;
 
-		}
+        }
 
-		$eroutes = $this->getMenuEntityRoutes($language);
+        $eroutes = $this->getMenuEntityRoutes($language);
 
-		// identifier
-		$templateFileName = $this->config['term'];
+        // identifier
+        $templateFileName = $this->config['term'];
 
-		$widgetview = '_widgets.video.'.$templateFileName;
+        $widgetview = '_widgets.video.'.$templateFileName;
 
-		if (view()->exists($widgetview)) {
+        if (view()->exists($widgetview)) {
 
-			return view($widgetview, [
-				'config' => $this->config,
-				'grid' => $this->config['grid'],
-				'eroutes' => $eroutes,
-				'widgetvideo' => $widgetvideo,
-			]);
+            return view($widgetview, [
+                'config' => $this->config,
+                'grid' => $this->config['grid'],
+                'eroutes' => $eroutes,
+                'widgetvideo' => $widgetvideo,
+            ]);
 
-		} else {
-			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
+        } else {
+            $errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.'.$errorView, [
-				'widgetview' => $widgetview,
-			]);
-		}
+            return view('_widgets._error.'.$errorView, [
+                'widgetview' => $widgetview,
+            ]);
+        }
 
-	}
+    }
 }
