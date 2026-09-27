@@ -1,41 +1,37 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
-
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-
 use LaravelLocalization;
 
 class MenuSubWidget extends AbstractWidget
 {
-
 	use HasFrontend;
 	use HasFrontMenu;
 	use HasFrontRoutes;
 
 	protected $config = [
-		'mnu'   => 'main',
-		'slug'  => 'products',
+		'mnu' => 'main',
+		'slug' => 'products',
 		'depth' => 0,
 		'force' => false,
-		'grid'  => null,
+		'grid' => null,
 	];
 
 	public $cacheTime = false;
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.menuSubWidget.' . $this->config['slug'];
+		return 'lara.widgets.menuSubWidget.'.$this->config['slug'];
 	}
 
 	/**
@@ -55,7 +51,7 @@ class MenuSubWidget extends AbstractWidget
 		if ($menu) {
 
 			// find subroot first
-			if(is_numeric($this->config['slug'])) {
+			if (is_numeric($this->config['slug'])) {
 				// find by ID
 				$menuId = $this->config['slug'];
 				$subroot = MenuItem::find($menuId);
@@ -67,7 +63,7 @@ class MenuSubWidget extends AbstractWidget
 					->first();
 			}
 
-			if($subroot) {
+			if ($subroot) {
 
 				if ($this->config['depth'] == 1) {
 
@@ -102,22 +98,22 @@ class MenuSubWidget extends AbstractWidget
 
 		$widgetview = '_widgets.menu.sub';
 
-		if(view()->exists($widgetview)) {
+		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'     => $this->config,
-				'grid'       => $this->config['grid'],
-				'tree'       => $tree,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'tree' => $tree,
 				'activemenu' => $activemenu,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
-			return view('_widgets._error.' . $errorView, [
+
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

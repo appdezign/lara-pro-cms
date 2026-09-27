@@ -1,35 +1,31 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\LaraWidget;
-
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
-
 use LaravelLocalization;
 
 class LaraTextWidget extends AbstractWidget
 {
-
 	use HasFrontend;
 	use HasFrontMenu;
 
 	protected $config = [
 		'widget_id' => null,
-		'grid'      => null,
+		'grid' => null,
 	];
 
 	public $cacheTime = false;
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.textWidget.' . $this->config['widget_id'];
+		return 'lara.widgets.textWidget.'.$this->config['widget_id'];
 	}
 
 	/**
@@ -45,30 +41,29 @@ class LaraTextWidget extends AbstractWidget
 		$eroutes = $this->getMenuEntityRoutes($language);
 
 		if ($larawidget->template) {
-			$templateFileName = $larawidget->type . '_' . $larawidget->template;
+			$templateFileName = $larawidget->type.'_'.$larawidget->template;
 		} else {
-			$templateFileName = $larawidget->type . '_default';
+			$templateFileName = $larawidget->type.'_default';
 		}
 
-		$widgetview = '_widgets.lara.text.' . $templateFileName;
+		$widgetview = '_widgets.lara.text.'.$templateFileName;
 
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'     => $this->config,
-				'grid'       => $this->config['grid'],
-				'eroutes'    => $eroutes,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
 				'larawidget' => $larawidget,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

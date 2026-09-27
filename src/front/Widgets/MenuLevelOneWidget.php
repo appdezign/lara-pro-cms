@@ -1,22 +1,19 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
-
 use LaravelLocalization;
 
 class MenuLevelOneWidget extends AbstractWidget
 {
-
 	protected $config = [
-		'mnu'  => 'main',
+		'mnu' => 'main',
 		'grid' => null,
 	];
 
@@ -29,7 +26,7 @@ class MenuLevelOneWidget extends AbstractWidget
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.menuLevelOneWidget.' . $this->config['mnu'];
+		return 'lara.widgets.menuLevelOneWidget.'.$this->config['mnu'];
 	}
 
 	/**
@@ -57,23 +54,23 @@ class MenuLevelOneWidget extends AbstractWidget
 
 		}
 
-		$widgetview = '_widgets.menu-level-one.' . $this->config['mnu'];
+		$widgetview = '_widgets.menu-level-one.'.$this->config['mnu'];
 
-		if(view()->exists($widgetview)) {
+		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'       => $this->config,
-				'grid'         => $this->config['grid'],
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
 				'menulevelone' => $menulevelone,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
-			return view('_widgets._error.' . $errorView, [
+
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

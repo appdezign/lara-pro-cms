@@ -11,7 +11,6 @@ use Lara\Common\Models\Entity;
 
 trait HasLaraEntity
 {
-
 	/**
 	 * The configuration row for this resource.
 	 *
@@ -27,8 +26,8 @@ trait HasLaraEntity
 
 		$entity = app(EntityRegistry::class)->model($resourceSlug);
 
-		if (!$entity) {
-			throw (new ModelNotFoundException())
+		if (! $entity) {
+			throw (new ModelNotFoundException)
 				->setModel(Entity::class, [$resourceSlug]);
 		}
 
@@ -47,12 +46,12 @@ trait HasLaraEntity
 	{
 		$navGroup = static::getEntity()->nav_group;
 
-		if(empty($navGroup) || $navGroup == 'root') {
+		if (empty($navGroup) || $navGroup == 'root') {
 			return '';
 		} else {
 			$navigationGroup = NavGroup::from($navGroup);
 			$locale = App::currentLocale();
-			if($locale == 'nl') {
+			if ($locale == 'nl') {
 				return $navigationGroup->getLabelNl();
 			} else {
 				return $navigationGroup->getLabelEn();
@@ -100,33 +99,32 @@ trait HasLaraEntity
     public static function getPrimarySortField(): string
     {
         $primarySortField = static::getEntity()->sort_primary_field;
-        return !empty($primarySortField) ? $primarySortField : 'id';
+
+        return ! empty($primarySortField) ? $primarySortField : 'id';
     }
 
     public static function getPrimarySortOrder(): string
     {
         $primarySortOrder = static::getEntity()->sort_primary_order;
-        return !empty($primarySortOrder) ? $primarySortOrder : 'asc';
+
+        return ! empty($primarySortOrder) ? $primarySortOrder : 'asc';
     }
 
     public static function getSecondarySortField(): ?string
     {
         $secondarySortField = static::getEntity()->sort_secondary_field;
+
         return $secondarySortField ?? null;
     }
 
     public static function getSecondarySortOrder(): ?string
     {
         $secondarySortOrder = static::getEntity()->sort_secondary_order;
+
         return $secondarySortOrder ?? null;
     }
 
     // Sections
-    public static function resourceShowSearch(): bool
-    {
-        return static::getEntity()->show_search;
-    }
-
     public static function resourceShowBatch(): bool
     {
         return static::getEntity()->show_batch;
@@ -200,25 +198,14 @@ trait HasLaraEntity
 
 	// Media
 
-	public static function resourceHasMainImages(): bool
-	{
-		return (
-			static::resourceHasFeatured()
-			|| static::resourceHasThumb()
-			|| static::resourceHasHero()
-			|| static::resourceHasIcon()
-		);
-	}
-
 	public static function resourceHasMedia(): bool
 	{
-		return (
+		return
 			static::resourceHasFeatured()
 			|| static::resourceHasThumb()
 			|| static::resourceHasHero()
 			|| static::resourceHasIcon()
-			|| static::resourceHasGallery()
-		);
+			|| static::resourceHasGallery();
 	}
 
 	public static function resourceHasFeatured(): bool
@@ -281,11 +268,6 @@ trait HasLaraEntity
 		return static::getEntity()->media_max_files;
 	}
 
-	public static function getDiskForImages(): string
-	{
-		return static::getEntity()->media_disk_images;
-	}
-
 	public static function getDiskForFiles(): string
 	{
 		return static::getEntity()->media_disk_files;
@@ -295,5 +277,4 @@ trait HasLaraEntity
 	{
 		return static::getEntity()->media_disk_videos;
 	}
-
 }

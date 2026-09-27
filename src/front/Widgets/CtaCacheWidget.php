@@ -1,28 +1,25 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
-use Lara\Common\Models\LaraWidget;
-
+use Lara\Common\Models\Cta;
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
-
 use LaravelLocalization;
 
-class LaraTextCacheWidget extends AbstractWidget
+class CtaCacheWidget extends AbstractWidget
 {
-
 	use HasFrontend;
 	use HasFrontMenu;
 
 	protected $config = [
-		'widget_id' => null,
-		'grid'      => null,
+		'hook' => null,
+		'template' => 'default',
+		'grid' => null,
 	];
 
 	public $cacheTime = false;
@@ -35,7 +32,7 @@ class LaraTextCacheWidget extends AbstractWidget
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.textWidget.' . $this->config['widget_id'];
+		return 'lara.widgets.ctaWidget.'.$this->config['hook'];
 	}
 
 	/**
@@ -43,37 +40,34 @@ class LaraTextCacheWidget extends AbstractWidget
 	 */
 	public function run()
 	{
+
 		$language = LaravelLocalization::getCurrentLocale();
 
-		$larawidget = LaraWidget::find($this->config['widget_id']);
+		$widgetcta = Cta::langIs($language)->where('hook', $this->config['hook'])->first();
+
+		// identifier
+		$templateFileName = $this->config['template'];
+
+		$widgetview = '_widgets.cta.'.$templateFileName;
 
 		$eroutes = $this->getMenuEntityRoutes($language);
-
-		if ($larawidget->template) {
-			$templateFileName = $larawidget->type . '_' . $larawidget->template;
-		} else {
-			$templateFileName = $larawidget->type . '_default';
-		}
-
-		$widgetview = '_widgets.lara.text.' . $templateFileName;
 
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'     => $this->config,
-				'grid'       => $this->config['grid'],
-				'eroutes'    => $eroutes,
-				'larawidget' => $larawidget,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
+				'widgetcta' => $widgetcta,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

@@ -1,28 +1,22 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
+use Arrilot\Widgets\AbstractWidget;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
-
 use Lara\Common\Models\Tag;
-
-use Arrilot\Widgets\AbstractWidget;
-
-use LaravelLocalization;
-
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontTerms;
-
-use Carbon\Carbon;
+use LaravelLocalization;
 
 class EntityCacheWidget extends AbstractWidget
 {
-
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontMenu;
@@ -31,19 +25,19 @@ class EntityCacheWidget extends AbstractWidget
 
 	protected $config = [
 		'resource_slug' => null,
-		'parent'        => null,
-		'term'          => null,
-		'filterfield'   => null,
-		'filterval'     => null,
-		'needs_image'   => true,
-		'count'         => 0,
-		'title'         => null,
-		'grid'          => null,
-		'sortfield'     => null,
-		'sortorder'     => null,
-		'exclude'       => null,
-		'since'         => null,
-		'ignore_hide'   => false,
+		'parent' => null,
+		'term' => null,
+		'filterfield' => null,
+		'filterval' => null,
+		'needs_image' => true,
+		'count' => 0,
+		'title' => null,
+		'grid' => null,
+		'sortfield' => null,
+		'sortorder' => null,
+		'exclude' => null,
+		'since' => null,
+		'ignore_hide' => false,
 	];
 
 	public $cacheTime = false;
@@ -59,14 +53,14 @@ class EntityCacheWidget extends AbstractWidget
 
 		$language = LaravelLocalization::getCurrentLocale();
 
-		$cachekey = 'lara.widgets.entity.' . $this->config['parent'] . '.' . $this->config['resource_slug'] . '.' . $language;
+		$cachekey = 'lara.widgets.entity.'.$this->config['parent'].'.'.$this->config['resource_slug'].'.'.$language;
 
 		if ($this->config['term']) {
-			$cachekey = $cachekey . '.' . $this->config['term'];
+			$cachekey = $cachekey.'.'.$this->config['term'];
 		}
 
 		if ($this->config['sortfield']) {
-			$cachekey = $cachekey . '.' . $this->config['sortfield'];
+			$cachekey = $cachekey.'.'.$this->config['sortfield'];
 		}
 
 		return $cachekey;
@@ -94,7 +88,7 @@ class EntityCacheWidget extends AbstractWidget
 			if ($term) {
 
 				if ($isMultiLanguage) {
-					$activeTerm = $term . '-' . $language;
+					$activeTerm = $term.'-'.$language;
 				} else {
 					$activeTerm = $term;
 				}
@@ -131,7 +125,7 @@ class EntityCacheWidget extends AbstractWidget
 			}
 
 			if ($entity->hasHideinlist()) {
-				if (!$this->config['ignore_hide']) {
+				if (! $this->config['ignore_hide']) {
 					$collection = $collection->where('publish_hide', 0);
 				}
 			}
@@ -154,7 +148,7 @@ class EntityCacheWidget extends AbstractWidget
 
 			if ($term) {
 				$collection = $collection->whereHas('terms', function ($query) use ($activeTerm) {
-					$query->where(config('lara-common.database.object.terms') . '.slug', $activeTerm);
+					$query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
 				});
 
 			} else {
@@ -165,7 +159,7 @@ class EntityCacheWidget extends AbstractWidget
 
 				$collection = $collection->with([
 					'tags' => function ($query) use ($entity) {
-						$query->where(config('lara-common.database.object.terms') . '.resource_slug', $entity->getResourceSlug());
+						$query->where(config('lara-common.database.object.terms').'.resource_slug', $entity->getResourceSlug());
 					},
 				]);
 			}
@@ -219,34 +213,33 @@ class EntityCacheWidget extends AbstractWidget
 		$eroutes = $this->getMenuEntityRoutes($language);
 
 		// identifier
-		$templateFileName = $this->config['parent'] . '_' . $this->config['resource_slug'];
+		$templateFileName = $this->config['parent'].'_'.$this->config['resource_slug'];
 
 		// Template
-		$widgetview = '_widgets.entity.' . $templateFileName;
+		$widgetview = '_widgets.entity.'.$templateFileName;
 
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'                  => $this->config,
-				'grid'                    => $this->config['grid'],
-				'eroutes'                 => $eroutes,
-				'widgetObjects'           => $widgetObjects,
-				'widgetTerm'              => $term,
-				'widgetTaxonomy'          => $widgetTaxonomy,
-				'widgetTaxonomies'        => $widgetTaxonomies,
-				'widgetEntityRoute'       => $widgetEntityRoute,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
+				'widgetObjects' => $widgetObjects,
+				'widgetTerm' => $term,
+				'widgetTaxonomy' => $widgetTaxonomy,
+				'widgetTaxonomies' => $widgetTaxonomies,
+				'widgetEntityRoute' => $widgetEntityRoute,
 				'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
-				'widgetTitle'             => $this->config['title'],
+				'widgetTitle' => $this->config['title'],
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

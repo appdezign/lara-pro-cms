@@ -19,16 +19,6 @@ class FrontActiveRoute
 	protected array $activetags = [];
 
 	/**
-	 * Constructor for LaraActiveRoute
-	 *
-	 * @param  mixed  $route  The route parameter
-	 */
-	public function __construct($route)
-	{
-		//
-	}
-
-	/**
 	 * Get the method
 	 *
 	 * @return string|null

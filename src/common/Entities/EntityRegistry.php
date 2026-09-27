@@ -98,17 +98,6 @@ class EntityRegistry
 	}
 
 	/**
-	 * Config for a resource slug, falling back to the "base" entity.
-	 *
-	 * This preserves the long-standing LaraEntity behaviour of degrading to the
-	 * base configuration rather than failing when a slug is unknown.
-	 */
-	public function findOrBase(string $resourceSlug): ?EntityConfig
-	{
-		return $this->find($resourceSlug) ?? $this->find('base');
-	}
-
-	/**
 	 * The Eloquent model for a resource slug, for call sites that still read
 	 * raw columns.
 	 */

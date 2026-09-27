@@ -5,6 +5,9 @@ namespace Lara\Common\Entities;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Lara\Common\Models\Entity;
+use Lara\Common\Models\EntityCustomField;
+use Lara\Common\Models\EntityRelation;
+use Lara\Common\Models\EntityView;
 
 /**
  * Frontend accessor for one entity's configuration.
@@ -16,7 +19,6 @@ use Lara\Common\Models\Entity;
  */
 class LaraEntity
 {
-
 	public ?string $resource_slug = null;
 
 	protected ?string $module = null;
@@ -27,9 +29,13 @@ class LaraEntity
 
 	protected ?EntityConfig $config = null;
 
+	/**
+	 * Entities without a row of their own (search, users, …) get no config, and every
+	 * config-based check then returns its default.
+	 */
 	public function __construct()
 	{
-		$this->config = app(EntityRegistry::class)->findOrBase((string) $this->resource_slug);
+		$this->config = app(EntityRegistry::class)->find((string) $this->resource_slug);
 	}
 
 	/**
@@ -254,14 +260,6 @@ class LaraEntity
 		return (bool) $this->config?->media->hasFeatured;
 	}
 
-	/**
-	 * @deprecated Misspelling kept for backwards compatibility; use hasFeatured().
-	 */
-	public function hasFeaured(): bool
-	{
-		return $this->hasFeatured();
-	}
-
 	public function hasThumb(): bool
 	{
 		return (bool) $this->config?->media->hasThumb;
@@ -360,27 +358,26 @@ class LaraEntity
 	// sub-resources
 
 	/**
-	 * @return Collection<int, \Lara\Common\Models\EntityCustomField>
+	 * @return Collection<int, EntityCustomField>
 	 */
 	public function getCustomColumns(): Collection
 	{
-		return $this->config?->customFields() ?? new Collection();
+		return $this->config?->customFields() ?? new Collection;
 	}
 
 	/**
-	 * @return Collection<int, \Lara\Common\Models\EntityView>
+	 * @return Collection<int, EntityView>
 	 */
 	public function getViews(): Collection
 	{
-		return $this->config?->views() ?? new Collection();
+		return $this->config?->views() ?? new Collection;
 	}
 
 	/**
-	 * @return Collection<int, \Lara\Common\Models\EntityRelation>
+	 * @return Collection<int, EntityRelation>
 	 */
 	public function getRelations(): Collection
 	{
-		return $this->config?->entityRelations() ?? new Collection();
+		return $this->config?->entityRelations() ?? new Collection;
 	}
-
 }

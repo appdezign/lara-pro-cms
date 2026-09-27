@@ -42,7 +42,7 @@ final class FrontEntityResolver
 
 		$route = $this->prepareFrontRoute($routename);
 
-		$entityRoute = new FrontActiveRoute($route);
+		$entityRoute = new FrontActiveRoute;
 
 		$entityRoute->setPrefix($route->prefix);
 		$entityRoute->setMethod($route->method);

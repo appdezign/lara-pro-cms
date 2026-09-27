@@ -1,22 +1,18 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\MenuItem;
-
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-
 use LaravelLocalization;
 
 class BreadcrumbWidget extends AbstractWidget
 {
-
 	use HasFrontMenu;
 	use HasFrontRoutes;
 
@@ -29,7 +25,7 @@ class BreadcrumbWidget extends AbstractWidget
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.breadcrumbWidget.' . $this->config['lang'];
+		return 'lara.widgets.breadcrumbWidget.'.$this->config['lang'];
 	}
 
 	/**
@@ -42,13 +38,13 @@ class BreadcrumbWidget extends AbstractWidget
 
 		$activemenu = $this->getActiveMenuArray(true);
 
-		$breadcrumb = array();
+		$breadcrumb = [];
 
 		foreach ($activemenu as $activeitem) {
 
 			$menuitem = MenuItem::find($activeitem);
 
-			$menuroute = url($this->config['lang'] . '/' . $menuitem->route);
+			$menuroute = url($this->config['lang'].'/'.$menuitem->route);
 
 			$breadcrumb[$menuitem->id]['title'] = $menuitem->title;
 			$breadcrumb[$menuitem->id]['route'] = $menuroute;
@@ -64,20 +60,19 @@ class BreadcrumbWidget extends AbstractWidget
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'     => $this->config,
-				'grid'       => $this->config['grid'],
-				'eroutes'    => $eroutes,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
 				'breadcrumb' => $breadcrumb,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

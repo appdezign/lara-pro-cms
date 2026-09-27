@@ -1,27 +1,22 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
+use Arrilot\Widgets\AbstractWidget;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
-
-use Lara\Common\Models\Tag;
 use Lara\Common\Models\LaraWidget;
-
-use Arrilot\Widgets\AbstractWidget;
-
-use LaravelLocalization;
-
+use Lara\Common\Models\Tag;
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontTerms;
+use LaravelLocalization;
 
-class LaraEntityCacheWidget extends AbstractWidget
+class LaraEntityWidget extends AbstractWidget
 {
-
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontMenu;
@@ -30,20 +25,14 @@ class LaraEntityCacheWidget extends AbstractWidget
 
 	protected $config = [
 		'widget_id' => null,
-		'grid'      => null,
+		'grid' => null,
 	];
 
-	public $cacheTime = false;
-
-	public function __construct(array $config = [])
-	{
-		$this->cacheTime = config('lara-front.widget_cache_time');
-		parent::__construct($config);
-	}
+	public $cacheTime = false; // do not cache entities like events
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.entity.' . $this->config['widget_id'];
+		return 'lara.widgets.entity.'.$this->config['widget_id'];
 	}
 
 	/**
@@ -109,13 +98,13 @@ class LaraEntityCacheWidget extends AbstractWidget
 
 			if ($term) {
 				$collection = $collection->whereHas('terms', function ($query) use ($term) {
-					$query->where(config('lara-common.database.object.terms') . '.slug', $term);
+					$query->where(config('lara-common.database.object.terms').'.slug', $term);
 				});
 
 			} else {
 				$collection = $collection->with([
 					'tags' => function ($query) use ($entity) {
-						$query->where(config('lara-common.database.object.terms') . '.resource_slug', $entity->getResourceSlug());
+						$query->where(config('lara-common.database.object.terms').'.resource_slug', $entity->getResourceSlug());
 					},
 				]);
 			}
@@ -165,33 +154,32 @@ class LaraEntityCacheWidget extends AbstractWidget
 		if ($larawidget->template) {
 			$templateFileName = $larawidget->template;
 		} else {
-			$templateFileName = 'default_' . $resourceSlug;
+			$templateFileName = 'default_'.$resourceSlug;
 		}
 
-		$widgetview = '_widgets.lara.entity.' . $templateFileName;
+		$widgetview = '_widgets.lara.entity.'.$templateFileName;
 
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'                  => $this->config,
-				'grid'                    => $this->config['grid'],
-				'eroutes'                 => $eroutes,
-				'widgetObjects'           => $widgetObjects,
-				'widgetTaxonomy'          => $widgetTaxonomy,
-				'widgetTaxonomies'        => $widgetTaxonomies,
-				'widgetEntityRoute'       => $widgetEntityRoute,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
+				'widgetObjects' => $widgetObjects,
+				'widgetTaxonomy' => $widgetTaxonomy,
+				'widgetTaxonomies' => $widgetTaxonomies,
+				'widgetEntityRoute' => $widgetEntityRoute,
 				'widgetEntitySingleRoute' => $widgetEntitySingleRoute,
-				'larawidget'              => $larawidget,
+				'larawidget' => $larawidget,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

@@ -1,26 +1,21 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
-use Lara\Common\Models\Video;
 use Lara\Common\Models\Tag;
-
-use LaravelLocalization;
-
-use Lara\Front\Http\Concerns\HasFrontTerms;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
-use Lara\Front\Http\Concerns\HasFrontend;
+use Lara\Front\Http\Concerns\HasFrontTerms;
+use LaravelLocalization;
 
 class VideoWidget extends AbstractWidget
 {
-
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontMenu;
@@ -42,7 +37,7 @@ class VideoWidget extends AbstractWidget
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.videoWidget.' . $this->config['term'];
+		return 'lara.widgets.videoWidget.'.$this->config['term'];
 	}
 
 	/**
@@ -58,7 +53,7 @@ class VideoWidget extends AbstractWidget
 		$term = $this->config['term'];
 
 		if ($isMultiLanguage) {
-			$activeTerm = $term . '-' . $language;
+			$activeTerm = $term.'-'.$language;
 		} else {
 			$activeTerm = $term;
 		}
@@ -78,7 +73,7 @@ class VideoWidget extends AbstractWidget
 			$widgetvideo = $modelClass::langIs($language)
 				->isPublished()
 				->whereHas('terms', function ($query) use ($activeTerm) {
-					$query->where(config('lara-common.database.object.terms') . '.slug', $activeTerm);
+					$query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
 				})
 				->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder())
 				->first();
@@ -94,25 +89,24 @@ class VideoWidget extends AbstractWidget
 		// identifier
 		$templateFileName = $this->config['term'];
 
-		$widgetview = '_widgets.video.' . $templateFileName;
+		$widgetview = '_widgets.video.'.$templateFileName;
 
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'      => $this->config,
-				'grid'        => $this->config['grid'],
-				'eroutes'     => $eroutes,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
 				'widgetvideo' => $widgetvideo,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

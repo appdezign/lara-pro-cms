@@ -1,32 +1,28 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\Tag;
-
-use LaravelLocalization;
-
-use Lara\Front\Http\Concerns\HasFrontTerms;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontMenu;
-use Lara\Front\Http\Concerns\HasFrontend;
+use Lara\Front\Http\Concerns\HasFrontTerms;
+use LaravelLocalization;
 
 class SliderWidget extends AbstractWidget
 {
-
 	use HasFrontend;
 	use HasFrontEntity;
 	use HasFrontMenu;
 	use HasFrontTerms;
 
 	protected $config = [
-		'term'        => 'home',
-		'grid'        => null,
+		'term' => 'home',
+		'grid' => null,
 		'sliderclass' => null,
 	];
 
@@ -40,7 +36,7 @@ class SliderWidget extends AbstractWidget
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.sliderWidget.' . $this->config['term'];
+		return 'lara.widgets.sliderWidget.'.$this->config['term'];
 	}
 
 	/**
@@ -56,7 +52,7 @@ class SliderWidget extends AbstractWidget
 		$term = $this->config['term'];
 
 		if ($isMultiLanguage) {
-			$activeTerm = $term . '-' . $language;
+			$activeTerm = $term.'-'.$language;
 		} else {
 			$activeTerm = $term;
 		}
@@ -77,7 +73,7 @@ class SliderWidget extends AbstractWidget
 				->isPublished()
 				->has('images')
 				->whereHas('terms', function ($query) use ($activeTerm) {
-					$query->where(config('lara-common.database.object.terms') . '.slug', $activeTerm);
+					$query->where(config('lara-common.database.object.terms').'.slug', $activeTerm);
 				})
 				->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder())
 				->get();
@@ -93,26 +89,25 @@ class SliderWidget extends AbstractWidget
 		// identifier
 		$templateFileName = $this->config['term'];
 
-		$widgetview = '_widgets.slider.' . $templateFileName;
+		$widgetview = '_widgets.slider.'.$templateFileName;
 
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'        => $this->config,
-				'grid'          => $this->config['grid'],
-				'eroutes'       => $eroutes,
-				'sliderclass'   => $this->config['sliderclass'],
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
+				'sliderclass' => $this->config['sliderclass'],
 				'widgetsliders' => $widgetsliders,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }

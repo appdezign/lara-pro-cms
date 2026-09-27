@@ -1,18 +1,15 @@
 <?php
 
-namespace Lara\Front\Http\Widgets;
+namespace Lara\Front\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use Lara\Common\Models\Cta;
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontMenu;
-
 use LaravelLocalization;
-
 
 class CtaWidget extends AbstractWidget
 {
@@ -20,9 +17,9 @@ class CtaWidget extends AbstractWidget
 	use HasFrontMenu;
 
 	protected $config = [
-		'hook'     => null,
+		'hook' => null,
 		'template' => 'default',
-		'grid'     => null,
+		'grid' => null,
 	];
 
 	public $cacheTime = false;
@@ -34,7 +31,7 @@ class CtaWidget extends AbstractWidget
 
 	public function cacheKey(array $params = [])
 	{
-		return 'lara.widgets.ctaWidget.' . $this->config['hook'];
+		return 'lara.widgets.ctaWidget.'.$this->config['hook'];
 	}
 
 	/**
@@ -52,25 +49,24 @@ class CtaWidget extends AbstractWidget
 		// identifier
 		$templateFileName = $this->config['template'];
 
-		$widgetview = '_widgets.cta.' . $templateFileName;
+		$widgetview = '_widgets.cta.'.$templateFileName;
 
 		if (view()->exists($widgetview)) {
 
 			return view($widgetview, [
-				'config'    => $this->config,
-				'grid'      => $this->config['grid'],
-				'eroutes'   => $eroutes,
+				'config' => $this->config,
+				'grid' => $this->config['grid'],
+				'eroutes' => $eroutes,
 				'widgetcta' => $widgetcta,
 			]);
 
 		} else {
 			$errorView = (config('app.env') == 'production') ? 'not_found_prod' : 'not_found';
 
-			return view('_widgets._error.' . $errorView, [
+			return view('_widgets._error.'.$errorView, [
 				'widgetview' => $widgetview,
 			]);
 		}
 
 	}
-
 }
