@@ -1,5 +1,5 @@
 <div class="mt-8">
-	{{ $this->table }}
+    {{ $this->table }}
 
-	<x-filament-actions::modals />
+    <x-filament-actions::modals />
 </div>
