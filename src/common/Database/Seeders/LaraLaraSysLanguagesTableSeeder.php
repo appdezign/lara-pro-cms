@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class LaraLaraSysLanguagesTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,10 +15,12 @@ class LaraLaraSysLanguagesTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_sys_languages')->delete();
 
-        \DB::table('lara_sys_languages')->insert([
-            0 => [
+        \DB::table('lara_sys_languages')->insert(array (
+            0 =>
+            array (
                 'id' => 1,
                 'code' => 'nl',
                 'name' => 'Nederlands',
@@ -26,10 +29,11 @@ class LaraLaraSysLanguagesTableSeeder extends Seeder
                 'backend_default' => 1,
                 'publish' => 1,
                 'position' => 1,
-                'created_at' => null,
+                'created_at' => NULL,
                 'updated_at' => '2024-03-05 17:50:09',
-            ],
-            1 => [
+            ),
+            1 =>
+            array (
                 'id' => 2,
                 'code' => 'en',
                 'name' => 'English',
@@ -38,10 +42,11 @@ class LaraLaraSysLanguagesTableSeeder extends Seeder
                 'backend_default' => 0,
                 'publish' => 1,
                 'position' => 2,
-                'created_at' => null,
+                'created_at' => NULL,
                 'updated_at' => '2024-03-05 17:50:09',
-            ],
-        ]);
+            ),
+        ));
+
 
     }
 }

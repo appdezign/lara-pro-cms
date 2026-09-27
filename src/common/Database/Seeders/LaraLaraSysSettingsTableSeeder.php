@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class LaraLaraSysSettingsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,10 +15,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_sys_settings')->delete();
 
-        \DB::table('lara_sys_settings')->insert([
-            0 => [
+        \DB::table('lara_sys_settings')->insert(array (
+            0 =>
+            array (
                 'id' => 101,
                 'title' => 'Company Name',
                 'cgroup' => 'company',
@@ -27,11 +30,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 2,
                 'created_at' => '2017-10-17 15:44:37',
                 'updated_at' => '2026-01-27 16:56:07',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            1 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            1 =>
+            array (
                 'id' => 102,
                 'title' => 'Company Street',
                 'cgroup' => 'company',
@@ -41,11 +45,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 4,
                 'created_at' => '2017-10-17 17:37:10',
                 'updated_at' => '2026-01-25 19:13:53',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            2 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            2 =>
+            array (
                 'id' => 103,
                 'title' => 'Company Email Address',
                 'cgroup' => 'company',
@@ -55,11 +60,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 3,
                 'created_at' => '2017-10-17 17:53:53',
                 'updated_at' => '2023-10-14 16:28:36',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            3 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            3 =>
+            array (
                 'id' => 105,
                 'title' => 'Translation File Sync',
                 'cgroup' => 'system',
@@ -69,11 +75,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 1,
                 'created_at' => '2017-10-20 12:59:00',
                 'updated_at' => '2026-01-25 19:11:27',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            4 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            4 =>
+            array (
                 'id' => 106,
                 'title' => 'Company Street Nr',
                 'cgroup' => 'company',
@@ -83,11 +90,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 5,
                 'created_at' => '2018-01-22 09:48:07',
                 'updated_at' => '2025-12-31 11:59:48',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            5 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            5 =>
+            array (
                 'id' => 107,
                 'title' => 'Company Postal Code',
                 'cgroup' => 'company',
@@ -97,11 +105,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 6,
                 'created_at' => '2018-01-24 12:41:38',
                 'updated_at' => '2025-12-31 12:00:36',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            6 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            6 =>
+            array (
                 'id' => 108,
                 'title' => 'Company City',
                 'cgroup' => 'company',
@@ -111,11 +120,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 7,
                 'created_at' => '2018-01-24 12:42:00',
                 'updated_at' => '2026-01-25 17:17:21',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            7 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            7 =>
+            array (
                 'id' => 109,
                 'title' => 'Company Telephone',
                 'cgroup' => 'company',
@@ -125,11 +135,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 10,
                 'created_at' => '2018-01-24 12:42:43',
                 'updated_at' => '2026-01-25 17:17:13',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            8 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            8 =>
+            array (
                 'id' => 110,
                 'title' => 'Company Region',
                 'cgroup' => 'company',
@@ -139,11 +150,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 8,
                 'created_at' => '2018-01-24 12:43:29',
                 'updated_at' => '2019-12-18 12:52:15',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            9 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            9 =>
+            array (
                 'id' => 111,
                 'title' => 'Company Country',
                 'cgroup' => 'company',
@@ -153,11 +165,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 9,
                 'created_at' => '2018-01-24 12:43:50',
                 'updated_at' => '2018-01-24 12:43:58',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            10 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            10 =>
+            array (
                 'id' => 112,
                 'title' => 'google_analytics_sync',
                 'cgroup' => 'system',
@@ -167,11 +180,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 11,
                 'created_at' => '2018-05-30 14:14:21',
                 'updated_at' => '2024-10-25 15:27:01',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            11 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            11 =>
+            array (
                 'id' => 113,
                 'title' => 'Google Analytics 4 ID',
                 'cgroup' => 'company',
@@ -181,11 +195,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 23,
                 'created_at' => '2018-05-25 12:00:00',
                 'updated_at' => '2023-09-21 11:15:58',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            12 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            12 =>
+            array (
                 'id' => 114,
                 'title' => 'AddThis ID',
                 'cgroup' => 'company',
@@ -195,11 +210,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 24,
                 'created_at' => '2018-05-25 12:00:00',
                 'updated_at' => '2023-02-10 20:28:37',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            13 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            13 =>
+            array (
                 'id' => 115,
                 'title' => 'Lara DB Version',
                 'cgroup' => 'system',
@@ -209,11 +225,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 25,
                 'created_at' => '2018-06-12 11:18:52',
                 'updated_at' => '2025-01-20 10:34:45',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            14 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            14 =>
+            array (
                 'id' => 116,
                 'title' => 'Company Latitude',
                 'cgroup' => 'company',
@@ -223,11 +240,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 26,
                 'created_at' => '2018-06-18 14:01:02',
                 'updated_at' => '2023-03-17 15:48:11',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            15 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            15 =>
+            array (
                 'id' => 117,
                 'title' => 'Company Longitude',
                 'cgroup' => 'company',
@@ -237,25 +255,27 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 27,
                 'created_at' => '2018-06-18 14:01:18',
                 'updated_at' => '2023-03-17 15:48:11',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            16 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            16 =>
+            array (
                 'id' => 118,
                 'title' => 'Company Url',
                 'cgroup' => 'company',
                 'key' => 'company_url',
-                'value' => null,
+                'value' => NULL,
                 'locked_by_admin' => 0,
                 'position' => 28,
                 'created_at' => '2018-06-18 14:01:31',
                 'updated_at' => '2023-02-10 20:27:48',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            17 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            17 =>
+            array (
                 'id' => 119,
                 'title' => 'Google Maps Zoom',
                 'cgroup' => 'general',
@@ -265,11 +285,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 29,
                 'created_at' => '2018-06-18 14:04:34',
                 'updated_at' => '2018-06-18 14:07:50',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            18 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            18 =>
+            array (
                 'id' => 120,
                 'title' => 'lara_cleanup_orphans',
                 'cgroup' => 'system',
@@ -279,39 +300,42 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 30,
                 'created_at' => '2019-07-19 10:47:25',
                 'updated_at' => '2020-05-19 14:26:14',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            19 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            19 =>
+            array (
                 'id' => 121,
                 'title' => 'Company Telephone Clean',
                 'cgroup' => 'company',
                 'key' => 'company_telephone_clean',
-                'value' => null,
+                'value' => NULL,
                 'locked_by_admin' => 0,
                 'position' => 31,
                 'created_at' => '2019-07-21 18:50:40',
                 'updated_at' => '2019-07-21 18:54:45',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            20 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            20 =>
+            array (
                 'id' => 122,
                 'title' => 'Google Tag manager ID',
                 'cgroup' => 'company',
                 'key' => 'google_tagmanager_id',
-                'value' => null,
+                'value' => NULL,
                 'locked_by_admin' => 0,
                 'position' => 32,
                 'created_at' => '2019-08-12 18:53:46',
                 'updated_at' => '2023-02-10 20:27:53',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            21 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            21 =>
+            array (
                 'id' => 132,
                 'title' => 'Eve Version',
                 'cgroup' => 'system',
@@ -321,11 +345,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 119,
                 'created_at' => '2020-08-11 17:09:21',
                 'updated_at' => '2024-11-06 11:25:54',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            22 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            22 =>
+            array (
                 'id' => 134,
                 'title' => 'Top post range days',
                 'cgroup' => 'general',
@@ -335,11 +360,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 121,
                 'created_at' => '2021-08-05 18:29:35',
                 'updated_at' => '2021-08-05 18:31:10',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            23 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            23 =>
+            array (
                 'id' => 135,
                 'title' => 'Company Facebook Account',
                 'cgroup' => 'company',
@@ -349,11 +375,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 122,
                 'created_at' => '2023-03-12 13:11:38',
                 'updated_at' => '2023-03-12 13:11:40',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            24 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            24 =>
+            array (
                 'id' => 136,
                 'title' => 'Company Instagram Account',
                 'cgroup' => 'company',
@@ -363,11 +390,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 123,
                 'created_at' => '2023-03-12 13:12:04',
                 'updated_at' => '2023-03-12 13:12:10',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            25 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            25 =>
+            array (
                 'id' => 137,
                 'title' => 'Company Twitter Account',
                 'cgroup' => 'company',
@@ -377,11 +405,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 124,
                 'created_at' => '2023-03-12 13:12:46',
                 'updated_at' => '2023-03-12 13:12:53',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            26 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            26 =>
+            array (
                 'id' => 138,
                 'title' => 'Company Linkedin Account',
                 'cgroup' => 'company',
@@ -391,11 +420,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 125,
                 'created_at' => '2023-03-12 13:13:23',
                 'updated_at' => '2023-03-12 13:13:26',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            27 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            27 =>
+            array (
                 'id' => 139,
                 'title' => 'Team Photo Ratio',
                 'cgroup' => 'company',
@@ -405,11 +435,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 126,
                 'created_at' => '2023-03-12 13:13:23',
                 'updated_at' => '2023-06-29 14:21:34',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            28 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            28 =>
+            array (
                 'id' => 143,
                 'title' => 'Lara Translation Version',
                 'cgroup' => 'system',
@@ -419,11 +450,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 127,
                 'created_at' => '2023-10-24 15:48:06',
                 'updated_at' => '2025-09-03 16:53:58',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            29 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            29 =>
+            array (
                 'id' => 144,
                 'title' => 'Seo Description Max Length',
                 'cgroup' => 'system',
@@ -433,11 +465,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 128,
                 'created_at' => '2024-04-19 11:08:59',
                 'updated_at' => '2024-04-19 11:08:59',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            30 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            30 =>
+            array (
                 'id' => 145,
                 'title' => 'Seo Keywords Max Length',
                 'cgroup' => 'system',
@@ -447,11 +480,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 129,
                 'created_at' => '2024-04-19 11:10:40',
                 'updated_at' => '2024-04-19 11:10:40',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            31 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            31 =>
+            array (
                 'id' => 146,
                 'title' => 'last_media_file_sync_page',
                 'cgroup' => 'system',
@@ -461,11 +495,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 130,
                 'created_at' => '2024-08-10 16:37:02',
                 'updated_at' => '2025-07-06 14:42:58',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            32 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            32 =>
+            array (
                 'id' => 147,
                 'title' => 'last_media_videofile_sync_page',
                 'cgroup' => 'system',
@@ -475,11 +510,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 131,
                 'created_at' => '2024-08-10 16:37:02',
                 'updated_at' => '2025-07-06 14:42:58',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            33 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            33 =>
+            array (
                 'id' => 148,
                 'title' => 'last_media_file_sync_blog',
                 'cgroup' => 'system',
@@ -489,11 +525,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 132,
                 'created_at' => '2024-10-14 14:06:42',
                 'updated_at' => '2025-04-12 17:37:06',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            34 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            34 =>
+            array (
                 'id' => 149,
                 'title' => 'last_media_videofile_sync_blog',
                 'cgroup' => 'system',
@@ -503,11 +540,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 133,
                 'created_at' => '2024-10-14 14:06:42',
                 'updated_at' => '2025-04-12 17:37:06',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            35 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            35 =>
+            array (
                 'id' => 150,
                 'title' => 'last_media_file_sync_team',
                 'cgroup' => 'system',
@@ -517,11 +555,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 134,
                 'created_at' => '2024-10-24 16:17:41',
                 'updated_at' => '2025-04-10 20:05:32',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            36 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            36 =>
+            array (
                 'id' => 152,
                 'title' => 'Company 2FA App Name',
                 'cgroup' => 'company',
@@ -531,11 +570,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 135,
                 'created_at' => '2025-01-17 13:36:28',
                 'updated_at' => '2025-01-17 13:36:28',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            37 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            37 =>
+            array (
                 'id' => 153,
                 'title' => 'last_media_file_sync_product',
                 'cgroup' => 'system',
@@ -545,11 +585,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 136,
                 'created_at' => '2025-05-08 14:43:05',
                 'updated_at' => '2025-05-09 15:00:48',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            38 => [
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            38 =>
+            array (
                 'id' => 154,
                 'title' => 'last_media_videofile_sync_product',
                 'cgroup' => 'system',
@@ -559,11 +600,12 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'position' => 137,
                 'created_at' => '2025-05-08 14:43:05',
                 'updated_at' => '2025-05-09 15:00:48',
-                'deleted_at' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-        ]);
+                'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+        ));
+
 
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,10 +15,12 @@ class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_object_taxonomies')->delete();
 
-        \DB::table('lara_object_taxonomies')->insert([
-            0 => [
+        \DB::table('lara_object_taxonomies')->insert(array (
+            0 =>
+            array (
                 'id' => 1,
                 'title' => 'Category',
                 'slug' => 'category',
@@ -26,11 +29,12 @@ class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
                 'is_default' => 1,
                 'created_at' => '2017-11-26 12:50:34',
                 'updated_at' => '2019-07-14 18:18:05',
-                'locked_at' => null,
-                'locked_by' => null,
-                'position' => null,
-            ],
-            1 => [
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+                'position' => NULL,
+            ),
+            1 =>
+            array (
                 'id' => 2,
                 'title' => 'Tag',
                 'slug' => 'tag',
@@ -39,11 +43,12 @@ class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
                 'is_default' => 0,
                 'created_at' => '2017-11-26 12:50:48',
                 'updated_at' => '2019-01-30 19:59:00',
-                'locked_at' => null,
-                'locked_by' => null,
-                'position' => null,
-            ],
-        ]);
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+                'position' => NULL,
+            ),
+        ));
+
 
     }
 }

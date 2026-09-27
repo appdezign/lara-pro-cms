@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Lara\Common\Console\LaraRouteCacheCommand;
+use Lara\Common\Console\RefreshMenuRouteNamesCommand;
 use Lara\Common\Entities\EntityRegistry;
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 use Lara\Common\Http\Middleware\DateLocale;
@@ -130,6 +131,7 @@ class LaraCommonServiceProvider extends ServiceProvider
         // Register commands
         $this->commands([
             LaraRouteCacheCommand::class,
+            RefreshMenuRouteNamesCommand::class,
         ]);
 
         // set media path for Glide (awcodes/curator)

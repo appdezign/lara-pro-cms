@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class LaraLaraResourceEntityViewsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,10 +15,12 @@ class LaraLaraResourceEntityViewsTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_resource_entity_views')->delete();
 
-        \DB::table('lara_resource_entity_views')->insert([
-            0 => [
+        \DB::table('lara_resource_entity_views')->insert(array (
+            0 =>
+            array (
                 'id' => 101,
                 'entity_id' => 1,
                 'title' => 'Page Standard',
@@ -28,13 +31,14 @@ class LaraLaraResourceEntityViewsTableSeeder extends Seeder
                 'is_single' => 1,
                 'list_type' => '_single',
                 'image_required' => 0,
-                'showtags' => null,
-                'paginate' => null,
+                'showtags' => NULL,
+                'paginate' => NULL,
                 'infinite' => 0,
                 'prevnext' => 0,
                 'publish' => 1,
-            ],
-            1 => [
+            ),
+            1 =>
+            array (
                 'id' => 102,
                 'entity_id' => 1,
                 'title' => 'Page Landing',
@@ -45,13 +49,14 @@ class LaraLaraResourceEntityViewsTableSeeder extends Seeder
                 'is_single' => 1,
                 'list_type' => '_single',
                 'image_required' => 0,
-                'showtags' => null,
-                'paginate' => null,
+                'showtags' => NULL,
+                'paginate' => NULL,
                 'infinite' => 0,
                 'prevnext' => 0,
                 'publish' => 1,
-            ],
-        ]);
+            ),
+        ));
+
 
     }
 }

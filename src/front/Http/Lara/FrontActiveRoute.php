@@ -18,6 +18,10 @@ class FrontActiveRoute
 
     protected array $activetags = [];
 
+    protected ?string $menu_route = null;
+
+    protected ?string $tag_route_pattern = null;
+
     /**
      * Get the method
      *
@@ -161,5 +165,33 @@ class FrontActiveRoute
     public function setSingleRoute(?string $single_route = null)
     {
         $this->single_route = $single_route;
+    }
+
+    /**
+     * The list route of the current menu item, e.g. for a "show all" link.
+     */
+    public function getMenuRoute(): ?string
+    {
+        return $this->menu_route;
+    }
+
+    public function setMenuRoute(?string $menu_route = null): void
+    {
+        $this->menu_route = $menu_route;
+    }
+
+    /**
+     * The list route of one tag within the current menu item.
+     *
+     * @param  string  $tagRoute  the tag's route, e.g. "design" or "parent.child"
+     */
+    public function getTagRoute(string $tagRoute): ?string
+    {
+        return $this->tag_route_pattern === null ? null : str_replace('{tag}', $tagRoute, $this->tag_route_pattern);
+    }
+
+    public function setTagRoutePattern(?string $tag_route_pattern = null): void
+    {
+        $this->tag_route_pattern = $tag_route_pattern;
     }
 }

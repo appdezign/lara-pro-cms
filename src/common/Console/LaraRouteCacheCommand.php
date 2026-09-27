@@ -2,6 +2,7 @@
 
 namespace Lara\Common\Console;
 
+use Illuminate\Routing\RouteCollection;
 use Mcamara\LaravelLocalization\Commands\RouteTranslationsCacheCommand;
 
 /**
@@ -14,6 +15,10 @@ use Mcamara\LaravelLocalization\Commands\RouteTranslationsCacheCommand;
  *
  * This version builds every locale into a temporary file first and only then renames
  * those over the live cache files, so a cached route file is never absent.
+ *
+ * Because the live cache stays in place, the fresh application that reads the routes of a
+ * locale has to be told not to load it - otherwise it would load the previous cache and this
+ * command would store the old routes again. See getFreshRoutesIgnoringCache().
  */
 class LaraRouteCacheCommand extends RouteTranslationsCacheCommand
 {
@@ -55,7 +60,10 @@ class LaraRouteCacheCommand extends RouteTranslationsCacheCommand
 
         foreach ($allLocales as $locale) {
 
-            $routes = $this->getFreshApplicationRoutesForLocale($locale);
+            // resolved before the routes are read, which points the cache path elsewhere
+            $path = $this->makeLocaleRoutesPath($locale);
+
+            $routes = $this->getFreshRoutesIgnoringCache($locale);
 
             if (count($routes) == 0) {
                 $this->discardPendingRouteCaches($pendingRouteCaches);
@@ -68,7 +76,6 @@ class LaraRouteCacheCommand extends RouteTranslationsCacheCommand
                 $route->prepareForSerialization();
             }
 
-            $path = $this->makeLocaleRoutesPath($locale);
             $temporaryPath = $path.'.'.getmypid().'.tmp';
 
             $this->files->put($temporaryPath, $this->buildRouteCacheFile($routes));
@@ -85,6 +92,44 @@ class LaraRouteCacheCommand extends RouteTranslationsCacheCommand
 
         $this->info('Routes cached successfully for all locales!');
 
+    }
+
+    /**
+     * The routes of a locale, read from the route files even while a route cache exists.
+     *
+     * The fresh application loads cached routes when it finds them, so while it boots, its
+     * route cache path points to a file that does not exist.
+     */
+    protected function getFreshRoutesIgnoringCache(?string $locale): RouteCollection
+    {
+        $previous = $this->swapRoutesCachePath(storage_path('framework/lara-route-cache-build-'.getmypid().'.php'));
+
+        try {
+            return $this->getFreshApplicationRoutesForLocale($locale);
+        } finally {
+            $this->swapRoutesCachePath($previous);
+        }
+    }
+
+    /**
+     * Set APP_ROUTES_CACHE everywhere Laravel reads it from ($_SERVER first, then $_ENV and
+     * getenv), so the value also wins over one set by the shell. Null removes it.
+     *
+     * @return string|null the previous value
+     */
+    protected function swapRoutesCachePath(?string $path): ?string
+    {
+        $previous = $_SERVER['APP_ROUTES_CACHE'] ?? $_ENV['APP_ROUTES_CACHE'] ?? (getenv('APP_ROUTES_CACHE') ?: null);
+
+        if ($path === null) {
+            unset($_SERVER['APP_ROUTES_CACHE'], $_ENV['APP_ROUTES_CACHE']);
+            putenv('APP_ROUTES_CACHE');
+        } else {
+            $_SERVER['APP_ROUTES_CACHE'] = $_ENV['APP_ROUTES_CACHE'] = $path;
+            putenv('APP_ROUTES_CACHE='.$path);
+        }
+
+        return $previous;
     }
 
     /**

@@ -9,6 +9,7 @@ use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Page;
 use Lara\Common\Models\Tag;
+use Lara\Common\Routes\FrontRouteContext;
 use stdClass;
 
 /**
@@ -93,6 +94,17 @@ final class FrontMenuRepository
         $routename = $this->getRouteFromSlug($slug);
 
         $activeMenuArray = [];
+
+        // menu routes know their menu item, also when the same entity is in the menu twice
+        $contextMenuItem = $this->getContextMenuItem($routename);
+
+        if ($contextMenuItem) {
+
+            $activeMenuArray[] = $getIdOnly ? $contextMenuItem->id : $contextMenuItem;
+
+            return $this->getMenuParent($contextMenuItem, $activeMenuArray, $getIdOnly);
+
+        }
 
         if ($routename == 'special.home.show') {
 
@@ -238,6 +250,12 @@ final class FrontMenuRepository
         $routename = $this->routeResolver->getRouteFromUrl($slug);
         $url = substr($slug, 4);
 
+        $contextMenuItem = $this->getContextMenuItem($routename);
+
+        if ($contextMenuItem) {
+            return $contextMenuItem;
+        }
+
         if ($routename == 'special.home.show') {
 
             $activeMenuItem = MenuItem::langIs($language)->where('routename', $routename)->first();
@@ -262,6 +280,16 @@ final class FrontMenuRepository
 
         return $activeMenuItem;
 
+    }
+
+    /**
+     * The menu item a menu route belongs to, from the route's context.
+     */
+    private function getContextMenuItem(?string $routename): ?MenuItem
+    {
+        $menuItemId = FrontRouteContext::forRouteName($routename)?->menuItemId;
+
+        return $menuItemId ? MenuItem::find($menuItemId) : null;
     }
 
     /**
