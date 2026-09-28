@@ -3,17 +3,15 @@
 namespace Lara\Front\Http\Controllers\Base;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
-
 use Lara\Common\Models\Taxonomy;
-use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontAuth;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
 use Lara\Front\Http\Concerns\HasFrontMenu;
@@ -21,225 +19,232 @@ use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
 use Lara\Front\Http\Concerns\HasFrontTerms;
-use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
-
+use Lara\Front\Http\Concerns\HasModelClass;
+use Lara\Front\Http\Concerns\HasTheme;
 use LaravelLocalization;
-
-use ReflectionClass;
-use ReflectionException;
-
 use stdClass;
 
 class BaseFrontController extends Controller
 {
+    use HasFrontAuth;
+    use HasFrontend;
+    use HasFrontEntity;
+    use HasFrontList;
+    use HasFrontMenu;
+    use HasFrontObject;
+    use HasFrontRoutes;
+    use HasFrontSecurity;
+    use HasFrontTerms;
+    use HasFrontView;
+    use HasModelClass;
+    use HasTheme;
 
-	use HasFrontend;
-	use HasFrontAuth;
-	use HasFrontEntity;
-	use HasFrontList;
-	use HasFrontMenu;
-	use HasFrontObject;
-	use HasFrontRoutes;
-	use HasFrontSecurity;
-	use HasFrontTerms;
-	use HasTheme;
-	use HasFrontView;
+    protected ?string $modelClass = null;
 
-	protected ?string $modelClass;
-	protected ?string $routename;
-	protected ?object $entity;
-	protected ?object $activeroute;
-	protected ?string $language;
-	protected ?object $data;
-	protected ?object $globalwidgets;
-	protected bool $ispreview;
+    protected ?string $routename = null;
 
-	public function __construct()
-	{
+    protected ?object $entity = null;
 
-		// get model class from child controller
-		$this->modelClass = $this->determineModelClass();
+    protected ?object $activeroute = null;
 
-		// get language
-		$this->language = LaravelLocalization::getCurrentLocale();
+    protected ?string $language = null;
 
-		$this->data = new stdClass;
+    protected ?object $data = null;
 
-		if (!App::runningInConsole()) {
+    protected ?object $globalwidgets = null;
 
-			// get route name
-			$this->routename = Route::current()->getName();
+    protected ?object $globalsettings = null;
 
-			// preview
-			$this->ispreview = $this->isPreview($this->routename);
+    protected bool $ispreview = false;
 
-			// get entity
-			$this->entity = $this->getFrontEntity($this->routename);
+    public function __construct()
+    {
 
-			// get active route
-			$this->activeroute = $this->getLaraActiveRoute($this->routename);
+        // get model class from child controller
+        $this->modelClass = $this->determineModelClass();
 
-			// get default seo
-			$this->data->seo = $this->getDefaultSeo($this->language);
+        // get language
+        $this->language = LaravelLocalization::getCurrentLocale();
 
-			// get default layout
-			$this->data->layout = $this->getDefaultThemeLayout();
+        $this->data = new stdClass;
 
-			// get entity routes from menu
-			$this->data->eroutes = $this->getMenuEntityRoutes($this->language);
+        // only when handling a matched HTTP request: there is no route to read
+        // in console, queue or test-bootstrap contexts
+        if (Route::current() !== null) {
 
-			// get global widgets
-			$this->globalwidgets = $this->getGlobalWidgets($this->language);
+            // get route name
+            $this->routename = Route::current()->getName();
 
-			// share data with all views, see: https://goo.gl/Aqxquw
-			$this->middleware(function ($request, $next) {
-				view()->share('entity', $this->entity);
-				view()->share('activeroute', $this->activeroute);
-				view()->share('language', $this->language);
-				view()->share('ispreview', $this->ispreview);
-				view()->share('globalwidgets', $this->globalwidgets);
-				view()->share('activemenu', $this->getActiveMenuArray());
-				view()->share('firstpageload', $this->getFirstPageLoad());
+            // preview
+            $this->ispreview = $this->isPreview($this->routename);
 
-				return $next($request);
-			});
+            // get entity
+            $this->entity = $this->getFrontEntity($this->routename);
 
-		}
+            // get active route
+            $this->activeroute = $this->getLaraActiveRoute($this->routename);
 
-	}
+            // get default seo
+            $this->data->seo = $this->getDefaultSeo($this->language);
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @param Request $request
-	 * @return Application|Factory|View
-	 */
-	public function index(Request $request)
-	{
+            // get default layout
+            $this->data->layout = $this->getDefaultThemeLayout();
 
-		// get menu category
-		$this->data->menutag = $this->getMenuTag($this->language, $this->entity, $request);
+            // get entity routes from menu
+            $this->data->eroutes = $this->getMenuEntityRoutes($this->language);
 
-		// get params
-		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+            // get global widgets
+            $this->globalwidgets = $this->getGlobalWidgets($this->language);
 
-		// get objects
-		$this->data->objects = $this->getFrontObjects($request, $this->language, $this->entity, $this->activeroute, $this->data->menutag, $this->data->params);
+            // get global settings
+            $this->globalsettings = $this->getGlobalSettings();
 
-		// get terms
-		$this->data->terms = $this->getTagTreeWithCount($this->language, $this->entity);
+            // share data with all views, see: https://goo.gl/Aqxquw
+            $this->middleware(function ($request, $next) {
+                view()->share('entity', $this->entity);
+                view()->share('activeroute', $this->activeroute);
+                view()->share('language', $this->language);
+                view()->share('ispreview', $this->ispreview);
+                view()->share('globalwidgets', $this->globalwidgets);
+                view()->share('globalsettings', $this->globalsettings);
+                view()->share('activemenu', $this->getActiveMenuArray());
+                view()->share('firstpageload', $this->getFirstPageLoad());
 
-		// filter by taxonomy
-		$this->data = $this->setTaxonomyFilter($this->data, $this->data);
+                return $next($request);
+            });
 
-		// get related module page
-		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'index');
+        }
 
-		// use menu tag or module page for Intro
-		$this->data->page = $this->data->menutag ?: $this->data->modulepage;
+    }
 
-		// seo
-		$this->data->seo = $this->getSeo($this->data->modulepage);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View
+     */
+    public function index(Request $request)
+    {
 
-		// get language versions
-		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
+        // get menu category
+        $this->data->menutag = $this->getMenuTag($this->language, $this->entity, $request);
 
-		// override default layout with custom module page layout
-		$this->data->layout = $this->getObjectThemeLayout($this->data->modulepage, $this->data->params);
-		$this->data->grid = $this->getGrid($this->data->layout);
+        // get params
+        $this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+        if ($this->data->params instanceof RedirectResponse) {
+            return $this->data->params;
+        }
 
-		// template vars & override
-		$this->data->gridvars = $this->getGridVars($this->entity);
-		$this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
+        // get objects
+        $this->data->objects = $this->getFrontObjects($request, $this->language, $this->entity, $this->activeroute, $this->data->menutag, $this->data->params);
 
-		$viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);
+        // get terms
+        $this->data->terms = $this->getTagTreeWithCount($this->language, $this->entity);
 
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
+        // filter by taxonomy
+        $this->data = $this->setTaxonomyFilter($this->data, $this->language, $this->entity);
 
-	}
+        // get related module page
+        $this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'index');
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param Request $request
-	 * @param string|null $slug
-	 * @return Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|View|object
-	 */
-	public function show(Request $request, string $slug = null)
-	{
+        // use menu tag or module page for Intro
+        $this->data->page = $this->data->menutag ?: $this->data->modulepage;
 
-		// get menutaxonomy (for previous and next model)
-		$this->data->menutag = $this->getSingleMenuTag($this->language, $this->entity, $request);
+        // seo
+        $this->data->seo = $this->getSeo($this->data->modulepage);
 
-		// get params
-		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+        // get language versions
+        $this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
 
-		// get active term
-		$this->data->tag = $this->getTagBySlug($this->language, $this->entity, $this->data->params->getFilterByTaxonomy());
+        // override default layout with custom module page layout
+        $this->data->layout = $this->getObjectThemeLayout($this->data->modulepage, $this->data->params);
+        $this->data->grid = $this->getGrid($this->data->layout);
 
-		// get single object
-		$this->data->object = $this->getSingleFrontObject($this->language, $this->entity, $slug);
+        // template vars & override
+        $this->data->gridvars = $this->getGridVars($this->entity);
+        $this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
 
-		// check redirect
-		$this->checkFrontRedirect($this->language, $this->entity, $this->activeroute, $this->data->object);
+        $viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);
 
-		// related objects from other entities
-		$this->data->relatedObjects = $this->getFrontRelated($this->entity, $this->data->object->id);
+        return view($viewfile, [
+            'data' => $this->data,
+        ]);
 
-		// get related module page (from parent index method) for Layout and SEO
-		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'index');
+    }
 
-		// Use object for Hero if it has a hero image
-		$this->data->page = $this->getHeroPage($this->data->object, $this->data->menutag, $this->data->modulepage);
+    /**
+     *  Display the specified resource.
+     *
+     * @return Factory|\Illuminate\Contracts\View\View|RedirectResponse
+     */
+    public function show(Request $request, ?string $slug = null)
+    {
 
-		// get terms
-		$this->data->terms = $this->getEntityTerms($this->language, $this->entity, null);
+        // get menutaxonomy (for previous and next model)
+        $this->data->menutag = $this->getSingleMenuTag($this->language, $this->entity, $request);
 
-		// seo
-		$this->data->seo = $this->getSeo($this->data->object, $this->data->modulepage);
+        // get params
+        $this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
+        if ($this->data->params instanceof RedirectResponse) {
+            return $this->data->params;
+        }
 
-		// get language versions
-		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity, $this->data->object);
+        // get active term
+        $this->data->tag = $this->getTagBySlug($this->language, $this->entity, $this->data->params->getFilterByTaxonomy());
 
-		// override default layout with custom module page layout
-		$this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
-		$this->data->grid = $this->getGrid($this->data->layout);
+        // get single object
+        $this->data->object = $this->getSingleFrontObject($this->language, $this->entity, $slug);
+        if ($this->data->object instanceof RedirectResponse) {
+            return $this->data->params;
+        }
 
-		// template vars & override
-		$this->data->gridvars = $this->getGridVars($this->entity);
-		$this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
+        // check redirect
+        $checkRedirect = $this->checkFrontRedirect($this->language, $this->entity, $this->activeroute, $this->data->object);
+        if ($checkRedirect instanceof RedirectResponse) {
+            return $checkRedirect;
+        }
 
-		// get previous and next object
-		if($this->data->params->getPrevNext()) {
-			$this->data->next = $this->getNextObject($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->params, $this->data->menutag);
-			$this->data->prev = $this->getPrevObject($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->params, $this->data->menutag);
-		}
+        // related objects from other entities
+        $this->data->relatedObjects = $this->getFrontRelated($this->entity, $this->data->object->id);
 
-		// get entity list url
-		$this->data->entityListUrl = $this->getEntityListUrl($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->menutag, $this->ispreview);
+        // get related module page (from parent index method) for Layout and SEO
+        $this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'index');
 
-		// get view file
-		$viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);
+        // Use object for Hero if it has a hero image
+        $this->data->page = $this->getHeroPage($this->data->object, $this->data->menutag, $this->data->modulepage);
 
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
+        // get terms
+        $this->data->terms = $this->getEntityTerms($this->language, $this->entity, null);
 
-	}
+        // seo
+        $this->data->seo = $this->getSeo($this->data->object, $this->data->modulepage);
 
-	/**
-	 * @return string
-	 * @throws ReflectionException
-	 */
-	protected function determineModelClass(): string
-	{
-		return (new ReflectionClass($this))
-			->getMethod('make')
-			->getReturnType()
-			->getName();
-	}
+        // get language versions
+        $this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity, $this->data->object);
 
+        // override default layout with custom module page layout
+        $this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
+        $this->data->grid = $this->getGrid($this->data->layout);
+
+        // template vars & override
+        $this->data->gridvars = $this->getGridVars($this->entity);
+        $this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
+
+        // get previous and next object
+        if ($this->data->params->getPrevNext()) {
+            $this->data->next = $this->getNextObject($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->params, $this->data->menutag);
+            $this->data->prev = $this->getPrevObject($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->params, $this->data->menutag);
+        }
+
+        // get entity list url
+        $this->data->entityListUrl = $this->getEntityListUrl($this->language, $this->entity, $this->activeroute, $this->data->object, $this->data->menutag, $this->ispreview);
+
+        // get view file
+        $viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);
+
+        return view($viewfile, [
+            'data' => $this->data,
+        ]);
+
+    }
 }

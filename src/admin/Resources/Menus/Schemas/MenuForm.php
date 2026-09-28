@@ -5,33 +5,33 @@ namespace Lara\Admin\Resources\Menus\Schemas;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-
 use Lara\Admin\Resources\Menus\MenuResource;
 
 class MenuForm
 {
-	private static function rs(): MenuResource
-	{
-		$class = MenuResource::class;
-		return new $class;
-	}
+    private static function rs(): MenuResource
+    {
+        $class = MenuResource::class;
 
-	public static function configure(Schema $schema): Schema
-	{
-		return $schema
-			->components([
-				Section::make('Content')
-					->columnSpanFull()
-					->schema([
-						TextInput::make('title')
-							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.title'))
-							->maxLength(255)
-							->required(),
-						TextInput::make('slug')
-							->label(_q(static::rs()->getModule() . '::' . static::rs()->getSlug() . '.column.slug'))
-							->disabled(fn(string $operation) : bool => $operation === 'edit')
-							->maxLength(255),
-					]),
-			]);
-	}
+        return new $class;
+    }
+
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Section::make('Content')
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('title')
+                            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.title'))
+                            ->maxLength(255)
+                            ->required(),
+                        TextInput::make('slug')
+                            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.slug'))
+                            ->disabled(fn (string $operation): bool => $operation === 'edit')
+                            ->maxLength(255),
+                    ]),
+            ]);
+    }
 }

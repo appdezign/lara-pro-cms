@@ -8,185 +8,181 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Components\Concerns\HasContainerGridLayout;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
-
-
-use Lara\Admin\Traits\HasLocks;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasLayout;
-use Lara\Admin\Traits\HasMedia;
-
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasLayout;
+use Lara\Admin\Concerns\HasLocks;
+use Lara\Admin\Concerns\HasMedia;
 use Spatie\Geocoder\Facades\Geocoder;
 
 class LaraEditRecord extends EditRecord
 {
+    use HasContainerGridLayout;
+    use HasLanguage;
+    use HasLayout;
+    use HasLocks;
+    use HasMedia;
 
-	use HasContainerGridLayout;
-	use HasLanguage;
-	use HasLayout;
-	use HasLocks;
-	use HasMedia;
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+        static::checkRecordLock($this->record);
+        static::lockRecord($this->record);
+    }
 
-	public function mount(int|string $record): void
-	{
-		parent::mount($record);
-		static::checkRecordLock($this->record);
-		static::lockRecord($this->record);
-	}
+    public function getTitle(): string|Htmlable
+    {
+        return $this->record->title ?? parent::getTitle();
+    }
 
-	public function getTitle(): string|Htmlable
-	{
-		return $this->record->title ?? parent::getTitle();
-	}
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
 
-	protected function mutateFormDataBeforeSave(array $data): array
-	{
+        if (array_key_exists('_body', $data)) {
+            $data['body'] = $data['_body'];
+        }
 
-		if (array_key_exists('_body', $data)) {
-			$data['body'] = $data['_body'];
-		}
+        if (array_key_exists('publish_expire', $data)) {
+            if ($data['publish_expire'] == 0) {
+                if (array_key_exists('publish_to', $data)) {
+                    $data['publish_to'] = null;
+                }
 
-		if (array_key_exists('publish_expire', $data)) {
-			if ($data['publish_expire'] == 0) {
-				if (array_key_exists('publish_to', $data)) {
-					$data['publish_to'] = null;
-				}
+            }
+        }
 
-			}
-		}
+        if (array_key_exists('is_global', $data)) {
+            if ($data['is_global'] === true) {
+                $this->record->onpages()->sync([]);
+            }
+        }
 
-		if (array_key_exists('is_global', $data)) {
-			if ($data['is_global'] === true) {
-				$this->record->onpages()->sync([]);
-			}
-		}
+        if (array_key_exists('geo_location', $data)) {
+            if ($data['geo_location'] === 'auto') {
+                if (empty($data['geo_latitude']) || $data['geo_latitude'] == 0 || empty($data['geo_longitude']) || $data['geo_longitude'] == 0) {
 
-		if (array_key_exists('geo_location', $data)) {
-			if ($data['geo_location'] === 'auto') {
-				if (empty($data['geo_latitude']) || $data['geo_latitude'] == 0 || empty($data['geo_longitude']) || $data['geo_longitude'] == 0) {
+                    // check address
+                    if (! empty($data['geo_address']) && ! empty($data['geo_pcode']) && ! empty($data['geo_city']) && ! empty($data['geo_country'])) {
 
-					// check address
-					if (!empty($data['geo_address']) && !empty($data['geo_pcode']) && !empty($data['geo_city']) && !empty($data['geo_country'])) {
+                        $geoAddress = $data['geo_address'].', '.$data['geo_pcode'].', '.$data['geo_city'].', '.$data['geo_country'];
 
-						$geoAddress = $data['geo_address'] . ', ' . $data['geo_pcode'] . ', ' . $data['geo_city'] . ', ' . $data['geo_country'];
+                        // Get GEO Coordinates from Google API
+                        $geo = Geocoder::getCoordinatesForAddress($geoAddress);
 
-						// Get GEO Coordinates from Google API
-						$geo = Geocoder::getCoordinatesForAddress($geoAddress);
+                        // Save coordinates
+                        if (! empty($geo['lat']) && ! empty($geo['lng'])) {
+                            $data['geo_latitude'] = $geo['lat'];
+                            $data['geo_longitude'] = $geo['lng'];
+                        }
 
-						// Save coordinates
-						if (!empty($geo['lat']) && !empty($geo['lng'])) {
-							$data['geo_latitude'] = $geo['lat'];
-							$data['geo_longitude'] = $geo['lng'];
-						}
+                    }
+                }
+            }
+        }
 
-					}
-				}
-			}
-		}
+        return $data;
+    }
 
-		return $data;
-	}
+    protected function afterSave(): void
+    {
 
-	protected function afterSave(): void
-	{
+        // create seo
+        if (empty($this->record->seo)) {
+            $this->record->seo()->create([
+                'locale' => $this->record->language,
+            ]);
+        }
 
-		// create seo
-		if(empty($this->record->seo)) {
-			$this->record->seo()->create([
-				'locale' => $this->record->language
-			]);
-		}
+        if ($this->record->geo_location && $this->record->geo_location == 'auto') {
+            $this->fillForm();
+        }
 
-		if ($this->record->geo_location && $this->record->geo_location == 'auto') {
-			$this->fillForm();
-		}
+        // lock media items.
+        static::lockMediaItems($this->record);
 
-		// lock media items.
-		static::lockMediaItems($this->record);
+        // save featured image as social image
+        static::checkSocialImage($this->record);
 
-		// save featured image as social image
-		static::checkSocialImage($this->record);
+        // set language for SEO checks
+        static::setSeoLanguage($this->record);
 
-		// set language for SEO checks
-		static::setSeoLanguage($this->record);
+        // replace default layout values with null
+        static::replaceDefaultLayoutValues($this->record);
 
-		// replace default layout values with null
-		static::replaceDefaultLayoutValues($this->record);
+        // refresh route cache
+        session(['laracacheclear' => ['response_cache', 'route_cache']]);
 
-		// refresh route cache
-		session(['laracacheclear' => ['response_cache', 'route_cache']]);
+    }
 
-	}
+    public function getFormActions(): array
+    {
+        return [];
+    }
 
-	public function getFormActions(): array
-	{
-		return [];
-	}
+    protected function getHeaderActions(): array
+    {
 
-	protected function getHeaderActions(): array
-	{
+        $rows = [];
 
-		$rows = array();
+        $rows[] = Action::make('unlockrecord')
+            ->icon('bi-chevron-left')
+            ->iconButton()
+            ->color('gray')
+            ->action(function () {
+                static::unlockRecord($this->record);
 
-		$rows[] = Action::make('unlockrecord')
-			->icon('bi-chevron-left')
-			->iconButton()
-			->color('gray')
-			->action(function () {
-				static::unlockRecord($this->record);
-				return redirect($this->getResource()::getUrl('index'));
-			});
+                return redirect($this->getResource()::getUrl('index'));
+            });
 
-		$rows[] = Action::make('save')
-			->label(_q('lara-admin::default.action.save'))
-			->color('danger')
-			->submit(null)
-			->action(function () {
-				$this->save(true, false);
-				$this->refreshFormData(['slug']);
+        $rows[] = Action::make('save')
+            ->label(_q('lara-admin::default.action.save'))
+            ->color('danger')
+            ->submit(null)
+            ->action(function () {
+                $this->save(true, false);
+                $this->refreshFormData(['slug']);
 
-				Notification::make()
-					->title(_q('lara-admin::default.message.object_saved'))
-					->success()
-					->send();
-			})
-			->extraAttributes(['class' => 'mx-4 js-lara-save-button']);
+                Notification::make()
+                    ->title(_q('lara-admin::default.message.object_saved'))
+                    ->success()
+                    ->send();
+            })
+            ->extraAttributes(['class' => 'mx-4 js-lara-save-button']);
 
-		$previewRoute = static::getPreviewRoute($this->record, static::getResource());
-		if ($previewRoute) {
-			$rows[] = Action::make('preview')
-				->url(route($previewRoute, $this->record->id), true)
-				->icon('bi-box-arrow-up-right')
-				->iconButton()
-				->color('gray');
-		}
+        $previewRoute = static::getPreviewRoute($this->record, static::getResource());
+        if ($previewRoute) {
+            $rows[] = Action::make('preview')
+                ->url(route($previewRoute, $this->record->id), true)
+                ->icon('bi-box-arrow-up-right')
+                ->iconButton()
+                ->color('gray');
+        }
 
-		return $rows;
+        return $rows;
 
-	}
+    }
 
-	public function render(): View
-	{
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire'        => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
+    public function render(): View
+    {
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 
-	private static function getPreviewRoute($record, $resource): ?string
-	{
-		$resourceSlug = $resource::getSlug();
-		$entity = $resource::getEntity();
-		$checkview = $entity->views()->where('method', 'show')->first();
-		if ($checkview) {
-			$prefix = ($entity->objrel_has_terms == 1) ? 'contenttag.' : 'content.';
-			$method = ($resourceSlug != 'pages') ? '.index.show' : '.show';
+    private static function getPreviewRoute($record, $resource): ?string
+    {
+        $resourceSlug = $resource::getSlug();
+        $entity = $resource::getEntity();
+        $checkview = $entity->views()->where('method', 'show')->first();
+        if ($checkview) {
+            $prefix = ($entity->objrel_has_terms == 1) ? 'contenttag.' : 'content.';
+            $method = ($resourceSlug != 'pages') ? '.index.show' : '.show';
 
-			return $prefix . $resourceSlug . $method;
-		} else {
-			return null;
-		}
-	}
-
+            return $prefix.$resourceSlug.$method;
+        } else {
+            return null;
+        }
+    }
 }

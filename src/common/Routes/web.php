@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,47 +11,50 @@ use Illuminate\Support\Facades\Schema;
 */
 
 $tablename = config('lara-common.database.ent.entities');
-$laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+$laraNeedsSetup = ! Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
 
 Route::group(['middleware' => ['web']], function () use ($laraNeedsSetup) {
 
-	// Setup
-	if ($laraNeedsSetup) {
+    // Setup
+    if ($laraNeedsSetup) {
 
-		// Redirect root && admin
-		Route::get('/', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
-		Route::get('/admin', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
-		Route::get('/admin/{anyroute}', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+        // Redirect root && admin
+        Route::get('/', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+        Route::get('/admin', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
+        Route::get('/admin/{anyroute}', '\Lara\Front\Http\Controllers\Special\FrontRedirectorController@redirectSetup');
 
-		// Setup
-		Route::get('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@show')->name('setup.show');
+        // Setup
+        Route::get('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@show')->name('setup.show');
 
-		Route::post('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@start')->name('setup.start');
+        Route::post('setup', '\Lara\Common\Http\Controllers\Setup\SetupController@start')->name('setup.start');
 
-		Route::get('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepshow')->name('setup.stepshow');
+        Route::get('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepshow')->name('setup.stepshow');
 
-		Route::post('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepprocess')->name('setup.stepprocess');
+        Route::post('setup/{step}', '\Lara\Common\Http\Controllers\Setup\SetupController@stepprocess')->name('setup.stepprocess');
 
-	} else {
+    } else {
 
-		// Auth
-		Auth::routes(['verify' => true]);
+        // Auth
+        Auth::routes(['verify' => true]);
 
-		Route::get('laracache/clear', 'Tools\LaraCacheController@clear')->name('laracache.clear');
-		Route::get('laracache/cache', 'Tools\LaraCacheController@cache')->name('laracache.cache');
+        // Cache maintenance. These rebuild the config, event, view and route caches,
+        // so they are restricted to authenticated panel users and must be POSTed.
+        Route::post('laracache/clear', 'Tools\LaraCacheController@clear')
+            ->name('laracache.clear')
+            ->middleware(FilamentAuthenticate::class);
 
-		// Route::post('2fa/verify', '\Lara\Common\Http\Controllers\Auth\TwoFactorController@verify')->name('2fa.verify');
+        Route::post('laracache/cache', 'Tools\LaraCacheController@cache')
+            ->name('laracache.cache')
+            ->middleware(FilamentAuthenticate::class);
 
-		// Dynamic Images
-		// Route::get('images/cache/{width}/{height}/{fit}/{fitpos}/{quality}/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@process')->name('imgcache');
+        // Route::post('2fa/verify', '\Lara\Common\Http\Controllers\Auth\TwoFactorController@verify')->name('2fa.verify');
 
-		// Original Images
-		// Route::get('images/nocache/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@nocache')->name('imgnocache');
+        // Dynamic Images
+        // Route::get('images/cache/{width}/{height}/{fit}/{fitpos}/{quality}/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@process')->name('imgcache');
 
-	}
+        // Original Images
+        // Route::get('images/nocache/{filename}', '\Lara\Common\Http\Controllers\Tools\ImageCacheController@nocache')->name('imgnocache');
+
+    }
 
 });
-
-
-
-

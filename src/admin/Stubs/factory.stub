@@ -1,0 +1,29 @@
+<?php
+
+namespace {{ NAMESPACE }};
+
+use App\Models\Model;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
+use Exception;
+
+use Lara\App\Models\{{ MODEL }};
+
+class {{ CLASS }} extends Factory
+{
+
+    protected ?string $resourceSlug = '{{ RESOURCESLUG }}';
+
+    use HasLaraFactory;
+
+    protected $model = {{ MODEL }}::class;
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function definition(): array
+    {
+        return $this->generateContent($this->resourceSlug);
+    }
+}

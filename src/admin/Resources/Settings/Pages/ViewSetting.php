@@ -10,8 +10,7 @@ use Lara\Admin\Resources\Settings\SettingResource;
 
 class ViewSetting extends ViewRecord
 {
-
-	protected static string $resource = SettingResource::class;
+    protected static string $resource = SettingResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -25,14 +24,14 @@ class ViewSetting extends ViewRecord
         ];
     }
 
-	public function render(): View
-	{
+    public function render(): View
+    {
 
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire' => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 }

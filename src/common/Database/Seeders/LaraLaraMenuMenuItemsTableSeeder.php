@@ -14,12 +14,12 @@ class LaraLaraMenuMenuItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_menu_menu_items')->delete();
-        
+
         \DB::table('lara_menu_menu_items')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'language' => 'nl',
@@ -31,7 +31,7 @@ class LaraLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'page',
                 'is_home' => 1,
                 'route' => NULL,
-                'routename' => 'entity.pages.1.show.5',
+                'routename' => 'special.home.show',
                 'route_has_auth' => 0,
                 'entity_id' => 1,
                 'entity_view_id' => 101,
@@ -50,8 +50,39 @@ class LaraLaraMenuMenuItemsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
+            1 =>
+            array (
+                'id' => 114,
+                'language' => 'en',
+                'language_parent' => NULL,
+                'menu_id' => 1,
+                'title' => '[en] home',
+                'slug' => 'en-home',
+                'slug_lock' => 0,
+                'type' => 'page',
+                'is_home' => 1,
+                'route' => NULL,
+                'routename' => 'special.home.show',
+                'route_has_auth' => 0,
+                'entity_id' => 1,
+                'entity_view_id' => 101,
+                'object_id' => 19,
+                'tag_id' => NULL,
+                'url' => NULL,
+                'locked_by_admin' => 1,
+                'updated_at' => NULL,
+                'created_at' => NULL,
+                'publish' => 1,
+                'parent_id' => NULL,
+                'lft' => 1,
+                'rgt' => 2,
+                'depth' => 0,
+                'position' => 1001,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
         ));
-        
-        
+
+
     }
 }

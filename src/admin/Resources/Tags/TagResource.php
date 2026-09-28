@@ -8,100 +8,98 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Lara\Admin\Resources\Base\Schemas\LaraBaseForm;
-// use Lara\Admin\Resources\Tags\Schemas\TagForm;
-use Lara\Admin\Resources\Tags\Schemas\TagForm;
+use Lara\Admin\Concerns\HasFilters;
+// use Lara\Admin\Resources\Tags\Concerns\HasTagForm;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasLaraEntity;
+use Lara\Admin\Concerns\HasMedia;
+use Lara\Admin\Concerns\HasNavGroup;
+use Lara\Admin\Concerns\HasParams;
+use Lara\Admin\Concerns\HasReorder;
+use Lara\Admin\Resources\Base\Concerns\HasBaseForm;
+use Lara\Admin\Resources\Tags\Concerns\HasTagForm;
 use Lara\Admin\Resources\Tags\Tables\TagsTable;
-use Lara\Admin\Traits\HasFilters;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasLaraEntity;
-use Lara\Admin\Traits\HasMedia;
-use Lara\Admin\Traits\HasNavGroup;
-use Lara\Admin\Traits\HasParams;
-use Lara\Admin\Traits\HasReorder;
 use Lara\Common\Models\Tag;
 use UnitEnum;
 
 class TagResource extends Resource
 {
+    use HasBaseForm;
+    use HasFilters;
+    use HasLanguage;
+    use HasLaraEntity;
+    use HasMedia;
+    use HasNavGroup;
+    use HasParams;
+    use HasReorder;
+    use HasTagForm;
 
-	use HasNavGroup;
-	use LaraBaseForm;
-	use TagForm;
-	use HasLanguage;
-	use HasMedia;
-	use HasParams;
-	use HasReorder;
-	use HasFilters;
-	use HasLaraEntity;
+    protected static ?string $model = Tag::class;
 
-	protected static ?string $model = Tag::class;
+    protected static ?string $module = 'lara-admin';
 
-	protected static ?string $module = 'lara-admin';
+    protected static bool $shouldRegisterNavigation = false;
 
-	protected static bool $shouldRegisterNavigation = false;
+    protected static string|BackedEnum|null $navigationIcon = null;
 
-	protected static string|BackedEnum|null $navigationIcon = null;
+    protected static ?string $resourceSlug = null;
 
-	protected static ?string $resourceSlug = null;
+    protected static ?int $taxonomyId = null;
 
-	protected static ?int $taxonomyId = null;
+    public static function getModule(): string
+    {
+        return static::$module;
+    }
 
-	public static function getModule(): string
-	{
-		return static::$module;
-	}
+    public static function getSlug(?Panel $panel = null): string
+    {
+        return 'tags';
+    }
 
-	public static function getSlug(?Panel $panel = null): string
-	{
-		return 'tags';
-	}
+    public static function getModelLabel(): string
+    {
+        return _q(static::getModule().'::'.static::getSlug().'.model.label_single');
+    }
 
-	public static function getModelLabel(): string
-	{
-		return _q(static::getModule() . '::' . static::getSlug() . '.model.label_single');
-	}
+    public static function getPluralModelLabel(): string
+    {
+        return _q(static::getModule().'::'.static::getSlug().'.model.label_plural');
+    }
 
-	public static function getPluralModelLabel(): string
-	{
-		return _q(static::getModule() . '::' . static::getSlug() . '.model.label_plural');
-	}
+    public static function getNavigationLabel(): string
+    {
+        return _q(static::getModule().'::'.static::getSlug().'.navigation.label', true);
+    }
 
-	public static function getNavigationLabel(): string
-	{
-		return _q(static::getModule() . '::' . static::getSlug() . '.navigation.label', true);
-	}
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return static::getNavGroup('modules');
+    }
 
-	public static function getNavigationGroup(): string|UnitEnum|null
-	{
-		return static::getNavGroup('modules');
-	}
+    public static function form(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Tabs::make('Tabs')
+                    ->tabs(static::getTagFormTabs())
+                    ->columnSpanFull()
+                    ->persistTab()
+                    ->id(static::getSlug().'-tab'),
+            ]);
+    }
 
-	public static function form(Schema $schema): Schema
-	{
-		return $schema
-			->components([
-				Tabs::make('Tabs')
-					->tabs(static::getTagFormTabs())
-					->columnSpanFull()
-					->persistTab()
-					->id(static::getSlug() . '-tab'),
-			]);
-	}
+    public static function table(Table $table): Table
+    {
+        return TagsTable::configure($table);
+    }
 
-	public static function table(Table $table): Table
-	{
-		return TagsTable::configure($table);
-	}
-
-	public static function getPages(): array
-	{
-		return [
-			'index'   => Pages\ListTags::route('/'),
-			'create'  => Pages\CreateTag::route('/create'),
-			'edit'    => Pages\EditTag::route('/{record}/edit'),
-			'reorder' => Pages\ReorderTags::route('/reorder'),
-		];
-	}
-
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListTags::route('/'),
+            'create' => Pages\CreateTag::route('/create'),
+            'edit' => Pages\EditTag::route('/{record}/edit'),
+            'reorder' => Pages\ReorderTags::route('/reorder'),
+        ];
+    }
 }

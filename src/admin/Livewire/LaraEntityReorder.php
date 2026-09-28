@@ -4,57 +4,57 @@ namespace Lara\Admin\Livewire;
 
 use Filament\Notifications\Notification;
 use Illuminate\Support\Collection;
-use Lara\Admin\Traits\HasLanguage;
-use Lara\Admin\Traits\HasParams;
-use Lara\Admin\Traits\HasReorder;
+use Lara\Admin\Concerns\HasLanguage;
+use Lara\Admin\Concerns\HasParams;
+use Lara\Admin\Concerns\HasReorder;
 use Lara\Common\Models\Entity;
 use Livewire\Component;
 
 class LaraEntityReorder extends Component
 {
-	use HasReorder;
-	use HasLanguage;
-	use HasParams;
+    use HasLanguage;
+    use HasParams;
+    use HasReorder;
 
-	protected static ?string $clanguage = null;
+    protected static ?string $clanguage = null;
 
-	public string $model;
+    public string $model;
 
-	public array $data = [];
+    public array $data = [];
 
-	public function mount(string $resourceSlug): void
-	{
-		$entity = Entity::where('resource_slug', $resourceSlug)->first();
-		$this->model = $entity->model_class;
-	}
+    public function mount(string $resourceSlug): void
+    {
+        $entity = Entity::where('resource_slug', $resourceSlug)->first();
+        $this->model = $entity->model_class;
+    }
 
-	public function render()
-	{
-		return view('lara-admin::livewire.lara-entity-reorder', [
-			'items' => $this->items(),
-		]);
-	}
+    public function render()
+    {
+        return view('lara-admin::livewire.lara-entity-reorder', [
+            'items' => $this->items(),
+        ]);
+    }
 
-	public function items(): Collection
-	{
-		static::setContentLanguage();
-		return $this->model::langIs(static::$clanguage)->where('publish', 1)->orderBy('position')->get();
-	}
+    public function items(): Collection
+    {
+        static::setContentLanguage();
 
-	public function save(): void
-	{
-		if (empty($this->data)) {
-			return;
-		}
+        return $this->model::langIs(static::$clanguage)->where('publish', 1)->orderBy('position')->get();
+    }
 
-		static::setContentLanguage();
+    public function save(): void
+    {
+        if (empty($this->data)) {
+            return;
+        }
 
-		static::saveEntityOrder(static::$clanguage, $this->model, $this->data);
+        static::setContentLanguage();
 
-		Notification::make()
-			->title(_q('lara-admin::default.message.reorder_saved'))
-			->success()
-			->send();
-	}
+        static::saveEntityOrder(static::$clanguage, $this->model, $this->data);
 
+        Notification::make()
+            ->title(_q('lara-admin::default.message.reorder_saved'))
+            ->success()
+            ->send();
+    }
 }

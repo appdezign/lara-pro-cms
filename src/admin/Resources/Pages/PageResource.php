@@ -8,29 +8,26 @@ use Lara\Common\Models\Page;
 
 class PageResource extends BaseResource
 {
+    protected static ?string $model = Page::class;
 
-	protected static ?string $model = Page::class;
+    protected static bool $shouldRegisterNavigation = true;
 
+    protected static ?int $navigationSort = 10;
 
-	protected static bool $shouldRegisterNavigation = true;
+    protected static string|BackedEnum|null $navigationIcon = 'bi-file-earmark-text';
 
-	protected static ?int $navigationSort = 10;
+    public static function getModule(): string
+    {
+        return 'lara-admin';
+    }
 
-	protected static string|BackedEnum|null $navigationIcon = 'bi-file-earmark-text';
-
-	public static function getModule(): string
-	{
-		return 'lara-admin';
-	}
-
-	public static function getPages(): array
-	{
-		return [
-			'index'  => Pages\ListPages::route('/'),
-			'create' => Pages\CreatePage::route('/create'),
-			'view'   => Pages\ViewPage::route('/{record}'),
-			'edit'   => Pages\EditPage::route('/{record}/edit'),
-		];
-	}
-
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListPages::route('/'),
+            'create' => Pages\CreatePage::route('/create'),
+            'view' => Pages\ViewPage::route('/{record}'),
+            'edit' => Pages\EditPage::route('/{record}/edit'),
+        ];
+    }
 }

@@ -7,19 +7,18 @@ use Lara\Common\Models\Cta;
 
 class CtaResource extends BaseResource
 {
-	protected static ?string $model = Cta::class;
+    protected static ?string $model = Cta::class;
 
-	protected static bool $shouldRegisterNavigation = true;
+    protected static bool $shouldRegisterNavigation = true;
 
-	public static function getPages(): array
-	{
-		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
-		];
-	}
-
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListCtas::route('/'),
+            'create' => Pages\CreateCta::route('/create'),
+            'reorder' => Pages\ReorderCtas::route('/reorder'),
+            'view' => Pages\ViewCta::route('/{record}'),
+            'edit' => Pages\EditCta::route('/{record}/edit'),
+        ];
+    }
 }

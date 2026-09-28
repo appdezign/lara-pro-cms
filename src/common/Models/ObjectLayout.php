@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ObjectLayout extends Model
 {
-
     protected $table = 'lara_object_layout';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -18,8 +17,7 @@ class ObjectLayout extends Model
         'id',
     ];
 
-	protected $casts = [
-		'entity_layout' => 'array',
-	];
-
+    protected $casts = [
+        'entity_layout' => 'array',
+    ];
 }

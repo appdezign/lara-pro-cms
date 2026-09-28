@@ -14,12 +14,12 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_resource_entities')->delete();
-        
+
         \DB::table('lara_resource_entities')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'title' => 'Page',
@@ -32,7 +32,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'nav_group' => 'root',
                 'has_front_auth' => 0,
                 'created_at' => '2025-04-14 18:39:44',
-                'updated_at' => '2025-09-13 10:09:13',
+                'updated_at' => '2026-09-26 15:37:13',
                 'cgroup' => 'page',
                 'position' => 10,
                 'col_has_lead' => 0,
@@ -88,7 +88,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 5,
                 'title' => 'Tag',
@@ -157,7 +157,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 6,
                 'title' => 'Base',
@@ -226,7 +226,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 42,
                 'title' => 'Sliders',
@@ -295,7 +295,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 52,
                 'title' => 'Widgets',
@@ -364,7 +364,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 59,
                 'title' => 'Call-to-action',
@@ -434,7 +434,7 @@ class LaraLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_is_relatable' => 0,
             ),
         ));
-        
-        
+
+
     }
 }

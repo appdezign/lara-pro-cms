@@ -1,0 +1,144 @@
+<?php
+
+namespace Lara\Admin\Resources\BaseForm\Concerns;
+
+use Cache;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Lara\Admin\Enums\CustomFieldType;
+use Lara\Admin\Enums\FormHook;
+use Lara\Common\Entities\EntityRegistry;
+
+trait HasBaseTable
+{
+    private static function getBaseTableColumns(): array
+    {
+
+        $columns = [];
+
+        $columns[] = TextColumn::make('id')
+            ->label(_q('lara-admin::default.column.id'))
+            ->width('5%')
+            ->numeric()
+            ->toggleable()
+            ->sortable();
+
+        $columns[] = TextColumn::make('created_at')
+            ->label(_q('lara-admin::default.column.created_at'))
+            ->width('15%')
+            ->toggleable()
+            ->dateTime('j M Y')
+            ->sortable()
+            ->visibleFrom('2xl');
+
+        foreach (static::getCustomColumnsByHook(FormHook::Default->value) as $customField) {
+            if (! empty(static::getFilamentColumn($customField))) {
+                $columns[] = static::getFilamentColumn($customField);
+            }
+        }
+
+        // dd($columns);
+
+        return $columns;
+    }
+
+    private static function getBaseTableFilters(): array
+    {
+
+        $filters = [];
+
+        if (static::getEntity()->filter_by_trashed) {
+            $filters[] = TrashedFilter::make();
+        }
+
+        return $filters;
+    }
+
+    private static function getBaseTableActions(): array
+    {
+
+        $actions = [];
+
+        $actions[] = ViewAction::make()
+            ->label('');
+
+        return $actions;
+    }
+
+    private static function getBaseTableBulkActions(): array
+    {
+        $actions = [];
+        if (static::resourceShowBatch()) {
+            $actions[] = BulkActionGroup::make([
+                DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+            ]);
+        }
+
+        return $actions;
+    }
+
+    private static function getBaseQuery($query)
+    {
+
+        $query->orderby(static::getPrimarySortField(), static::getPrimarySortOrder());
+
+        return $query;
+
+    }
+
+    private static function getCustomColumnsByHook($hook)
+    {
+        $cacheKey = 'lara_entity_table_custom_fields_'.static::getSlug().'_'.$hook
+            .'_'.app(EntityRegistry::class)->version();
+
+        return Cache::rememberForever($cacheKey, function () use ($hook) {
+            return static::getEntity()->customfields()->where('field_hook', $hook)->where('show_in_list', 1)->get();
+        });
+    }
+
+    private static function getFilamentColumn($field)
+    {
+
+        $booleanTypes = [
+            CustomFieldType::Checkbox->value,
+            CustomFieldType::Toggle->value,
+        ];
+
+        $arrayTypes = [
+            CustomFieldType::CheckboxList->value,
+            CustomFieldType::ToggleButtons->value,
+            CustomFieldType::TagsInput->value,
+            CustomFieldType::MultiSelect->value,
+        ];
+
+        if (in_array($field->field_type, $booleanTypes)) {
+
+            return IconColumn::make($field->field_name)
+                ->label(_q(static::getModule().'::'.static::getSlug().'.column.'.$field->field_name))
+                ->width('5%')
+                ->toggleable()
+                ->boolean()
+                ->size('md')
+                ->visibleFrom('xl');
+
+        } elseif (in_array($field->field_type, $arrayTypes)) {
+            //
+        } else {
+
+            return TextColumn::make($field->field_name)
+                ->label(_q(static::getModule().'::'.static::getSlug().'.column.'.$field->field_name))
+                ->toggleable()
+                ->visibleFrom('xl');
+
+        }
+
+    }
+}

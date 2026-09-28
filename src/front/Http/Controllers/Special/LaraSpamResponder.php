@@ -2,10 +2,9 @@
 
 namespace Lara\Front\Http\Controllers\Special;
 
-use Spatie\Honeypot\SpamResponder\SpamResponder;
-
 use Closure;
 use Illuminate\Http\Request;
+use Spatie\Honeypot\SpamResponder\SpamResponder;
 
 class LaraSpamResponder implements SpamResponder
 {

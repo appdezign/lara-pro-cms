@@ -7,5 +7,5 @@ use Lara\Admin\Resources\Pages\PageResource;
 
 class ViewPage extends LaraViewRecord
 {
-	protected static string $resource = PageResource::class;
+    protected static string $resource = PageResource::class;
 }

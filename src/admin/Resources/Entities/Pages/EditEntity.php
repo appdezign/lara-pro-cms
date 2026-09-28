@@ -5,20 +5,19 @@ namespace Lara\Admin\Resources\Entities\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\View\View;
+use Lara\Admin\Concerns\HasLaraBuilder;
 use Lara\Admin\Resources\Entities\EntityResource;
-
-use Lara\Admin\Traits\HasLaraBuilder;
 
 class EditEntity extends EditRecord
 {
-
-	use HasLaraBuilder;
+    use HasLaraBuilder;
 
     protected static string $resource = EntityResource::class;
 
     public function getTitle(): string
     {
         $entity = $this->getRecord();
+
         return $entity->title;
     }
 
@@ -35,45 +34,46 @@ class EditEntity extends EditRecord
                 ->icon('bi-chevron-left')
                 ->iconButton()
                 ->color('gray'),
-	        Action::make('save')
-		        ->label('save')
-		        ->color('danger')
-		        ->submit(null)
-		        ->action(function() {
-			        $this->save();
-		        }),
+            Action::make('save')
+                ->label('save')
+                ->color('danger')
+                ->submit(null)
+                ->action(function () {
+                    $this->save();
+                }),
         ];
     }
 
-	protected function mutateFormDataBeforeSave(array $data): array
-	{
-		if (array_key_exists('sort_is_sortable', $data)) {
-			if ($data['sort_is_sortable'] === true) {
-				$this->record->sort_primary_field = 'position';
-				$this->record->sort_primary_order = 'asc';
-			}
-		}
-		return $data;
-	}
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (array_key_exists('sort_is_sortable', $data)) {
+            if ($data['sort_is_sortable'] === true) {
+                $this->record->sort_primary_field = 'position';
+                $this->record->sort_primary_order = 'asc';
+            }
+        }
 
-	protected function afterSave(): void
-	{
-		$this->checkExtraDatabaseColumns($this->record);
+        return $data;
+    }
 
-		// refresh route cache
-		session(['laracacheclear' => ['response_cache', 'route_cache']]);
+    protected function afterSave(): void
+    {
+        if (! static::buildExtraBodyColumns($this->record, $this->record->getPrevious())) {
+            $this->halt();
+        }
 
-	}
+        // refresh route cache
+        session(['laracacheclear' => ['response_cache', 'route_cache']]);
 
-	public function render(): View
-	{
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.entity-focus-mode', [
-				'livewire'        => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
+    }
 
-
+    public function render(): View
+    {
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.entity-focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 }

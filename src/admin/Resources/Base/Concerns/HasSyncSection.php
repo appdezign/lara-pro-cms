@@ -7,52 +7,51 @@ use Filament\Schemas\Components\Fieldset;
 
 trait HasSyncSection
 {
-	private static function getSyncSection(): array
-	{
-		$rows = array();
+    private static function getSyncSection(): array
+    {
+        $rows = [];
 
-		$rows[] = Fieldset::make('remote')
-			->columnSpanFull()
-			->columns([
-				'sm' => 2,
-				'lg' => 3,
-				'xl' => 4,
-			])
-			->live()
-			->schema([
-				TextInput::make('remote_url')
-					->inlineLabel(false)
-					->label(_q('lara-admin::default.column.sync_remote_url')),
+        $rows[] = Fieldset::make('remote')
+            ->columnSpanFull()
+            ->columns([
+                'sm' => 2,
+                'lg' => 3,
+                'xl' => 4,
+            ])
+            ->live()
+            ->schema([
+                TextInput::make('remote_url')
+                    ->inlineLabel(false)
+                    ->label(_q('lara-admin::default.column.sync_remote_url')),
 
-				TextInput::make('remote_suffix')
-					->inlineLabel(false)
-					->label(_q('lara-admin::default.column.sync_remote_suffix'))
-					->disabled(),
+                TextInput::make('remote_suffix')
+                    ->inlineLabel(false)
+                    ->label(_q('lara-admin::default.column.sync_remote_suffix'))
+                    ->disabled(),
 
-				TextInput::make('remote_resource')
-					->inlineLabel(false)
-					->label(_q('lara-admin::default.column.sync_remote_resource'))
-					->disabled(),
+                TextInput::make('remote_resource')
+                    ->inlineLabel(false)
+                    ->label(_q('lara-admin::default.column.sync_remote_resource'))
+                    ->disabled(),
 
-				TextInput::make('remote_slug')
-					->inlineLabel(false)
-					->label(_q('lara-admin::default.column.sync_remote_slug'))
-					->disabled(),
+                TextInput::make('remote_slug')
+                    ->inlineLabel(false)
+                    ->label(_q('lara-admin::default.column.sync_remote_slug'))
+                    ->disabled(),
 
-			])
-			->extraAttributes(['class' => 'lara-media-section']);
+            ])
+            ->extraAttributes(['class' => 'lara-media-section']);
 
-		return $rows;
-	}
+        return $rows;
+    }
 
-	private static function mutateSyncData($data, $record): array
-	{
+    private static function mutateSyncData($data, $record): array
+    {
 
-		$data['remote_suffix'] = '/' . static::$clanguage . '/api/';
-		$data['remote_resource'] = static::getSlug();
-		$data['remote_slug'] = $record->slug;
+        $data['remote_suffix'] = '/'.static::$clanguage.'/api/';
+        $data['remote_resource'] = static::getSlug();
+        $data['remote_slug'] = $record->slug;
 
-		return $data;
-	}
-
+        return $data;
+    }
 }

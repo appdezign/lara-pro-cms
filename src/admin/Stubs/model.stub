@@ -4,20 +4,26 @@ namespace {{ NAMESPACE }};
 
 use Lara\Common\Models\BaseModel;
 use Lara\Common\Http\Concerns\HasLanguage;
+use Lara\App\Database\Factories\{{ FACTORY }};
 
 class {{ CLASS }} extends BaseModel
 {
-	use HasLanguage;
+    use HasLanguage;
 
-	protected $table = '{{ TABLE }}';
+    protected $table = '{{ TABLE }}';
 
-	/*
-	protected function casts(): array
-	{
-		return array_merge(parent::casts(), [
-			// add model specific casts here
-		]);
-	}
-	*/
+    protected static function newFactory()
+    {
+        return {{ FACTORY }}::new();
+    }
+
+    /*
+    protected function casts(): array
+    {
+        return array_merge(parent::casts(), [
+            // add model specific casts here
+        ]);
+    }
+    */
 
 }

@@ -4,65 +4,62 @@ namespace Lara\Front\Http\Lara;
 
 class FrontPagination
 {
+    protected bool $paginate = false;
 
-	protected bool $paginate = false;
-	protected ?int $pagination = null;
-	protected ?int $limit = null;
+    protected ?int $pagination = null;
 
-	public function __construct()
-	{
-		//
-	}
+    protected ?int $limit = null;
 
-	/**
-	 * @return bool|null
-	 */
-	public function getPaginate()
-	{
-		return $this->paginate;
-	}
+    public function __construct()
+    {
+        //
+    }
 
-	/**
-	 * @param bool $paginate
-	 * @return void
-	 */
-	public function setPaginate(bool $paginate)
-	{
-		$this->paginate = $paginate;
-	}
+    /**
+     * @return bool|null
+     */
+    public function getPaginate()
+    {
+        return $this->paginate;
+    }
 
-	/**
-	 * @return int|null
-	 */
-	public function getPagination()
-	{
-		return $this->pagination;
-	}
+    /**
+     * @return void
+     */
+    public function setPaginate(bool $paginate)
+    {
+        $this->paginate = $paginate;
+    }
 
-	/**
-	 * @param int|null $pagination
-	 * @return void
-	 */
-	public function setPagination(?int $pagination)
-	{
-		$this->pagination = $pagination;
-	}
+    /**
+     * @return int|null
+     */
+    public function getPagination()
+    {
+        return $this->pagination;
+    }
 
-	/**
-	 * @return int|null
-	 */
-	public function getLimit()
-	{
-		return $this->limit;
-	}
+    /**
+     * @return void
+     */
+    public function setPagination(?int $pagination)
+    {
+        $this->pagination = $pagination;
+    }
 
-	/**
-	 * @param bool $limit
-	 * @return void
-	 */
-	public function setLimit(bool $limit)
-	{
-		$this->limit = $limit;
-	}
+    /**
+     * @return int|null
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
 
+    /**
+     * @return void
+     */
+    public function setLimit(bool $limit)
+    {
+        $this->limit = $limit;
+    }
 }

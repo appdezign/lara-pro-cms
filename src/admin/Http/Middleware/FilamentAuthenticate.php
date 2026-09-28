@@ -31,7 +31,7 @@ class FilamentAuthenticate extends Middleware
         $locale = $user->locale;
 
         if (isset($locale)) {
-	        app()->setLocale($locale);
+            app()->setLocale($locale);
         }
 
         $panel = Filament::getCurrentPanel() ?? Filament::getPanel('admin');

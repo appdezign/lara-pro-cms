@@ -1,164 +1,161 @@
 <?php
 
-use Lara\Common\Models\Translation;
+use Illuminate\Support\Facades\Log;
 use Lara\Common\Models\Entity;
+use Lara\Common\Models\Translation;
 
-if (!function_exists('_q')) {
+if (! function_exists('_q')) {
 
-	/**
-	 * @param string $fullkey
-	 * @param $uppercase
-	 * @param $replace
-	 * @param $locale
-	 * @return string|null
-	 */
-	function _q(string $fullkey, bool $uppercase = false, array $replace = [], ?string $locale = null): ?string
-	{
+    /**
+     * Resolve a Lara translation key.
+     *
+     * A key is expected to look like `module::group.tag.key`. When no translation
+     * exists the key is registered for every supported locale and a placeholder is
+     * returned. A malformed key is logged and degrades to a placeholder as well -
+     * a missing label must never take down the page that renders it.
+     *
+     * @param  string  $fullkey  Translation key, e.g. `lara-app::blogs.model.label_single`
+     * @param  bool  $uppercase  Ucfirst the resolved value
+     * @param  array<string, mixed>  $replace  Replacement tokens passed to __()
+     * @param  string|null  $locale  Force a locale instead of the active one
+     */
+    function _q(string $fullkey, bool $uppercase = false, array $replace = [], ?string $locale = null): ?string
+    {
 
-		$translation = null;
+        if (__($fullkey, $replace, $locale) != $fullkey) {
+            // use translation
+            $translation = __($fullkey, $replace, $locale);
 
-		if (__($fullkey, $replace, $locale) == $fullkey) {
+            return $uppercase ? ucfirst($translation) : $translation;
+        }
 
-			if (str_contains($fullkey, '::')) {
+        $langkey = str_contains($fullkey, '::')
+            ? explode('::', $fullkey, 2)[1]
+            : null;
 
-				list($module, $langkey) = explode('::', $fullkey);
+        $key_array = $langkey === null ? [] : explode('.', $langkey);
 
-				$key_array = explode('.', $langkey);
+        if (count($key_array) != 3) {
 
-				if (sizeof($key_array) == 3) {
+            Log::warning('lara translation: malformed key, expected "module::group.tag.key"', [
+                'key' => $fullkey,
+            ]);
 
-					// no translation found, use last part of key
-					list($group, $tag, $key) = explode('.', $langkey);
+            // degrade to the last segment of whatever we were given
+            $segments = explode('.', $fullkey);
+            $translation = '_'.end($segments);
 
-					$tempkey = '_' . $key;
+            return $uppercase ? ucfirst($translation) : $translation;
+        }
 
-					if (!empty($key)) {
-						addMissingLanguageKey($module, $group, $tag, $key, $tempkey);
-					}
+        // no translation found, use last part of key
+        [$module] = explode('::', $fullkey, 2);
+        [$group, $tag, $key] = $key_array;
 
-					$translation = $tempkey;
+        $translation = '_'.$key;
 
-				} else {
-					dd($fullkey);
-				}
+        if (! empty($key)) {
+            addMissingLanguageKey($module, $group, $tag, $key, $translation);
+        }
 
-			} else {
-				dd($fullkey);
-			}
+        return $uppercase ? ucfirst($translation) : $translation;
 
-		} else {
-			// use translation
-			$translation = __($fullkey, $replace, $locale);
-		}
-
-		if ($uppercase) {
-			return ucfirst($translation);
-		} else {
-			return $translation;
-		}
-
-	}
+    }
 }
 
-if (!function_exists('addMissingLanguageKey')) {
+if (! function_exists('addMissingLanguageKey')) {
 
-	/**
-	 * @param string $module
-	 * @param string $resource
-	 * @param string $tag
-	 * @param string $key
-	 * @param string $value
-	 * @return void
-	 */
-	function addMissingLanguageKey(string $module, string $resource, string $tag, string $key, string $value): void
-	{
+    function addMissingLanguageKey(string $module, string $resource, string $tag, string $key, string $value): void
+    {
+        if (config('app.env') == 'production') {
+            return;
+        }
 
-		$supportedLocales = array_keys(config('laravellocalization.supportedLocales'));
-		foreach ($supportedLocales as $locale) {
+        $supportedLocales = array_keys(config('laravellocalization.supportedLocales'));
+        foreach ($supportedLocales as $locale) {
 
-			$translation = Translation::langIs($locale)
-				->where('module', $module)
-				->where('resource', $resource)
-				->where('tag', $tag)
-				->where('key', $key)
-				->first();
+            $translation = Translation::langIs($locale)
+                ->where('module', $module)
+                ->where('resource', $resource)
+                ->where('tag', $tag)
+                ->where('key', $key)
+                ->first();
 
-			if ($translation === null) {
-				Translation::create([
-					'language' => $locale,
-					'module'   => $module,
-					'resource' => $resource,
-					'tag'      => $tag,
-					'key'      => $key,
-					'value'    => $value,
-				]);
-			}
+            if ($translation === null) {
+                Translation::create([
+                    'language' => $locale,
+                    'module' => $module,
+                    'resource' => $resource,
+                    'tag' => $tag,
+                    'key' => $key,
+                    'value' => $value,
+                ]);
+            }
 
-		}
+        }
 
-	}
+    }
 
 }
 
-if (!function_exists('getIndexRoutename')) {
+if (! function_exists('getIndexRoutename')) {
 
-	function getIndexRoutename(string $routeName): ?string
-	{
+    function getIndexRoutename(string $routeName): ?string
+    {
 
-		$prefix = 'filament';
-		$panelId = 'admin';
-		$resourceKey = 'resources';
+        $prefix = 'filament';
+        $panelId = 'admin';
+        $resourceKey = 'resources';
 
-		// check for resources
-		$routeNameParts = explode('.resources.', $routeName);
-		if (sizeof($routeNameParts) > 1) {
-			$resourcePart = $routeNameParts[1];
-			$parts = explode('.', $resourcePart);
-			array_pop($parts);
-			$resource = implode('.', $parts);
+        // check for resources
+        $routeNameParts = explode('.resources.', $routeName);
+        if (count($routeNameParts) > 1) {
+            $resourcePart = $routeNameParts[1];
+            $parts = explode('.', $resourcePart);
+            array_pop($parts);
+            $resource = implode('.', $parts);
 
-			$hasLanguages = config('lara.has_content_languages');
-			$entities = Entity::pluck('resource_slug')->toArray();
+            $hasLanguages = config('lara.has_content_languages');
+            $entities = Entity::pluck('resource_slug')->toArray();
 
-			if(in_array($resource, $hasLanguages) || in_array($resource, $entities)) {
-				$resourcePath = $prefix . '.' . $panelId . '.' . $resourceKey . '.' . $resource . '.index';
-				if (Route::has($resourcePath)) {
-					return $resourcePath;
-				} else {
-					return null;
-				}
-			}
+            if (in_array($resource, $hasLanguages) || in_array($resource, $entities)) {
+                $resourcePath = $prefix.'.'.$panelId.'.'.$resourceKey.'.'.$resource.'.index';
+                if (Route::has($resourcePath)) {
+                    return $resourcePath;
+                } else {
+                    return null;
+                }
+            }
 
-		} else {
+        } else {
 
-			return null;
-		}
+            return null;
+        }
 
-		return null;
+        return null;
 
-	}
+    }
 }
 
-if (!function_exists('chmod_r')) {
-	function chmod_r($dir, $dirPermissions, $filePermissions): void
-	{
-		$dp = opendir($dir);
-		while ($file = readdir($dp)) {
-			if (($file == ".") || ($file == "..")) {
-				continue;
-			}
+if (! function_exists('chmod_r')) {
+    function chmod_r($dir, $dirPermissions, $filePermissions): void
+    {
+        $dp = opendir($dir);
+        while ($file = readdir($dp)) {
+            if (($file == '.') || ($file == '..')) {
+                continue;
+            }
 
-			$fullPath = $dir . "/" . $file;
+            $fullPath = $dir.'/'.$file;
 
-			if (is_dir($fullPath)) {
-				chmod($fullPath, $dirPermissions);
-				chmod_r($fullPath, $dirPermissions, $filePermissions);
-			} else {
-				chmod($fullPath, $filePermissions);
-			}
+            if (is_dir($fullPath)) {
+                chmod($fullPath, $dirPermissions);
+                chmod_r($fullPath, $dirPermissions, $filePermissions);
+            } else {
+                chmod($fullPath, $filePermissions);
+            }
 
-		}
-		closedir($dp);
-	}
+        }
+        closedir($dp);
+    }
 }
-

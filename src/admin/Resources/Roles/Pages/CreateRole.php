@@ -27,18 +27,17 @@ class CreateRole extends CreateRecord
             $this->getCreateFormAction()
                 ->label(_q('lara-admin::default.action.save'))
                 ->submit(null)
-                ->action(fn() => $this->create()),
+                ->action(fn () => $this->create()),
         ];
     }
 
-	public function render(): View
-	{
-		return view($this->getView(), $this->getViewData())
-			->layout('lara-admin::layout.focus-mode', [
-				'livewire' => $this,
-				'maxContentWidth' => $this->getMaxContentWidth(),
-				...$this->getLayoutData(),
-			]);
-	}
-
+    public function render(): View
+    {
+        return view($this->getView(), $this->getViewData())
+            ->layout('lara-admin::layout.focus-mode', [
+                'livewire' => $this,
+                'maxContentWidth' => $this->getMaxContentWidth(),
+                ...$this->getLayoutData(),
+            ]);
+    }
 }

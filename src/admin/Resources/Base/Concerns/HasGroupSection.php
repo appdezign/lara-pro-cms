@@ -8,39 +8,39 @@ use Illuminate\Support\Facades\Auth;
 
 trait HasGroupSection
 {
-	private static function getGroupSection($operation): array
-	{
+    private static function getGroupSection($operation): array
+    {
 
-		$groupValues = static::getEntity()->objrel_group_values;
+        $groupValues = static::getEntity()->objrel_group_values;
 
-		if ($groupValues) {
-			$options = array_combine($groupValues, $groupValues);
-			$default = array_key_first($options);
-		} else {
-			$options = [];
-			$default = null;
-		}
+        if ($groupValues) {
+            $options = array_combine($groupValues, $groupValues);
+            $default = array_key_first($options);
+        } else {
+            $options = [];
+            $default = null;
+        }
 
-		$disabled = false;
+        $disabled = false;
 
-		if (static::getSlug() == 'pages') {
-			if (!Auth::user()->hasRole('super_admin') || $operation == 'edit') {
-				$disabled = true;
-			}
-		}
+        if (static::getSlug() == 'pages') {
+            if (! Auth::user()->hasRole('super_admin') || $operation == 'edit') {
+                $disabled = true;
+            }
+        }
 
-		$rows = array();
+        $rows = [];
 
-		$rows[] = Select::make('cgroup')
-			->label(_q('lara-admin::default.column.cgroup', true))
-			->options(array_combine($options, $options))
-			->default($default)
-			->disabled($disabled);
+        $rows[] = Select::make('cgroup')
+            ->label(_q('lara-admin::default.column.cgroup', true))
+            ->options(array_combine($options, $options))
+            ->default($default)
+            ->disabled($disabled);
 
-		if ($disabled) {
-			$rows[] = Hidden::make('cgroup');
-		}
+        if ($disabled) {
+            $rows[] = Hidden::make('cgroup');
+        }
 
-		return $rows;
-	}
+        return $rows;
+    }
 }

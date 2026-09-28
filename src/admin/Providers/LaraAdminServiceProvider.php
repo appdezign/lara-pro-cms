@@ -4,102 +4,99 @@ namespace Lara\Admin\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Lara\Admin\Livewire\BackupColumns;
 use Lara\Admin\Livewire\ClearCache;
 use Lara\Admin\Livewire\LaraEntityReorder;
 use Lara\Admin\Livewire\LaraMenuReorder;
 use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Livewire\LaraTagReorder;
 use Lara\Admin\Widgets\Analytics;
+use Lara\Front\Http\Concerns\HasTheme;
+use Lara\Front\LaraTheme\Theme;
 use Livewire\Livewire;
-
-use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\CacheCheck;
-use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
-
-use Lara\Front\Http\Concerns\HasTheme;
-use Lara\Front\LaraTheme\Theme;
 
 class LaraAdminServiceProvider extends ServiceProvider
 {
+    use HasTheme;
 
-	use HasTheme;
+    /**
+     * Bootstrap the module services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
 
-	/**
-	 * Bootstrap the module services.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
+        // Publish Config
+        $this->publishes([
+            __DIR__.'/../../../config/lara-admin.php' => config_path('lara-admin.php'),
+        ], 'lara');
 
-		// Publish Config
-		$this->publishes([
-			__DIR__ . '/../../../config/lara-admin.php' => config_path('lara-admin.php'),
-		], 'lara');
+        // Load Views
+        $this->loadViewsFrom(__DIR__.'/../../../resources/views/admin', 'lara-admin');
 
-		// Load Views
-		$this->loadViewsFrom(__DIR__.'/../../../resources/views/admin', 'lara-admin');
+        // Load Translations
+        $this->loadTranslationsFrom(app()->langPath().'/vendor/lara-admin', 'lara-admin');
 
-		// Load Translations
-		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-admin', 'lara-admin');
+        // Set theme, so we can load layout.xml
+        $theme = $this->getFrontTheme();
+        $parent = $this->getParentTheme();
+        Theme::set($theme, $parent);
 
-		// Set theme, so we can load layout.xml
-		$theme = $this->getFrontTheme();
-		$parent = $this->getParentTheme();
-		Theme::set($theme, $parent);
+        // Implicitly grant "Super Admin" role all permissions
+        // This works in the app by using gate-related functions like auth()->user->can() and @can()
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('superadmin') ? true : null;
+        });
 
-		// Implicitly grant "Super Admin" role all permissions
-		// This works in the app by using gate-related functions like auth()->user->can() and @can()
-		Gate::before(function ($user, $ability) {
-			return $user->hasRole('superadmin') ? true : null;
-		});
+        // register namespaced Livewire Components
+        Livewire::component('clear-cache', ClearCache::class);
+        Livewire::component('lara-backup-columns', BackupColumns::class);
+        Livewire::component('lara-menu-reorder', LaraMenuReorder::class);
+        Livewire::component('lara-tag-reorder-nested', LaraTagReorder::class);
+        Livewire::component('lara-tag-reorder-list', LaraTagReorder::class);
+        Livewire::component('lara-entity-reorder', LaraEntityReorder::class);
+        Livewire::component('lara_profile', LaraProfile::class);
 
-		// register namespaced Livewire Components
-		Livewire::component('clear-cache', ClearCache::class);
-		Livewire::component('lara-menu-reorder', LaraMenuReorder::class);
-		Livewire::component('lara-tag-reorder-nested', LaraTagReorder::class);
-		Livewire::component('lara-tag-reorder-list', LaraTagReorder::class);
-		Livewire::component('lara-entity-reorder', LaraEntityReorder::class);
-		Livewire::component('lara_profile', LaraProfile::class);
+        // GA4 Widgets
+        Livewire::component('lara-active-users-seven-day-widget', Analytics\LaraActiveUsersSevenDayWidget::class);
+        Livewire::component('lara-active-users-twenty-eight-day-widget', Analytics\LaraActiveUsersTwentyEightDayWidget::class);
+        Livewire::component('lara-most-visited-pages-widget', Analytics\LaraMostVisitedPagesWidget::class);
+        Livewire::component('lara-page-views-widget', Analytics\LaraPageViewsWidget::class);
+        Livewire::component('lara-sessions-by-country-widget', Analytics\LaraSessionsDurationWidget::class);
+        Livewire::component('lara-sessions-by-device-widget', Analytics\LaraSessionsByDeviceWidget::class);
+        Livewire::component('lara-sessions-duration-widget', Analytics\LaraSessionsByCountryWidget::class);
+        Livewire::component('lara-sessions-widget', Analytics\LaraSessionsWidget::class);
+        Livewire::component('Lara-top-referrers-list-widget', Analytics\LaraTopReferrersListWidget::class);
+        Livewire::component('lara-visitors-widget', Analytics\LaraVisitorsWidget::class);
 
-		// GA4 Widgets
-		Livewire::component('lara-active-users-seven-day-widget', Analytics\LaraActiveUsersSevenDayWidget::class);
-		Livewire::component('lara-active-users-twenty-eight-day-widget', Analytics\LaraActiveUsersTwentyEightDayWidget::class);
-		Livewire::component('lara-most-visited-pages-widget', Analytics\LaraMostVisitedPagesWidget::class);
-		Livewire::component('lara-page-views-widget', Analytics\LaraPageViewsWidget::class);
-		Livewire::component('lara-sessions-by-country-widget', Analytics\LaraSessionsDurationWidget::class);
-		Livewire::component('lara-sessions-by-device-widget', Analytics\LaraSessionsByDeviceWidget::class);
-		Livewire::component('lara-sessions-duration-widget', Analytics\LaraSessionsByCountryWidget::class);
-		Livewire::component('lara-sessions-widget', Analytics\LaraSessionsWidget::class);
-		Livewire::component('Lara-top-referrers-list-widget', Analytics\LaraTopReferrersListWidget::class);
-		Livewire::component('lara-visitors-widget', Analytics\LaraVisitorsWidget::class);
+        Health::checks([
+            CacheCheck::new(),
+            OptimizedAppCheck::new(),
+            DatabaseCheck::new(),
+            SecurityAdvisoriesCheck::new(),
+            EnvironmentCheck::new(),
+            DebugModeCheck::new(),
+        ]);
 
+    }
 
-		Health::checks([
-			CacheCheck::new(),
-			OptimizedAppCheck::new(),
-			DatabaseCheck::new(),
-			SecurityAdvisoriesCheck::new(),
-			EnvironmentCheck::new(),
-			DebugModeCheck::new(),
-		]);
+    /**
+     * Register the module services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        // Merge config
+        $this->mergeConfigFrom(__DIR__.'/../../../config/lara-admin.php', 'lara-admin');
 
-
-	}
-
-	/**
-	 * Register the module services.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-admin.php', 'lara-admin');
-
-	}
+    }
 }

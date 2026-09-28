@@ -14,11 +14,9 @@ class LaraLaraAuthModelHasPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_auth_model_has_permissions')->delete();
-        
-        
-        
+
     }
 }

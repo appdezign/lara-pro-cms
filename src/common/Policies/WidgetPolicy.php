@@ -3,8 +3,8 @@
 namespace Lara\Common\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Lara\Common\Models\User;
 use Lara\Common\Models\LaraWidget;
+use Lara\Common\Models\User;
 
 class WidgetPolicy
 {
@@ -15,7 +15,7 @@ class WidgetPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_widget');
+        return $user->can('view_any_larawidget');
     }
 
     /**
@@ -23,7 +23,7 @@ class WidgetPolicy
      */
     public function view(User $user, LaraWidget $widget): bool
     {
-        return $user->can('view_widget');
+        return $user->can('view_larawidget');
     }
 
     /**
@@ -31,7 +31,7 @@ class WidgetPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_widget');
+        return $user->can('create_larawidget');
     }
 
     /**
@@ -39,7 +39,7 @@ class WidgetPolicy
      */
     public function update(User $user, LaraWidget $widget): bool
     {
-        return $user->can('update_widget');
+        return $user->can('update_larawidget');
     }
 
     /**
@@ -47,7 +47,7 @@ class WidgetPolicy
      */
     public function delete(User $user, LaraWidget $widget): bool
     {
-        return $user->can('delete_widget');
+        return $user->can('delete_larawidget');
     }
 
     /**
@@ -55,6 +55,6 @@ class WidgetPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_widget');
+        return $user->can('delete_any_larawidget');
     }
 }

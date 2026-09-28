@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ObjectRelated extends Model
 {
-
     protected $table = 'lara_object_related';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -18,10 +17,9 @@ class ObjectRelated extends Model
         'id',
     ];
 
-	protected $casts = [
-		'related_page_objects' => 'array',
-		'related_entity_objects' => 'array',
-		'related_entities' => 'array',
-	];
-
+    protected $casts = [
+        'related_page_objects' => 'array',
+        'related_entity_objects' => 'array',
+        'related_entities' => 'array',
+    ];
 }

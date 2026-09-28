@@ -15,7 +15,7 @@ class RolePolicy
      */
     public function viewAny(User $user): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -23,7 +23,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -31,7 +31,7 @@ class RolePolicy
      */
     public function create(User $user): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -39,7 +39,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -47,7 +47,7 @@ class RolePolicy
      */
     public function delete(User $user, Role $role): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -55,7 +55,7 @@ class RolePolicy
      */
     public function deleteAny(User $user): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -63,7 +63,7 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -71,7 +71,7 @@ class RolePolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -79,7 +79,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -87,7 +87,7 @@ class RolePolicy
      */
     public function restoreAny(User $user): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -95,7 +95,7 @@ class RolePolicy
      */
     public function replicate(User $user, Role $role): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 
     /**
@@ -103,6 +103,6 @@ class RolePolicy
      */
     public function reorder(User $user): bool
     {
-	    return (bool) $user->hasRole('superadmin');
+        return (bool) $user->hasRole('superadmin');
     }
 }

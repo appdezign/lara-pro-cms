@@ -14,12 +14,12 @@ class LaraLaraAuthUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_auth_users')->delete();
-        
+
         \DB::table('lara_auth_users')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 3,
                 'name' => 'superadmin',
@@ -43,7 +43,7 @@ class LaraLaraAuthUsersTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

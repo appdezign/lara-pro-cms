@@ -5,55 +5,52 @@ namespace Lara\Admin\Pages\Lara;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-
 use Illuminate\Contracts\Support\Htmlable;
+use Lara\Admin\Concerns\HasLocks;
 use Lara\Admin\Resources\Tags\TagResource;
-use Lara\Admin\Traits\HasLocks;
 use Lara\Common\Models\Taxonomy;
 
 class LaraListRecords extends ListRecords
 {
+    use HasLocks;
 
-	use HasLocks;
+    public function mount(): void
+    {
+        parent::mount();
+        static::unlockAbandonedObjects();
+    }
 
-	public function mount(): void
-	{
-		parent::mount();
-		static::unlockAbandonedObjects();
-	}
+    public function getTitle(): string|Htmlable
+    {
+        return _q('lara-app::'.static::$resource::getSlug().'.entity.title', true);
+    }
 
+    protected function getHeaderActions(): array
+    {
 
-	public function getTitle(): string | Htmlable
-	{
-		return _q('lara-app::' . static::$resource::getSlug() . '.entity.title', true);
-	}
+        $resourceSlug = static::$resource::getSlug();
 
-	protected function getHeaderActions(): array
-	{
+        $taxonomy = Taxonomy::where('slug', 'category')->first();
 
-		$resourceSlug = static::$resource::getSlug();
+        return [
 
-		$taxonomy = Taxonomy::where('slug', 'category')->first();
+            Action::make('reorder')
+                ->action(fn () => redirect($this->getResource()::getUrl('reorder')))
+                ->icon('bi-arrows-move')
+                ->iconButton()
+                ->visible(static::$resource::resourceIsSortable()),
 
-		return [
+            Action::make('tags')
+                ->action(function () use ($taxonomy, $resourceSlug) {
+                    return redirect(TagResource::getUrl('index', ['filters[resource_slug][value]' => $resourceSlug, 'filters[taxonomy_id][value]' => $taxonomy->id]));
+                })->icon('bi-tags')
+                ->iconButton()
+                ->visible(static::$resource::resourceHasTerms()),
 
-			Action::make('reorder')
-				->action(fn() => redirect($this->getResource()::getUrl('reorder')))
-				->icon('bi-arrows-move')
-				->iconButton()
-				->visible(static::$resource::resourceIsSortable()),
-
-			Action::make('tags')
-				->action(function () use ($taxonomy, $resourceSlug) {
-					return redirect(TagResource::getUrl('index', ['filters[resource_slug][value]' => $resourceSlug, 'filters[taxonomy_id][value]' => $taxonomy->id]));
-				})->icon('bi-tags')
-				->iconButton()
-				->visible(static::$resource::resourceHasTerms()),
-
-			CreateAction::make()
-				->icon('bi-plus-lg')
-				->iconButton()
-			->visible(static::$resource::getEntity()->cgroup != 'form'),
-		];
-	}
+            CreateAction::make()
+                ->icon('bi-plus-lg')
+                ->iconButton()
+                ->visible(static::$resource::getEntity()->cgroup != 'form'),
+        ];
+    }
 }

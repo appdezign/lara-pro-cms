@@ -4,13 +4,12 @@ namespace Lara\Admin\Resources\Tags\Pages;
 
 use Filament\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
+use Lara\Admin\Concerns\HasTerms;
 use Lara\Admin\Resources\Tags\TagResource;
-use Lara\Admin\Traits\HasTerms;
 
 class CreateTag extends CreateRecord
 {
-
-	use HasTerms;
+    use HasTerms;
 
     protected static string $resource = TagResource::class;
 
@@ -30,13 +29,12 @@ class CreateTag extends CreateRecord
             $this->getCreateFormAction()
                 ->label(_q('lara-admin::default.action.save'))
                 ->submit(null)
-                ->action(fn() => $this->create()),
+                ->action(fn () => $this->create()),
         ];
     }
 
-	protected function afterCreate(): void
-	{
-		static::processTagNodes($this->record->language, $this->record->resource_slug, $this->record->taxonomy_id);
-	}
-
+    protected function afterCreate(): void
+    {
+        static::processTagNodes($this->record->language, $this->record->resource_slug, $this->record->taxonomy_id);
+    }
 }

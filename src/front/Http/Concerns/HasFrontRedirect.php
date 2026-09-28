@@ -6,74 +6,70 @@ use Illuminate\Http\RedirectResponse;
 
 trait HasFrontRedirect
 {
+    /**
+     * @return RedirectResponse
+     */
+    private function processRedirect($request, $routename)
+    {
 
-	/**
-	 * @param $request
-	 * @param $routename
-	 * @return void
-	 */
-	private function processRedirect($request, $routename)
-	{
+        $queryString = $request->getQueryString();
 
-		$queryString = $request->getQueryString();
+        // catch redirects to full urls
+        if (str_starts_with($routename, 'http')) {
+            return $this->getRedirectToUrl($routename);
+        }
 
-		// catch redirects to full urls
-		if (str_starts_with($routename, 'http')) {
-			$this->processRedirectToUrl($routename);
-		}
+        $parts = explode('.', $routename);
 
-		$parts = explode('.', $routename);
+        $newUrl = null;
 
-		$newUrl = null;
+        if (count($parts) == 3) {
+            // assume it's an actual routename
+            [$prefix, $redirect, $url] = explode('.', $routename);
+            $newUrl = str_replace('|', '/', $url);
+        } elseif (count($parts) == 2) {
+            if ($parts[1] == 'html') {
+                // assume it's a url of a detail page
+                $newUrl = $routename;
+            } else {
+                return $this->getRedirectHome();
+            }
+        } elseif (count($parts) == 1) {
+            // assume it's a url
+            $newUrl = $routename;
+        } else {
+            return $this->getRedirectHome();
+        }
 
-		if (sizeof($parts) == 3) {
-			// assume it's an actual routename
-			list($prefix, $redirect, $url) = explode('.', $routename);
-			$newUrl = str_replace('|', '/', $url);
-		} elseif (sizeof($parts) == 2) {
-			if ($parts[1] == 'html') {
-				// assume it's a url of a detail page
-				$newUrl = $routename;
-			} else {
-				$this->processRedirectHome();
-			}
-		} elseif (sizeof($parts) == 1) {
-			// assume it's a url
-			$newUrl = $routename;
-		} else {
-			$this->processRedirectHome();
-		}
+        if ($queryString) {
+            $newUrl = $newUrl.'?'.$queryString;
+        }
 
-		if ($queryString) {
-			$newUrl = $newUrl . '?' . $queryString;
-		}
+        // redirect
+        return $this->getRedirectToUrl($newUrl);
+    }
 
-		// redirect
-		$this->processRedirectToUrl($newUrl);
-	}
+    /**
+     * @return RedirectResponse
+     */
+    private function getRedirectHome()
+    {
+        return redirect()->route('special.home.show');
+    }
 
-	/**
-	 * @return RedirectResponse
-	 */
-	private function processRedirectHome()
-	{
-		return redirect()->route('special.home.show')->send();
-	}
+    /**
+     * @return RedirectResponse
+     */
+    private function getRedirectSetup()
+    {
+        return redirect()->route('setup.show');
+    }
 
-	/**
-	 * @return RedirectResponse
-	 */
-	private function processRedirectSetup()
-	{
-		return redirect()->route('setup.show')->send();
-	}
-
-	/**
-	 * @param $url
-	 * @return RedirectResponse
-	 */
-	private function processRedirectToUrl($url)
-	{
-		return redirect($url)->send();
-	}
+    /**
+     * @return RedirectResponse
+     */
+    private function getRedirectToUrl($url)
+    {
+        return redirect($url);
+    }
 }

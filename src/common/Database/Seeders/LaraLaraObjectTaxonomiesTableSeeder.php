@@ -14,12 +14,12 @@ class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_object_taxonomies')->delete();
-        
+
         \DB::table('lara_object_taxonomies')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'title' => 'Category',
@@ -33,7 +33,7 @@ class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
                 'locked_by' => NULL,
                 'position' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'title' => 'Tag',
@@ -48,7 +48,7 @@ class LaraLaraObjectTaxonomiesTableSeeder extends Seeder
                 'position' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

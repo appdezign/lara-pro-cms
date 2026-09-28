@@ -2,10 +2,10 @@
 
 namespace {{ NAMESPACE }};
 
-use Lara\Common\Lara\LaraEntity;
+use Lara\Common\Entities\LaraEntity;
 
 class {{ CLASS }} extends LaraEntity
 {
-	public ?string $resource_slug = '{{ RESOURCESLUG }}';
-	protected ?string $module = 'lara-app';
+    public ?string $resource_slug = '{{ RESOURCESLUG }}';
+    protected ?string $module = 'lara-app';
 }
