@@ -143,6 +143,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentAuthenticate::class,
             ])
             ->navigationItems(static::getCustomNavigation())
+            ->authenticatedRoutes(method_exists(static::class, 'getCustomRoutes') ? static::getCustomRoutes() : null)
             ->viteTheme('laracms/core/resources/css/theme.css', 'assets/admin/build');
 
     }
