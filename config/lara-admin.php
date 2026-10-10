@@ -5,7 +5,11 @@ use Lara\App\Filament\Components\CustomBlocks\Hero2Block;
 
 return [
 
-    'has_custom_routes' => false,
+    /*
+     * Classes implementing Lara\Admin\Contracts\PanelExtension, which add navigation items
+     * and routes to the admin panel (e.g. a site's legacy, non-Livewire admin pages).
+     */
+    'panel_extensions' => [],
 
     'filarank' => [
         'section_collapsed' => true,
