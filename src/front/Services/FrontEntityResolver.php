@@ -173,6 +173,10 @@ final class FrontEntityResolver
         $route->method = end($parts);
         $route->activetags = [];
 
+        // the content lists have no route context; their tag routes are registered as
+        // contenttag.{resource}.{tag}.index (laracms/app/Routes/web.php, content routes)
+        $route->tag_route_pattern = $parts[0].'.'.$parts[1].'.{tag}.index';
+
         if (end($parts) == 'show') {
             for ($i = 2; $i < (count($parts) - 2); $i++) {
                 $route->activetags[] = $parts[$i];

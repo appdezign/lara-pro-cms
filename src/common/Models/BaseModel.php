@@ -180,6 +180,22 @@ class BaseModel extends Model implements HasRichContent
         });
     }
 
+    /**
+     * Whether this record is published: the test of scopeIsPublished(), for one loaded record.
+     */
+    public function isPublishedNow(): bool
+    {
+        return $this->publish == 1 && ($this->publish_from === null || $this->publish_from->lte(Carbon::now()));
+    }
+
+    /**
+     * Whether this record has expired: the opposite of scopeIsNotExpired(), for one loaded record.
+     */
+    public function hasExpired(): bool
+    {
+        return $this->publish_to !== null && $this->publish_to->lte(Carbon::now());
+    }
+
     public function scopeLangIs(Builder $query, string $language): Builder
     {
         return $query->where('language', $language);

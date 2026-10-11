@@ -2,6 +2,7 @@
 
 namespace Lara\Front\Http\Concerns;
 
+use Illuminate\Http\RedirectResponse;
 use Lara\Front\Http\Lara\FrontActiveRoute;
 use Lara\Front\Services\FrontRouteResolver;
 
@@ -35,9 +36,14 @@ trait HasFrontRoutes
         return $this->frontRouteResolver()->checkFrontRedirect($language, $entity, $activeroute, $object);
     }
 
-    private function checkPageRoute(string $language, object $entity, FrontActiveRoute $activeroute, int $id)
+    private function isHiddenObject(object $entity, object $object): bool
     {
-        return $this->frontRouteResolver()->checkPageRoute($language, $entity, $activeroute, $id);
+        return $this->frontRouteResolver()->isHiddenObject($entity, $object);
+    }
+
+    private function checkPageRoute(string $language, object $entity, FrontActiveRoute $activeroute, object $page): false|RedirectResponse
+    {
+        return $this->frontRouteResolver()->checkPageRoute($language, $entity, $activeroute, $page);
     }
 
     private function checkEntityRoute(string $language, object $entity, FrontActiveRoute $activeroute, object $object)
