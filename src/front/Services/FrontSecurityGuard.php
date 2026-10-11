@@ -3,9 +3,9 @@
 namespace Lara\Front\Services;
 
 use Google\Cloud\Translate\TranslateClient;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Lara\Admin\Enums\CustomFieldType;
 use Lara\Common\Models\Blacklist;
 use stdClass;
 
@@ -17,6 +17,12 @@ use stdClass;
 final class FrontSecurityGuard
 {
     /**
+     * Length of a varchar custom field column, as HasLaraBuilder creates it (string() default).
+     */
+    private const VARCHAR_LENGTH = 255;
+
+    /**
+     * @param  list<CustomFieldType>  $fieldtypes  the custom field types to check for links and email addresses
      * @return object
      */
     public function detectSpam(object $entity, object $object, array $fieldtypes)
@@ -43,14 +49,14 @@ final class FrontSecurityGuard
             $spamScore = 0;
 
             // check for links
-            $detectLinks = $this->detectLinkInString($entity, $object, $fieldtypes);
-            if ($detectLinks) {
+            $fieldsWithLinks = $this->detectLinkInString($entity, $object, $fieldtypes);
+            if ($fieldsWithLinks) {
                 $spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_link');
             }
 
             // check for email addresses
-            $detectEmails = $this->detectEmailInString($entity, $object, $fieldtypes);
-            if ($detectEmails) {
+            $fieldsWithEmails = $this->detectEmailInString($entity, $object, $fieldtypes);
+            if ($fieldsWithEmails) {
                 $spamScore = $spamScore + config('lara.forms_anti_spam.spam_score_email');
             }
 
@@ -64,6 +70,8 @@ final class FrontSecurityGuard
             if ($spamScore >= config('lara.forms_anti_spam.threshold')) {
                 $data->result = true;
                 $data->message = 'spam detected';
+
+                $this->markFieldsAsSpam($entity, $object, array_values(array_unique([...$fieldsWithLinks, ...$fieldsWithEmails])));
 
                 // patch 6.2.23 - start
                 $this->addToBlacklist($object->ipaddress);
@@ -95,10 +103,10 @@ final class FrontSecurityGuard
     private function isBlacklisted($ipaddress)
     {
 
-        // check blacklist table
-        $this->checkBlackListTable();
-
-        $blackListCheck = Blacklist::where('ipaddress', $ipaddress)->first();
+        // an entry expires, so a false positive or a reassigned IP address is not blocked forever
+        $blackListCheck = Blacklist::where('ipaddress', $ipaddress)
+            ->where('created_at', '>=', now()->subHours(config('lara.forms_anti_spam.blacklist_hours', 24)))
+            ->first();
 
         if ($blackListCheck) {
             return true;
@@ -108,92 +116,79 @@ final class FrontSecurityGuard
 
     }
 
-    /*
-     * part of patch 6.2.23
+    /**
+     * Prefixes the fields that made a submission spam, so the soft-deleted record shows why.
+     * A varchar value is cut to the column length, so the prefix cannot make the save fail.
+     *
+     * @param  list<string>  $fieldnames
      */
-    private function checkBlackListTable()
+    private function markFieldsAsSpam(object $entity, object $object, array $fieldnames): void
     {
-
-        // check blacklist table
-        $tablename = 'lara_sys_blacklist';
-        if (! Schema::hasTable($tablename)) {
-            Schema::create($tablename, function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('ipaddress')->nullable();
-                $table->timestamps();
-            });
+        if ($fieldnames === []) {
+            return;
         }
 
-        return true;
+        foreach ($entity->getCustomColumns() as $field) {
+            $fieldname = $field->field_name;
+            if (! in_array($fieldname, $fieldnames, true)) {
+                continue;
+            }
 
-    }
-
-    /*
-     * part of patch 6.2.23
-     */
-    public function checkBlackListColumn($entity)
-    {
-
-        $column = 'ipaddress';
-
-        $modelClass = $entity->getEntityModelClass();
-        $model = new $modelClass;
-        $tablename = $model->getTable();
-
-        if (! Schema::hasColumn($tablename, $column)) {
-            Schema::table($tablename, function ($table) use ($column) {
-                $table->string($column)->nullable();
-            });
+            $value = '[SPAM] - '.$object->$fieldname;
+            if (CustomFieldType::tryFrom($field->field_type)?->getDatabaseColumnType() === 'varchar') {
+                $value = mb_substr($value, 0, self::VARCHAR_LENGTH);
+            }
+            $object->$fieldname = $value;
         }
 
+        $object->save();
     }
 
-    private function detectEmailInString(object $entity, object $object, array $fieldtypes): bool
+    /**
+     * @param  list<CustomFieldType>  $fieldtypes
+     * @return list<string> the fields that contain an email address
+     */
+    private function detectEmailInString(object $entity, object $object, array $fieldtypes): array
     {
         // This regular expression extracts all emails from a string:
         $regexp = '/([a-z0-9_\.\-])+(\@|\[at\])+(([a-z0-9\-])+\.)+([a-z0-9]{2,4})+/i';
 
-        $stringHasEmail = false;
+        $fieldnames = [];
 
         foreach ($entity->getCustomColumns() as $field) {
-            if (in_array($field->fieldtype, $fieldtypes)) {
-                $fieldname = $field->fieldname;
-                $fieldval = $object->$fieldname;
-                preg_match_all($regexp, $fieldval, $m);
-                if (count($m[0]) > 0) {
-                    $stringHasEmail = true;
-                    $object->$fieldname = '[SPAM] - '.$fieldval;
-                    $object->save();
+            if (in_array(CustomFieldType::tryFrom($field->field_type), $fieldtypes, true)) {
+                $fieldname = $field->field_name;
+                if (preg_match($regexp, (string) $object->$fieldname)) {
+                    $fieldnames[] = $fieldname;
                 }
             }
         }
 
-        return $stringHasEmail;
+        return $fieldnames;
 
     }
 
-    private function detectLinkInString(object $entity, object $object, array $fieldtypes): bool
+    /**
+     * @param  list<CustomFieldType>  $fieldtypes
+     * @return list<string> the fields that contain a link
+     */
+    private function detectLinkInString(object $entity, object $object, array $fieldtypes): array
     {
 
-        $patterns = config('lara.detect_link_patterns');
+        $patterns = config('lara.detect_link_patterns', []);
 
-        $stringHasLinks = false;
+        $fieldnames = [];
 
         foreach ($entity->getCustomColumns() as $field) {
-            if (in_array($field->fieldtype, $fieldtypes)) {
-                $fieldname = $field->fieldname;
-                $fieldval = $object->$fieldname;
-                foreach ($patterns as $pattern) {
-                    if (Str::contains($fieldval, $pattern)) {
-                        $stringHasLinks = true;
-                        $object->$fieldname = '[SPAM] - '.$fieldval;
-                        $object->save();
-                    }
+            if (in_array(CustomFieldType::tryFrom($field->field_type), $fieldtypes, true)) {
+                $fieldname = $field->field_name;
+                if (Str::contains((string) $object->$fieldname, $patterns)) {
+                    $fieldnames[] = $fieldname;
                 }
             }
         }
 
-        return $stringHasLinks;
+        return $fieldnames;
     }
 
     private function matchLanguage(object $entity, $object): bool
@@ -220,8 +215,8 @@ final class FrontSecurityGuard
                     $detectEntityFields = $detectFields[$entkey];
 
                     foreach ($entity->getCustomColumns() as $field) {
-                        if (in_array($field->fieldname, $detectEntityFields)) {
-                            $fieldname = $field->fieldname;
+                        if (in_array($field->field_name, $detectEntityFields)) {
+                            $fieldname = $field->field_name;
                             $fieldval = $object->$fieldname;
                             if (str_word_count($fieldval) > $wordThresholdMin) {
                                 if (str_word_count($fieldval) < $wordThresholdMax) {
@@ -247,31 +242,64 @@ final class FrontSecurityGuard
     }
 
     /**
-     * @return array
+     * An HTML checkbox posts "on" when ticked (unless it has a value attribute). Checkbox and
+     * toggle fields are stored as 0/1, so "on", "yes" and "true" become 1 before validation.
      */
-    public function getValidationRules(object $entity)
+    public function normalizeFormInput(object $entity, Request $request): void
+    {
+        foreach ($entity->getCustomColumns() as $field) {
+            $fieldType = CustomFieldType::tryFrom($field->field_type);
+            $value = $request->input($field->field_name);
+
+            if (in_array($fieldType, [CustomFieldType::Checkbox, CustomFieldType::Toggle], true)
+                && is_string($value) && in_array(strtolower($value), ['on', 'yes', 'true'], true)) {
+                $request->merge([$field->field_name => 1]);
+            }
+        }
+    }
+
+    /**
+     * The validation rules for a form submission, keyed by field name.
+     *
+     * @return array<string, list<string>>
+     */
+    public function getValidationRules(object $entity): array
     {
 
-        $requiredFields = [];
+        $validationRules = [];
+
+        // the DNS check needs a network lookup: production only, like reCAPTCHA
+        $emailRule = config('app.env') == 'production' ? 'email:rfc,dns' : 'email:rfc';
 
         foreach ($entity->getCustomColumns() as $field) {
 
-            $fieldname = $field->fieldname;
+            $fieldType = CustomFieldType::tryFrom($field->field_type);
 
-            if ($field->fieldtype == 'email') {
-                if ($field->required) {
-                    $requiredFields[$fieldname] = 'email:rfc,dns|required';
-                } else {
-                    $requiredFields[$fieldname] = 'email:rfc,dns';
-                }
-            } else {
-                if ($field->required) {
-                    $requiredFields[$fieldname] = 'required';
-                }
+            $rules = [$field->is_required ? 'required' : 'nullable'];
+
+            // a value of the wrong type is rejected (422) instead of failing on its typed column (500)
+            // and so is a value its column cannot hold (too long, out of range)
+            $typeRules = match ($fieldType?->getDatabaseColumnType()) {
+                'varchar' => ['string', 'max:'.self::VARCHAR_LENGTH],
+                'text' => ['string'],
+                'int' => ['integer', 'between:-2147483648,2147483647'],
+                'decimal' => ['numeric'],
+                'tinyint' => ['boolean'],
+                'date', 'timestamp' => ['date'],
+                'time' => ['date_format:H:i,H:i:s'],
+                'json' => ['array'],
+                default => [],
+            };
+            $rules = [...$rules, ...$typeRules];
+
+            if ($fieldType === CustomFieldType::Email) {
+                $rules[] = $emailRule;
             }
+
+            $validationRules[$field->field_name] = $rules;
         }
 
-        return $requiredFields;
+        return $validationRules;
 
     }
 }

@@ -171,7 +171,7 @@ class EntityCacheWidget extends AbstractWidget
             } else {
 
                 foreach ($entity->getCustomColumns() as $field) {
-                    if ($field->fieldname == 'sticky') {
+                    if ($field->field_name == 'sticky') {
                         $collection = $collection->orderBy('sticky', 'desc');
                     }
                 }

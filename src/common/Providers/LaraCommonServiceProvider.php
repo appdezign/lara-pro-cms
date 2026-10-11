@@ -5,6 +5,7 @@ namespace Lara\Common\Providers;
 use Awcodes\Curator\Facades\Curator;
 use Awcodes\Curator\Facades\Glide;
 use Awcodes\Curator\Models\Media;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
@@ -41,6 +42,9 @@ class LaraCommonServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+
+        // Trust the proxies in front of the site (Cloudflare, local proxies), see config/lara.php
+        TrustProxies::at(config('lara.trusted_proxies', []));
 
         // Publish Config
         $this->publishes([
