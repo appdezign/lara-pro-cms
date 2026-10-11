@@ -125,14 +125,9 @@ class BasePagesController extends Controller
         }
 
         // redirect pages to their menu url, if possible
-        $checkPage = $this->checkPageRoute($this->language, $this->entity, $this->activeroute, $this->data->object);
+        $checkPage = $this->checkPageRoute($this->entity, $this->activeroute, $this->data->object);
         if ($checkPage instanceof RedirectResponse) {
             return $checkPage;
-        }
-
-        // a hidden page is not shown outside a preview; pages have no list to redirect to
-        if (! $this->ispreview && $this->isHiddenObject($this->entity, $this->data->object)) {
-            return redirect(route('error.show.404', '404'));
         }
 
         // get page children

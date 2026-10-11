@@ -139,18 +139,28 @@ final class FrontRouteResolver
      *
      * @return false|RedirectResponse false to show the page, or a redirect
      */
-    public function checkPageRoute(string $language, object $entity, FrontActiveRoute $activeroute, object $page): false|RedirectResponse
+    public function checkPageRoute(object $entity, FrontActiveRoute $activeroute, object $page): false|RedirectResponse
     {
 
         if ($entity->getResourceSlug() == 'pages' && $activeroute->getPrefix() == 'content') {
 
-            $menuitem = MenuItem::where('type', 'page')
+            // a page with a menu route is always shown there, so a preview moves to its menu url,
+            // in the language of the page
+            // a page in several menus: the first menu, then the first position in its tree
+            $menuitem = MenuItem::langIs($page->language)
+                ->where('type', 'page')
                 ->where('object_id', $page->id)
+                // only items that get a route ($laraMenuItemIsRoutable in laracms/app/Routes/web.php)
+                ->whereNotNull('route')
+                ->where('route', '!=', '')
+                ->has('entity')
+                ->has('entityview')
+                ->orderBy('menu_id')
+                ->orderBy('lft')
                 ->first();
 
-            // only a visible page moves to its menu url; a hidden one stays a preview
-            if ($menuitem && ! $this->isHiddenObject($entity, $page)) {
-                return redirect($language.'/'.$menuitem->route);
+            if ($menuitem) {
+                return redirect($page->language.'/'.$menuitem->route);
             } else {
                 // this is a preview page, check if user is logged in
                 if (Auth::check()) {
