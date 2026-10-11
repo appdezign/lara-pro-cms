@@ -66,7 +66,6 @@ use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Pages\LaraHealthCheckResults;
 use Lara\Admin\Widgets\Analytics;
-use Lara\App\Filament\Enums\CustomNavGroup;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
@@ -149,7 +148,8 @@ class AdminPanelProvider extends PanelProvider
     }
 
     /**
-     * Adds the navigation items and routes of every class in config('lara-admin.panel_extensions').
+     * Adds the navigation groups, navigation items and routes of every class in config('lara-admin.panel_extensions').
+     * Their groups are added after the core groups, so they are listed last in the menu.
      *
      * @throws InvalidArgumentException when a listed class does not implement PanelExtension
      */
@@ -163,6 +163,7 @@ class AdminPanelProvider extends PanelProvider
             }
 
             $panel
+                ->navigationGroups($extension->navigationGroups())
                 ->navigationItems($extension->navigationItems())
                 ->authenticatedRoutes($extension->routes());
         }
@@ -442,22 +443,6 @@ class AdminPanelProvider extends PanelProvider
                 ->icon($navGroup->getIcon())
                 ->collapsed();
 
-        }
-
-        if (config('lara-admin.has_custom_routes')) {
-            foreach (CustomNavGroup::cases() as $navGroup) {
-
-                $rows[] = NavigationGroup::make()
-                    ->label($navGroup->getLabelNl())
-                    ->icon($navGroup->getIcon())
-                    ->collapsed();
-
-                $rows[] = NavigationGroup::make()
-                    ->label($navGroup->getLabelEn())
-                    ->icon($navGroup->getIcon())
-                    ->collapsed();
-
-            }
         }
 
         return $rows;
