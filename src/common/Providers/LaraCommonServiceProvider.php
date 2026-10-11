@@ -16,8 +16,6 @@ use Lara\Common\Console\RefreshMenuRouteNamesCommand;
 use Lara\Common\Entities\EntityRegistry;
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 use Lara\Common\Http\Middleware\DateLocale;
-use Lara\Common\Http\Middleware\Force2fa;
-use Lara\Common\Http\Middleware\UserLocale;
 use Lara\Common\Models;
 use Lara\Common\Models\Entity;
 use Lara\Common\Policies;
@@ -58,11 +56,9 @@ class LaraCommonServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(app()->langPath().'/vendor/lara-common', 'lara-common');
 
         // register global middleware
-        $router->aliasMiddleware('userLocale', UserLocale::class);
         $router->aliasMiddleware('dateLocale', DateLocale::class);
 
         // $router->aliasMiddleware('lara2fa', Middleware::class);
-        // $router->aliasMiddleware('force2fa', Force2fa::class);
 
         $router->aliasMiddleware('localize', LaravelLocalizationRoutes::class);
         $router->aliasMiddleware('localizationRedirect', LaravelLocalizationRedirectFilter::class);
