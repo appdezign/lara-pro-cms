@@ -32,7 +32,7 @@ trait HasTableActions
             $actions[] = DeleteAction::make()
                 ->label('')
                 ->tableIcon(fn ($record) => $record->isLocked() ? 'bi-lock' : 'bi-trash3')
-                ->disabled(fn ($record) => $record->isLocked());
+                ->disabled(fn ($record) => $record->isLocked() || ! $record->canBeDeleted());
         }
         if (static::showRestoreAction()) {
             $actions[] = RestoreAction::make()

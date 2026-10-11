@@ -133,6 +133,14 @@ class BaseModel extends Model implements HasRichContent
         ];
     }
 
+    /**
+     * Whether the record may be deleted. Models with records that other content depends on override this.
+     */
+    public function canBeDeleted(): bool
+    {
+        return true;
+    }
+
     public static function getFilamentSearchLabel(): string
     {
         return 'title';
