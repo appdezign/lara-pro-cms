@@ -195,7 +195,7 @@ class BaseFrontController extends Controller
         // get single object
         $this->data->object = $this->getSingleFrontObject($this->language, $this->entity, $slug);
         if ($this->data->object instanceof RedirectResponse) {
-            return $this->data->params;
+            return $this->data->object;
         }
 
         // check redirect

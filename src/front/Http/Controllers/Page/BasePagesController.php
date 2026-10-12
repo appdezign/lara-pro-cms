@@ -121,11 +121,11 @@ class BasePagesController extends Controller
         // get single object
         $this->data->object = $this->getSingleFrontObject($this->language, $this->entity, $pageId);
         if ($this->data->object instanceof RedirectResponse) {
-            return $this->data->params;
+            return $this->data->object;
         }
 
         // redirect pages to their menu url, if possible
-        $checkPage = $this->checkPageRoute($this->language, $this->entity, $this->activeroute, $this->data->object->id);
+        $checkPage = $this->checkPageRoute($this->entity, $this->activeroute, $this->data->object);
         if ($checkPage instanceof RedirectResponse) {
             return $checkPage;
         }

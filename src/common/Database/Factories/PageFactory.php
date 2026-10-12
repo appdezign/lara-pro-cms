@@ -20,6 +20,9 @@ class PageFactory extends Factory
      */
     public function definition(): array
     {
-        return $this->generateContent($this->resourceSlug);
+        return [
+            ...$this->generateContent($this->resourceSlug),
+            'cgroup' => 'page',
+        ];
     }
 }

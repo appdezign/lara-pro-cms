@@ -133,6 +133,14 @@ class BaseModel extends Model implements HasRichContent
         ];
     }
 
+    /**
+     * Whether the record may be deleted. Models with records that other content depends on override this.
+     */
+    public function canBeDeleted(): bool
+    {
+        return true;
+    }
+
     public static function getFilamentSearchLabel(): string
     {
         return 'title';
@@ -178,6 +186,22 @@ class BaseModel extends Model implements HasRichContent
             $query->where('publish_to', '>', Carbon::now())
                 ->orWhereNull('publish_to');
         });
+    }
+
+    /**
+     * Whether this record is published: the test of scopeIsPublished(), for one loaded record.
+     */
+    public function isPublishedNow(): bool
+    {
+        return $this->publish == 1 && ($this->publish_from === null || $this->publish_from->lte(Carbon::now()));
+    }
+
+    /**
+     * Whether this record has expired: the opposite of scopeIsNotExpired(), for one loaded record.
+     */
+    public function hasExpired(): bool
+    {
+        return $this->publish_to !== null && $this->publish_to->lte(Carbon::now());
     }
 
     public function scopeLangIs(Builder $query, string $language): Builder

@@ -2,6 +2,7 @@
 
 namespace Lara\Front\Http\Concerns;
 
+use Illuminate\Http\Request;
 use Lara\Front\Services\FrontSecurityGuard;
 
 /**
@@ -23,9 +24,9 @@ trait HasFrontSecurity
         return $this->frontSecurityGuard()->detectSpam($entity, $object, $fieldtypes);
     }
 
-    private function checkBlackListColumn($entity)
+    private function normalizeFormInput(object $entity, Request $request): void
     {
-        return $this->frontSecurityGuard()->checkBlackListColumn($entity);
+        $this->frontSecurityGuard()->normalizeFormInput($entity, $request);
     }
 
     private function getValidationRules(object $entity)

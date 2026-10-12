@@ -50,7 +50,8 @@ class LaraEntityWidget extends AbstractWidget
 
         if ($entity) {
 
-            $term = ($larawidget->term != 'none') ? $larawidget->term : null;
+            // no tag is stored as null, or as 'none' by older versions
+            $term = in_array($larawidget->resource_term, [null, '', 'none'], true) ? null : $larawidget->resource_term;
 
             if ($term) {
                 // get the full Tag object
@@ -88,7 +89,7 @@ class LaraEntityWidget extends AbstractWidget
                 $collection = $collection->front();
             }
 
-            if ($larawidget->imgreq) {
+            if ($larawidget->image_required) {
                 $collection = $collection->has('images');
             }
 
@@ -110,7 +111,7 @@ class LaraEntityWidget extends AbstractWidget
             }
 
             foreach ($entity->getCustomColumns() as $field) {
-                if ($field->fieldname == 'sticky') {
+                if ($field->field_name == 'sticky') {
                     $collection = $collection->orderBy('sticky', 'desc');
                 }
             }

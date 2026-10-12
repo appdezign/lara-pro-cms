@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use Lara\Admin\Enums\CustomFieldType;
 use Lara\Front\Http\Concerns\HasFrontAuth;
 use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontEntity;
@@ -173,43 +174,27 @@ class FormController extends Controller
     public function process(Request $request)
     {
 
+        $this->normalizeFormInput($this->entity, $request);
+
         $validationRules = $this->getValidationRules($this->entity);
         if (config('app.env') == 'production' && config('lara.google_recaptcha_site_key')) {
             $validationRules['g-recaptcha-response'] = [new ReCaptcha];
         }
         $request->validate($validationRules);
 
-        // save data
-        $formfields = [];
-        $formfields[] = 'title';
-        foreach ($this->entity->getCustomColumns() as $field) {
-            // fix empty strings
-            if ($field->required == 0) {
-                if ($field->fieldtype == 'text' || $field->fieldtype == 'string') {
-                    $fieldname = $field->fieldname;
-                    if (empty($request->input($fieldname))) {
-                        $request->merge([$fieldname => '']);
-                    }
-                }
-            }
-            // add field to array
-            $formfields[] = $field->fieldname;
-        }
-        if ($request->has('name')) {
-            $request->merge(['title' => $request->input('name')]);
-        }
+        // save data: only the fields of the form, never other columns of its table, and only
+        // those with a value, so an absent or empty field gets its column default (0 for an
+        // unticked checkbox or an empty number field, which are NOT NULL)
+        $fieldnames = $this->entity->getCustomColumns()->pluck('field_name')->all();
+        $formdata = array_filter($request->only($fieldnames), fn ($value) => $value !== null);
 
         // patch 6.2.23 - start
-        if ($request->has('_ipaddress')) {
-            $this->checkBlackListColumn($this->entity);
-            $formfields[] = 'ipaddress';
-            $request->merge(['ipaddress' => $request->input('_ipaddress')]);
-        }
+        $formdata['ipaddress'] = $request->ip();
         // patch 6.2.23 - end
 
-        $newObject = $this->modelClass::create($request->only($formfields));
+        $newObject = $this->modelClass::create($formdata);
 
-        $isSpam = $this->detectSpam($this->entity, $newObject, ['text']);
+        $isSpam = $this->detectSpam($this->entity, $newObject, [CustomFieldType::String, CustomFieldType::Text, CustomFieldType::Textarea]);
 
         if ($isSpam->result) {
             // Soft delete because it is suspicious (spam)
@@ -288,7 +273,7 @@ class FormController extends Controller
         $maildata->content->data = new stdClass;
         foreach ($this->entity->getCustomColumns() as $field) {
             $fieldname = $field->field_name;
-            if ($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
+            if (in_array(CustomFieldType::tryFrom($field->field_type), [CustomFieldType::Checkbox, CustomFieldType::Toggle], true)) {
                 if ($request->input($fieldname) == 1) {
                     $fieldvalue = _q('lara-admin::default.value.yes');
                 } else {

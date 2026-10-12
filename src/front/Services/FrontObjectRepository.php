@@ -37,7 +37,7 @@ final class FrontObjectRepository
     {
 
         $modelClass = $entity->getEntityModelClass();
-        $collection = new $modelClass;
+        $collection = $modelClass::query();
 
         // eager loading
         if ($entity->hasImages()) {
@@ -54,10 +54,9 @@ final class FrontObjectRepository
         }
 
         if (is_numeric($slug)) {
-            $collection->where('id', $slug);
+            $collection = $collection->where('id', $slug);
         } else {
-            $collection->where('language', $language);
-            $collection->where('slug', $slug);
+            $collection = $collection->where('language', $language)->where('slug', $slug);
         }
 
         $object = $collection->first();
@@ -575,12 +574,12 @@ final class FrontObjectRepository
             ->first();
 
         if ($node) {
-            $url = url($language.'/'.$node->route);
-        } else {
-            $url = route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
+            return url($language.'/'.$node->route);
         }
 
-        return $url;
+        $listRoute = $this->routeResolver->getEntityListRoute($entity, $activeroute);
+
+        return $listRoute ? route($listRoute) : url($language);
     }
 
     public function isPreview($routename)

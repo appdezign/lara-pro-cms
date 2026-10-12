@@ -414,6 +414,9 @@ trait HasLaraBuilder
                     // ID
                     $table->bigIncrements('id');
 
+                    // IP address of the visitor, for the spam blacklist
+                    $table->string('ipaddress')->nullable();
+
                     // Timestamps
                     $table->timestamps();
                     $table->timestamp('deleted_at')->nullable();

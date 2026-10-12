@@ -2,6 +2,8 @@
 
 namespace Lara\Front\Http\Lara;
 
+use Illuminate\Support\Facades\Route;
+
 class FrontActiveRoute
 {
     protected ?string $prefix = null;
@@ -181,13 +183,20 @@ class FrontActiveRoute
     }
 
     /**
-     * The list route of one tag within the current menu item.
+     * The list route of one tag within the current menu item, or null when there is none: no tag
+     * pattern (content and preview routes), or a tag created after the route cache was built.
      *
      * @param  string  $tagRoute  the tag's route, e.g. "design" or "parent.child"
      */
     public function getTagRoute(string $tagRoute): ?string
     {
-        return $this->tag_route_pattern === null ? null : str_replace('{tag}', $tagRoute, $this->tag_route_pattern);
+        if ($this->tag_route_pattern === null) {
+            return null;
+        }
+
+        $routeName = str_replace('{tag}', $tagRoute, $this->tag_route_pattern);
+
+        return Route::has($routeName) ? $routeName : null;
     }
 
     public function setTagRoutePattern(?string $tag_route_pattern = null): void

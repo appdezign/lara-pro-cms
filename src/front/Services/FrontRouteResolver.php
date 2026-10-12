@@ -2,13 +2,12 @@
 
 namespace Lara\Front\Services;
 
-use Carbon\Carbon;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Lara\Common\Models\MenuItem;
 use Lara\Front\Http\Lara\FrontActiveRoute;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /**
  * Resolves SEO route names for entities and handles front redirect decisions.
@@ -50,7 +49,9 @@ final class FrontRouteResolver
         $entityView = $entity->getViews()->where('method', $method)->first();
 
         if ($entityView) {
-            $menuItem = MenuItem::where('entity_id', $entity->getEntityId())
+            // menu routes are registered per locale, so only a menu item in the current locale has one
+            $menuItem = MenuItem::langIs(LaravelLocalization::getCurrentLocale())
+                ->where('entity_id', $entity->getEntityId())
                 ->where('entity_view_id', $entityView->id)
                 ->whereNull('tag_id')
                 ->first();
@@ -87,7 +88,7 @@ final class FrontRouteResolver
         if (empty($object)) {
 
             // object not found, redirect to list
-            return redirect()->route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
+            return $this->redirectToEntityList($entity, $activeroute);
 
         } else {
 
@@ -97,32 +98,69 @@ final class FrontRouteResolver
                 return $isPreview;
             }
 
-            // if the page is not a preview, make sure it is published
-            if (! $isPreview && ($entity->hasStatus())) {
-                if ($object->publish == 0 || (! empty($object->publish_to) && $object->publish_to < Carbon::now()->toDateTimeString())) {
-                    return redirect()->route($activeroute->getPrefix().'.'.$entity->getResourceSlug().'.index');
-                }
+            // if the page is not a preview, make sure it is visible
+            if (! $isPreview && $this->isHiddenObject($entity, $object)) {
+                return $this->redirectToEntityList($entity, $activeroute);
             }
 
         }
     }
 
     /**
+     * Whether an object is hidden from visitors, by the same rules as the lists: not published
+     * (entities with a status) or expired (entities with an expiration).
+     */
+    public function isHiddenObject(object $entity, object $object): bool
+    {
+        return ($entity->hasStatus() && ! $object->isPublishedNow())
+            || ($entity->hasExpiration() && $object->hasExpired());
+    }
+
+    /**
+     * The list route of an entity for the current request: the list route of the menu item the
+     * request came through (from the route context), otherwise the entity's own list route.
+     */
+    public function getEntityListRoute(object $entity, FrontActiveRoute $activeroute): ?string
+    {
+        $listRoute = $activeroute->getMenuRoute() ?? $this->getFrontSeoRoute($entity->getResourceSlug(), 'index');
+
+        return Route::has($listRoute) ? $listRoute : null;
+    }
+
+    private function redirectToEntityList(object $entity, FrontActiveRoute $activeroute): RedirectResponse
+    {
+        $listRoute = $this->getEntityListRoute($entity, $activeroute);
+
+        return $listRoute ? redirect()->route($listRoute) : redirect(route('error.show.404', '404'));
+    }
+
+    /**
      * Check if a page with a preview route can be redirected to a menu route
      *
-     * @return false|Application|RedirectResponse
+     * @return false|RedirectResponse false to show the page, or a redirect
      */
-    public function checkPageRoute(string $language, object $entity, FrontActiveRoute $activeroute, int $id)
+    public function checkPageRoute(object $entity, FrontActiveRoute $activeroute, object $page): false|RedirectResponse
     {
 
         if ($entity->getResourceSlug() == 'pages' && $activeroute->getPrefix() == 'content') {
 
-            $menuitem = MenuItem::where('type', 'page')
-                ->where('object_id', $id)
+            // a page with a menu route is always shown there, so a preview moves to its menu url,
+            // in the language of the page
+            // a page in several menus: the first menu, then the first position in its tree
+            $menuitem = MenuItem::langIs($page->language)
+                ->where('type', 'page')
+                ->where('object_id', $page->id)
+                // only items that get a route ($laraMenuItemIsRoutable in laracms/app/Routes/web.php)
+                ->whereNotNull('route')
+                ->where('route', '!=', '')
+                ->has('entity')
+                ->has('entityview')
+                ->orderBy('menu_id')
+                ->orderBy('lft')
                 ->first();
 
             if ($menuitem) {
-                return redirect($language.'/'.$menuitem->route);
+                return redirect($page->language.'/'.$menuitem->route);
             } else {
                 // this is a preview page, check if user is logged in
                 if (Auth::check()) {
@@ -141,53 +179,39 @@ final class FrontRouteResolver
     /**
      * Check if a page with a preview route can be redirected to a menu route
      *
-     * @return false|Application|RedirectResponse
+     * @return bool|RedirectResponse true for a preview, false for a public route, or a redirect
      */
-    public function checkEntityRoute(string $language, object $entity, FrontActiveRoute $activeroute, object $object)
+    public function checkEntityRoute(string $language, object $entity, FrontActiveRoute $activeroute, object $object): bool|RedirectResponse
     {
 
-        $isPreview = false;
+        if ($activeroute->getPrefix() != 'content' && $activeroute->getPrefix() != 'contenttag') {
+            return false;
+        }
 
-        if ($activeroute->getPrefix() == 'content' || $activeroute->getPrefix() == 'contenttag') {
+        // only a visible object moves to its public url; a hidden one stays a preview
+        if (! $this->isHiddenObject($entity, $object)) {
 
-            if ($object->publish == 1) {
+            $menuitem = MenuItem::langIs($language)->where('type', 'entity')
+                ->where('entity_id', $entity->getEntityId())
+                ->whereNull('tag_id')
+                ->first();
 
-                $menuitem = MenuItem::langIs($language)->where('type', 'entity')
-                    ->where('entity_id', $entity->getEntityId())
-                    ->whereNull('tag_id')
-                    ->first();
+            if ($menuitem) {
 
-                if ($menuitem) {
+                $redirectUrl = $language.'/'.$menuitem->route.'/'.$object->slug;
 
-                    $redirectUrl = $language.'/'.$menuitem->route.'/'.$object->slug;
-
-                    if ($entity->hasTags()) {
-                        $redirectUrl = $redirectUrl.'.html';
-                    }
-
-                    return redirect($redirectUrl);
-
-                } else {
-                    // this is a preview page, check if user is logged in
-                    if (Auth::check()) {
-                        $isPreview = true;
-                    } else {
-                        return redirect(route('error.show.404', '404'));
-                    }
+                if ($entity->hasTags()) {
+                    $redirectUrl = $redirectUrl.'.html';
                 }
 
-            } else {
-                // this is a preview page, check if user is logged in
-                if (Auth::check()) {
-                    $isPreview = true;
-                } else {
-                    return redirect(route('error.show.404', '404'));
-                }
+                return redirect($redirectUrl);
+
             }
 
         }
 
-        return $isPreview;
+        // this is a preview page, check if user is logged in
+        return Auth::check() ? true : redirect(route('error.show.404', '404'));
 
     }
 }

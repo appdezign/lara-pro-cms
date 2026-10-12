@@ -9,6 +9,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Lara\Admin\Concerns\HasLanguage;
 use Lara\Admin\Concerns\HasNestedSet;
@@ -18,6 +19,7 @@ use Lara\Admin\Resources\MenuItems\MenuItemResource;
 use Lara\Admin\Resources\MenuItems\Pages\ListMenuItems;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityView;
+use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Page;
 use Lara\Common\Models\Tag;
@@ -51,14 +53,19 @@ class MenuItemForm
 
                         Hidden::make('language')
                             ->default(static::getContentLanguage()),
-                        Hidden::make('menu_id')
-                            ->default($MenuId),
-
+                        // menu items are a nested set per menu: an item cannot move to another menu
+                        Select::make('menu_id')
+                            ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.menu_id'))
+                            ->options(fn () => Menu::pluck('title', 'id'))
+                            ->default($MenuId)
+                            ->required()
+                            ->disabled(fn (string $operation): bool => $operation === 'edit')
+                            ->live()
+                            ->afterStateUpdated(fn (Set $set) => $set('parent_id', null)),
                         TextInput::make('title')
                             ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.title'))
                             ->required()
                             ->maxLength(255),
-
                         TextInput::make('slug')
                             ->label(_q('lara-admin::default.column.slug'))
                             ->maxLength(255)
@@ -84,11 +91,10 @@ class MenuItemForm
                         Select::make('parent_id')
                             ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.parent'))
                             ->placeholder('root')
-                            ->options(function ($record) {
-                                $recordId = $record->id ?? null;
-
-                                return static::prepareMenuItems($recordId);
-                            }),
+                            ->options(fn ($record, Get $get): array => static::prepareMenuItems(
+                                filled($get('menu_id')) ? (int) $get('menu_id') : null,
+                                $record,
+                            )),
                         Fieldset::make('Content')
                             ->columns(1)
                             ->schema([
@@ -106,7 +112,7 @@ class MenuItemForm
                                 // Page
                                 Select::make('object_id')
                                     ->label(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.column.object_id'))
-                                    ->options(Page::where('language', static::getContentLanguage())->where('cgroup', 'page')->where('publish', 1)->orderBy('title')->pluck('title', 'id')->toArray() + ['new' => '[ make new page ]'])->searchable()
+                                    ->options(Page::where('language', static::getContentLanguage())->where('cgroup', 'page')->orderBy('title')->pluck('title', 'id')->toArray() + ['new' => '[ make new page ]'])->searchable()
                                     ->required(fn ($get) => $get('type')->value == 'page')
                                     ->visible(fn ($get) => $get('type')->value == 'page'),
 
@@ -157,18 +163,28 @@ class MenuItemForm
             ]);
     }
 
-    private static function prepareMenuItems($activeMenuItemId = null): array
+    /**
+     * The possible parents of a menu item: the items of the same menu (a nested set per menu), in
+     * tree order, without the item itself and its descendants (a node cannot move into its own
+     * branch).
+     *
+     * @return array<int, string>
+     */
+    private static function prepareMenuItems(?int $menuId, ?MenuItem $activeMenuItem = null): array
     {
-        $menuArray = [];
-
-        if ($activeMenuItemId) {
-            $items = MenuItem::langIs(static::getContentLanguage())
-                ->whereNot('id', $activeMenuItemId)
-                ->get();
-        } else {
-            $items = MenuItem::langIs(static::getContentLanguage())
-                ->get();
+        if ($menuId === null) {
+            return [];
         }
+
+        $excludedIds = $activeMenuItem ? [$activeMenuItem->id, ...$activeMenuItem->descendants()->pluck('id')] : [];
+
+        $items = MenuItem::langIs(static::getContentLanguage())
+            ->menuIs($menuId)
+            ->whereNotIn('id', $excludedIds)
+            ->defaultOrder()
+            ->get();
+
+        $menuArray = [];
 
         foreach ($items as $item) {
             $prefix = str_repeat('- ', $item->depth);

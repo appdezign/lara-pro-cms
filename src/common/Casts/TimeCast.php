@@ -15,6 +15,11 @@ class TimeCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes)
     {
+        // Carbon::parse(null) is "now": an empty value stays empty
+        if ($value === null || $value === '') {
+            return null;
+        }
+
         return Carbon::parse($value);
     }
 
@@ -25,6 +30,11 @@ class TimeCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes)
     {
+        // Carbon::parse(null) is "now": an empty value stays empty
+        if ($value === null || $value === '') {
+            return null;
+        }
+
         return Carbon::parse($value);
     }
 }

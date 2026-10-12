@@ -52,6 +52,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use InvalidArgumentException;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Lara\Admin\Components\GeoLocationField;
 use Lara\Admin\Components\LanguageVersions;
@@ -59,20 +60,18 @@ use Lara\Admin\Components\TextAreaWithCounter;
 use Lara\Admin\Components\YouTubeField;
 use Lara\Admin\Concerns\HasLanguage;
 use Lara\Admin\Concerns\HasParams;
+use Lara\Admin\Contracts\PanelExtension;
 use Lara\Admin\Enums\NavGroup;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Pages\LaraHealthCheckResults;
 use Lara\Admin\Widgets\Analytics;
-use Lara\App\Filament\Enums\CustomNavGroup;
-use Lara\App\Filament\Navigation\HasCustomNavigation;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
-    use HasCustomNavigation;
     use HasLanguage;
     use HasParams;
 
@@ -80,7 +79,7 @@ class AdminPanelProvider extends PanelProvider
 
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        $panel
             ->default()
             ->id('admin')
             ->path('admin')
@@ -142,9 +141,34 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 FilamentAuthenticate::class,
             ])
-            ->navigationItems(static::getCustomNavigation())
             ->viteTheme('laracms/core/resources/css/theme.css', 'assets/admin/build');
 
+        return static::registerPanelExtensions($panel);
+
+    }
+
+    /**
+     * Adds the navigation groups, navigation items and routes of every class in config('lara-admin.panel_extensions').
+     * Their groups are added after the core groups, so they are listed last in the menu.
+     *
+     * @throws InvalidArgumentException when a listed class does not implement PanelExtension
+     */
+    protected static function registerPanelExtensions(Panel $panel): Panel
+    {
+        foreach (config('lara-admin.panel_extensions', []) as $extensionClass) {
+            $extension = app($extensionClass);
+
+            if (! $extension instanceof PanelExtension) {
+                throw new InvalidArgumentException("Panel extension [{$extensionClass}] must implement ".PanelExtension::class.'.');
+            }
+
+            $panel
+                ->navigationGroups($extension->navigationGroups())
+                ->navigationItems($extension->navigationItems())
+                ->authenticatedRoutes($extension->routes());
+        }
+
+        return $panel;
     }
 
     public function boot(): void
@@ -419,22 +443,6 @@ class AdminPanelProvider extends PanelProvider
                 ->icon($navGroup->getIcon())
                 ->collapsed();
 
-        }
-
-        if (config('lara-admin.has_custom_routes')) {
-            foreach (CustomNavGroup::cases() as $navGroup) {
-
-                $rows[] = NavigationGroup::make()
-                    ->label($navGroup->getLabelNl())
-                    ->icon($navGroup->getIcon())
-                    ->collapsed();
-
-                $rows[] = NavigationGroup::make()
-                    ->label($navGroup->getLabelEn())
-                    ->icon($navGroup->getIcon())
-                    ->collapsed();
-
-            }
         }
 
         return $rows;
