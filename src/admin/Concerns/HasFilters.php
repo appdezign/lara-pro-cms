@@ -4,24 +4,18 @@ namespace Lara\Admin\Concerns;
 
 trait HasFilters
 {
-    private static function getActiveFilterFromPage($pageClass, $filterName, $defaultValue = null): ?string
+    /**
+     * Read a persisted table filter value of a list page from the session.
+     *
+     * Mirrors the session key of Filament's `getTableFiltersSessionKey()`
+     * (no tenancy, no table identifier).
+     */
+    private static function getActiveFilterFromPage(string $pageClass, string $filterName, ?string $defaultValue = null): ?string
     {
-        $filter = $defaultValue;
-        $table = md5($pageClass);
-        if (session()->has('tables')) {
-            $tableFilters = session()->get('tables');
-            $sessionKey = "{$table}_filters";
-            if (array_key_exists($sessionKey, session()->get('tables'))) {
-                $activeFilter = $tableFilters[$sessionKey];
-                if ($activeFilter) {
-                    $value = $activeFilter[$filterName]['value'];
-                    if (! empty($value)) {
-                        $filter = $value;
-                    }
-                }
-            }
-        }
+        $sessionKey = 'filament.tables.'.hash('sha256', $pageClass).'.filters';
 
-        return $filter;
+        $value = data_get(session()->get($sessionKey), "{$filterName}.value");
+
+        return filled($value) ? (string) $value : $defaultValue;
     }
 }
