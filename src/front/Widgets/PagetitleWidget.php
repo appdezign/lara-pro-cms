@@ -48,10 +48,9 @@ class PagetitleWidget extends AbstractWidget
 
         if (! empty($activemenu)) {
             if (count($activemenu) > 1) {
-                // get second to last item (= level one)
-                $menulevelone = $activemenu[count($activemenu) - 2];
+                // get  level one)
+                $menulevelone = $activemenu[count($activemenu) - 1];
             } else {
-                // home
                 $menulevelone = $activemenu[0];
             }
             $menucurrent = $activemenu[0];
