@@ -66,9 +66,11 @@ use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Admin\Livewire\LaraProfile;
 use Lara\Admin\Pages\LaraHealthCheckResults;
 use Lara\Admin\Widgets\Analytics;
+use Lara\Admin\Providers\LaraLogProvider;
 use Lara\Common\Http\Controllers\Auth\Filament\Login;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
+use AchyutN\FilamentLogViewer\FilamentLogViewer;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -114,6 +116,16 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 GoogleAnalyticsPlugin::make(),
+                FilamentLogViewer::make()
+                    ->providerClass(LaraLogProvider::class)
+                    ->authorize(fn () => Auth::user()->hasRole('superadmin'))
+                    ->registerNavigation(true)
+                    ->navigationGroup('Tools')
+                    ->navigationIcon('')
+                    ->navigationLabel('Logs')
+                    ->navigationSort(999)
+                    ->navigationUrl('/logs')
+                    ->pollingTime(null),
                 VersionsPlugin::make()
                     ->hasNavigationView(false)
                     ->widgetColumnSpan('full')
