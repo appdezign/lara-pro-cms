@@ -1227,6 +1227,54 @@ class LaraLaraAuthPermissionsTableSeeder extends Seeder
                 'created_at' => '2025-12-17 19:17:03',
                 'updated_at' => '2025-12-17 19:17:03',
             ),
+            151 =>
+            array (
+                'id' => 262,
+                'name' => 'view_any_customblog',
+                'guard_name' => 'web',
+                'created_at' => '2026-10-10 13:58:21',
+                'updated_at' => '2026-10-10 13:58:21',
+            ),
+            152 =>
+            array (
+                'id' => 263,
+                'name' => 'view_customblog',
+                'guard_name' => 'web',
+                'created_at' => '2026-10-10 13:58:21',
+                'updated_at' => '2026-10-10 13:58:21',
+            ),
+            153 =>
+            array (
+                'id' => 264,
+                'name' => 'create_customblog',
+                'guard_name' => 'web',
+                'created_at' => '2026-10-10 13:58:21',
+                'updated_at' => '2026-10-10 13:58:21',
+            ),
+            154 =>
+            array (
+                'id' => 265,
+                'name' => 'update_customblog',
+                'guard_name' => 'web',
+                'created_at' => '2026-10-10 13:58:21',
+                'updated_at' => '2026-10-10 13:58:21',
+            ),
+            155 =>
+            array (
+                'id' => 266,
+                'name' => 'delete_customblog',
+                'guard_name' => 'web',
+                'created_at' => '2026-10-10 13:58:21',
+                'updated_at' => '2026-10-10 13:58:21',
+            ),
+            156 =>
+            array (
+                'id' => 267,
+                'name' => 'delete_any_customblog',
+                'guard_name' => 'web',
+                'created_at' => '2026-10-10 13:58:21',
+                'updated_at' => '2026-10-10 13:58:21',
+            ),
         ));
 
 

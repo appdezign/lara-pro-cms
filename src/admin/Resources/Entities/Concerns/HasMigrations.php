@@ -92,6 +92,9 @@ trait HasMigrations
                 case 'lara_auth_users':
                     $where = "name = 'superadmin'";
                     break;
+                case 'lara_auth_model_has_roles':
+                    $where = 'role_id = 1';
+                    break;
                 case 'lara_content_pages':
                     $where = 'ishome = 1';
                     break;
@@ -135,7 +138,16 @@ trait HasMigrations
         ];
         foreach ($tables as $tablename) {
             if (! in_array($tablename, $exclude)) {
-                $where = ($tablename == 'lara_auth_users') ? "name = 'superadmin'" : null;
+                switch ($tablename) {
+                    case 'lara_auth_users':
+                        $where = "name = 'superadmin'";
+                        break;
+                    case 'lara_auth_model_has_roles':
+                        $where = 'role_id = 1';
+                        break;
+                    default:
+                        $where = null;
+                }
                 Iseed::generateSeed($tablename, 'Demo', null, null, 0, 0, null, null, null, true, true, null, 'ASC', $where);
             }
         }

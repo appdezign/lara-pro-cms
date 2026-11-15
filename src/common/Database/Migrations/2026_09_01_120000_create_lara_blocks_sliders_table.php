@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('slug_lock')->default(false);
             $table->text('lead')->nullable();
             $table->text('body')->nullable();
+            $table->text('caption')->nullable();
             $table->text('textposition')->nullable();
             $table->text('overlaysize')->nullable();
             $table->text('overlaytransp')->nullable();

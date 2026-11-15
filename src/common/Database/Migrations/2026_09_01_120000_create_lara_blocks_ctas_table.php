@@ -35,6 +35,8 @@ return new class extends Migration
             $table->timestamp('publish_to')->nullable();
             $table->unsignedInteger('position')->nullable();
             $table->string('cgroup')->nullable();
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('lara_blocks_ctas_locked_by_foreign');
         });
     }
 
