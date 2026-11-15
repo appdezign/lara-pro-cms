@@ -679,6 +679,26 @@ class LaraLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
+            33 =>
+            array (
+                'id' => 167,
+                'entity_id' => 42,
+                'title' => 'caption',
+                'field_hook' => 'after-last',
+                'field_type' => 'text',
+                'field_name' => 'caption',
+                'field_name_temp' => NULL,
+                'field_options' => NULL,
+                'is_required' => 0,
+                'is_filter' => 0,
+                'show_in_list' => 0,
+                'conditional' => 1,
+                'rule_state' => 'enabledif',
+                'rule_field' => 'type',
+                'rule_operator' => 'isequal',
+                'rule_value' => 'caption',
+                'sort_order' => 115,
+            ),
         ));
 
 
