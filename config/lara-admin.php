@@ -2,6 +2,7 @@
 
 use Lara\Admin\Components\CustomBlocks\HeroBlock;
 use Lara\App\Filament\Components\CustomBlocks\Hero2Block;
+use Lara\App\Legacy\Navigation\LegacyNavigation;
 
 return [
 
@@ -9,11 +10,13 @@ return [
      * Classes implementing Lara\Admin\Contracts\PanelExtension, which add navigation items
      * and routes to the admin panel (e.g. a site's legacy, non-Livewire admin pages).
      */
-    'panel_extensions' => [],
+    'panel_extensions' => [
+        LegacyNavigation::class,
+    ],
 
     'filarank' => [
-        'section_collapsed' => true,
-        'show_in_table' => false,
+        'section_collapsed' => false,
+        'show_in_table' => true,
     ],
 
     'rich_editor' => [
