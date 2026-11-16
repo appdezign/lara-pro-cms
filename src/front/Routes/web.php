@@ -74,28 +74,6 @@ if (! $laraNeedsSetup) {
             }
         }
 
-        // 404
-        // Route::get('/{route}', 'Error\ErrorController@show')->name('error.show.404');
-
-        // redirects
-        /* TODO: Redirects
-        $redirects = Redirect::langIs($locale)->isPublished()->where('has_error', 0)->get();
-
-        foreach ($redirects as $redirect) {
-            $from = $redirect->redirectfrom;
-            $to = $redirect->redirectto;
-            $check = MenuItem::langIs($locale)->where('route', $from)->first();
-            if ($check) {
-                // ignore redirect
-                $redirect->has_error = 1;
-                $redirect->save();
-            } else {
-                Route::get($from, 'Special\FrontRedirectorController@process')
-                    ->name($to);
-            }
-        }
-        */
-
     });
 
     // API for Pages and Blocks

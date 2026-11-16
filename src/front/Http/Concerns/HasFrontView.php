@@ -29,11 +29,6 @@ trait HasFrontView
         return $this->frontViewResolver()->getFrontViewFile($entity, $activeroute);
     }
 
-    private function checkThemeViewFile(object $entity, string $viewpath): bool
-    {
-        return $this->frontViewResolver()->checkThemeViewFile($entity, $viewpath);
-    }
-
     private function getDefaultThemeLayout()
     {
         return $this->frontViewResolver()->getDefaultThemeLayout();

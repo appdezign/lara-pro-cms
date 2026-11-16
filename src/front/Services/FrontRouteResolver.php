@@ -131,7 +131,11 @@ final class FrontRouteResolver
     {
         $listRoute = $this->getEntityListRoute($entity, $activeroute);
 
-        return $listRoute ? redirect()->route($listRoute) : redirect(route('error.show.404', '404'));
+        if (! $listRoute) {
+            abort(404);
+        }
+
+        return redirect()->route($listRoute);
     }
 
     /**
@@ -166,7 +170,7 @@ final class FrontRouteResolver
                 if (Auth::check()) {
                     return false;
                 } else {
-                    return redirect(route('error.show.404', '404'));
+                    abort(404);
                 }
             }
 
@@ -211,7 +215,11 @@ final class FrontRouteResolver
         }
 
         // this is a preview page, check if user is logged in
-        return Auth::check() ? true : redirect(route('error.show.404', '404'));
+        if (! Auth::check()) {
+            abort(404);
+        }
+
+        return true;
 
     }
 }

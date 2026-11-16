@@ -565,7 +565,7 @@ class LaraLaraSysSettingsTableSeeder extends Seeder
                 'title' => 'Company 2FA App Name',
                 'cgroup' => 'company',
                 'key' => 'company_2fa_app_name',
-                'value' => 'Lara CMS 8',
+                'value' => 'Lara CMS',
                 'locked_by_admin' => 0,
                 'position' => 135,
                 'created_at' => '2025-01-17 13:36:28',
