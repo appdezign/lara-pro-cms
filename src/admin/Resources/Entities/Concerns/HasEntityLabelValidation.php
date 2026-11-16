@@ -3,6 +3,7 @@
 namespace Lara\Admin\Resources\Entities\Concerns;
 
 use Closure;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Lara\Common\Entities\EntityLabel;
 use Lara\Common\Models\Entity;
@@ -80,7 +81,9 @@ trait HasEntityLabelValidation
             return;
         }
 
-        if (class_exists('Lara\\App\\Models\\'.ucfirst($label))) {
+        // checked on disk: with the optimized autoloader, a deleted model is still in Composer's
+        // class map, and class_exists() would then try to include the missing file and throw
+        if (File::exists(base_path('laracms/app/Models/'.ucfirst($label).'.php'))) {
             $fail('A model class for "'.ucfirst($label).'" already exists. Generating it again would overwrite it.');
         }
     }
