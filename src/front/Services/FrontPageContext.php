@@ -95,7 +95,7 @@ final class FrontPageContext
 
                 if ($entity) {
 
-                    if ($entity->resource_slug == 'page') {
+                    if ($entity->resource_slug == 'pages') {
 
                         // The Page entity has no index method,
                         // so we should have an object here
@@ -177,7 +177,7 @@ final class FrontPageContext
 
                 if ($entity) {
 
-                    if ($entity->resource_slug == 'page') {
+                    if ($entity->resource_slug == 'pages') {
 
                         // find page in menu
                         if ($sibling) {
