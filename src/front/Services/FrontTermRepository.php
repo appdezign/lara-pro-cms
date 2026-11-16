@@ -3,7 +3,6 @@
 namespace Lara\Front\Services;
 
 use Cache;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Lara\Common\Models\Tag;
 use Lara\Common\Models\Taxonomy;
@@ -16,69 +15,6 @@ use stdClass;
  */
 final class FrontTermRepository
 {
-    /**
-     * @return array|mixed
-     *
-     * @throws BindingResolutionException
-     */
-    private function getAllTags(string $language, object $entity, $activetag = false)
-    {
-
-        $tags = new stdClass;
-
-        if ($activetag) {
-            $taxonomies = Taxonomy::where('id', $activetag->taxonomy_id)->get();
-        } else {
-            $taxonomies = Taxonomy::get();
-        }
-
-        foreach ($taxonomies as $taxonomy) {
-
-            $key = $taxonomy->slug;
-
-            if ($entity->hasTags()) {
-
-                $root = Tag::langIs($language)
-                    ->resourceIs($entity->getResourceSlug())
-                    ->taxonomyIs($taxonomy->id)
-                    ->whereNull('parent_id')
-                    ->first();
-
-                if (empty($root)) {
-
-                    Tag::create([
-                        'language' => $language,
-                        'resource_slug' => $entity->getResourceSlug(),
-                        'taxonomy_id' => $taxonomy->id,
-                        'title' => 'root',
-                        'slug' => null,
-                        'body' => '',
-                        'lead' => '',
-                    ]);
-                }
-
-                if ($activetag) {
-
-                    // get subtree
-                    $tags->$key = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomy->id])
-                        ->defaultOrder()
-                        ->descendantsOf($activetag->id)
-                        ->toTree();
-
-                } else {
-                    // get full tree
-                    $tags->$key = Tag::scoped(['resource_slug' => $entity->getResourceSlug(), 'language' => $language, 'taxonomy_id' => $taxonomy->id])
-                        ->defaultOrder()
-                        ->get()
-                        ->toTree();
-                }
-            }
-        }
-
-        return $tags;
-
-    }
-
     /**
      * @return void|null
      */
