@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ NAMESPACE }};
+
+use Lara\App\Http\Controllers\Front\Base\AppFormController;
+use Lara\App\Models\{{ MODEL }};
+
+class {{ CLASS }} extends AppFormController
+{
+    /**
+     * @var string
+     */
+    protected $emailSubject;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->emailSubject = 'This is my brand new subject';
+
+    }
+
+    protected function make(): {{ MODEL }}
+    {
+        return {{ MODEL }}::create();
+    }
+
+}
