@@ -3,12 +3,10 @@
 namespace Lara\Front\Http\Controllers\Error;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
-use Illuminate\View\View;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Page;
 use Lara\Front\Http\Concerns\HasError;
@@ -49,67 +47,79 @@ class ErrorController extends Controller
 
     public function __construct()
     {
-
-        // get language
-        $this->language = LaravelLocalization::getCurrentLocale();
-
         $this->data = new stdClass;
-
-        // only when handling a matched HTTP request: there is no route to read
-        // in console, queue or test-bootstrap contexts
-        if (Route::current() !== null) {
-
-            // get route name
-            $this->routename = Route::current()->getName();
-
-            $this->ispreview = $this->isPreview($this->routename);
-
-            // get Page entity
-            $this->entity = $this->getResourceBySlug('pages');
-
-            // get active route
-            $this->activeroute = $this->getLaraActiveRoute($this->routename);
-
-            // get default seo
-            $this->data->seo = $this->getDefaultSeo($this->language);
-
-            // get default layout
-            $this->data->layout = $this->getDefaultThemeLayout();
-
-            // get entity routes from menu
-            $this->data->eroutes = $this->getMenuEntityRoutes($this->language);
-
-            // get global widgets
-            $this->globalwidgets = $this->getGlobalWidgets($this->language);
-
-            // get global settings
-            $this->globalsettings = $this->getGlobalSettings();
-
-            // share data with all views, see: https://goo.gl/Aqxquw
-            $this->middleware(function ($request, $next) {
-                view()->share('entity', $this->entity);
-                view()->share('activeroute', $this->activeroute);
-                view()->share('language', $this->language);
-                view()->share('ispreview', $this->ispreview);
-                view()->share('globalwidgets', $this->globalwidgets);
-                view()->share('globalsettings', $this->globalsettings);
-                view()->share('activemenu', $this->getActiveMenuArray());
-                view()->share('firstpageload', $this->getFirstPageLoad());
-
-                return $next($request);
-            });
-        }
-
     }
 
     /**
-     * @return Application|Factory|View
+     * The error route (error.show.{code}), which is also the front catch-all for unknown URLs.
      */
-    public function show(Request $request)
+    public function show(Request $request): Response|RedirectResponse
     {
+        $this->prepare(Route::current()->getName());
 
-        // get Error ID
-        $errorId = $this->getErrorIdFromRoutename($this->routename);
+        return $this->renderErrorPage($this->getErrorIdFromRoutename($this->routename), $request);
+    }
+
+    /**
+     * Render the 404 page on the requested URL, for a 404 raised anywhere in the front
+     * (a missing object, an abort(404)). Called by the exception renderer that
+     * LaraFrontServiceProvider registers.
+     */
+    public function renderNotFound(Request $request): Response|RedirectResponse
+    {
+        $this->prepare('error.show.404');
+
+        return $this->renderErrorPage('404', $request);
+    }
+
+    /**
+     * Set up the page data and share it with the views.
+     *
+     * This runs in the action, not in the constructor: the constructor has no
+     * session yet, and the exception renderer needs the setup for the error
+     * route, not for the route that was matched.
+     */
+    private function prepare(string $routename): void
+    {
+        $this->language = LaravelLocalization::getCurrentLocale();
+
+        $this->routename = $routename;
+
+        $this->ispreview = $this->isPreview($this->routename);
+
+        // get Page entity
+        $this->entity = $this->getResourceBySlug('pages');
+
+        // get active route
+        $this->activeroute = $this->getLaraActiveRoute($this->routename);
+
+        // get default seo
+        $this->data->seo = $this->getDefaultSeo($this->language);
+
+        // get default layout
+        $this->data->layout = $this->getDefaultThemeLayout();
+
+        // get entity routes from menu
+        $this->data->eroutes = $this->getMenuEntityRoutes($this->language);
+
+        // get global widgets
+        $this->globalwidgets = $this->getGlobalWidgets($this->language);
+
+        // get global settings
+        $this->globalsettings = $this->getGlobalSettings();
+
+        view()->share('entity', $this->entity);
+        view()->share('activeroute', $this->activeroute);
+        view()->share('language', $this->language);
+        view()->share('ispreview', $this->ispreview);
+        view()->share('globalwidgets', $this->globalwidgets);
+        view()->share('globalsettings', $this->globalsettings);
+        view()->share('activemenu', $this->getActiveMenuArray());
+        view()->share('firstpageload', $this->getFirstPageLoad());
+    }
+
+    protected function renderErrorPage(string $errorId, Request $request): Response|RedirectResponse
+    {
 
         // get params
         $this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
@@ -131,9 +141,19 @@ class ErrorController extends Controller
 
         $viewfile = '_error.'.$errorId;
 
-        return view($viewfile, [
+        return response()->view($viewfile, [
             'data' => $this->data,
-        ]);
+        ], $this->getErrorStatus($errorId));
 
+    }
+
+    /**
+     * The HTTP status for an error page: its code when that is an error status, otherwise 404.
+     */
+    private function getErrorStatus(string $errorId): int
+    {
+        $status = (int) $errorId;
+
+        return ($status >= 400 && $status < 600) ? $status : 404;
     }
 }

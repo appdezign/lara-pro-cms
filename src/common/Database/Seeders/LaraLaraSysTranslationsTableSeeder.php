@@ -11073,6 +11073,30 @@ class LaraLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2026-10-02 17:37:58',
                 'updated_at' => '2026-10-02 17:37:58',
             ),
+            421 =>
+            array (
+                'id' => 2809,
+                'language' => 'en',
+                'module' => 'lara-front',
+                'resource' => 'default',
+                'tag' => 'headers',
+                'key' => 'contact_form',
+                'value' => 'get in touch',
+                'created_at' => '2026-11-16 18:00:00',
+                'updated_at' => '2026-11-16 18:00:00',
+            ),
+            422 =>
+            array (
+                'id' => 2810,
+                'language' => 'nl',
+                'module' => 'lara-front',
+                'resource' => 'default',
+                'tag' => 'headers',
+                'key' => 'contact_form',
+                'value' => 'neem contact op',
+                'created_at' => '2026-11-16 18:00:00',
+                'updated_at' => '2026-11-16 18:00:00',
+            ),
         ));
 
 

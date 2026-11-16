@@ -3,9 +3,6 @@
 namespace Lara\Front\Services;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Application;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -31,7 +28,9 @@ final class FrontObjectRepository
     ) {}
 
     /**
-     * @return RedirectResponse|Redirector|mixed
+     * A missing object is a 404, rendered as the CMS error page on the requested URL.
+     *
+     * @return mixed
      */
     public function getSingleFrontObject(string $language, object $entity, string $slug)
     {
@@ -61,16 +60,16 @@ final class FrontObjectRepository
 
         $object = $collection->first();
 
-        if ($object) {
-            return $object;
-        } else {
-            return redirect()->route('error.show.404', '404');
+        if (! $object) {
+            abort(404);
         }
+
+        return $object;
 
     }
 
     /**
-     * @return Application|RedirectResponse|Redirector|int|object|null
+     * @return int|string
      */
     public function getPageObjectId(?int $id, FrontActiveRoute $activeroute)
     {
@@ -83,7 +82,7 @@ final class FrontObjectRepository
             if (! empty($activeroute->getObjectId())) {
                 return $activeroute->getObjectId();
             } else {
-                return redirect(route('error.show.404', '404'))->send();
+                abort(404);
             }
         }
     }
@@ -418,7 +417,8 @@ final class FrontObjectRepository
     /**
      * Get all the default SEO values
      *
-     * The default SEO values are set on the home page
+     * The default SEO values are set on the home page. A language without a
+     * home page falls back to the filarank config values.
      *
      * @return stdClass
      */
@@ -426,33 +426,34 @@ final class FrontObjectRepository
     {
 
         $object = $this->getHomePageObject($language);
+        $seo = $object?->seo;
 
         $data = new stdClass;
 
         $config = config('filarank');
         $data->config = $config;
 
-        $data->title = $object->seo->title ?? $config['site']['name'];
+        $data->title = $seo->title ?? $config['site']['name'];
         $data->fullTitle = $data->title === $config['site']['name']
             ? $data->title
             : $data->title.$config['site']['title_separator'].$config['site']['name'];
 
-        $data->description = $object->seo->description ?? $config['site']['description'];
-        $data->url = $object->seo->canonical_url ?? url()->current();
+        $data->description = $seo->description ?? $config['site']['description'];
+        $data->url = $seo->canonical_url ?? url()->current();
 
-        if ($object->hasFeatured()) {
+        if ($object?->hasFeatured()) {
             $data->image = glideUrl($object->featured()->path, 1200, 630);
         } else {
-            $data->image = $object->seo->og_image ?? $config['site']['og_image'];
+            $data->image = $seo->og_image ?? $config['site']['og_image'];
         }
 
         $data->robots = array_filter([
-            ($object->seo->noindex ?? false) ? 'noindex' : null,
-            ($object->seo->nofollow ?? false) ? 'nofollow' : null,
+            ($seo->noindex ?? false) ? 'noindex' : null,
+            ($seo->nofollow ?? false) ? 'nofollow' : null,
         ]);
 
         $data->jsonLd = $config['render']['json_ld']
-            ? JsonLd::for($object, $object->seo, $data->title, $data->description, $data->url, $data->image)
+            ? JsonLd::for($object, $seo, $data->title, $data->description, $data->url, $data->image)
             : null;
 
         return $data;

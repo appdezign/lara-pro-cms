@@ -4,6 +4,7 @@ namespace Lara\Admin\Concerns;
 
 use Binafy\LaravelStub\Facades\LaravelStub;
 use Closure;
+use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -137,6 +138,8 @@ trait HasLaraBuilder
                 ->warning()
                 ->send();
         }
+
+        static::clearPanelComponentCache();
 
         return true;
     }
@@ -324,7 +327,28 @@ trait HasLaraBuilder
             ]);
         }
 
+        static::clearPanelComponentCache();
+
         return true;
+    }
+
+    /**
+     * Remove Filament's component cache (filament:optimize, run on every composer install), so
+     * the panels discover their resources from disk again: a new entity's resource is listed,
+     * and a deleted entity's resource is no longer loaded from the cache (its class is gone).
+     */
+    private static function clearPanelComponentCache(): void
+    {
+        foreach (Filament::getPanels() as $panel) {
+            try {
+                $panel->clearCachedComponents();
+            } catch (Throwable $e) {
+                Log::error('lara builder: could not clear the Filament component cache', [
+                    'panel' => $panel->getId(),
+                    'exception' => $e,
+                ]);
+            }
+        }
     }
 
     /**

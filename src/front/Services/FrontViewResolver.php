@@ -2,7 +2,6 @@
 
 namespace Lara\Front\Services;
 
-use Illuminate\Support\Facades\File;
 use Lara\Front\Http\Lara\FrontActiveRoute;
 use Lara\Front\LaraTheme\Theme;
 use stdClass;
@@ -46,36 +45,11 @@ final class FrontViewResolver
         if ($view) {
             $viewfile = $view->filename;
             $viewpath = 'content.'.$entity->getResourceSlug().'.'.$viewfile;
-            $this->checkThemeViewFile($entity, $viewpath);
 
             return $viewpath;
         } else {
             return null;
         }
-
-    }
-
-    /**
-     * @return void
-     */
-    public function checkThemeViewFile(object $entity, string $viewpath): bool
-    {
-
-        $result = false;
-
-        if (config('app.env') != 'production') {
-            $ds = DIRECTORY_SEPARATOR;
-            $themeBasePath = config('theme.base_path');
-            if (! view()->exists($viewpath)) {
-                $defaultViewPath = config('theme.parent');
-                $clientViewPath = config('theme.active');
-                $srcDir = $themeBasePath.$ds.$defaultViewPath.$ds.'views'.$ds.'content'.$ds.'_templates'.$ds.$entity->getCgroup();
-                $destDir = $themeBasePath.$ds.$clientViewPath.$ds.'views'.$ds.'content'.$ds.$entity->getResourceSlug().$ds;
-                $result = File::copyDirectory($srcDir, $destDir);
-            }
-        }
-
-        return $result;
 
     }
 
