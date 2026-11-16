@@ -192,12 +192,14 @@ trait HasLaraBuilder
         $appPath = base_path('laracms/app/');
         $resourceDirPath = $appPath.'Filament/Resources/'.$modelNamePlural;
 
+        $controllerPath = 'Http/Controllers/Front/'.static::getFrontControllerDir($entity);
+
         return [
             'files' => [
                 $appPath.'Models/'.$modelNameSingle.'.php',
                 $appPath.'Entities/'.$modelNamePlural.'Entity.php',
                 $appPath.'Policies/'.$modelNameSingle.'Policy.php',
-                $appPath.'Http/Controllers/Front/Entity/'.$modelNamePlural.'Controller.php',
+                $appPath.$controllerPath.'/'.$modelNamePlural.'Controller.php',
                 $appPath.'Database/Factories/'.$modelNameSingle.'Factory.php',
                 $resourceDirPath.'/'.$modelNameSingle.'Resource.php',
             ],
@@ -208,11 +210,22 @@ trait HasLaraBuilder
                 $appPath.'Models',
                 $appPath.'Entities',
                 $appPath.'Policies',
-                $appPath.'Http/Controllers/Front/Entity',
+                $appPath.$controllerPath,
                 $appPath.'Database/Factories',
                 $appPath.'Filament/Resources',
             ],
         ];
+    }
+
+    /**
+     * The folder under Http/Controllers/Front that holds the entity's front controller.
+     *
+     * Front routes dispatch forms to Front\Form and all other entities to Front\Entity,
+     * so both the path and the namespace of the generated controller follow from this.
+     */
+    private static function getFrontControllerDir(Entity $entity): string
+    {
+        return $entity->cgroup == 'form' ? 'Form' : 'Entity';
     }
 
     /**
@@ -439,7 +452,10 @@ trait HasLaraBuilder
 
         // LaravelStub::generate() throws when the destination folder is missing
         // rather than creating it, so make sure each stub target exists
-        foreach (['Models', 'Entities', 'Policies', 'Http/Controllers/Front/Entity'] as $stubTarget) {
+        $controllerDir = static::getFrontControllerDir($entity);
+        $controllerPath = 'Http/Controllers/Front/'.$controllerDir;
+
+        foreach (['Models', 'Entities', 'Policies', $controllerPath] as $stubTarget) {
             $stubTargetPath = $toPath.$stubTarget;
             if (! File::isDirectory($stubTargetPath)) {
                 File::makeDirectory($stubTargetPath, recursive: true);
@@ -474,13 +490,12 @@ trait HasLaraBuilder
 
         // stub - frontend controller
         $controllerStub = ($isForm) ? 'formfrontcontroller.stub' : 'frontcontroller.stub';
-        $entityPath = ($isForm) ? 'Http/Controllers/Front/Form' : 'Http/Controllers/Front/Entity';
         LaravelStub::from($fromPath.$controllerStub)
-            ->to($toPath . $entityPath)
+            ->to($toPath.$controllerPath)
             ->name($modelNamePlural.'Controller')
             ->ext('php')
             ->replaces([
-                'NAMESPACE' => 'Lara\App\Http\Controllers\Front\Entity',
+                'NAMESPACE' => 'Lara\App\Http\Controllers\Front\\'.$controllerDir,
                 'CLASS' => $modelNamePlural.'Controller',
                 'MODEL' => $modelNameSingle,
             ])
