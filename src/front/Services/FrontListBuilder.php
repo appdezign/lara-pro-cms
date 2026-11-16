@@ -610,7 +610,7 @@ final class FrontListBuilder
             $method = $activeroute->getMethod();
             if (empty($method)) {
                 // set default method
-                $method = ($entity->resource_slug == 'page') ? 'show' : 'index';
+                $method = ($entity->resource_slug == 'pages') ? 'show' : 'index';
             }
 
             // get view
