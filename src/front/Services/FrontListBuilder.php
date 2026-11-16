@@ -336,20 +336,28 @@ final class FrontListBuilder
         $tree = $this->getEntityTerms($language, $entity, $activetag);
         $objects = $collection->get();
 
-        foreach ($tree as $taxonomy) {
+        // add the objects to every tag in the tree, with two counts per tag:
+        // objectcount (the tag itself) and childobjectcount (the tag and every tag below it),
+        // so a view can skip the tags that have no objects in themselves or below
+        $attachObjects = function ($nodes) use (&$attachObjects, $objects, $menutaxonomy): int {
+            $total = 0;
+
+            foreach ($nodes as $node) {
+                $tagObjects = $objects->filter(fn ($object) => $object->terms->contains($node->id))->values();
+
+                $node->objects = $this->prepareRouteVars($tagObjects, $menutaxonomy);
+                $node->objectcount = $node->objects->count();
+                $node->childobjectcount = $node->objectcount + $attachObjects($node->children);
+
+                $total += $node->childobjectcount;
+            }
+
+            return $total;
+        };
+
+        foreach ($tree ?? [] as $taxonomy) {
             if ($taxonomy) {
-                foreach ($taxonomy as $node) {
-                    $tagObjects = collect();
-                    foreach ($objects as $object) {
-                        if ($object->terms->contains($node->id)) {
-                            $tagObjects->add($object);
-                        }
-                    }
-
-                    $tagObjects = $this->prepareRouteVars($tagObjects, $menutaxonomy);
-
-                    $node->objects = $tagObjects;
-                }
+                $attachObjects($taxonomy);
             }
         }
 
@@ -436,100 +444,6 @@ final class FrontListBuilder
 
         return $collection->get();
 
-    }
-
-    /**
-     * Get all objects for one specific tag
-     * The objects are added to the tag tree (nested set)
-     *
-     * @return int
-     */
-    private function getTagObjects(object $node, object $entity, string $language, bool $isGrid, $menutaxonomy = null)
-    {
-
-        $totalcount = 0;
-
-        // get objects for this tag (skip root tag)
-
-        $termId = $node->id;
-
-        // start collection
-        $collection = $entity->getEntityModelClass()::langIs($language)
-            ->isPublished()
-            ->when(($isGrid && $entity->getResourceSlug() != 'video'), function ($query) {
-                return $query->has('images');
-            });
-
-        $collection = $collection->whereHas('terms', function ($query) use ($termId) {
-            $query->where(config('lara-common.database.object.terms').'.id', $termId);
-        });
-
-        if ($entity->hasHideinlist()) {
-            $collection = $collection->where('publish_hide', 0);
-        }
-
-        if (method_exists($entity->getEntityModelClass(), 'scopeFront')) {
-            $collection = $collection->front();
-        }
-
-        // eager loading: user
-        if ($entity->showAuthor()) {
-            $collection = $collection->with('user');
-        }
-
-        // eager loading: media
-        if ($entity->hasImages()) {
-            $collection = $collection->with('images');
-        }
-
-        // eager loading: files
-        if ($entity->hasFiles() == 1) {
-            $collection = $collection->with('files');
-        }
-
-        // OrderBy
-        if ($entity->getPrimarySortField()) {
-            $collection = $collection->orderBy($entity->getPrimarySortField(), $entity->getPrimarySortOrder());
-        }
-        if ($entity->getSecondarySortField()) {
-            $collection = $collection->orderBy($entity->getSecondarySortField(), $entity->getSecondarySortOrder());
-        }
-
-        // get the collection
-        $objects = $collection->get();
-
-        // add object collection to node
-        $node->objects = $objects;
-
-        // add objectcount to node
-        $node->objectcount = $node->objects->count();
-
-        // prepare route variables (master > detail)
-        foreach ($node->objects as $obj) {
-            if ($menutaxonomy) {
-                $obj->routeVars = ['slug' => $obj->slug, $menutaxonomy->taxonomy->slug => $menutaxonomy->slug];
-            } else {
-                $obj->routeVars = ['slug' => $obj->slug];
-            }
-        }
-
-        // add objectcount from this tag to totalcount
-        $totalcount = $node->objectcount;
-
-        if (! $node->isLeaf()) {
-            foreach ($node->children as $child) {
-                $childobjectcount = $this->getTagObjects($child, $entity, $language, $isGrid, $menutaxonomy);
-
-                // add child count to total count
-                $totalcount = $totalcount + $childobjectcount;
-
-            }
-        }
-
-        // add totalcount to node
-        $node->childobjectcount = $totalcount;
-
-        return $totalcount;
     }
 
     private function getPrevNextCollection(string $language, object $entity, FrontActiveRoute $activeroute, ?Tag $menutaxonomy = null, ?FrontParams $params = null, $reverse = false)
