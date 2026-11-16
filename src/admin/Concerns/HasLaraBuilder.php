@@ -474,8 +474,9 @@ trait HasLaraBuilder
 
         // stub - frontend controller
         $controllerStub = ($isForm) ? 'formfrontcontroller.stub' : 'frontcontroller.stub';
+        $entityPath = ($isForm) ? 'Http/Controllers/Front/Form' : 'Http/Controllers/Front/Entity';
         LaravelStub::from($fromPath.$controllerStub)
-            ->to($toPath.'Http/Controllers/Front/Entity')
+            ->to($toPath . $entityPath)
             ->name($modelNamePlural.'Controller')
             ->ext('php')
             ->replaces([
