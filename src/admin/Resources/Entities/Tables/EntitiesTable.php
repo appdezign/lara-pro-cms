@@ -8,11 +8,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Lara\Admin\Concerns\HasLaraBuilder;
 use Lara\Admin\Enums\EntityGroup;
 use Lara\Admin\Resources\Entities\EntityResource;
+use Lara\Common\Models\Entity;
 
 class EntitiesTable
 {
+    use HasLaraBuilder;
+
     private static function rs(): EntityResource
     {
         $class = EntityResource::class;
@@ -48,11 +52,9 @@ class EntitiesTable
                 EditAction::make()->label(''),
                 DeleteAction::make()
                     ->label('')
-                    ->disabled(function ($record) {
-                        $entityModelClass = $record->model_class;
-
-                        return $entityModelClass::count() > 0;
-                    }),
+                    ->modalDescription('This also removes the generated code and the empty table.')
+                    ->using(fn (Entity $record): bool => static::deleteEntity($record))
+                    ->after(fn () => session(['laracacheclear' => ['response_cache', 'route_cache']])),
             ])
             ->bulkActions([])
             ->modifyQueryUsing(function ($query) {

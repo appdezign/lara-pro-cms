@@ -2,16 +2,21 @@
 
 namespace Lara\Admin\Resources\Forms\Tables;
 
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Lara\Admin\Concerns\HasLaraBuilder;
 use Lara\Admin\Enums\FormGroup;
 use Lara\Admin\Resources\Forms\FormResource;
+use Lara\Common\Models\Entity;
 
 class FormsTable
 {
+    use HasLaraBuilder;
+
     private static function rs(): FormResource
     {
         $class = FormResource::class;
@@ -45,6 +50,11 @@ class FormsTable
             ->deferFilters(false)
             ->actions([
                 EditAction::make()->label(''),
+                DeleteAction::make()
+                    ->label('')
+                    ->modalDescription('This also removes the generated code and the empty table.')
+                    ->using(fn (Entity $record): bool => static::deleteEntity($record))
+                    ->after(fn () => session(['laracacheclear' => ['response_cache', 'route_cache']])),
             ])
             ->bulkActions([])
             ->modifyQueryUsing(function ($query) {

@@ -18,6 +18,10 @@ use Lara\Common\Entities\EntityFieldName;
 use Lara\Common\Entities\EntityLabel;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityCustomField;
+use Lara\Common\Models\EntityRelation;
+use Lara\Common\Models\LaraWidget;
+use Lara\Common\Models\MenuItem;
+use Lara\Common\Models\Tag;
 use RuntimeException;
 use Throwable;
 
@@ -211,6 +215,162 @@ trait HasLaraBuilder
         ];
     }
 
+    /**
+     * Delete an entity with everything createEntity() generated for it: its files and its table.
+     *
+     * Only an entity that nothing depends on any more can be deleted (see assertEntityCanBeDeleted()).
+     * The files are moved aside and the table renamed first, so both can be put back when a later
+     * step fails; they are removed for good only after the entity row is gone.
+     */
+    private static function deleteEntity(Entity $entity): bool
+    {
+        try {
+            static::assertEntityCanBeDeleted($entity);
+        } catch (Throwable $e) {
+            static::notifyBuildFailure('The entity "'.$entity->title.'" cannot be deleted', $e, changesUndone: false);
+
+            return false;
+        }
+
+        $tablename = static::getEntityTableName($entity);
+        $parkedTablename = 'lara_deleted_'.$entity->getKey().'_'.time();
+        $paths = static::getGeneratedPaths($entity);
+        $parkingPath = storage_path('app/lara-builder/deleted-'.$entity->resource_slug.'-'.time());
+        $movedPaths = [];
+
+        try {
+            static::runSchemaSteps([
+                [
+                    function () use ($paths, $parkingPath, &$movedPaths) {
+                        File::ensureDirectoryExists($parkingPath);
+                        // a file inside one of the directories moves along with that directory
+                        $files = array_filter($paths['files'], function (string $file) use ($paths): bool {
+                            foreach ($paths['directories'] as $directory) {
+                                if (str_starts_with($file, $directory.'/')) {
+                                    return false;
+                                }
+                            }
+
+                            return true;
+                        });
+
+                        foreach ([...array_values($files), ...$paths['directories']] as $index => $path) {
+                            if (! File::exists($path)) {
+                                continue;
+                            }
+                            $parkedPath = $parkingPath.'/'.$index.'-'.basename($path);
+                            if (! rename($path, $parkedPath)) {
+                                throw new RuntimeException('Could not remove '.$path);
+                            }
+                            $movedPaths[$path] = $parkedPath;
+                        }
+                    },
+                    function () use (&$movedPaths) {
+                        foreach ($movedPaths as $path => $parkedPath) {
+                            rename($parkedPath, $path);
+                        }
+                    },
+                ],
+                [
+                    function () use ($tablename, $parkedTablename) {
+                        if (Schema::hasTable($tablename)) {
+                            Schema::rename($tablename, $parkedTablename);
+                        }
+                    },
+                    function () use ($tablename, $parkedTablename) {
+                        if (Schema::hasTable($parkedTablename)) {
+                            Schema::rename($parkedTablename, $tablename);
+                        }
+                    },
+                ],
+                [
+                    function () use ($entity) {
+                        if (! $entity->delete()) {
+                            throw new RuntimeException('The entity row could not be deleted.');
+                        }
+                    },
+                    null,
+                ],
+            ]);
+        } catch (Throwable $e) {
+            File::deleteDirectory($parkingPath);
+            static::notifyBuildFailure('The entity "'.$entity->title.'" could not be deleted', $e);
+
+            return false;
+        }
+
+        // the entity is gone; what is left to clean up can no longer be undone, only reported
+        try {
+            Schema::dropIfExists($parkedTablename);
+            File::deleteDirectory($parkingPath);
+        } catch (Throwable $e) {
+            Log::error('lara builder: cleanup after deleting entity failed', [
+                'table' => $parkedTablename,
+                'files' => $parkingPath,
+                'exception' => $e,
+            ]);
+        }
+
+        return true;
+    }
+
+    /**
+     * Everything that must hold before an entity, its files and its table are removed.
+     *
+     * The rows that refer to an entity (menu items, relations) cascade on delete, and its table
+     * is dropped, so anything that would be lost or left broken refuses the delete instead.
+     *
+     * @throws InvalidArgumentException
+     */
+    private static function assertEntityCanBeDeleted(Entity $entity): void
+    {
+        $tablename = static::getEntityTableName($entity);
+
+        if (Schema::hasTable($tablename)) {
+            // counted on the table, so soft deleted records count too
+            $recordCount = DB::table($tablename)->count();
+            if ($recordCount > 0) {
+                throw new InvalidArgumentException('The table '.$tablename.' still has '.$recordCount.' record(s), including deleted ones.');
+            }
+
+            $referencingTables = collect(DB::select(
+                'select distinct TABLE_NAME from information_schema.KEY_COLUMN_USAGE where REFERENCED_TABLE_SCHEMA = database() and REFERENCED_TABLE_NAME = ? and TABLE_NAME <> ?',
+                [$tablename, $tablename]
+            ))->pluck('TABLE_NAME');
+            if ($referencingTables->isNotEmpty()) {
+                throw new InvalidArgumentException('The table '.$tablename.' is referenced by: '.$referencingTables->implode(', ').'.');
+            }
+        }
+
+        $relationCount = EntityRelation::where('entity_id', $entity->getKey())
+            ->orWhere('related_entity_id', $entity->getKey())
+            ->count();
+        if ($relationCount > 0) {
+            throw new InvalidArgumentException('The entity has '.$relationCount.' relation(s) with other entities. Remove them first.');
+        }
+
+        $menuItemCount = MenuItem::where('entity_id', $entity->getKey())->count();
+        if ($menuItemCount > 0) {
+            throw new InvalidArgumentException('The entity is used by '.$menuItemCount.' menu item(s). Remove them first.');
+        }
+
+        $widgetCount = LaraWidget::where('resource_slug', $entity->resource_slug)->count();
+        if ($widgetCount > 0) {
+            throw new InvalidArgumentException('The entity is used by '.$widgetCount.' widget(s). Remove them first.');
+        }
+
+        $tagCount = Tag::where('resource_slug', $entity->resource_slug)->count();
+        if ($tagCount > 0) {
+            throw new InvalidArgumentException('The entity still has '.$tagCount.' tag(s). Remove them first.');
+        }
+
+        foreach ([...static::getGeneratedPaths($entity)['writable'], storage_path('app')] as $directory) {
+            if (File::isDirectory($directory) && ! File::isWritable($directory)) {
+                throw new InvalidArgumentException('The directory '.$directory.' is not writable.');
+            }
+        }
+    }
+
     private static function getEntityTableName(Entity $entity, ?string $resourceSlug = null): string
     {
         $entityPrefixes = config('lara-common.database.entity');
@@ -313,7 +473,8 @@ trait HasLaraBuilder
             ->generate();
 
         // stub - frontend controller
-        LaravelStub::from($fromPath.'frontcontroller.stub')
+        $controllerStub = ($isForm) ? 'formfrontcontroller.stub' : 'frontcontroller.stub';
+        LaravelStub::from($fromPath.$controllerStub)
             ->to($toPath.'Http/Controllers/Front/Entity')
             ->name($modelNamePlural.'Controller')
             ->ext('php')
