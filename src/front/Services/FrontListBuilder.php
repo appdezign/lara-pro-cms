@@ -96,6 +96,9 @@ final class FrontListBuilder
         // Sort list by Tags
         if ($view->showtags == '_sortbytaxonomy') {
 
+            // the objects are attached per tag through their terms
+            $collection = $collection->with('terms');
+
             return $this->getFrontObjectsSortedByTaxonomy($language, $entity, $collection, $menutaxonomy, $params);
 
         } else {
@@ -288,14 +291,36 @@ final class FrontListBuilder
         } else {
 
             if ($menutaxonomy) {
-                $collection = $collection->whereHas('terms', function ($query) use ($menutaxonomy) {
-                    $query->where(config('lara-common.database.object.terms').'.id', $menutaxonomy->id);
+                $tagIds = $view->showtags == '_sortbytaxonomy'
+                    ? $this->getSubtreeTagIds($menutaxonomy)
+                    : [$menutaxonomy->id];
+
+                $collection = $collection->whereHas('terms', function ($query) use ($tagIds) {
+                    $query->whereIn(config('lara-common.database.object.terms').'.id', $tagIds);
                 });
             }
 
         }
 
         return $collection;
+    }
+
+    /**
+     * The menu tag and every tag below it. A list sorted by tag shows this subtree,
+     * so it needs the objects that have only a child tag as well.
+     *
+     * @return list<int>
+     */
+    private function getSubtreeTagIds(Tag $menutaxonomy): array
+    {
+        return Tag::scoped([
+            'resource_slug' => $menutaxonomy->resource_slug,
+            'language' => $menutaxonomy->language,
+            'taxonomy_id' => $menutaxonomy->taxonomy_id,
+        ])
+            ->descendantsAndSelf($menutaxonomy->id)
+            ->pluck('id')
+            ->all();
     }
 
     /**
