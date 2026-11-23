@@ -37,7 +37,7 @@ class VideoWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.videoWidget.'.$this->config['term'];
+        return 'lara.widgets.videoWidget.'.$this->config['term'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

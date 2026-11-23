@@ -25,7 +25,7 @@ class BreadcrumbWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.breadcrumbWidget.'.$this->config['lang'];
+        return 'lara.widgets.breadcrumbWidget.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

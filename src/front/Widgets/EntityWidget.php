@@ -6,6 +6,7 @@ use Arrilot\Widgets\AbstractWidget;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Lara\Common\Models\Tag;
 use Lara\Front\Http\Concerns\HasFrontend;
@@ -44,21 +45,12 @@ class EntityWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-
         $language = LaravelLocalization::getCurrentLocale();
 
-        $cachekey = 'lara.widgets.entity.'.$this->config['parent'].'.'.$this->config['resource_slug'].'.'.$language;
+        // every setting except the page grid changes the rendered html
+        $settings = md5(json_encode(Arr::except($this->config, ['grid'])));
 
-        if ($this->config['term']) {
-            $cachekey = $cachekey.'.'.$this->config['term'];
-        }
-
-        if ($this->config['sortfield']) {
-            $cachekey = $cachekey.'.'.$this->config['sortfield'];
-        }
-
-        return $cachekey;
-
+        return 'lara.widgets.entity.'.$this->config['parent'].'.'.$this->config['resource_slug'].'.'.$language.'.'.$settings;
     }
 
     /**

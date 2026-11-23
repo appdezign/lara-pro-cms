@@ -30,7 +30,7 @@ class PagetitleWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.pageWidget.'.$this->config['term'];
+        return 'lara.widgets.pageWidget.'.$this->config['term'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

@@ -31,7 +31,7 @@ class MenuSubWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.menuSubWidget.'.$this->config['slug'];
+        return 'lara.widgets.menuSubWidget.'.$this->config['slug'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

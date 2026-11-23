@@ -27,7 +27,7 @@ class MenuLevelOneCacheWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.menuLevelOneWidget.'.$this->config['mnu'];
+        return 'lara.widgets.menuLevelOneWidget.'.$this->config['mnu'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

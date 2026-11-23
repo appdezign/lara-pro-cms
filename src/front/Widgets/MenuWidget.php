@@ -30,7 +30,7 @@ class MenuWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.menuWidget.'.$this->config['mnu'];
+        return 'lara.widgets.menuWidget.'.$this->config['mnu'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

@@ -31,7 +31,7 @@ class LaraTextCacheWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.textWidget.'.$this->config['widget_id'];
+        return 'lara.widgets.textWidget.'.$this->config['widget_id'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

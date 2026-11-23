@@ -36,7 +36,7 @@ class SliderWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.sliderWidget.'.$this->config['term'];
+        return 'lara.widgets.sliderWidget.'.$this->config['term'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**
