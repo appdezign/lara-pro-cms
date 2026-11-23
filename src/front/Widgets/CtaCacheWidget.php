@@ -32,7 +32,7 @@ class CtaCacheWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.ctaWidget.'.$this->config['hook'];
+        return 'lara.widgets.ctaWidget.'.$this->config['hook'].'.'.$this->config['template'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**

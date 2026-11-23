@@ -32,7 +32,7 @@ class LaraEntityWidget extends AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'lara.widgets.entity.'.$this->config['widget_id'];
+        return 'lara.widgets.entity.'.$this->config['widget_id'].'.'.LaravelLocalization::getCurrentLocale();
     }
 
     /**
