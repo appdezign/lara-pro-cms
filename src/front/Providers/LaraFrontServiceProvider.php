@@ -113,9 +113,16 @@ class LaraFrontServiceProvider extends ServiceProvider
      * filarank's middleware serves a matching redirect before the request
      * reaches the controller, and logs front 404s. The front catch-all route
      * (error.show.404) is in the web group, so unknown URLs pass through it too.
+     *
+     * Before setup the seo_redirects table does not exist yet, so the middleware
+     * is left out; otherwise every request would fail before reaching setup.
      */
     protected function registerRedirectMiddleware(): void
     {
+        if ($this->laraNeedsSetup()) {
+            return;
+        }
+
         $this->app['router']->pushMiddlewareToGroup('web', HandleRedirects::class);
     }
 
