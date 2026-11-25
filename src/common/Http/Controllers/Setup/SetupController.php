@@ -11,10 +11,26 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
+use Lara\Front\Http\Concerns\HasFrontend;
 
 class SetupController extends Controller
 {
+    use HasFrontend;
     use HasSetup;
+
+    protected ?object $laraversion = null;
+
+    public function __construct()
+    {
+
+        $this->laraversion = $this->getFrontLaraVersion();
+        $this->middleware(function ($request, $next) {
+            view()->share('laraversion', $this->laraversion);
+
+            return $next($request);
+        });
+
+    }
 
     /**
      * @return Application|Factory|View
@@ -32,7 +48,7 @@ class SetupController extends Controller
 
             $dbmessage = 'Connected to database successfully :';
             $dbmessage .= '<ul>';
-            $dbmessage .= '<li>'.$dbname.'</li>';
+            $dbmessage .= '<li>' . $dbname . '</li>';
             $dbmessage .= '</ul>';
 
         } catch (\Exception $e) {
@@ -110,7 +126,7 @@ class SetupController extends Controller
 
             $minLength = config('lara-common.setup.passwords.min_length');
             $validated = $request->validate([
-                'password' => 'required|min:'.$minLength,
+                'password' => 'required|min:' . $minLength,
             ]);
 
             $password = $request->input('password');
