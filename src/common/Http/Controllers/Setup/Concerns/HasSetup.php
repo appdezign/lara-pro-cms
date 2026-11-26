@@ -115,5 +115,17 @@ trait HasSetup
         }
 
         $this->clearAllCache();
+        $this->rebuildRouteCache();
+    }
+
+    /**
+     * A route cache built before setup holds only the setup routes, which redirect
+     * /admin back to /setup. Rebuild it now that the entities exist.
+     */
+    private function rebuildRouteCache(): void
+    {
+        if (app()->routesAreCached()) {
+            Artisan::call('lara:route:cache');
+        }
     }
 }

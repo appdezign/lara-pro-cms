@@ -3,6 +3,7 @@
 namespace Lara\Common\Console;
 
 use Illuminate\Routing\RouteCollection;
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
 use Mcamara\LaravelLocalization\Commands\RouteTranslationsCacheCommand;
 
 /**
@@ -22,6 +23,8 @@ use Mcamara\LaravelLocalization\Commands\RouteTranslationsCacheCommand;
  */
 class LaraRouteCacheCommand extends RouteTranslationsCacheCommand
 {
+    use HasSetup;
+
     /**
      * @var string
      */
@@ -37,7 +40,29 @@ class LaraRouteCacheCommand extends RouteTranslationsCacheCommand
      */
     public function handle(): void
     {
+        if ($this->laraNeedsSetup()) {
+            $this->clearRouteCaches();
+            $this->warn('Lara needs setup: the route cache was cleared, not rebuilt. Run the setup at /setup first.');
+
+            return;
+        }
+
         $this->cacheRoutesPerLocale();
+    }
+
+    /**
+     * Remove the route cache of every locale.
+     *
+     * Before setup, the route files register only the setup routes. Caching those would keep
+     * redirecting /admin to /setup after the setup is finished.
+     */
+    protected function clearRouteCaches(): void
+    {
+        $paths = array_map(fn (string $locale): string => $this->makeLocaleRoutesPath($locale), $this->getSupportedLocales());
+
+        $paths[] = $this->makeLocaleRoutesPath();
+
+        $this->files->delete($paths);
     }
 
     /**
