@@ -166,7 +166,7 @@ trait HasLaraBuilder
             throw new InvalidArgumentException('The model '.$modelFile.' already exists. Generating it again would overwrite it.');
         }
 
-        if (! array_key_exists($entity->cgroup.'_prefix', config('lara-common.database.entity'))) {
+        if (! static::hasEntityTablePrefix($entity)) {
             throw new InvalidArgumentException('No table prefix is configured for the group "'.$entity->cgroup.'".');
         }
 
@@ -406,6 +406,14 @@ trait HasLaraBuilder
                 throw new InvalidArgumentException('The directory '.$directory.' is not writable.');
             }
         }
+    }
+
+    /**
+     * Whether the entity's group has a content table at all (the "base" entity, for one, has none).
+     */
+    private static function hasEntityTablePrefix(Entity $entity): bool
+    {
+        return array_key_exists($entity->cgroup.'_prefix', config('lara-common.database.entity'));
     }
 
     private static function getEntityTableName(Entity $entity, ?string $resourceSlug = null): string
@@ -1055,6 +1063,10 @@ trait HasLaraBuilder
      */
     private static function getBackupColumns(Entity $entity): array
     {
+        if (! static::hasEntityTablePrefix($entity)) {
+            return [];
+        }
+
         $tablename = static::getEntityTableName($entity);
 
         if (! Schema::hasTable($tablename)) {
