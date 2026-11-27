@@ -361,6 +361,10 @@ trait HasLaraBuilder
      */
     private static function assertEntityCanBeDeleted(Entity $entity): void
     {
+        if (! static::hasEntityTablePrefix($entity)) {
+            throw new InvalidArgumentException('Entities of the group "'.$entity->cgroup.'" are part of Lara itself and cannot be deleted.');
+        }
+
         $tablename = static::getEntityTableName($entity);
 
         if (Schema::hasTable($tablename)) {
