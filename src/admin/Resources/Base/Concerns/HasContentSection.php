@@ -462,10 +462,31 @@ trait HasContentSection
                     return [];
                 }
             }
+            if ($field->field_options[0] == 'get_record_images') {
+                return static::getRecordImageOptions($record);
+            }
 
         }
 
         return array_combine($field->field_options, $field->field_options);
+    }
+
+    /**
+     * The record's own images (featured, gallery, …) as select options: media id => name.
+     * An image linked with several types is listed once. A new record has no images yet.
+     */
+    private static function getRecordImageOptions($record): array
+    {
+        if (! $record || ! method_exists($record, 'images')) {
+            return [];
+        }
+
+        return $record->images()->with('media')->get()
+            ->pluck('media')
+            ->filter()
+            ->unique('id')
+            ->mapWithKeys(fn ($media) => [$media->id => $media->name ?: basename((string) $media->path)])
+            ->all();
     }
 
     private static function getFieldState($get, $field): bool
