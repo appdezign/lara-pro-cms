@@ -19,6 +19,7 @@ use Lara\Admin\Enums\NavGroup;
 use Lara\Admin\Livewire\BackupColumns;
 use Lara\Admin\Resources\Entities\Concerns\HasEntityLabelValidation;
 use Lara\Admin\Resources\Entities\EntityResource;
+use Lara\Admin\Resources\Entities\Pages\EditEntity;
 use Lara\Admin\Resources\Entities\RelationManagers\CustomFieldsRelationManager;
 use Lara\Admin\Resources\Entities\RelationManagers\EntityViewsRelationManager;
 use Lara\Admin\Resources\Entities\RelationManagers\EntRelRelationManager;
@@ -126,18 +127,33 @@ class EntityForm
                             ->schema([
                                 RelationManager::make()->manager(EntityViewsRelationManager::class),
                             ])
-                            ->visible(fn (string $operation) => $operation == 'edit'),
+                            ->visible(fn (string $operation, ?Entity $record) => static::showsRelationManager(EntityViewsRelationManager::class, $operation, $record)),
 
                         Tab::make(_q(static::rs()->getModule().'::'.static::rs()->getSlug().'.tabs.entity_relations', true))
                             ->schema([
                                 RelationManager::make()->manager(EntRelRelationManager::class),
                             ])
-                            ->visible(fn (string $operation) => $operation == 'edit'),
+                            ->visible(fn (string $operation, ?Entity $record) => static::showsRelationManager(EntRelRelationManager::class, $operation, $record)),
 
                     ])
                     ->persistTab()
                     ->id('entity-tab'),
             ]);
+    }
+
+    /**
+     * Show a relation manager's tab only where the manager allows the record.
+     *
+     * Filament aborts with 403 when a relation manager is mounted for a record
+     * its canViewForRecord() refuses, so the tab must not render at all.
+     *
+     * @param  class-string<\Filament\Resources\RelationManagers\RelationManager>  $manager
+     */
+    protected static function showsRelationManager(string $manager, string $operation, ?Entity $record): bool
+    {
+        return $operation == 'edit'
+            && $record !== null
+            && $manager::canViewForRecord($record, EditEntity::class);
     }
 
     public static function getInfoSection(): array
